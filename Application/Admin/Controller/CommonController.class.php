@@ -34,7 +34,7 @@ class CommonController extends Controller
 	 */
 	protected function Is_Login()
 	{
-		echo 'is_login';
+		//echo 'is_login';
 	}
 
 	/**
