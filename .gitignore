@@ -1,0 +1,14 @@
+*.html.php
+.DS_Store
+.ide
+*.log
+*.html.php
+Runtime
+Temp
+temp
+Cache
+cache
+Logs
+logs
+Log
+log
