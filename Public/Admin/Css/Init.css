@@ -12,7 +12,6 @@ html, body {
     border: 0px;
   }
   header .tpl-header-list-user-nick {
-    font-weight: 700;
     color: #fff;
   }
 }
