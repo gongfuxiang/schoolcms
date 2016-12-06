@@ -34,7 +34,15 @@ class CommonController extends Controller
 	 */
 	protected function Is_Login()
 	{
-		//echo 'is_login';
+		if(empty($_SESSION['user']))
+		{
+			if(IS_AJAX)
+			{
+				$this->ajaxReturn(ReturnData(L('common_login_invalid'), -400));
+			} else {
+				redirect(U('/Admin/Admin/LoginInfo'));
+			}
+		}
 	}
 
 	/**

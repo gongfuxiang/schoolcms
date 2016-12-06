@@ -18,8 +18,10 @@ class AdminModel extends CommonModel
 		
 		// 登录校验
 		//array('username', '/^1((3|5|8){1}\d{1}|70)\d{8}$/', '用户名格式错误', 1, 'regex', 4),
-		array('username', 'CheckUserName', '用户名格式 6~18 个字符（可以是字母数字下划线）', 1, 'function', 4),
-		array('login_pwd', 'CheckLoginPwd', '密码格式 6~18 个字符', 1, 'function', 4),
+		
+		// 登录
+		array('username', 'CheckUserName', '{%login_username_format}', 1, 'function', 4),
+		array('login_pwd', 'CheckLoginPwd', '{%login_login_pwd_format}', 1, 'function', 4),
 
 	);
 }

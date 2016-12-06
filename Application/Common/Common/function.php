@@ -8,6 +8,17 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 
+/**
+ * [ReturnData 获取ajax数据格式]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-05T10:52:20+0800
+ * @param    [string]       $msg  [提示信息]
+ * @param    [int]          $code [状态码]
+ * @param    [mixed]        $data [数据]
+ * @return   [array]              [返回数据格式]
+ */
 function ReturnData($msg = '', $code = 0, $data = '')
 {
     return array('msg'=>$msg, 'code'=>$code, 'data'=>$data);
@@ -15,7 +26,11 @@ function ReturnData($msg = '', $code = 0, $data = '')
 
 /**
  * [IsMobile 是否是手机访问]
- * @return [boolean] [手机访问true, 则false]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-05T10:52:20+0800
+ * @return  [boolean] [手机访问true, 则false]
  */
 function IsMobile()
 {
@@ -138,50 +153,50 @@ function Xml_Array($xmlstring) {
 
 
 /**
- * [MobilePhoneFormatCheck 手机号码格式校验]
+ * [CheckMobilePhoneFormat 手机号码格式校验]
  * @param  [int] $mobile_phone [手机号码]
  * @return [boolean]           [正确true，失败false]
  */
-function MobilePhoneFormatCheck($mobile_phone)
+function CheckMobilePhoneFormat($mobile_phone)
 {
     return preg_match('/^1((3|5|8){1}\d{1}|70)\d{8}$/', $mobile_phone);
 }
 
 /**
- * [IdeNumberFormatCheck 身份证号码格式校验]
+ * [CheckIdeNumberFormat 身份证号码格式校验]
  * @param  [string] $number [身份证号码]
  * @return [boolean]        [正确true，失败false]
  */
-function IdeNumberFormatCheck($number)
+function CheckIdeNumberFormat($number)
 {
     return preg_match('/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/', $number);
 }
 
 /**
- * [PriceCheck 价格格式校验]
+ * [CheckPrice 价格格式校验]
  * @param  [float]  $price  [价格]
  * @return [boolean]        [正确true，失败false]
  */
-function PriceCheck($price)
+function CheckPrice($price)
 {
     return preg_match('/^([0-9]{1}\d{0,6})(\.\d{1,2})?$/', $price);
 }
 
 
 /**
- * [IsIpCheck ip校验]
+ * [CheckIp ip校验]
  * @param [string] $ip [ip]
  */
-function IsIpCheck($ip)
+function CheckIp($ip)
 {
     return preg_match('/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/', $ip);
 }
 
 /**
- * [IsUrlCheck url校验]
+ * [CheckUrl url校验]
  * @param [string] $url [url地址]
  */
-function IsUrlCheck($url)
+function CheckUrl($url)
 {
     return preg_match('/^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/', $url);
 }
@@ -197,7 +212,7 @@ function IsUrlCheck($url)
  */
 function CheckUserName($string)
 {
-    return (preg_match('/^[A-Za-z0-9_]{6,18}$/', $string) == 1) ? true : false;
+    return (preg_match('/'.L('common_regex_username').'/', $string) == 1) ? true : false;
 }
 
 /**
@@ -298,7 +313,7 @@ function GetNumberCode($length = 6)
 }
 
 /**
- * [PwdEncryption 登录密码加密]
+ * [LoginPwdEncryption 登录密码加密]
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
@@ -307,7 +322,7 @@ function GetNumberCode($length = 6)
  * @param  	 [string] $salt [配合密码加密的随机数]
  * @return 	 [string]       [加密后的密码]
  */
-function PwdEncryption($pwd, $salt)
+function LoginPwdEncryption($pwd, $salt)
 {
 	return md5($salt.$pwd);
 }

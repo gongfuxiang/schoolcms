@@ -14,27 +14,24 @@
 	<!-- right content start  -->
 	<div class="content-right">
 		<div class="content">
+			<!-- menu nav start -->
+			<!-- <include file="Lib/ControlNav" /> -->
+			<!-- menu nav end -->
+
 			<!-- form start -->
-			<form class="am-form m-t-15 admin-list" action="{{:U('/Admin/Admin/Index')}}" method="POST">
+			<form class="am-form form-validation m-t-15" action="{{:U('/Admin/Admin/Login')}}" method="POST" request-type="ajax-url" request-value="{{:U('/Admin/Index/Index')}}">
 				<div class="am-g">
-					<select  class="am-input-sm am-radius" name="role_id">
-						<option value="">可选择...</option>
+					<select  class="am-input-sm am-radius">
 						<option value="a">Apple</option>
-						<option value="b">Banana</option>
+						<option value="b" selected>Banana</option>
 						<option value="o">Orange</option>
 						<option value="m">Mango</option>
 					</select>
-					<input type="text" class="am-input-sm am-radius" placeholder="{{:L('login_username_text')}}" name="username" />
+					<input type="text" class="am-input-sm am-radius" placeholder="{{:L('login_username_text')}}" name="username" pattern="{{:L('common_regex_username')}}" data-validation-message="{{:L('login_username_format')}}" />
 					<button type="submit" class="am-btn am-btn-secondary am-btn-xs am-radius">查询</button>
 				</div>
             </form>
             <!-- form end -->
-
-            <!-- operation start -->
-            <div class="am-g m-t-15">
-	            <a href="{{:U('/Admin/Admin/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> 新增</a>
-	        </div>
-	        <!-- operation end -->
 
 			<!-- list start -->
 			<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10">
@@ -54,7 +51,7 @@
 						<td class="am-hide-sm-only">2012-10-01</td>
 						<td>
 							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '编辑', trigger: 'hover focus'}"></button>
-							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
+							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
 						</td>
 					</tr>
 					<tr>
@@ -63,7 +60,7 @@
 						<td class="am-hide-sm-only">2012-10-01</td>
 						<td>
 							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '编辑', trigger: 'hover focus'}"></button>
-							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
+							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
 						</td>
 					</tr>
 					<tr>
@@ -72,7 +69,7 @@
 						<td class="am-hide-sm-only">2012-10-01</td>
 						<td>
 							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '编辑', trigger: 'hover focus'}"></button>
-							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
+							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
 						</td>
 					</tr>
 					<tr>
@@ -81,24 +78,13 @@
 						<td class="am-hide-sm-only">2012-10-01</td>
 						<td>
 							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '编辑', trigger: 'hover focus'}"></button>
-							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
+							<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash" data-am-popover="{content: '删除', trigger: 'hover focus'}"></button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<!-- list end -->
 
-			<!-- page start -->
-			<ul class="am-pagination am-pagination-centered">
-				<li class="am-disabled"><a href="#" class="am-radius">&laquo;</a></li>
-				<li class="am-active"><a href="#" class="am-radius">1</a></li>
-				<li><a href="#" class="am-radius">2</a></li>
-				<li><a href="#" class="am-radius">3</a></li>
-				<li><a href="#" class="am-radius">4</a></li>
-				<li><a href="#" class="am-radius">5</a></li>
-				<li><a href="#" class="am-radius">&raquo;</a></li>
-			</ul>
-			<!-- page end -->
 		</div>
 	</div>
 	<!-- right content end  -->

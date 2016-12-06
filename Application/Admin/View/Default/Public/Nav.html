@@ -1,12 +1,12 @@
 <header class="am-topbar am-topbar-inverse admin-header">
 	<div class="am-topbar-brand">
 		<a href="{{:U('/Admin/Index/Index')}}">
-			<h2>SchoolCMS</h2>
+			<h2>{{:L('common_site_name')}}</h2>
 		</a>
 	</div>
 	<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only am-radius"
 	data-am-collapse="{target: '#topbar-collapse'}">
-		<span class="am-sr-only">导航切换</span>
+		<span class="am-sr-only">{{:L('nav_switch_text')}}</span>
 		<i class="am-icon-bars"></i>
 	</button>
 	<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
@@ -14,13 +14,13 @@
 			<li class="am-dropdown am-hide-sm-only">
 				<a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link">
 					<i class="am-icon-arrows-alt"></i>
-					<span class="admin-fulltext">开启全屏</span>
+					<span class="admin-fulltext" fulltext-open="{{:L('nav_fulltext_open')}}" fulltext-exit="{{:L('nav_fulltext_exit')}}">{{:L('nav_fulltext_open')}}</span>
 				</a>
 			</li>
 			<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
 				<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
 					<i class="am-icon-user"></i>
-					<span class="tpl-header-list-user-nick">魔鬼</span>
+					<span class="tpl-header-list-user-nick">{{$Think.session.user.username}}</span>
 					<span class="tpl-header-list-user-ico">
 					</span>
 				</a>
@@ -38,7 +38,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="{{:U('/Admin/Admin/Logout')}}">
 							<i class="am-icon-power-off"></i>
 							退出
 						</a>

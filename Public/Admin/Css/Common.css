@@ -1164,4 +1164,15 @@ pre {
 
 .w100 { width: 100%; }
 .fw-700 { font-weight:700; }
-#common-prompt { position:fixed; top:0; left:0; right:0; text-align:center; margin-top:0; padding:5px; font-size:14px; }
+#common-prompt { position:fixed; top:0; left:0; right:0; text-align:center; margin-top:0; padding:5px; font-size:14px; z-index: 10000; }
+.am-popover, .am-radius, .am-btn { border-radius: 2px !important; }
+.am-icon-trash-o:before { width: 12px !important; }
+.fr { float: right !important; }
+.fl { float: left !important; }
+.fs-12 { font-size: 12px !important; }
+.fs-14 { font-size: 14px !important; }
+.fs-16 { font-size: 16px !important; }
+.fs-18 { font-size: 18px !important; }
+.c-r { cursor: w-resize; }
+.c-p { cursor: pointer; }
+legend { padding-bottom: 0.2rem !important; }

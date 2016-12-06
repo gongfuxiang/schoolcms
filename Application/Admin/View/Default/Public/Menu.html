@@ -10,15 +10,18 @@
 			<li class="admin-parent">
 				<a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}">
 					<i class="am-icon-table"></i>
-					表格
+					权限控制
 					<i class="am-icon-angle-right am-fr am-margin-right"></i>
 				</a>
 				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
 					<li>
-						<a href="html/table_basic.html" class="am-cf">基本表格</a>
+						<a href="{{:U('/Admin/Admin/Index')}}" class="am-cf">管理员列表</a>
 					</li>
 					<li>
-						<a href="html/table_complete.html">完整表格</a>
+						<a href="{{:U('/Admin/AccessControl/RoleInfo')}}">角色管理</a>
+					</li>
+					<li>
+						<a href="{{:U('/Admin/AccessControl/Purview')}}">权限分配</a>
 					</li>
 				</ul>
 			</li>
