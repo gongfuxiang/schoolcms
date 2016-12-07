@@ -17,6 +17,7 @@ return array(
 	'common_jump_tips'				=>	'页面跳转中...',
 	'common_form_loading_tips'		=>	'处理中...',
 	'common_mobile_name'			=>	'手机号码',
+	'common_mobile_format_error'	=>	'手机号码格式错误',
 	'common_id_card_name'			=>	'身份证',
 	'common_id_url_name'			=>	'url地址',
 	'common_id_ip_name'				=>	'ip地址',
@@ -26,23 +27,33 @@ return array(
 	'common_format_success'			=>	'格式正确',
 	'common_success'				=>	'正确',
 	'common_error'					=>	'错误',
+	'common_username_already_exist'	=>	'帐号已经存在',
 
 	'common_operation_add'			=>	'新增',
 	'common_operation_edit'			=>	'编辑',
 	'common_operation_delete'		=>	'删除',
 	'common_operation_back'			=>	'返回',
 	'common_operation_save'			=>	'保存',
+	'common_operation_success'		=>	'操作成功',
+	'common_operation_error'		=>	'操作失败',
+	'common_operation_add_success'	=>	'新增成功',
+	'common_operation_add_error'	=>	'新增失败',
+	'common_operation_edit_success'	=>	'编辑成功',
+	'common_operation_edit_error'	=>	'编辑失败',
 
 	'common_view_gender_name'		=>	'性别',
-	'common_view_gender_secret'		=>	'保密',
-	'common_view_gender_woman'		=>	'女',
-	'common_view_gender_man'		=>	'男',
-
 
 	'common_unauthorized_access'	=>	'非法访问',
 	'nav_fulltext_open'				=>	'开启全屏',
 	'nav_fulltext_exit'				=>	'退出全屏',
 	'nav_switch_text'				=>	'导航切换',
+
+	// 列表
+	'common_gender_list'			=>	array(
+			array('id' => 0, 'name' => '保密', 'checked' => true),
+			array('id' => 1, 'name' => '女'),
+			array('id' => 2, 'name' => '男'),
+		),
 
 	// 正则
 	// 用户名

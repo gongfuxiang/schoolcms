@@ -9,22 +9,6 @@
  */
 
 /**
- * [ReturnData 获取ajax数据格式]
- * @author   Devil
- * @blog     http://gong.gg/
- * @version  0.0.1
- * @datetime 2016-12-05T10:52:20+0800
- * @param    [string]       $msg  [提示信息]
- * @param    [int]          $code [状态码]
- * @param    [mixed]        $data [数据]
- * @return   [array]              [返回数据格式]
- */
-function ReturnData($msg = '', $code = 0, $data = '')
-{
-    return array('msg'=>$msg, 'code'=>$code, 'data'=>$data);
-}
-
-/**
  * [IsMobile 是否是手机访问]
  * @author   Devil
  * @blog     http://gong.gg/
@@ -170,17 +154,17 @@ function Xml_Array($xmlstring) {
 
 
 /**
- * [CheckMobilePhoneFormat 手机号码格式校验]
+ * [CheckMobile 手机号码格式校验]
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-03T21:58:54+0800
- * @param    [int] $mobile_phone [手机号码]
- * @return   [boolean]           [正确true，失败false]
+ * @param    [int] $mobile [手机号码]
+ * @return   [boolean]     [正确true，失败false]
  */
-function CheckMobilePhoneFormat($mobile_phone)
+function CheckMobile($mobile)
 {
-    return (preg_match('/'.L('common_regex_mobile').'/', $mobile_phone) == 1) ? true : false;
+    return (preg_match('/'.L('common_regex_mobile').'/', $mobile) == 1) ? true : false;
 }
 
 /**
@@ -334,13 +318,13 @@ function IsExistWebImg($url)
 }
 
 /**
- * [GetNumberCode 验证码生成]
+ * [GetNumberCode 随机数生成生成]
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-03T21:58:54+0800
  * @param  	 [int] $length [生成位数]
- * @return 	 [int]         [生成的随验证码]
+ * @return 	 [int]         [生成的随机数]
  */
 function GetNumberCode($length = 6)
 {

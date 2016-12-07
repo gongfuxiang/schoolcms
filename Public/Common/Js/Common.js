@@ -7,8 +7,11 @@
  */
 function Prompt(msg, type, time)
 {
-	if(msg != undefined && msg != '' && $('#common-prompt').length == 0)
+	if(msg != undefined && msg != '')
 	{
+		// 先移除已有的提示信息
+		$('#common-prompt').remove();
+
 		if(type == undefined || type == '') type = 'danger';
 		var html = '<div id="common-prompt" class="am-alert am-alert-'+type+' am-animation-shake" data-am-alert><button type="button" class="am-close am-close-spin">&times;</button><p>'+msg+'</p></div>';
 		$('body').append(html);

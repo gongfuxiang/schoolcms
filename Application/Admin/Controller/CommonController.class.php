@@ -18,11 +18,52 @@ class CommonController extends Controller
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-03T12:29:53+0800
+	 * @param    [string]       $msg  [提示信息]
+	 * @param    [int]          $code [状态码]
+	 * @param    [mixed]        $data [数据]
 	 */
 	protected function _initialize()
 	{
 		// 视图初始化
 		$this->ViewInit();
+	}
+
+	/**
+	 * [ajaxReturn 重写ajax返回方法]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-07T22:03:40+0800
+	 * @param    [string]       $msg  [提示信息]
+	 * @param    [int]          $code [状态码]
+	 * @param    [mixed]        $data [数据]
+	 * @return   [json]               [json数据]
+	 */
+	protected function ajaxReturn($msg = '', $code = 0, $data = '')
+	{
+		// ajax的时候，success和error错误由当前方法接收
+		if(IS_AJAX)
+		{
+			if(isset($msg['info']))
+			{
+				// success模式下code=0, error模式下使用url为code参数, error模式下未指定code默认-1
+				$code = (isset($msg['status']) && $msg['status'] == 1) ? 0 : (empty($msg['url']) ? -1 : $msg['url']);
+				$data = array('msg'=>$msg['info'], 'code'=>$code, 'data'=>'');
+			}
+		}
+		
+		// 默认情况下，手动调用当前方法
+		if(empty($data))
+		{
+			$data = array('msg'=>$msg, 'code'=>$code, 'data'=>$data);
+		}
+
+		// 错误情况下，防止提示信息为空
+		if($data['code'] != 0 && empty($data['msg']))
+		{
+			$data['msg'] = L('common_operation_error');
+		}
+		exit(json_encode($data));
 	}
 
 	/**
@@ -38,7 +79,7 @@ class CommonController extends Controller
 		{
 			if(IS_AJAX)
 			{
-				$this->ajaxReturn(ReturnData(L('common_login_invalid'), -400));
+				$this->ajaxReturn(L('common_login_invalid'), -400);
 			} else {
 				redirect(U('/Admin/Admin/LoginInfo'));
 			}
