@@ -17,19 +17,27 @@
 			<!-- form start -->
 			<form class="am-form form-validation m-t-5 admin-save" action="{{:U('/Admin/Admin/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('/Admin/Admin/Index')}}">
 				<legend>
-					<span class="fs-16">管理员添加</span>
-					<span class="fr fs-14 m-t-5 c-p am-icon-mail-reply"> 返回</span>
+					<span class="fs-16">{{:L('common_operation_add')}}{{:L('common_admin_name')}}</span>
+					<a href="{{:U('/Admin/Admin/Index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
 				</legend>
 				<div class="am-form-group">
-					<label for="doc-vld-name">用户名：</label>
+					<label>{{:L('login_username_text')}}：</label>
 					<input type="text" placeholder="{{:L('login_username_text')}}" name="username" pattern="{{:L('common_regex_username')}}" data-validation-message="{{:L('login_username_format')}}" class="am-radius" required />
 				</div>
 				<div class="am-form-group">
-					<label for="doc-vld-name">登录密码：</label>
+					<label>{{:L('login_login_pwd_text')}}：</label>
 					<input type="password" placeholder="{{:L('login_login_pwd_text')}}" name="login_pwd" minlength="6" maxlength="18" data-validation-message="{{:L('login_login_pwd_format')}}" class="am-radius" required />
 				</div>
 				<div class="am-form-group">
-					<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example w100" data-am-loading="{loadingText:'{{:L('login_button_loading_text')}}'}">{{:L('login_button_text')}}</button>
+					<label>{{:L('common_mobile_name')}}：</label>
+					<input type="password" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_name')}}{{:L('common_format_error')}}" class="am-radius" required />
+				</div>
+
+				<!-- gender -->
+				<include file="Lib/Gender" />
+
+				<div class="am-form-group">
+					<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
 				</div>
 			</form>
             <!-- form end -->

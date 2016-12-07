@@ -21,5 +21,8 @@ return array(
 	'login_login_pwd_error'				=>	'密码错误',
 	'login_login_error'					=>	'登录失败，请稍后再试！',
 	'login_login_success'				=>	'登录成功',
+
+	// 管理员添加及编辑
+	
 );
 ?>

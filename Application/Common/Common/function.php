@@ -68,8 +68,12 @@ function IsMobile()
 
 /**
  * [Is_Json 校验json数据是否合法]
- * @param  [string] $jsonstr [需要校验的json字符串]
- * @return [boolean] [合法true, 则false]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $jsonstr [需要校验的json字符串]
+ * @return   [boolean] [合法true, 则false]
  */
 function Is_Json($jsonstr)
 {
@@ -84,10 +88,15 @@ function Is_Json($jsonstr)
 
 /**
  * [Curl_Post curl模拟post]
- * @param  [string] $url  [请求地址]
- * @param  [array]  $post [发送的post数据]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $url  [请求地址]
+ * @param    [array]  $post [发送的post数据]
  */
-function Curl_Post($url, $post) {
+function Curl_Post($url, $post)
+{
     $options = array(
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HEADER         => false,
@@ -104,10 +113,14 @@ function Curl_Post($url, $post) {
 
 /**
  * [Fsockopen_Post fsockopen方式]
- * @param  [string] $url  [url地址]
- * @param  [string] $data [发送参数]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $url  [url地址]
+ * @param    [string] $data [发送参数]
  */
-function Fsockopen_Post($url, $data='')
+function Fsockopen_Post($url, $data = '')
 {
     $row = parse_url($url);
     $host = $row['host'];
@@ -144,8 +157,12 @@ function Fsockopen_Post($url, $data='')
 
 /**
  * [Xml_Array xml转数组]
- * @param  [xml] $xmlstring [xml数据]
- * @return [array]          [array数组]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [xml] $xmlstring [xml数据]
+ * @return   [array]          [array数组]
  */
 function Xml_Array($xmlstring) {
     return json_decode(json_encode((array) simplexml_load_string($xmlstring)), true);
@@ -154,51 +171,71 @@ function Xml_Array($xmlstring) {
 
 /**
  * [CheckMobilePhoneFormat 手机号码格式校验]
- * @param  [int] $mobile_phone [手机号码]
- * @return [boolean]           [正确true，失败false]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [int] $mobile_phone [手机号码]
+ * @return   [boolean]           [正确true，失败false]
  */
 function CheckMobilePhoneFormat($mobile_phone)
 {
-    return preg_match('/^1((3|5|8){1}\d{1}|70)\d{8}$/', $mobile_phone);
+    return (preg_match('/'.L('common_regex_mobile').'/', $mobile_phone) == 1) ? true : false;
 }
 
 /**
- * [CheckIdeNumberFormat 身份证号码格式校验]
- * @param  [string] $number [身份证号码]
- * @return [boolean]        [正确true，失败false]
+ * [CheckIdCard 身份证号码格式校验]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $number [身份证号码]
+ * @return   [boolean]        [正确true，失败false]
  */
-function CheckIdeNumberFormat($number)
+function CheckIdCard($number)
 {
-    return preg_match('/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/', $number);
+    return (preg_match('/'.L('common_regex_id_card').'/', $number) == 1) ? true : false;
 }
 
 /**
  * [CheckPrice 价格格式校验]
- * @param  [float]  $price  [价格]
- * @return [boolean]        [正确true，失败false]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [float]  $price  [价格]
+ * @return   [boolean]        [正确true，失败false]
  */
 function CheckPrice($price)
 {
-    return preg_match('/^([0-9]{1}\d{0,6})(\.\d{1,2})?$/', $price);
+    return (preg_match('/'.L('common_regex_price').'/', $price) == 1) ? true : false;
 }
 
 
 /**
  * [CheckIp ip校验]
- * @param [string] $ip [ip]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $ip [ip]
  */
 function CheckIp($ip)
 {
-    return preg_match('/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/', $ip);
+    return (preg_match('/'.L('common_regex_ip').'/', $ip) == 1) ? true : false;
 }
 
 /**
  * [CheckUrl url校验]
- * @param [string] $url [url地址]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $url [url地址]
  */
 function CheckUrl($url)
 {
-    return preg_match('/^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/', $url);
+    return (preg_match('/'.L('common_regex_url').'/', $url) == 1) ? true : false;
 }
 
 /**
