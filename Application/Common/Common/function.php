@@ -242,12 +242,13 @@ function CheckUserName($string)
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-03T21:58:54+0800
- * @param    [string] $pwd [用户密码]
- * @return   [boolean]     [正确true, 错误false]
+ * @param    [string] $string [登录密码]
+ * @return   [boolean]        [正确true, 错误false]
  */
-function CheckLoginPwd($pwd)
+function CheckLoginPwd($string)
 {
     $len = strlen($pwd);
+    return (preg_match('/'.L('common_regex_pwd').'/', $string) == 1) ? true : false;
     return ($len >= 6 && $len <= 18);
 }
 

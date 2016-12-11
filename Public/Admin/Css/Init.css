@@ -160,7 +160,7 @@ ul {
 }
 
 .content-right .content {
-    padding: 0px 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .am-g{
@@ -171,4 +171,10 @@ ul {
 }
 .admin-sidebar-list li a {
   padding: 0.6rem 0 0.6rem 1.6rem;
+}
+
+.table-no {
+  text-align: center;
+  padding-top: 30px !important;
+  background: #FFF !important;
 }

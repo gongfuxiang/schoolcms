@@ -21,11 +21,11 @@ class IndexController extends CommonController
 	public function _initialize()
 	{
 		// 调用父类前置方法
-        parent::_initialize();
+		parent::_initialize();
 
-        // 登录校验
-        $this->Is_Login();
-    }
+		// 登录校验
+		$this->Is_Login();
+	}
 
 	public function Index()
 	{

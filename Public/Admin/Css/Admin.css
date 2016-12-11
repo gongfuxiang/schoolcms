@@ -45,7 +45,7 @@
 /**
  * 管理员列表
  */
-.admin-list select, .admin-list input { width: 40% !important; display: initial !important; }
+.admin-list select, .admin-list input { width: 36% !important; display: initial !important; }
 
 
 /**

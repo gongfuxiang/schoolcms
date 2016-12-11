@@ -3,13 +3,13 @@
 namespace Admin\Controller;
 
 /**
- * 管理员
+ * 角色管理
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
-class AdminController extends CommonController
+class RoleController extends CommonController
 {
 	/**
 	 * [_initialize 前置操作-继承公共前置方法]
@@ -25,7 +25,7 @@ class AdminController extends CommonController
 	}
 
 	/**
-     * [Index 管理员列表]
+     * [Index 角色组列表]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1

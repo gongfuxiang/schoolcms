@@ -17,9 +17,6 @@ require './core.php';
 // 绑定访问Admin模块
 define('BIND_MODULE','Admin');
 
-// 绑定访问Index控制器
-define('BIND_CONTROLLER','Index');
-
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
 

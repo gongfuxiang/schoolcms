@@ -10,7 +10,7 @@
         </div>
         <div class="m-t-40 card-box">
             <div class="panel-body">
-            	<form class="am-form form-validation" action="{{:U('/Admin/Admin/Login')}}" method="POST" request-type="ajax-url" request-value="{{:U('/Admin/Index/Index')}}">
+            	<form class="am-form form-validation" action="{{:U('Admin/Admin/Login')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Index/Index')}}">
             		<div class="am-g">
             			<div class="am-form-group">
 					      <input type="text" placeholder="{{:L('login_username_text')}}" name="username" pattern="{{:L('common_regex_username')}}" data-validation-message="{{:L('login_username_format')}}" class="am-radius" required />

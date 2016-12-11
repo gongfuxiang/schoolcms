@@ -81,7 +81,7 @@ class CommonController extends Controller
 			{
 				$this->ajaxReturn(L('common_login_invalid'), -400);
 			} else {
-				redirect(U('/Admin/Admin/LoginInfo'));
+				redirect(U('Admin/Admin/LoginInfo'));
 			}
 		}
 	}

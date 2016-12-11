@@ -23,6 +23,7 @@ return array(
 	'login_login_success'				=>	'登录成功',
 
 	// 管理员添加及编辑
-	
+	'login_total_name'					=>	'登录次数',
+	'login_last_time_name'				=>	'最后登录时间',
 );
 ?>

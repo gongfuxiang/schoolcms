@@ -8,6 +8,9 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
+	// 允许访问的模块列表
+	'MODULE_ALLOW_LIST'		=>	array('Home', 'Admin'),
+
 	// 默认模块
 	'DEFAULT_MODULE'     	=>	'Home',
 

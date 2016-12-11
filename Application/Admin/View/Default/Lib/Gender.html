@@ -4,7 +4,7 @@
 	<div>
 		<foreach name="common_gender_list" item="v">
 			<label class="am-radio-inline m-r-10">
-				<input type="radio" name="gender" value="{{$v.id}}" <if condition="isset($v['checked']) and $v['checked'] eq true">checked="checked"</if> data-am-ucheck /> {{$v.name}}
+				<input type="radio" name="gender" value="{{$v.id}}" <if condition="isset($user['gender']) and $user['gender'] eq $v['id']">checked="checked"<else /><if condition="!isset($user['gender']) and isset($v['checked']) and $v['checked'] eq true">checked="checked"</if></if> data-am-ucheck /> {{$v.name}}
 			</label>
 		</foreach>
 	</div>

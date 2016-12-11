@@ -9,5 +9,6 @@
  */
 
 return array(
-	//'配置项'=>'配置值'
+	// URL模式
+	'URL_MODEL'          	=>	'3',
 );

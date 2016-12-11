@@ -14,22 +14,6 @@
 	<!-- right content start  -->
 	<div class="content-right">
 		<div class="content">
-			<!-- form start -->
-			<form class="am-form admin-list" action="{{:U('Admin/Admin/Index')}}" method="POST">
-				<div class="am-g">
-					<select  class="am-radius" name="role_id">
-						<option value="">可选择...</option>
-						<option value="a">Apple</option>
-						<option value="b">Banana</option>
-						<option value="o">Orange</option>
-						<option value="m">Mango</option>
-					</select>
-					<input type="text" class="am-radius" placeholder="{{:L('login_username_text')}}" name="username" <present name="param['username']"> value="{{$param.username}}"</present> />
-					<button type="submit" class="am-btn am-btn-secondary am-radius">{{:L('common_operation_query')}}</button>
-				</div>
-            </form>
-            <!-- form end -->
-
             <!-- operation start -->
             <div class="am-g m-t-15">
 	            <a href="{{:U('Admin/Admin/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
