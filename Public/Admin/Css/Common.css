@@ -158,6 +158,9 @@ a:focus {
 .m-r-15 {
   margin-right: 15px !important;
 }
+.m-r-20 {
+  margin-right: 15px !important;
+}
 .m-l-5 {
   margin-left: 5px !important;
 }
@@ -166,6 +169,9 @@ a:focus {
 }
 .m-l-15 {
   margin-left: 15px !important;
+}
+.m-l-20 {
+  margin-left: 20px !important;
 }
 .m-t-5 {
   margin-top: 5px !important;
@@ -1178,3 +1184,4 @@ pre {
 legend { padding-bottom: 0.2rem !important; }
 .none { display: none; }
 .block { display: block; }
+.am-popup-bd { background: #fff; }

@@ -87,5 +87,14 @@ return array(
 
 	// url
 	'common_regex_url'					=>	'^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$',
+
+	// 控制器名称
+	'common_regex_control'				=>	'^[A-Za-z]{1}[A-Za-z0-9_]{0,29}$',
+
+	// 方法名称
+	'common_regex_action'				=>	'^[A-Za-z]{1}[A-Za-z0-9_]{0,29}$',
+
+	// 排序
+	'common_regex_sort'					=>	'^[0-9]{1,3}$',
 );
 ?>

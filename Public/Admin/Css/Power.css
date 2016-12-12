@@ -1,6 +1,13 @@
-.tree-list li { list-style-type: none; }
+.tree-list li { list-style-type: none; padding-left: 5px !important; }
 .tree-list li label { display: inline; }
-.list-find { margin: 0px 0px 5px 40px; }
+.list-find { margin: 0px 0px 5px 35px; }
 .tree-list i { width: 10px; }
 .list-find li { line-height: 22px; }
 .list-find span { font-weight: normal; }
+.tree-list li { border-bottom:1px dashed #d3ebf7; background: #f5fafd; padding: 6px 0px; }
+.list-find li:last-child { border-bottom:1px; }
+.list-find li { background: #e8f5fd !important; }
+@media only screen and (min-width: 641px) {
+	.list-submit, .find-submit { display: none; }
+	.list-find li:hover .find-submit, .tree-list li:hover .list-submit { display: block !important; }
+}

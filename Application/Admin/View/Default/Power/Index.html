@@ -16,35 +16,85 @@
 		<div class="content">
             <!-- operation start -->
             <div class="am-g m-t-15">
-	            <a href="{{:U('Admin/Admin/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
+	            <button class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus" data-am-modal="{target: '#my-popup'}"> {{:L('common_operation_add')}}</button>
 	        </div>
 	        <!-- operation end -->
 
-			<ul class="tree-list p-0">
+	        <div class="am-popup am-radius" id="my-popup">
+				<div class="am-popup-inner">
+					<div class="am-popup-hd">
+						<h4 class="am-popup-title">权限添加</h4>
+						<span data-am-modal-close
+						class="am-close">&times;</span>
+						</div>
+					<div class="am-popup-bd">
+						<!-- form start -->
+						<form class="am-form form-validation admin-save" action="{{:U('Admin/Admin/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Admin/Index')}}">
+							<div class="am-form-group">
+								<label>{{:L('power_name_text')}}：</label>
+								<input type="text" placeholder="{{:L('power_name_text')}}" name="username" minlength="2" maxlength="8" data-validation-message="{{:L('power_name_format')}}" class="am-radius" <present name="user"> value="{{$user.username}}"</present> required />
+							</div>
+							<div class="am-form-group">
+								<label>{{:L('power_control_text')}}：</label>
+								<input type="password" placeholder="{{:L('power_control_text')}}" name="login_pwd" pattern="{{:L('common_regex_control')}}"  data-validation-message="{{:L('power_control_format')}}" class="am-radius" <notpresent name="user">required</notpresent> />
+							</div>
+							<div class="am-form-group">
+								<label>{{:L('power_action_text')}}：</label>
+								<input type="password" placeholder="{{:L('power_action_text')}}" name="login_pwd" pattern="{{:L('common_regex_action')}}"  data-validation-message="{{:L('power_action_format')}}" class="am-radius" <notpresent name="user">required</notpresent> />
+							</div>
+							<div class="am-form-group">
+								<label>{{:L('power_sort_text')}}：</label>
+								<input type="text" placeholder="{{:L('power_sort_text')}}" name="mobile" pattern="{{:L('common_regex_sort')}}" data-validation-message="{{:L('power_sort_format')}}" class="am-radius" <present name="user"> value="{{$user.mobile}}"</present> />
+							</div>
+							<include file="Lib/Gender" />
+							<div class="am-form-group">
+								<input type="hidden" name="id" <present name="id"> value="{{$id}}"</present>" />
+								<input type="hidden" name="value_md5" <present name="value_md5"> value="{{$value_md5}}"</present>" />
+								<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
+							</div>
+						</form>
+						<!-- form end -->
+					</div>
+				</div>
+			</div>
+	        <!-- content start -->
+			<ul class="tree-list p-0 m-t-15">
 				<li>
 					<i class="am-icon-minus-square c-p m-r-5"></i>
 					<label class="c-p">
 						<input type="checkbox" value="" class="node-choice" />
 						<span>订单管理</span>
 					</label>
-					<ul class="list-find p-0">
+					<ul class="list-find p-0 m-t-5">
 						<li>
 							<label class="c-p">
 								<input type="checkbox" value="" />
 								<span>商品管理</span>
 							</label>
+							<div class="fr m-r-20 find-submit">
+								<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+							</div>
 						</li>
 						<li>
 							<label class="c-p">
 								<input type="checkbox" value="" />
 								<span>规格管理</span>
 							</label>
+							<div class="fr m-r-20 find-submit">
+								<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+							</div>
 						</li>
 						<li>
 							<label class="c-p">
 								<input type="checkbox" value="" />
 								<span>仓库商品</span>
 							</label>
+							<div class="fr m-r-20 find-submit">
+								<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+							</div>
 						</li>
 					</ul>
 				</li>
@@ -54,26 +104,48 @@
 						<input type="checkbox" value="" class="node-choice" />
 						<span>优惠管理</span>
 					</label>
-					<ul class="list-find p-0 none">
+					<ul class="list-find p-0 m-t-5 none">
 						<li>
 							<label class="c-p">
 								<input type="checkbox" value="" />
 								<span>商品管理</span>
 							</label>
+							<div class="fr m-r-20 find-submit">
+								<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+							</div>
 						</li>
 						<li>
 							<label class="c-p">
 								<input type="checkbox" value="" />
 								<span>规格管理</span>
 							</label>
+							<div class="fr m-r-20 find-submit">
+								<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+							</div>
 						</li>
 						<li>
 							<label class="c-p">
 								<input type="checkbox" value="" />
 								<span>仓库商品</span>
 							</label>
+							<div class="fr m-r-20 find-submit">
+								<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+							</div>
 						</li>
 					</ul>
+				</li>
+				<li>
+					<label class="c-p m-l-20">
+						<input type="checkbox" value="" class="node-choice" />
+						<span>没有列表</span>
+					</label>
+					<div class="fr m-r-20 list-submit">
+						<span class="am-icon-edit am-icon-md c-p m-r-20" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></span>
+						<span class="am-icon-trash-o am-icon-md c-p m-r-15 delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+					</div>
 				</li>
 			</ul>
 
