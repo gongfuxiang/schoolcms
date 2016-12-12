@@ -1176,3 +1176,5 @@ pre {
 .c-r { cursor: w-resize; }
 .c-p { cursor: pointer; }
 legend { padding-bottom: 0.2rem !important; }
+.none { display: none; }
+.block { display: block; }

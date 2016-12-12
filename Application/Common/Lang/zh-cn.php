@@ -9,8 +9,9 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'SchoolCMS',
+	'common_site_name'					=>	'Hello',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
+	'common_site_title'					=>	'hello',
 
 	// 公共
 	'common_login_invalid'				=>	'登录失效，请重新登录',
