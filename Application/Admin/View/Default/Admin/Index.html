@@ -67,7 +67,7 @@
 									<a href="{{:U('Admin/Admin/SaveInfo', array('id'=>$v['id']))}}">
 										<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
 									</a>
-									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
+									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Admin/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
 								</td>
 							</tr>
 						</foreach>

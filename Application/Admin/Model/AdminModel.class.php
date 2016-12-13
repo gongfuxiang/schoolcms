@@ -12,10 +12,8 @@ use Think\Model;
  */
 class AdminModel extends CommonModel
 {
-	protected $_validate = array(
-		//array('username', '', '帐号已经存在', 0, 'unique', 1),
-		//array('password', 'checkPwd', '密码格式错误，需要6~18个字符', 1, 'function'),
-		
+	// 数据自动校验
+	protected $_validate = array(		
 		// 登录
 		array('username', 'CheckUserName', '{%login_username_format}', 1, 'function', 4),
 		array('login_pwd', 'CheckLoginPwd', '{%login_login_pwd_format}', 1, 'function', 4),

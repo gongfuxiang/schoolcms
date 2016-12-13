@@ -9,6 +9,21 @@
  */
 
 /**
+ * [Utf8Strlen 计算符串长度（中英文一致）]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-13T21:34:09+0800
+ * @param    [string]      $string [需要计算的字符串]
+ * @return   [int]                 [字符长度]
+ */
+function Utf8Strlen($string = null)
+{
+    preg_match_all("/./us", $string, $match);
+    return count($match[0]);
+}
+
+/**
  * [IsMobile 是否是手机访问]
  * @author   Devil
  * @blog     http://gong.gg/

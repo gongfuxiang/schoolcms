@@ -67,12 +67,12 @@ function GetFormVal(element)
 	var object = {};
 
 	// input 常用类型
-	$(element).find('input[type="hidden"], input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="radio"]:checked, option:selected, textarea').each(function(key, tmp)
+	$(element).find('input[type="hidden"], input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="radio"]:checked, textarea').each(function(key, tmp)
 	{
 		object[tmp.name] = tmp.value;
 	});
 
-	// select 但选择和多选择
+	// select 单选择和多选择
 	var tmp_all = [];
 	var i = 0;
 	$(element).find('select option:selected').each(function(key, tmp)
@@ -254,7 +254,7 @@ $(function()
 	 * @param    {[int] 	[data-id] 	[数据id]}
 	 * @param    {[string] 	[data-url] 	[请求地址]}
 	 */
-	$('.delete').on('click', function()
+	$('.submit-delete').on('click', function()
 	{
 		var id = $(this).data('id');
 		var url = $(this).data('url');
@@ -287,5 +287,12 @@ $(function()
 				Prompt('异常出错');
 			}
 		});
+	});
+
+	$('.submit-edit').on('click', function()
+	{
+		console.log(1);
+		$form = $('.form-validation');
+		$form.find('select[name="pid"]').val(3);
 	});
 });
