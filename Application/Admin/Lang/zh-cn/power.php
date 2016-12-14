@@ -18,7 +18,9 @@ return array(
 	'power_control_format'				=>	'控制器名格式 1~30 个字符（必须以字母开始，可以是字母数字下划线）',
 	'power_action_format'				=>	'方法名格式 1~30 个字符（必须以字母开始，可以是字母数字下划线）',
 	'power_sort_format'					=>	'排序只能为数字（不能超过3位）',
-	'power_level_format'				=>	'请选择栏目级别',
+	'power_level_format'				=>	'栏目级别选择错误',
+	'power_add_name'					=>	'权限添加',
+	'power_edit_name'					=>	'权限编辑',
 
 	'login_button_text'					=>	'登录',
 	'login_button_loading_text'			=>	'登录中...',

@@ -26,6 +26,7 @@ return array(
 	'common_not_login_name'				=>	'未登录',
 	'common_not_data_tips'				=>	'没有数据',
 	'common_create_time_name'			=>	'创建时间',
+	'common_delete_tips'				=>	'你，确定要删除这条记录吗？',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -41,6 +42,8 @@ return array(
 	'common_operation_back'				=>	'返回',
 	'common_operation_save'				=>	'保存',
 	'common_operation_query'			=>	'查询',
+	'common_operation_confirm'			=>	'确认',
+	'common_operation_cancel'			=>	'取消',
 	'common_operation_success'			=>	'操作成功',
 	'common_operation_error'			=>	'操作失败',
 	'common_operation_add_success'		=>	'新增成功',

@@ -37,13 +37,17 @@ class PowerController extends CommonController
 	public function Index()
 	{
 		// 获取权限列表
-		$field = array('id', 'name');
+		$field = array('id', 'pid', 'name', 'control', 'action', 'sort');
 		$list = M('Power')->field($field)->where(array('pid'=>0))->select();
 		if(!empty($list))
 		{
 			foreach($list as $k=>$v)
 			{
-				$list[$k]['item'] =  M('Power')->field($field)->where(array('pid'=>$v['id']))->select();
+				$item =  M('Power')->field($field)->where(array('pid'=>$v['id']))->select();
+				if(!empty($item))
+				{
+					$list[$k]['item'] = $item;
+				}
 			}
 		}
 		$this->assign('list', $list);

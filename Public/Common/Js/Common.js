@@ -242,11 +242,23 @@ $form.validator(
 	}
 });
 
+// 表单数据填充
+function FormDataFill(json)
+{
+	if(json != undefined)
+	{
+		for(var i in json)
+		{
+			$form.find('*[name="'+i+'"]').val(json[i]);
+		}
+	}
+}
+
 // 公共数据操作
 $(function()
 {
 	/**
-	 * [delete 删除数据列表]
+	 * [submit-delete 删除数据列表]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -256,43 +268,60 @@ $(function()
 	 */
 	$('.submit-delete').on('click', function()
 	{
-		var id = $(this).data('id');
-		var url = $(this).data('url');
-		if(id == undefined || url == undefined)
-		{
-			Prompt('参数配置有误');
-			return false;
-		}
-		// 请求删除数据
-		$.ajax({
-			url:url,
-			type:'POST',
-			dataType:"json",
-			timeout:10000,
-			data:{"id":id},
-			success:function(result)
+		$('#common-confirm-delete').modal({
+			relatedTarget: this,
+			onConfirm: function(options)
 			{
-				if(result.code == 0)
+				// 获取参数
+				var $tag = $(this.relatedTarget);
+				var id = $tag.data('id');
+				var url = $tag.data('url');
+				if(id == undefined || url == undefined)
 				{
-					Prompt(result.msg, 'success');
-
-					// 成功则删除数据列表
-					$('#admin-data-list-'+id).remove();
-				} else {
-					Prompt(result.msg);
+					Prompt('参数配置有误');
+					return false;
 				}
+
+				// 请求删除数据
+				$.ajax({
+					url:url,
+					type:'POST',
+					dataType:"json",
+					timeout:10000,
+					data:{"id":id},
+					success:function(result)
+					{
+						if(result.code == 0)
+						{
+							Prompt(result.msg, 'success');
+
+							// 成功则删除数据列表
+							$('#admin-data-list-'+id).remove();
+						} else {
+							Prompt(result.msg);
+						}
+					},
+					error:function(xhr, type)
+					{
+						Prompt('异常出错');
+					}
+				});
 			},
-			error:function(xhr, type)
-			{
-				Prompt('异常出错');
-			}
+			onCancel: function(){}
 		});
 	});
 
+	/**
+	 * [submit-edit 公共编辑]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-14T13:53:13+0800
+	 * @param    {[type]}                 )	{		var json          [description]
+	 * @return   {[type]}                           [description]
+	 */
 	$('.submit-edit').on('click', function()
 	{
-		console.log(1);
-		$form = $('.form-validation');
-		$form.find('select[name="pid"]').val(3);
+		FormDataFill($(this).data('json'));
 	});
 });
