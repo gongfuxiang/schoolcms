@@ -21,7 +21,8 @@ class PowerModel extends CommonModel
 		array('pid', 'CheckPid', '{%power_level_format}', 2, 'callback', 3),
 
 		// 删除
-		array('id', 'CheckPowerDelete', '{%common_operation_delete_error}', 1, 'callback', 5),
+		array('id', 'CheckPowerIsExist', '{%power_no_exist_tips}', 1, 'callback', 5),
+		array('id', 'CheckPowerIsItem', '{%power_exist_item_tips}', 1, 'callback', 5),
 	);
 
 	/**
@@ -80,21 +81,29 @@ class PowerModel extends CommonModel
 	}
 
 	/**
-	 * [CheckPowerDelete 校验是否可操作删除]
+	 * [CheckPowerIsExist 校验权限是否存在]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T14:09:40+0800
 	 */
-	public function CheckPowerDelete()
+	public function CheckPowerIsExist()
 	{
 		$id = $this->db(0)->where(array('id'=>I('id')))->getField('id');
-		if(!empty($id))
-		{
-			$count = $this->db(0)->where(array('pid'=>I('id')))->count();
-			return ($count <= 0);
-		}
-		return true;
+		return !empty($id);
+	}
+
+	/**
+	 * [CheckPowerIsItem 校验权限是否存在子级]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-10T14:09:40+0800
+	 */
+	public function CheckPowerIsItem()
+	{
+		$count = $this->db(0)->where(array('pid'=>I('id')))->count();
+		return ($count <= 0);
 	}
 }
 ?>

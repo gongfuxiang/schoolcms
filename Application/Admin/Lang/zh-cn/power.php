@@ -21,5 +21,7 @@ return array(
 	'power_level_format'				=>	'栏目级别选择错误',
 	'power_add_name'					=>	'权限添加',
 	'power_edit_name'					=>	'权限编辑',
+	'power_no_exist_tips'				=>	'权限数据不存在',
+	'power_exist_item_tips'				=>	'该权限存在子级数据',
 );
 ?>

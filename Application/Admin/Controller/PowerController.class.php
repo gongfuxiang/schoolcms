@@ -147,6 +147,18 @@ class PowerController extends CommonController
 	 */
 	public function Role()
 	{
+		$m = M('Role');
+		$list = $m->field(array('id', 'name', 'is_enable'))->select();
+		if(!empty($list))
+		{
+			foreach($list as $k=>$v)
+			{
+				// 关联查询权限和角色数据
+				$power = $m->select();
+				$list['item'] = $power;
+			}
+		}
+		print_r($list);
 		$this->display();
 	}
 

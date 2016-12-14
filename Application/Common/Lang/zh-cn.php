@@ -27,6 +27,7 @@ return array(
 	'common_not_data_tips'				=>	'没有数据',
 	'common_create_time_name'			=>	'创建时间',
 	'common_delete_tips'				=>	'你，确定要删除这条记录吗？',
+	'common_do_not_operate'				=>	'不可操作',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -49,9 +50,9 @@ return array(
 	'common_operation_add_success'		=>	'新增成功',
 	'common_operation_add_error'		=>	'新增失败',
 	'common_operation_edit_success'		=>	'编辑成功',
-	'common_operation_edit_error'		=>	'编辑失败（数据未改变或网络错误）',
+	'common_operation_edit_error'		=>	'编辑失败或数据未改变',
 	'common_operation_delete_success'	=>	'删除成功',
-	'common_operation_delete_error'		=>	'删除失败（可能数据不存在或条件未达到）',
+	'common_operation_delete_error'		=>	'删除失败或数据不存在',
 	'common_operation_unauthorized'		=>	'非法操作',
 	'common_value_not_change'			=>	'数据未改变',
 
