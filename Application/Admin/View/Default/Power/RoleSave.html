@@ -29,7 +29,7 @@
 						</div>
 					<div class="am-popup-bd">
 						<!-- form start -->
-						<form class="am-form form-validation admin-save" action="{{:U('Admin/Power/PowerSave')}}" method="POST" request-type="ajax-reload" request-value="">
+						<form class="am-form form-validation admin-save" action="{{:U('Admin/Power/Save')}}" method="POST" request-type="ajax-reload" request-value="">
 							<div class="am-form-group">
 								<label>{{:L('power_level_text')}}：</label>
 								<select  class="am-radius" name="pid" data-validation-message="{{:L('power_level_format')}}">
@@ -67,7 +67,7 @@
 	        <!-- content start -->
 			<ul class="tree-list p-0 m-t-15">
 				<foreach name="list" item="v">
-					<li id="data-list-{{$v.id}}">
+					<li>
 						<if condition="!empty($v['item'])">
 							<i class="am-icon-minus-square c-p m-r-5"></i>
 							<label class="c-p">
@@ -82,14 +82,14 @@
 						<div class="fr m-r-20 list-submit">
 							<span class="am-icon-edit am-icon-md c-p submit-edit <if condition="!empty($v['item'])">m-r-5</if>" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}" data-am-modal="{target: '#power-save-win'}" data-json='{{:json_encode($v)}}' data-item="<if condition="!empty($v['item'])">ok<else />no</if>"></span>
 							<if condition="empty($v['item'])">
-								<span class="am-icon-trash-o am-icon-md c-p m-l-20 m-r-15 submit-delete" data-url="{{:U('Admin/Power/PowerDelete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
+								<span class="am-icon-trash-o am-icon-md c-p m-l-20 m-r-15 submit-delete" data-url="{{:U('Admin/Power/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
 							</if>
 						</div>
 					</li>
 					<if condition="!empty($v['item'])">
 						<ul class="list-find p-0 m-t-5">
 							<foreach name="v.item" item="vs">
-								<li id="data-list-{{$vs.id}}">
+								<li>
 									<label class="c-p">
 										<if condition="ACTION_NAME eq 'RoleSave'">
 											<input type="checkbox" value="{{$vs.id}}" />
@@ -98,7 +98,7 @@
 									</label>
 									<div class="fr m-r-20 find-submit">
 										<span class="am-icon-edit am-icon-md c-p submit-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}" data-am-modal="{target: '#power-save-win'}" data-json='{{:json_encode($vs)}}' data-item="no"></span>
-										<span class="am-icon-trash-o am-icon-md c-p m-l-20 m-r-15 submit-delete" data-url="{{:U('Admin/Power/PowerDelete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$vs.id}}"></span>
+										<span class="am-icon-trash-o am-icon-md c-p m-l-20 m-r-15 submit-delete" data-url="{{:U('Admin/Power/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$vs.id}}"></span>
 									</div>
 								</li>
 							</foreach>

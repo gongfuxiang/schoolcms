@@ -49,9 +49,9 @@ return array(
 	'common_operation_add_success'		=>	'新增成功',
 	'common_operation_add_error'		=>	'新增失败',
 	'common_operation_edit_success'		=>	'编辑成功',
-	'common_operation_edit_error'		=>	'编辑失败',
+	'common_operation_edit_error'		=>	'编辑失败（数据未改变或网络错误）',
 	'common_operation_delete_success'	=>	'删除成功',
-	'common_operation_delete_error'		=>	'删除失败',
+	'common_operation_delete_error'		=>	'删除失败（可能数据不存在或条件未达到）',
 	'common_operation_unauthorized'		=>	'非法操作',
 	'common_value_not_change'			=>	'数据未改变',
 

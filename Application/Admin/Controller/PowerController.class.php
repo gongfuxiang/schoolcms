@@ -28,7 +28,7 @@ class PowerController extends CommonController
 	}
 
 	/**
-     * [Index 角色组列表]
+     * [Index 权限组列表]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -55,13 +55,13 @@ class PowerController extends CommonController
 	}
 
 	/**
-	 * [Save 权限添加/编辑]
+	 * [PowerSave 权限添加/编辑]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-13T21:41:03+0800
 	 */
-	public function Save()
+	public function PowerSave()
 	{
 		// 是否ajax请求
 		if(!IS_AJAX)
@@ -108,6 +108,70 @@ class PowerController extends CommonController
 			}
 		}
 		$this->ajaxReturn($m->getError(), -1);
+	}
+
+	/**
+	 * [PowerDelete 权限删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-14T21:40:29+0800
+	 */
+	public function PowerDelete()
+	{
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'), -401);
+		}
+
+		$m = D('Power');
+		if($m->create($_POST, 5))
+		{
+			if($m->delete(I('id')))
+			{
+				$this->ajaxReturn(L('common_operation_delete_success'));
+			} else {
+				$this->ajaxReturn(L('common_operation_delete_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn($m->getError(), -1);
+		}
+	}
+
+	/**
+	 * [Role 角色组列表]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-14T21:37:02+0800
+	 */
+	public function Role()
+	{
+		$this->display();
+	}
+
+	/**
+	 * [RoleSaveInfo 角色组编辑和添加页面]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-14T21:37:02+0800
+	 */
+	public function RoleSaveInfo()
+	{
+		$this->display();
+	}
+
+	/**
+	 * [RoleSave 角色组编辑和添加]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-14T21:37:02+0800
+	 */
+	public function RoleSave()
+	{
+		print_r($_POST);
 	}
 }
 ?>

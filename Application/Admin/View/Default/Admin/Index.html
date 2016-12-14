@@ -51,7 +51,7 @@
 				<tbody>
 					<if condition="!empty($list)">
 						<foreach name="list" item="v">
-							<tr id="admin-data-list-{{$v.id}}">
+							<tr id="data-list-{{$v.id}}">
 								<td>{{$v.username}}</td>
 								<td>{{:L('common_gender_list')[$v['gender']]['name']}}</td>
 								<td>{{$v.login_total}}</td>

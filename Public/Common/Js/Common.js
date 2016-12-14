@@ -304,7 +304,7 @@ $(function()
 							Prompt(result.msg, 'success');
 
 							// 成功则删除数据列表
-							$('#admin-data-list-'+id).remove();
+							$('#data-list-'+id).remove();
 						} else {
 							Prompt(result.msg);
 						}

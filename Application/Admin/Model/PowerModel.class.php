@@ -21,7 +21,7 @@ class PowerModel extends CommonModel
 		array('pid', 'CheckPid', '{%power_level_format}', 2, 'callback', 3),
 
 		// 删除
-		array('id', 'IsExistAdmin', '{%login_username_no_exist}', 1, 'callback', 5),
+		array('id', 'CheckPowerDelete', '{%common_operation_delete_error}', 1, 'callback', 5),
 	);
 
 	/**
@@ -80,16 +80,21 @@ class PowerModel extends CommonModel
 	}
 
 	/**
-	 * [IsExistAdmin 校验管理员是否存在]
+	 * [CheckPowerDelete 校验是否可操作删除]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T14:09:40+0800
 	 */
-	public function IsExistAdmin()
+	public function CheckPowerDelete()
 	{
-		$user = $this->db(0)->where(array('id'=>I('id')))->getField('id');
-		return !empty($user);
+		$id = $this->db(0)->where(array('id'=>I('id')))->getField('id');
+		if(!empty($id))
+		{
+			$count = $this->db(0)->where(array('pid'=>I('id')))->count();
+			return ($count <= 0);
+		}
+		return true;
 	}
 }
 ?>
