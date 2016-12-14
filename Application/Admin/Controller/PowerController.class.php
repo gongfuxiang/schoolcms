@@ -154,8 +154,7 @@ class PowerController extends CommonController
 			foreach($list as $k=>$v)
 			{
 				// 关联查询权限和角色数据
-				$power = $m->select();
-				$list['item'] = $power;
+				$list[$k]['item'] = $m->alias('r')->join('__ROLE_POWER__ AS rp ON rp.role_id = r.id')->join('__POWER__ AS p ON rp.power_id = p.id')->where(array('r.id'=>$v['id']))->field(array('p.id', 'p.name'))->select();
 			}
 		}
 		print_r($list);
