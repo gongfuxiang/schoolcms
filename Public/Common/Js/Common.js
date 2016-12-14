@@ -242,11 +242,19 @@ $form.validator(
 	}
 });
 
-// 表单数据填充
+/**
+ * [FormDataFill 表单数据填充]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-14T14:46:47+0800
+ * @param    {[json]}    json [json数据对象]
+ */
 function FormDataFill(json)
 {
 	if(json != undefined)
 	{
+		$form = $('form.form-validation');
 		for(var i in json)
 		{
 			$form.find('*[name="'+i+'"]').val(json[i]);
