@@ -21,18 +21,5 @@ return array(
 	'power_level_format'				=>	'栏目级别选择错误',
 	'power_add_name'					=>	'权限添加',
 	'power_edit_name'					=>	'权限编辑',
-
-	'login_button_text'					=>	'登录',
-	'login_button_loading_text'			=>	'登录中...',
-	'login_forgot_pwd_text'				=>	'忘记密码?',
-	'login_forgot_pwd_tips'				=>	'请联系管理员重置密码',
-	'login_username_no_exist'			=>	'管理员不存在',
-	'login_login_pwd_error'				=>	'密码错误',
-	'login_login_error'					=>	'登录失败，请稍后再试！',
-	'login_login_success'				=>	'登录成功',
-
-	// 管理员添加及编辑
-	'login_total_name'					=>	'登录次数',
-	'login_last_time_name'				=>	'最后登录时间',
 );
 ?>
