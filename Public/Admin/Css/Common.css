@@ -1185,3 +1185,5 @@ legend { padding-bottom: 0.2rem !important; }
 .none { display: none; }
 .block { display: block; }
 .am-popup-bd { background: #fff; }
+.cr-ccc { color: #ccc !important; }
+.cr-red { color: #f00 !important; }

@@ -57,6 +57,8 @@ return array(
 	'common_value_not_change'			=>	'数据未改变',
 
 	'common_view_gender_name'			=>	'性别',
+	'common_view_enable_title'			=>	'是否启用',
+	'common_view_name_title'			=>	'名称',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -68,6 +70,26 @@ return array(
 			0 => array('id' => 0, 'name' => '保密', 'checked' => true),
 			1 => array('id' => 1, 'name' => '女'),
 			2 => array('id' => 2, 'name' => '男'),
+		),
+
+	// 是否启用
+	'common_is_enable_tips'				=>	array(
+			0 => array('id' => 0, 'name' => '未启用'),
+			1 => array('id' => 1, 'name' => '已启用'),
+		),
+	'common_is_enable_list'				=>	array(
+			0 => array('id' => 0, 'name' => '不启用'),
+			1 => array('id' => 1, 'name' => '启用', 'checked' => true),
+		),
+
+	// 色彩值
+	'common_color_list'					=>	array(
+			'',
+			'am-badge-primary',
+			'am-badge-secondary',
+			'am-badge-success',
+			'am-badge-warning',
+			'am-badge-danger',
 		),
 
 	// 正则

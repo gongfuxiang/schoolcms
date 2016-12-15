@@ -74,9 +74,6 @@
 						<else />
 							<label class="c-p m-l-20">
 						</if>
-							<if condition="ACTION_NAME eq 'RoleSave'">
-								<input type="checkbox" value="{{$v.id}}" class="node-choice" />
-							</if>
 							<span>{{$v.name}}</span>
 						</label>
 						<div class="fr m-r-20 list-submit">
@@ -91,9 +88,6 @@
 							<foreach name="v.item" item="vs">
 								<li id="data-list-{{$vs.id}}">
 									<label class="c-p">
-										<if condition="ACTION_NAME eq 'RoleSave'">
-											<input type="checkbox" value="{{$vs.id}}" />
-										</if>
 										<span>{{$vs.name}}</span>
 									</label>
 									<div class="fr m-r-20 find-submit">

@@ -157,7 +157,7 @@ class PowerController extends CommonController
 				$list[$k]['item'] = $m->alias('r')->join('__ROLE_POWER__ AS rp ON rp.role_id = r.id')->join('__POWER__ AS p ON rp.power_id = p.id')->where(array('r.id'=>$v['id']))->field(array('p.id', 'p.name'))->select();
 			}
 		}
-		print_r($list);
+		$this->assign('list', $list);
 		$this->display();
 	}
 
@@ -170,6 +170,42 @@ class PowerController extends CommonController
 	 */
 	public function RoleSaveInfo()
 	{
+		// 角色组
+		$field = array('id', 'name');
+		$role = M('Role')->field($field)->find(I('id'));
+		// 还在写 $role_id = $this->GetSession('user.role_id', $role['id']);
+		$power = array();
+		if(!empty($role))
+		{
+			// 权限关联数据
+			$action = M('RolePower')->where(array('role_id'=>$role_id))->getField('power_id', true);
+
+			// 权限列表
+			$m = M('Power');
+			$power = $m->field(array('id', 'name'))->where(array('pid'=>0))->select();
+			if(!empty($power))
+			{
+				foreach($power as $k=>$v)
+				{
+					// 是否有权限
+					$power[$k]['is_power'] = in_array($v['id'], $action) ? 'ok' : 'no';
+
+					// 获取子权限
+					$item =  $m->field($field)->where(array('pid'=>$v['id']))->select();
+					if(!empty($item))
+					{
+						foreach($item as $ks=>$vs)
+						{
+							$item[$ks]['is_power'] = in_array($vs['id'], $action) ? 'ok' : 'no';
+						}
+						$power[$k]['item'] = $item;
+					}
+				}
+			}
+		}
+		$this->assign('common_is_enable_list', L('common_is_enable_list'));
+		$this->assign('role', $role);
+		$this->assign('power', $power);
 		$this->display();
 	}
 
@@ -181,6 +217,18 @@ class PowerController extends CommonController
 	 * @datetime 2016-12-14T21:37:02+0800
 	 */
 	public function RoleSave()
+	{
+		print_r($_POST);
+	}
+
+	/**
+	 * [RoleDelete 角色删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-15T11:03:30+0800
+	 */
+	public function RoleDelete()
 	{
 		print_r($_POST);
 	}
