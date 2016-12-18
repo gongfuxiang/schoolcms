@@ -25,5 +25,7 @@ return array(
 	// 管理员添加及编辑
 	'login_total_name'					=>	'登录次数',
 	'login_last_time_name'				=>	'最后登录时间',
+	'admin_add_name'					=>	'管理员添加',
+	'admin_edit_name'					=>	'管理员编辑',
 );
 ?>

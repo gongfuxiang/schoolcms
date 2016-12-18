@@ -171,14 +171,13 @@ class PowerController extends CommonController
 	public function RoleSaveInfo()
 	{
 		// 角色组
-		$field = array('id', 'name');
-		$role = M('Role')->field($field)->find(I('id'));
-		// 还在写 $role_id = $this->GetSession('user.role_id', $role['id']);
+		$role = M('Role')->field(array('id', 'name', 'is_enable'))->find(I('id'));
+		$role_id = isset($role['id']) ? $role['id'] : (isset($_SESSION['user']['role_id']) ? intval($_SESSION['user']['role_id']) : 0);
 		$power = array();
-		if(!empty($role))
+		if($role_id > 0)
 		{
 			// 权限关联数据
-			$action = M('RolePower')->where(array('role_id'=>$role_id))->getField('power_id', true);
+			$action = empty(I('id')) ? array() : M('RolePower')->where(array('role_id'=>$role_id))->getField('power_id', true);
 
 			// 权限列表
 			$m = M('Power');
@@ -191,7 +190,7 @@ class PowerController extends CommonController
 					$power[$k]['is_power'] = in_array($v['id'], $action) ? 'ok' : 'no';
 
 					// 获取子权限
-					$item =  $m->field($field)->where(array('pid'=>$v['id']))->select();
+					$item =  $m->field(array('id', 'name'))->where(array('pid'=>$v['id']))->select();
 					if(!empty($item))
 					{
 						foreach($item as $ks=>$vs)
@@ -204,7 +203,7 @@ class PowerController extends CommonController
 			}
 		}
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
-		$this->assign('role', $role);
+		$this->assign('data', $role);
 		$this->assign('power', $power);
 		$this->display();
 	}
@@ -218,7 +217,160 @@ class PowerController extends CommonController
 	 */
 	public function RoleSave()
 	{
-		print_r($_POST);
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'), -401);
+		}
+
+		// 添加
+		if(empty(I('id')))
+		{
+			$this->RoleAdd();
+
+		// 编辑
+		} else {
+			if(I('id') == 1)
+			{
+				$this->error(L('common_do_not_operate'), -10);
+			} else {
+				$this->RoleEdit();
+			}
+		}
+	}
+
+	/**
+	 * [RoleAdd 角色添加]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-18T16:20:59+0800
+	 */
+	private function RoleAdd()
+	{
+		// 角色对象
+		$r = M('Role');
+
+		// 数据自动校验
+		if($r->create($_POST, 1))
+		{
+			// 开启事务
+			$r->startTrans();
+
+			// 角色添加
+			$role_data = array(
+					'name'		=>	I('name'),
+					'is_enable'	=>	I('is_enable'),
+					'add_time'	=>	time(),
+				);
+			$role_id = $r->add($role_data);
+
+			// 角色权限关联添加
+			$rp_state = true;
+			if(!empty($_POST['power_id']) && is_array($_POST['power_id']))
+			{
+				// 角色权限关联对象
+				$rp = M('RolePower');
+				foreach($_POST['power_id'] as $power_id)
+				{
+					if(!empty($power_id))
+					{
+						$rp_data = array(
+								'role_id'	=>	$role_id,
+								'power_id'	=>	$power_id,
+								'add_time'	=>	time(),
+							);
+						if(!$rp->add($rp_data))
+						{
+							$rp_state = false;
+							break;
+						}
+					}
+				}
+			}
+			if($role_id && $rp_state)
+			{
+				// 提交事务
+				$r->commit();
+				$this->ajaxReturn(L('common_operation_add_success'));
+			} else {
+				// 回滚事务
+				$r->rollback();
+				$this->ajaxReturn(L('common_operation_add_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn($m->getError(), -1);
+		}
+	}
+
+	/**
+	 * [RoleEdit 角色和角色权限关联编辑]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-17T22:13:40+0800
+	 */
+	private function RoleEdit()
+	{
+		// 角色对象
+		$r = M('Role');
+
+		// 数据自动校验
+		if($r->create($_POST, 2))
+		{
+			// 开启事务
+			$r->startTrans();
+
+			// 角色数据更新
+			$role_data = array(
+					'name'		=>	I('name'),
+					'is_enable'	=>	I('is_enable'),
+				);
+			$r_state = ($r->where(array('id'=>I('id')))->save($role_data) !== false);
+
+			// 角色权限关联对象
+			$rp = M('RolePower');
+
+			// 角色id
+			$role_id = I('id');
+
+			// 权限关联数据删除
+			$rp_del_state = ($rp->where(array('role_id'=>$role_id))->delete() !== false);
+
+			// 权限关联数据添加
+			$rp_state = true;
+			if(!empty($_POST['power_id']) && is_array($_POST['power_id']))
+			{
+				foreach($_POST['power_id'] as $power_id)
+				{
+					if(!empty($power_id))
+					{
+						$rp_data = array(
+								'role_id'	=>	$role_id,
+								'power_id'	=>	$power_id,
+								'add_time'	=>	time(),
+							);
+						if(!$rp->add($rp_data))
+						{
+							$rp_state = false;
+							break;
+						}
+					}
+				}
+			}
+			if($r_state && $rp_del_state && $rp_state)
+			{
+				// 提交事务
+				$r->commit();
+				$this->ajaxReturn(L('common_operation_edit_success'));
+			} else {
+				// 回滚事务
+				$r->rollback();
+				$this->ajaxReturn(L('common_operation_edit_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn($m->getError(), -1);
+		}
 	}
 
 	/**

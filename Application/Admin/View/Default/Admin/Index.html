@@ -25,7 +25,7 @@
 						<option value="m">Mango</option>
 					</select>
 					<input type="text" class="am-radius" placeholder="{{:L('login_username_text')}}" name="username" <present name="param['username']"> value="{{$param.username}}"</present> />
-					<button type="submit" class="am-btn am-btn-secondary am-radius">{{:L('common_operation_query')}}</button>
+					<button type="submit" class="am-btn am-btn-secondary am-btn-sm am-radius">{{:L('common_operation_query')}}</button>
 				</div>
             </form>
             <!-- form end -->
@@ -65,7 +65,7 @@
 								<td class="am-hide-sm-only">{{:date('Y-m-d H:i:s', $v['add_time'])}}</td>
 								<td>
 									<if condition="$v['username'] eq 'admin'">
-										{{:L('common_do_not_operate')}}
+										<span class="cr-ccc">{{:L('common_do_not_operate')}}</span>
 									<else />
 										<a href="{{:U('Admin/Admin/SaveInfo', array('id'=>$v['id']))}}">
 											<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>

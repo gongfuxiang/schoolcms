@@ -55,10 +55,13 @@ return array(
 	'common_operation_delete_error'		=>	'删除失败或数据不存在',
 	'common_operation_unauthorized'		=>	'非法操作',
 	'common_value_not_change'			=>	'数据未改变',
+	'common_gender_tips'				=>	'性别的值范围不正确',
+	'common_enable_tips'				=>	'启用的值范围不正确',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
 	'common_view_name_title'			=>	'名称',
+	'common_view_state_title'			=>	'状态',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',

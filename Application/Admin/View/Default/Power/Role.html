@@ -25,7 +25,7 @@
 				<thead>
 					<tr>
 						<th>{{:L('common_view_name_title')}}</th>
-						<th>{{:L('common_view_enable_title')}}</th>
+						<th>{{:L('common_view_state_title')}}</th>
 						<th>{{:L('power_view_have_title')}}</th>
 						<th class="am-hide-sm-only">{{:L('common_create_time_name')}}</th>
 						<th>{{:L('common_operation_name')}}</th>
@@ -48,10 +48,14 @@
 								</td>
 								<td class="am-hide-sm-only">{{:date('Y-m-d H:i:s', $v['add_time'])}}</td>
 								<td>
-									<a href="{{:U('Admin/Power/RoleSaveInfo', array('id'=>$v['id']))}}">
-										<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
-									</a>
-									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Power/RoleDelete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
+									<if condition="$v['id'] eq 1">
+										<span class="cr-ccc">{{:L('common_do_not_operate')}}</span>
+									<else />
+										<a href="{{:U('Admin/Power/RoleSaveInfo', array('id'=>$v['id']))}}">
+											<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
+										</a>
+										<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Power/RoleDelete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
+									</if>
 								</td>
 							</tr>
 						</foreach>

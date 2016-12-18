@@ -258,7 +258,7 @@ class AdminController extends CommonController
 		if($m->create($_POST, 4))
 		{
 			// 获取管理员
-			$user = $m->field('id,username,login_pwd,login_salt,mobile,login_total')->where(array('username'=>I('username')))->find();
+			$user = $m->field(array('id', 'username', 'login_pwd', 'login_salt', 'mobile', 'login_total', 'role_id'))->where(array('username'=>I('username')))->find();
 			if(empty($user))
 			{
 				$this->ajaxReturn(L('login_username_no_exist'), -2);

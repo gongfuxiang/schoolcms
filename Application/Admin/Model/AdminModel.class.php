@@ -27,7 +27,7 @@ class AdminModel extends CommonModel
 		
 		// 注册,编辑
 		array('mobile', 'CheckMobile', '{%common_mobile_format_error}', 2, 'function', 3),
-		array('gender', array(0,1,2), '值的范围不正确！', 1, 'in', 3),
+		array('gender', array(0,1,2), '{%common_gender_tips}', 1, 'in', 3),
 
 		// 删除
 		array('id', 'IsExistAdmin', '{%login_username_no_exist}', 1, 'callback', 5),

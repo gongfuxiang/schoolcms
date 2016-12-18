@@ -25,6 +25,10 @@ return array(
 	'power_exist_item_tips'				=>	'该权限存在子级数据',
 	'power_view_have_title'				=>	'拥有权限',
 	'role_view_role_text'				=>	'角色名称',
-	'role_name_format'					=>	'角色名称格式 2~8 个字符'
+	'role_name_format'					=>	'角色名称格式 2~8 个字符',
+	'role_no_exist_tips'				=>	'角色数据不存在',
+	'power_level_format'				=>	'栏目级别选择错误',
+	'role_add_name'						=>	'角色添加',
+	'role_edit_name'					=>	'角色编辑',
 );
 ?>
