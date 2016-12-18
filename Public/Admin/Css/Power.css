@@ -19,7 +19,7 @@
  * 角色添加/编辑
  */
 @media only screen and (min-width: 641px) {
-    form div { width: 75% !important; }
+    .role-save div { width: 75% !important; }
     .submit-delete { margin-top: 5px !important; }
 }
 @media only screen and (max-width: 641px) {
