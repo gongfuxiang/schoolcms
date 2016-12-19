@@ -38,12 +38,12 @@ class PowerController extends CommonController
 	{
 		// 获取权限列表
 		$field = array('id', 'pid', 'name', 'control', 'action', 'sort');
-		$list = M('Power')->field($field)->where(array('pid'=>0))->select();
+		$list = M('Power')->field($field)->where(array('pid'=>0))->order('sort')->select();
 		if(!empty($list))
 		{
 			foreach($list as $k=>$v)
 			{
-				$item =  M('Power')->field($field)->where(array('pid'=>$v['id']))->select();
+				$item =  M('Power')->field($field)->where(array('pid'=>$v['id']))->order('sort')->select();
 				if(!empty($item))
 				{
 					$list[$k]['item'] = $item;
@@ -172,7 +172,7 @@ class PowerController extends CommonController
 	{
 		// 角色组
 		$role = M('Role')->field(array('id', 'name', 'is_enable'))->find(I('id'));
-		$role_id = isset($role['id']) ? $role['id'] : (isset($_SESSION['user']['role_id']) ? intval($_SESSION['user']['role_id']) : 0);
+		$role_id = isset($role['id']) ? $role['id'] : $this->user['role_id'];
 		$power = array();
 		if($role_id > 0)
 		{

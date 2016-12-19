@@ -5,7 +5,7 @@
 .tree-list li label { display: inline; }
 .list-find { margin: 0px 0px 5px 35px; }
 .tree-list i { width: 10px; }
-.list-find li { line-height: 22px; }
+.list-find li { line-height: 26px; }
 .list-find span { font-weight: normal; }
 .tree-list li { border-bottom:1px dashed #d3ebf7; background: #f5fafd; padding: 6px 0px; }
 .list-find li:last-child { border-bottom:1px; }
@@ -20,8 +20,8 @@
  */
 @media only screen and (min-width: 641px) {
     .role-save div { width: 75% !important; }
-    .submit-delete { margin-top: 5px !important; }
+    
 }
 @media only screen and (max-width: 641px) {
-    .submit-delete { margin-top: 5px; }
+    .role-list .submit-delete { margin-top: 5px; display: block !important; }
 }

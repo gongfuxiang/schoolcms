@@ -12,6 +12,12 @@ use Think\Controller;
  */
 class CommonController extends Controller
 {
+	// 用户
+	protected $user;
+
+	// 权限
+	protected $power;
+
 	/**
 	 * [__construt 构造方法]
 	 * @author   Devil
@@ -83,6 +89,12 @@ class CommonController extends Controller
 			} else {
 				redirect(U('Admin/Admin/LoginInfo'));
 			}
+		} else {
+			// 用户
+			$this->user = I('session.user');
+
+			// 权限
+			$this->PowerInit();
 		}
 	}
 
@@ -100,7 +112,21 @@ class CommonController extends Controller
 		$this->assign('module_css', file_exists(ROOT_PATH.'Public'.DS.$module_css) ? $module_css : '');
 		$module_js = MODULE_NAME.DS.'Js'.DS.CONTROLLER_NAME.'.js';
 		$this->assign('module_js', file_exists(ROOT_PATH.'Public'.DS.$module_js) ? $module_js : '');
+	}
 
+	/**
+	 * [PowerInit 权限初始化]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-19T22:41:20+0800
+	 */
+	private function PowerInit()
+	{
+		$p = M('Power');
+		$list = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$this->user['role_id']))->field(array('p.id', 'p.name', 'p.control', 'p.action'))->select();
+
+		//print_r($list);
 	}
 }
 ?>
