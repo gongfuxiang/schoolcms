@@ -35,7 +35,7 @@ class PowerModel extends CommonModel
 	public function CheckName()
 	{
 		$len = Utf8Strlen(I('name'));
-		return ($len >= 2 && $len <= 8);
+		return ($len >= 2 && $len <= 16);
 	}
 
 	/**

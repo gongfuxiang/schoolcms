@@ -2,136 +2,27 @@
 	<div class="am-offcanvas-bar admin-offcanvas-bar">
 		<ul class="am-list admin-sidebar-list">
 			<li>
-				<a href="index.html">
-					<i class="am-icon-home"></i>
-					首页
-				</a>
+				<a href="{{:U('Admin/Index/Index')}}">首页</a>
 			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}">
-					<i class="am-icon-table"></i>
-					权限控制
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
-					<li>
-						<a href="{{:U('Admin/Admin/Index')}}" class="am-cf">管理员列表</a>
-					</li>
-					<li>
-						<a href="{{:U('Admin/Power/Role')}}">角色管理</a>
-					</li>
-					<li>
-						<a href="{{:U('Admin/Power/Index')}}">权限分配</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}">
-					<i class="am-icon-line-chart" aria-hidden="true"></i>
-					统计图表
-					<span class="am-icon-angle-right am-fr am-margin-right"></span>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-					<li>
-						<a href="html/chart_line.html" class="am-cf">折线图</a>
-					</li>
-					<li>
-						<a href="html/chart_columnar.html" class="am-cf">柱状图</a>
-					</li>
-					<li>
-						<a href="html/chart_pie.html" class="am-cf">饼状图</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}">
-					<i class="am-icon-file"></i>
-					表单
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-					<li>
-						<a href="html/form_basic.html" class="am-cf">基本表单</a>
-					</li>
-					<li>
-						<a href="html/form_validate.html">表单验证</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}">
-					<i class="am-icon-file"></i>
-					表单
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-					<li>
-						<a href="html/form_basic.html" class="am-cf">基本表单</a>
-					</li>
-					<li>
-						<a href="html/form_validate.html">表单验证</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}">
-					<i class="am-icon-file"></i>
-					表单
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-					<li>
-						<a href="html/form_basic.html" class="am-cf">基本表单</a>
-					</li>
-					<li>
-						<a href="html/form_validate.html">表单验证</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}">
-					<i class="am-icon-file"></i>
-					表单
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-					<li>
-						<a href="html/form_basic.html" class="am-cf">基本表单</a>
-					</li>
-					<li>
-						<a href="html/form_validate.html">表单验证</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}">
-					<i class="am-icon-file"></i>
-					表单
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-					<li>
-						<a href="html/form_basic.html" class="am-cf">基本表单</a>
-					</li>
-					<li>
-						<a href="html/form_validate.html">表单验证</a>
-					</li>
-				</ul>
-			</li>
-			<li class="admin-parent">
-				<a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}">
-					<i class="am-icon-file"></i>
-					表单
-					<i class="am-icon-angle-right am-fr am-margin-right"></i>
-				</a>
-				<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-					<li>
-						<a href="html/form_basic.html" class="am-cf">基本表单</a>
-					</li>
-					<li>
-						<a href="html/form_validate.html">表单验证</a>
-					</li>
-				</ul>
+			<foreach name="left_menu" item="v">
+				<li class="admin-parent">
+					<a class="am-cf" data-am-collapse="{target: '#power-menu-{{$v.id}}'}">
+						{{$v.name}}
+						<i class="am-icon-angle-right am-fr am-margin-right"></i>
+					</a>
+					<if condition="empty($data['id'])">
+						<ul class="am-list am-collapse admin-sidebar-sub am-in" id="power-menu-{{$v.id}}">
+							<foreach name="v.item" item="vs">
+								<li>
+									<a href="{{$vs.url}}" class="am-cf">{{$vs.name}}</a>
+								</li>
+							</foreach>
+						</ul>
+					</if>
+				</li>
+			</foreach>
+			<li>
+				<a href="index.html">一级菜单</a>
 			</li>
 		</ul>
 	</div>

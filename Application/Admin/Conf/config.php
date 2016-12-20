@@ -11,4 +11,7 @@
 return array(
 	// URL模式
 	'URL_MODEL'          	=>	'3',
+
+	// admin是否可以操作[ok, no]
+	'close_admin_operation'	=>	'no',
 );

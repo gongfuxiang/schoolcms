@@ -87,7 +87,7 @@ class AdminController extends CommonController
 	}
 
 	/**
-     * [SaveInfo 管理员编辑及添加页面]
+     * [SaveInfo 管理员添加/编辑页面]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -118,7 +118,7 @@ class AdminController extends CommonController
 	}
 
 	/**
-     * [Save 管理员添加及编辑]
+     * [Save 管理员添加/编辑]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -131,7 +131,7 @@ class AdminController extends CommonController
 
 		if(!IS_AJAX)
 		{
-			$this->error(L('common_unauthorized_access'), -401);
+			$this->error(L('common_unauthorized_access'));
 		}
 
 		// id为空则表示是新增
@@ -203,7 +203,7 @@ class AdminController extends CommonController
 
 		if(!IS_AJAX)
 		{
-			$this->error(L('common_unauthorized_access'), -401);
+			$this->error(L('common_unauthorized_access'));
 		}
 
 		$m = D('Admin');
@@ -250,7 +250,7 @@ class AdminController extends CommonController
 		// 是否ajax请求
 		if(!IS_AJAX)
 		{
-			$this->error(L('common_unauthorized_access'), -401);
+			$this->error(L('common_unauthorized_access'));
 		}
 
 		// 登录业务处理
@@ -311,7 +311,7 @@ class AdminController extends CommonController
 	public function Logout()
 	{
 		session_destroy();
-		redirect(U('Admin/Index/Index'));
+		redirect(U('Admin/Admin/LoginInfo'));
 	}
 }
 ?>

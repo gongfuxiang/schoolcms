@@ -18,6 +18,9 @@ class CommonController extends Controller
 	// 权限
 	protected $power;
 
+	// 左边权限菜单
+	protected $left_menu;
+
 	/**
 	 * [__construt 构造方法]
 	 * @author   Devil
@@ -30,6 +33,9 @@ class CommonController extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 权限
+		$this->PowerInit();
+
 		// 视图初始化
 		$this->ViewInit();
 	}
@@ -52,9 +58,8 @@ class CommonController extends Controller
 		{
 			if(isset($msg['info']))
 			{
-				// success模式下code=0, error模式下使用url为code参数, error模式下未指定code默认-1
-				$code = (isset($msg['status']) && $msg['status'] == 1) ? 0 : (empty($msg['url']) ? -1 : $msg['url']);
-				$data = array('msg'=>$msg['info'], 'code'=>$code, 'data'=>'');
+				// success模式下code=0, error模式下code参数-1
+				$data = array('msg'=>$msg['info'], 'code'=>-1, 'data'=>'');
 			}
 		}
 		
@@ -83,18 +88,10 @@ class CommonController extends Controller
 	{
 		if(empty($_SESSION['user']))
 		{
-			if(IS_AJAX)
-			{
-				$this->ajaxReturn(L('common_login_invalid'), -400);
-			} else {
-				redirect(U('Admin/Admin/LoginInfo'));
-			}
+			$this->error(L('common_login_invalid'), U('Admin/Admin/LoginInfo'));
 		} else {
 			// 用户
 			$this->user = I('session.user');
-
-			// 权限
-			$this->PowerInit();
 		}
 	}
 
@@ -112,6 +109,9 @@ class CommonController extends Controller
 		$this->assign('module_css', file_exists(ROOT_PATH.'Public'.DS.$module_css) ? $module_css : '');
 		$module_js = MODULE_NAME.DS.'Js'.DS.CONTROLLER_NAME.'.js';
 		$this->assign('module_js', file_exists(ROOT_PATH.'Public'.DS.$module_js) ? $module_js : '');
+
+		// 权限菜单
+		$this->assign('left_menu', $this->left_menu);
 	}
 
 	/**
@@ -123,10 +123,76 @@ class CommonController extends Controller
 	 */
 	private function PowerInit()
 	{
-		$p = M('Power');
-		$list = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$this->user['role_id']))->field(array('p.id', 'p.name', 'p.control', 'p.action'))->select();
+		$role_id = isset($_SESSION['user']['role_id']) ? $_SESSION['user']['role_id'] : 0;
+		if(!empty($role_id) && empty($_SESSION['left_menu']))
+		{
+			$p = M('Power');
+			$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_view');
+			$this->left_menu = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$role_id, 'p.pid'=>0))->field($field)->order('p.sort')->select();
+			if(!empty($this->left_menu))
+			{
+				foreach($this->left_menu as $k=>$v)
+				{
+					// 权限
+					$this->power[$v['id']] = $v['control'].'_'.$v['action'];
 
-		//print_r($list);
+					// 获取子权限
+					$item = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$role_id, 'p.pid'=>$v['id']))->field($field)->order('p.sort')->select();
+
+					// 权限列表
+					if(!empty($item))
+					{
+						foreach($item as $ks=>$vs)
+						{
+							// 权限
+							$this->power[$vs['id']] = $vs['control'].'_'.$vs['action'];
+
+							// 是否显示视图
+							if($vs['is_view'] == 1)
+							{
+								// url
+								$item[$ks]['url'] = U('Admin/'.$vs['control'].'/'.$vs['action']);
+							} else {
+								unset($item[$ks]);
+							}
+						}
+					}
+
+					// 是否显示视图
+					if($v['is_view'] == 1)
+					{
+						// url
+						$this->left_menu[$k]['url'] = U('Admin/'.$v['control'].'/'.$v['action']);
+
+						// 子级
+						$this->left_menu[$k]['item'] = $item;
+					} else {
+						unset($this->left_menu[$k]);
+					}
+				}
+			}
+			// 存储session
+			$_SESSION['left_menu'] 	=	$this->left_menu;
+			$_SESSION['power'] 		=	$this->power;
+		} else {
+			$this->left_menu 	=	I('session.left_menu');
+			$this->power 		=	I('session.power');
+		}
+	}
+
+	/**
+	 * [Is_Power 是否有权限]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-20T19:18:29+0800
+	 */
+	protected function Is_Power()
+	{
+		if(!in_array(CONTROLLER_NAME.'_'.ACTION_NAME, $this->power))
+		{
+			$this->error(L('common_there_is_no_power'));
+		}
 	}
 }
 ?>

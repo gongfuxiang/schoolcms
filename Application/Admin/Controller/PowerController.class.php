@@ -25,6 +25,9 @@ class PowerController extends CommonController
 
 		// 登录校验
 		$this->Is_Login();
+
+		// 权限校验
+		$this->Is_Power();
 	}
 
 	/**
@@ -66,7 +69,7 @@ class PowerController extends CommonController
 		// 是否ajax请求
 		if(!IS_AJAX)
 		{
-			$this->error(L('common_unauthorized_access'), -401);
+			$this->error(L('common_unauthorized_access'));
 		}
 
 		// id为空则表示是新增
@@ -121,7 +124,7 @@ class PowerController extends CommonController
 	{
 		if(!IS_AJAX)
 		{
-			$this->error(L('common_unauthorized_access'), -401);
+			$this->error(L('common_unauthorized_access'));
 		}
 
 		$m = D('Power');
@@ -162,7 +165,7 @@ class PowerController extends CommonController
 	}
 
 	/**
-	 * [RoleSaveInfo 角色组编辑和添加页面]
+	 * [RoleSaveInfo 角色组添加/编辑页面]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -209,7 +212,7 @@ class PowerController extends CommonController
 	}
 
 	/**
-	 * [RoleSave 角色组编辑和添加]
+	 * [RoleSave 角色组添加/编辑]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -220,7 +223,7 @@ class PowerController extends CommonController
 		// 是否ajax请求
 		if(!IS_AJAX)
 		{
-			$this->error(L('common_unauthorized_access'), -401);
+			$this->error(L('common_unauthorized_access'));
 		}
 
 		// 添加
@@ -230,7 +233,7 @@ class PowerController extends CommonController
 
 		// 编辑
 		} else {
-			if(I('id') == 1)
+			if(I('id') == 1 && C('close_admin_operation') == 'ok')
 			{
 				$this->error(L('common_do_not_operate'), -10);
 			} else {

@@ -35,6 +35,7 @@ return array(
 	'common_success'					=>	'正确',
 	'common_error'						=>	'错误',
 	'common_username_already_exist'		=>	'帐号已经存在',
+	'common_there_is_no_power'			=>	'无权限',
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',
