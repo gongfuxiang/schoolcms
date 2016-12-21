@@ -9,6 +9,18 @@
  */
 
 /**
+ * [EmptyMyCache 清空我的缓存数据]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-21T19:25:57+0800
+ */
+function EmptyMyCache()
+{
+    
+}
+
+/**
  * [Utf8Strlen 计算符串长度（中英文一致）]
  * @author   Devil
  * @blog     http://gong.gg/

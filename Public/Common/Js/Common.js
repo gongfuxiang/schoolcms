@@ -257,7 +257,14 @@ function FormDataFill(json)
 		$form = $('form.form-validation');
 		for(var i in json)
 		{
-			$form.find('*[name="'+i+'"]').val(json[i]);
+			$form.find('input[type="hidden"][name="'+i+'"], input[type="text"][name="'+i+'"], input[type="password"][name="'+i+'"], input[type="email"][name="'+i+'"], input[type="number"][name="'+i+'"], input[type="date"][name="'+i+'"], textarea[name="'+i+'"], select[name="'+i+'"]').val(json[i]);
+
+			// input radio
+			$form.find('input[type="radio"][name="'+i+'"]').each(function(value, tag)
+			{
+				var state = (json[i] == value);
+				this.checked = state;
+			});
 		}
 	}
 }

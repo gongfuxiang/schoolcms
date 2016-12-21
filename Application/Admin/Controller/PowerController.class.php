@@ -40,7 +40,7 @@ class PowerController extends CommonController
 	public function Index()
 	{
 		// 获取权限列表
-		$field = array('id', 'pid', 'name', 'control', 'action', 'sort');
+		$field = array('id', 'pid', 'name', 'control', 'action', 'sort', 'is_show');
 		$list = M('Power')->field($field)->where(array('pid'=>0))->order('sort')->select();
 		if(!empty($list))
 		{
@@ -53,6 +53,7 @@ class PowerController extends CommonController
 				}
 			}
 		}
+		$this->assign('common_is_show_list', L('common_is_show_list'));
 		$this->assign('list', $list);
 		$this->display();
 	}
@@ -184,7 +185,8 @@ class PowerController extends CommonController
 
 			// 权限列表
 			$m = M('Power');
-			$power = $m->field(array('id', 'name'))->where(array('pid'=>0))->select();
+			$power_field = array('id', 'name', 'is_show');
+			$power = $m->field($power_field)->where(array('pid'=>0))->order('sort')->select();
 			if(!empty($power))
 			{
 				foreach($power as $k=>$v)
@@ -193,7 +195,7 @@ class PowerController extends CommonController
 					$power[$k]['is_power'] = in_array($v['id'], $action) ? 'ok' : 'no';
 
 					// 获取子权限
-					$item =  $m->field(array('id', 'name'))->where(array('pid'=>$v['id']))->select();
+					$item =  $m->field($power_field)->where(array('pid'=>$v['id']))->order('sort')->select();
 					if(!empty($item))
 					{
 						foreach($item as $ks=>$vs)
@@ -295,6 +297,10 @@ class PowerController extends CommonController
 			{
 				// 提交事务
 				$r->commit();
+
+				// 清空缓存目录下的数据
+				EmptyMyCache();
+
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
 				// 回滚事务
@@ -365,6 +371,10 @@ class PowerController extends CommonController
 			{
 				// 提交事务
 				$r->commit();
+
+				// 清空缓存目录下的数据
+				EmptyMyCache();
+
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {
 				// 回滚事务

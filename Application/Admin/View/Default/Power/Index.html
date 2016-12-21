@@ -55,6 +55,7 @@
 								<label>{{:L('power_sort_text')}}：</label>
 								<input type="number" placeholder="{{:L('power_sort_text')}}" name="sort" pattern="{{:L('common_regex_sort')}}" data-validation-message="{{:L('power_sort_format')}}" class="am-radius" value="0" required />
 							</div>
+							<include file="Lib/IsShow" />
 							<div class="am-form-group">
 								<input type="hidden" name="id" />
 								<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
@@ -67,7 +68,7 @@
 	        <!-- content start -->
 			<ul class="tree-list p-0 m-t-15">
 				<foreach name="list" item="v">
-					<li id="data-list-{{$v.id}}">
+					<li id="data-list-{{$v.id}}" <if condition="$v['is_show'] eq 0">class="bk-cr-gray"</if>>
 						<if condition="!empty($v['item'])">
 							<i class="am-icon-minus-square c-p m-r-5"></i>
 							<label class="c-p">
@@ -86,7 +87,7 @@
 					<if condition="!empty($v['item'])">
 						<ul class="list-find p-0 m-t-5">
 							<foreach name="v.item" item="vs">
-								<li id="data-list-{{$vs.id}}">
+								<li id="data-list-{{$vs.id}}" <if condition="$vs['is_show'] eq 0">class="bk-cr-gray"</if>>
 									<label class="c-p">
 										<span>{{$vs.name}}</span>
 									</label>

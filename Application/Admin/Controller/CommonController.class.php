@@ -123,11 +123,19 @@ class CommonController extends Controller
 	 */
 	private function PowerInit()
 	{
-		$role_id = isset($_SESSION['user']['role_id']) ? $_SESSION['user']['role_id'] : 0;
-		if(!empty($role_id) && empty($_SESSION['left_menu']))
+		// 基础参数
+		$admin_id = isset($_SESSION['user']['id']) ? intval($_SESSION['user']['id']) : 0;
+		$role_id = isset($_SESSION['user']['role_id']) ? intval($_SESSION['user']['role_id']) : 0;
+
+		// 读取缓存数据
+		$this->left_menu = S('left_menu');
+		$this->power = S('power_'.$admin_id);
+
+		// 缓存没数据则从数据库重新读取
+		if($role_id > 0 && empty($this->left_menu))
 		{
 			$p = M('Power');
-			$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_view');
+			$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_show');
 			$this->left_menu = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$role_id, 'p.pid'=>0))->field($field)->order('p.sort')->select();
 			if(!empty($this->left_menu))
 			{
@@ -148,7 +156,7 @@ class CommonController extends Controller
 							$this->power[$vs['id']] = $vs['control'].'_'.$vs['action'];
 
 							// 是否显示视图
-							if($vs['is_view'] == 1)
+							if($vs['is_show'] == 1)
 							{
 								// url
 								$item[$ks]['url'] = U('Admin/'.$vs['control'].'/'.$vs['action']);
@@ -159,7 +167,7 @@ class CommonController extends Controller
 					}
 
 					// 是否显示视图
-					if($v['is_view'] == 1)
+					if($v['is_show'] == 1)
 					{
 						// url
 						$this->left_menu[$k]['url'] = U('Admin/'.$v['control'].'/'.$v['action']);
@@ -171,12 +179,8 @@ class CommonController extends Controller
 					}
 				}
 			}
-			// 存储session
-			$_SESSION['left_menu'] 	=	$this->left_menu;
-			$_SESSION['power'] 		=	$this->power;
-		} else {
-			$this->left_menu 	=	I('session.left_menu');
-			$this->power 		=	I('session.power');
+			S('left_menu', $this->left_menu);
+			S('power_'.$admin_id, $this->power);
 		}
 	}
 

@@ -10,7 +10,7 @@
 						{{$v.name}}
 						<i class="am-icon-angle-right am-fr am-margin-right"></i>
 					</a>
-					<if condition="empty($data['id'])">
+					<if condition="!empty($v['item'])">
 						<ul class="am-list am-collapse admin-sidebar-sub am-in" id="power-menu-{{$v.id}}">
 							<foreach name="v.item" item="vs">
 								<li>

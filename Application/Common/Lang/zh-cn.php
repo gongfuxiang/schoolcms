@@ -63,6 +63,7 @@ return array(
 	'common_view_enable_title'			=>	'是否启用',
 	'common_view_name_title'			=>	'名称',
 	'common_view_state_title'			=>	'状态',
+	'common_view_is_show_title'			=>	'是否显示',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -84,6 +85,12 @@ return array(
 	'common_is_enable_list'				=>	array(
 			0 => array('id' => 0, 'name' => '不启用'),
 			1 => array('id' => 1, 'name' => '启用', 'checked' => true),
+		),
+
+	// 是否显示
+	'common_is_show_list'				=>	array(
+			0 => array('id' => 0, 'name' => '不显示'),
+			1 => array('id' => 1, 'name' => '显示', 'checked' => true),
 		),
 
 	// 色彩值

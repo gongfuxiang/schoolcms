@@ -20,16 +20,6 @@ return array(
 	// 开启session
 	'SESSION_AUTO_START' 	=>	true,
 
-	// 设置默认的模板主题
-	'DEFAULT_THEME'       	=>  'Default',
-
-	// 模板静态文件后缀
-	'TMPL_TEMPLATE_SUFFIX'	=>	'.html',
-
-	// 模板定界符
-	'TMPL_L_DELIM'			=>	'{{',
-	'TMPL_R_DELIM'			=>	'}}',
-
 	// 开启语言包功能
 	'LANG_SWITCH_ON'		=>	true,
 
@@ -44,6 +34,18 @@ return array(
 
 	// 默认参数过滤方法 用于I函数
 	'DEFAULT_FILTER'		=>	'htmlspecialchars',
+	
+
+	// ------ 模板 start ------ //
+	// 设置默认的模板主题
+	'DEFAULT_THEME'       	=>  'Default',
+
+	// 模板静态文件后缀
+	'TMPL_TEMPLATE_SUFFIX'	=>	'.html',
+
+	// 模板定界符
+	'TMPL_L_DELIM'			=>	'{{',
+	'TMPL_R_DELIM'			=>	'}}',
 
 	// 错误显示信息,非调试模式有效
 	'ERROR_MESSAGE'			=>	'页面错误！请稍后再试～',
@@ -53,4 +55,32 @@ return array(
 
 	// 默认成功跳转对应的模板文件
 	'TMPL_ACTION_SUCCESS'	=>	'Public:JumpSuccess',
+	// ------ 模板 end ------ //
+
+
+	// ------ 缓存 start ------ //
+	// 数据缓存有效期 0表示永久缓存
+	'DATA_CACHE_TIME'		=>	0,
+
+	// 数据缓存是否压缩缓存
+	'DATA_CACHE_COMPRESS'	=>	false,
+
+	// 数据缓存是否校验缓存
+	'DATA_CACHE_CHECK'		=>	false,
+
+	// 缓存前缀
+	'DATA_CACHE_PREFIX'		=>	'',
+
+	// 数据缓存类型,支持:File|Db|Apc|Memcache|Shmop|Sqlite|Xcache|Apachenote|Eaccelerator
+	'DATA_CACHE_TYPE'		 =>	'File',
+
+	// 缓存路径设置 (仅对File方式缓存有效)
+	'DATA_CACHE_PATH'		=>	RUNTIME_PATH.'My'.DS,
+
+	// 使用子目录缓存 (自动根据缓存标识的哈希创建子目录)
+	'DATA_CACHE_SUBDIR'		=>	false,
+
+	// 子目录缓存级别
+	'DATA_PATH_LEVEL'		=>	1,
+	// ------ 缓存 end ------ //
 );

@@ -40,7 +40,7 @@ $('.submit-add').on('click', function()
 	$title.text($title.data('add-title'));
 
 	// 清空表单
-	FormDataFill({"id":"", "pid":0, "name":"", "control":"", "action":"", "sort":0});
+	FormDataFill({"id":"", "pid":0, "name":"", "control":"", "action":"", "sort":0, "is_show":1});
 
 	// 设置菜单可选状态
 	$('form select[name="pid"]').removeAttr('disabled');

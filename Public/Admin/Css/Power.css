@@ -9,7 +9,7 @@
 .list-find span { font-weight: normal; }
 .tree-list li { border-bottom:1px dashed #d3ebf7; background: #f5fafd; padding: 6px 0px; }
 .list-find li:last-child { border-bottom:1px; }
-.list-find li { background: #ecf8ff !important; }
+.list-find li { background: #ecf8ff; }
 @media only screen and (min-width: 641px) {
 	.list-submit, .find-submit { display: none; }
 	.list-find li:hover .find-submit, .tree-list li:hover .list-submit { display: block !important; }
