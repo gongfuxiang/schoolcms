@@ -16,6 +16,11 @@
 }
 
 /**
+ * 角色列表
+ */
+.power-text { width: 45%; }
+
+/**
  * 角色添加/编辑
  */
 @media only screen and (min-width: 641px) {
