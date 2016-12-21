@@ -9,15 +9,36 @@
  */
 
 /**
- * [EmptyMyCache 清空我的缓存数据]
+ * [EmptyDir 清空目录下所有文件]
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-21T19:25:57+0800
+ * @param    [string]    $dir_path [目录地址]
+ * @return   [boolean]             [成功true, 失败false]
  */
-function EmptyMyCache()
+function EmptyDir($dir_path)
 {
-    
+    if(is_dir($dir_path))
+    {
+        $dn = @opendir($dir_path);
+        if($dn !== false)
+        {
+            while(false !== ($file = readdir($dn)))
+            {
+                if($file != '.' && $file != '..')
+                {
+                    if(!unlink($dir_path.$file))
+                    {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+    return true;
 }
 
 /**

@@ -33,6 +33,9 @@ class AdminController extends CommonController
      */
 	public function Index()
 	{
+		// 权限校验
+		$this->Is_Power();
+
 		// 参数
 		$param = array_merge($_POST, $_GET);
 
@@ -58,6 +61,8 @@ class AdminController extends CommonController
 		// 获取管理员列表
 		$list = $m->field(array('id', 'username', 'mobile', 'gender', 'login_total', 'login_time', 'add_time'))->where($where)->limit($page->GetPageStarNumber(), $number)->select();
 		
+		$role = M('Role')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
+		$this->assign('role', $role);
 		$this->assign('param', $param);
 		$this->assign('page_html', $page->GetPageHtml());
 		$this->assign('list', $list);
@@ -98,11 +103,14 @@ class AdminController extends CommonController
 		// 登录校验
 		$this->Is_Login();
 
+		// 权限校验
+		$this->Is_Power();
+
 		// 用户编辑
 		$id = I('id');
 		if($id > 0)
 		{
-			$user =  M('Admin')->where(array('id'=>$id))->field(array('id', 'username', 'mobile', 'gender'))->find();
+			$user =  M('Admin')->where(array('id'=>$id))->field(array('id', 'username', 'mobile', 'gender', 'role_id'))->find();
 			if(empty($user))
 			{
 				$this->error(L('login_username_no_exist'), U('Admin/Index/Index'));
@@ -112,6 +120,8 @@ class AdminController extends CommonController
 			$this->assign('user', $user);
 		}
 
+		$role = M('Role')->field(array('id', 'name'))->where(array('is_enable'=>1, 'id'=>array('gt', 1)))->select();
+		$this->assign('role', $role);
 		$this->assign('id', $id);
 		$this->assign('common_gender_list', L('common_gender_list'));
 		$this->display();
@@ -128,6 +138,9 @@ class AdminController extends CommonController
 	{
 		// 登录校验
 		$this->Is_Login();
+
+		// 权限校验
+		$this->Is_Power();
 
 		if(!IS_AJAX)
 		{
@@ -162,7 +175,7 @@ class AdminController extends CommonController
 				{
 					$this->ajaxReturn(L('common_operation_unauthorized'), -2);
 				}
-				if($value_md5 == md5(I('id').I('username').I('mobile').I('gender').I('login_pwd')))
+				if($value_md5 == md5(I('id').I('username').I('mobile').I('gender').I('login_pwd').I('role_id')))
 				{
 					$this->ajaxReturn(L('common_value_not_change'), -3);
 				}
@@ -200,6 +213,9 @@ class AdminController extends CommonController
 	{
 		// 登录校验
 		$this->Is_Login();
+
+		// 权限校验
+		$this->Is_Power();
 
 		if(!IS_AJAX)
 		{

@@ -38,6 +38,15 @@
 					<label>{{:L('common_mobile_name')}}：</label>
 					<input type="text" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" class="am-radius" <present name="user"> value="{{$user.mobile}}"</present> />
 				</div>
+				<div class="am-form-group">
+					<label>{{:L('admin_view_role_name')}}：</label>
+					<select  class="am-radius c-p" name="role_id" data-validation-message="{{:L('login_role_id_format')}}" required>
+						<option value="">{{:L('common_select_can_choose')}}</option>
+						<foreach name="role" item="v">
+							<option value="{{$v.id}}" <if condition="isset($user['role_id']) and $user['role_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
+					</select>
+				</div>
 				<include file="Lib/Gender" />
 				<div class="am-form-group">
 					<input type="hidden" name="id" <present name="id"> value="{{$id}}"</present>" />

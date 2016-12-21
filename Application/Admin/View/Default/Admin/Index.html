@@ -17,12 +17,11 @@
 			<!-- form start -->
 			<form class="am-form admin-list" action="{{:U('Admin/Admin/Index')}}" method="POST">
 				<div class="am-g">
-					<select  class="am-radius" name="role_id">
-						<option value="">可选择...</option>
-						<option value="a">Apple</option>
-						<option value="b">Banana</option>
-						<option value="o">Orange</option>
-						<option value="m">Mango</option>
+					<select  class="am-radius c-p" name="role_id">
+						<option value="">{{:L('common_select_can_choose')}}</option>
+						<foreach name="role" item="v">
+							<option value="{{$v.id}}" <if condition="isset($param['role_id']) and $param['role_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
 					</select>
 					<input type="text" class="am-radius" placeholder="{{:L('login_username_text')}}" name="username" <present name="param['username']"> value="{{$param.username}}"</present> />
 					<button type="submit" class="am-btn am-btn-secondary am-btn-sm am-radius">{{:L('common_operation_query')}}</button>

@@ -32,8 +32,8 @@
 						<form class="am-form form-validation admin-save" action="{{:U('Admin/Power/PowerSave')}}" method="POST" request-type="ajax-reload" request-value="">
 							<div class="am-form-group">
 								<label>{{:L('power_level_text')}}：</label>
-								<select  class="am-radius" name="pid" data-validation-message="{{:L('power_level_format')}}">
-									<option value="0">一级栏目...</option>
+								<select  class="am-radius c-p" name="pid" data-validation-message="{{:L('power_level_format')}}">
+									<option value="0">{{:L('common_select_level_one_choice')}}</option>
 									<foreach name="list" item="v">
 										<option value="{{$v.id}}">{{$v.name}}</option>
 									</foreach>

@@ -299,7 +299,7 @@ class PowerController extends CommonController
 				$r->commit();
 
 				// 清空缓存目录下的数据
-				EmptyMyCache();
+				EmptyDir(C('DATA_CACHE_PATH'));
 
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
@@ -373,7 +373,7 @@ class PowerController extends CommonController
 				$r->commit();
 
 				// 清空缓存目录下的数据
-				EmptyMyCache();
+				EmptyDir(C('DATA_CACHE_PATH'));
 
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {
