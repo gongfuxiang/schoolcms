@@ -14,14 +14,14 @@ return array(
 	// 默认模块
 	'DEFAULT_MODULE'     	=>	'Home',
 
+	// 默认控制器名称
+	'DEFAULT_CONTROLLER'	=>	'Index',
+
+	// 默认操作名称
+	'DEFAULT_ACTION'		=>	'Index',
+
 	// URL模式
 	'URL_MODEL'          	=>	'2',
-
-	// 开启session
-	'SESSION_AUTO_START' 	=>	true,
-
-	// 开启语言包功能
-	'LANG_SWITCH_ON'		=>	true,
 
 	// 默认语言
 	'DEFAULT_LANG'          =>	'zh-cn',
@@ -29,12 +29,18 @@ return array(
 	// 默认输出编码
 	'DEFAULT_CHARSET'		=>	'utf-8',
 
+	// 开启session
+	'SESSION_AUTO_START' 	=>	true,
+
+	// 开启语言包功能
+	'LANG_SWITCH_ON'		=>	true,
+
 	// 默认AJAX 数据返回格式,可选JSON XML
 	'DEFAULT_AJAX_RETURN'	=>	'JSON',
 
 	// 默认参数过滤方法 用于I函数
 	'DEFAULT_FILTER'		=>	'htmlspecialchars',
-	
+
 
 	// ------ 模板 start ------ //
 	// 设置默认的模板主题

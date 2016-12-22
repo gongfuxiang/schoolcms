@@ -156,11 +156,8 @@ class CommonController extends Controller
 							$this->power[$vs['id']] = $vs['control'].'_'.$vs['action'];
 
 							// 是否显示视图
-							if($vs['is_show'] == 1)
+							if($vs['is_show'] == 0)
 							{
-								// url
-								$item[$ks]['url'] = U('Admin/'.$vs['control'].'/'.$vs['action']);
-							} else {
 								unset($item[$ks]);
 							}
 						}
@@ -169,9 +166,6 @@ class CommonController extends Controller
 					// 是否显示视图
 					if($v['is_show'] == 1)
 					{
-						// url
-						$this->left_menu[$k]['url'] = U('Admin/'.$v['control'].'/'.$v['action']);
-
 						// 子级
 						$this->left_menu[$k]['item'] = $item;
 					} else {

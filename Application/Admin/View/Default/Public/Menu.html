@@ -5,25 +5,26 @@
 				<a href="{{:U('Admin/Index/Index')}}">首页</a>
 			</li>
 			<foreach name="left_menu" item="v">
-				<li class="admin-parent">
-					<a class="am-cf" data-am-collapse="{target: '#power-menu-{{$v.id}}'}">
-						{{$v.name}}
-						<i class="am-icon-angle-right am-fr am-margin-right"></i>
-					</a>
-					<if condition="!empty($v['item'])">
+				<if condition="empty($v['item'])">
+					<li>
+						<a href="{{:U('Admin/'.$v['control'].'/'.$v['action'])}}">{{$vs.name}}</a>
+					</li>
+				<else />
+					<li class="admin-parent">
+						<a class="am-cf" data-am-collapse="{target: '#power-menu-{{$v.id}}'}">
+							{{$v.name}}
+							<i class="am-icon-angle-right am-fr am-margin-right"></i>
+						</a>
 						<ul class="am-list am-collapse admin-sidebar-sub am-in" id="power-menu-{{$v.id}}">
 							<foreach name="v.item" item="vs">
 								<li>
-									<a href="{{$vs.url}}" class="am-cf">{{$vs.name}}</a>
+									<a href="{{:U('Admin/'.$vs['control'].'/'.$vs['action'])}}" class="am-cf">{{$vs.name}}</a>
 								</li>
 							</foreach>
 						</ul>
-					</if>
-				</li>
+					</li>
+				</if>
 			</foreach>
-			<li>
-				<a href="index.html">一级菜单</a>
-			</li>
 		</ul>
 	</div>
 </div>
