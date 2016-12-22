@@ -178,3 +178,7 @@ ul {
   padding-top: 30px !important;
   background: #FFF !important;
 }
+.common-left-menu a:hover, .common-left-menu-active {
+  background: #ececec;
+  color: #333 !important;
+}

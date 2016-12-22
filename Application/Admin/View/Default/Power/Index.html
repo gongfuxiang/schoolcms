@@ -68,7 +68,7 @@
 	        <!-- content start -->
 			<ul class="tree-list p-0 m-t-15">
 				<foreach name="list" item="v">
-					<li id="data-list-{{$v.id}}" <if condition="$v['is_show'] eq 0">class="bk-cr-gray"</if>>
+					<li id="data-list-{{$v.id}}" <if condition="$v['is_show'] eq 0">class="bk-cr-ffd"</if>>
 						<if condition="!empty($v['item'])">
 							<i class="am-icon-minus-square c-p m-r-5"></i>
 							<label class="c-p">
@@ -87,7 +87,7 @@
 					<if condition="!empty($v['item'])">
 						<ul class="list-find p-0 m-t-5">
 							<foreach name="v.item" item="vs">
-								<li id="data-list-{{$vs.id}}" <if condition="$vs['is_show'] eq 0">class="bk-cr-gray"</if>>
+								<li id="data-list-{{$vs.id}}" <if condition="$vs['is_show'] eq 0">class="bk-cr-ffd"</if>>
 									<label class="c-p">
 										<span>{{$vs.name}}</span>
 									</label>

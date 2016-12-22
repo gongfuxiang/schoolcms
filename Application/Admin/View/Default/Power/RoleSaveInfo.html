@@ -35,7 +35,7 @@
 					<label>{{:L('power_view_have_title')}}：</label>
 					<ul class="tree-list p-0">
 						<foreach name="power" item="v">
-							<li <if condition="$v['is_show'] eq 0">class="bk-cr-gray"</if>>
+							<li <if condition="$v['is_show'] eq 0">class="bk-cr-ffd"</if>>
 								<if condition="!empty($v['item'])">
 									<i class="am-icon-minus-square c-p m-r-5"></i>
 									<label class="c-p">
@@ -49,7 +49,7 @@
 							<if condition="!empty($v['item'])">
 								<ul class="list-find p-0 m-t-5">
 									<foreach name="v.item" item="vs">
-										<li <if condition="$vs['is_show'] eq 0">class="bk-cr-gray"</if>>
+										<li <if condition="$vs['is_show'] eq 0">class="bk-cr-ffd"</if>>
 											<label class="c-p">
 												<input type="checkbox" name="power_id" value="{{$vs.id}}" <if condition="$vs['is_power'] eq 'ok'">checked</if> />
 												<span>{{$vs.name}}</span>
