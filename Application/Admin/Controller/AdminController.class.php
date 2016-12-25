@@ -33,6 +33,9 @@ class AdminController extends CommonController
      */
 	public function Index()
 	{
+		// 登录校验
+		$this->Is_Login();
+		
 		// 权限校验
 		$this->Is_Power();
 
@@ -103,8 +106,12 @@ class AdminController extends CommonController
 		// 登录校验
 		$this->Is_Login();
 
-		// 权限校验
-		$this->Is_Power();
+		// 不是操作自己的情况下
+		if(I('id') != $this->admin['id'])
+		{
+			// 权限校验
+			$this->Is_Power();
+		}
 
 		// 用户编辑
 		$id = I('id');
@@ -115,9 +122,7 @@ class AdminController extends CommonController
 			{
 				$this->error(L('login_username_no_exist'), U('Admin/Index/Index'));
 			}
-			$value_md5 = md5(implode(array_values($user)));
-			$this->assign('value_md5', $value_md5);
-			$this->assign('user', $user);
+			$this->assign('data', $user);
 		}
 
 		$role = M('Role')->field(array('id', 'name'))->where(array('is_enable'=>1, 'id'=>array('gt', 1)))->select();
@@ -139,67 +144,102 @@ class AdminController extends CommonController
 		// 登录校验
 		$this->Is_Login();
 
-		// 权限校验
-		$this->Is_Power();
-
 		if(!IS_AJAX)
 		{
 			$this->error(L('common_unauthorized_access'));
 		}
 
+		// 不是操作自己的情况下
+		if(I('id') != $this->admin['id'])
+		{
+			// 权限校验
+			$this->Is_Power();
+		}
+
 		// id为空则表示是新增
-		$m = D('Admin');
 		if(empty(I('id')))
 		{
-			if($m->create($_POST, 1))
+			$this->AdminAdd();
+		} else {
+			$this->AdminEdit();
+		}
+	}
+
+	/**
+	 * [AdminAdd 管理员添加]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-24T22:44:28+0800
+	 */
+	private function AdminAdd()
+	{
+		$m = D('Admin');
+		if($m->create($_POST, 1))
+		{
+			// 额外数据处理
+			$m->login_salt	=	GetNumberCode(6);
+			$m->login_pwd 	=	LoginPwdEncryption($m->login_pwd, $m->login_salt);
+			$m->add_time	=	time();
+			
+			// 写入数据库
+			if($m->add())
 			{
-				// 额外数据处理
-				$m->login_salt	=	GetNumberCode(6);
-				$m->login_pwd 	=	LoginPwdEncryption($m->login_pwd, $m->login_salt);
-				$m->add_time	=	time();
-				
-				// 写入数据库
-				if($m->add())
-				{
-					$this->ajaxReturn(L('common_operation_add_success'));
-				} else {
-					$this->ajaxReturn(L('common_operation_add_error'), -100);
-				}
+				$this->ajaxReturn(L('common_operation_add_success'));
+			} else {
+				$this->ajaxReturn(L('common_operation_add_error'), -100);
 			}
 		} else {
-			if($m->create($_POST, 2))
-			{
-				// 表单value是否变化
-				$value_md5 = I('value_md5');
-				if(empty($value_md5))
-				{
-					$this->ajaxReturn(L('common_operation_unauthorized'), -2);
-				}
-				if($value_md5 == md5(I('id').I('username').I('mobile').I('gender').I('login_pwd').I('role_id')))
-				{
-					$this->ajaxReturn(L('common_value_not_change'), -3);
-				}
-
-				// 有密码，则更新密码
-				if(!empty(I('login_pwd')))
-				{
-					$m->login_salt	=	GetNumberCode(6);
-					$m->login_pwd 	=	LoginPwdEncryption($m->login_pwd, $m->login_salt);
-				}
-
-				// 移除username，不允许更新用户名
-				unset($m->username);
-
-				// 更新数据库
-				if($m->where(array('id'=>I('id')))->save())
-				{
-					$this->ajaxReturn(L('common_operation_edit_success'));
-				} else {
-					$this->ajaxReturn(L('common_operation_edit_error'), -100);
-				}
-			}
+			$this->ajaxReturn($m->getError(), -1);
 		}
-		$this->ajaxReturn($m->getError(), -1);
+	}
+
+	/**
+	 * [AdminEdit 管理员编辑]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-24T22:46:03+0800
+	 */
+	private function AdminEdit()
+	{
+		$m = D('Admin');
+		if($m->create($_POST, 2))
+		{
+			// 不能修改自身所属角色组
+			if(I('id') == $this->admin['id'])
+			{
+				unset($m->role_id);
+			}
+
+			// 有密码，则更新密码
+			if(!empty(I('login_pwd')))
+			{
+				$m->login_salt	=	GetNumberCode(6);
+				$m->login_pwd 	=	LoginPwdEncryption($m->login_pwd, $m->login_salt);
+			} else {
+				unset($m->login_pwd);
+			}
+
+			// 移除username，不允许更新用户名
+			unset($m->username);
+
+			// 更新数据库
+			if($m->where(array('id'=>I('id')))->save())
+			{
+				// 编辑自身则退出重新登录
+				if(!empty(I('login_pwd')) && I('id') == $this->admin['id'])
+				{
+					session_destroy();
+				}
+
+				$this->ajaxReturn(L('common_operation_edit_success'));
+			} else {
+				$this->ajaxReturn(L('common_operation_edit_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn($m->getError(), -1);
+		}
 	}
 
 	/**
@@ -246,7 +286,7 @@ class AdminController extends CommonController
 	public function LoginInfo()
 	{
 		// 是否已登录
-		if(!empty($_SESSION['user']))
+		if(!empty($_SESSION['admin']))
 		{
 			redirect(U('Admin/Index/Index'));
 		}
@@ -290,10 +330,10 @@ class AdminController extends CommonController
 			// 校验成功
 			// session存储
 			unset($user['login_pwd'], $user['login_salt']);
-			$_SESSION['user'] = $user;
+			$_SESSION['admin'] = $user;
 
 			// 返回数据,更新数据库
-			if(!empty($_SESSION['user']))
+			if(!empty($_SESSION['admin']))
 			{
 				$login_salt = GetNumberCode(6);
 				$data = array(
@@ -304,12 +344,15 @@ class AdminController extends CommonController
 					);
 				if($m->where(array('id'=>$user['id']))->save($data))
 				{
+					// 清空缓存目录下的数据
+					EmptyDir(C('DATA_CACHE_PATH'));
+
 					$this->ajaxReturn(L('login_login_success'));
 				}
 			}
 
 			// 失败
-			unset($_SESSION['user']);
+			unset($_SESSION['admin']);
 			$this->ajaxReturn(L('login_login_error'), -100);
 		} else {
 			// 自动验证失败

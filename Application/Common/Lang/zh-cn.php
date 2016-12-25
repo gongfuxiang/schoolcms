@@ -38,6 +38,8 @@ return array(
 	'common_there_is_no_power'			=>	'无权限',
 	'common_select_can_choose'			=>	'可选择...',
 	'common_select_level_one_choice'	=>	'一级栏目...',
+	'common_sort_error'					=>	'顺序只能为数字（不能超过3位）',
+	'common_is_exist_son_error'			=>	'该节点下还存在子级数据',
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',
@@ -66,6 +68,7 @@ return array(
 	'common_view_name_title'			=>	'名称',
 	'common_view_state_title'			=>	'状态',
 	'common_view_is_show_title'			=>	'是否显示',
+	'common_view_sort_title'			=>	'顺序',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -133,7 +136,7 @@ return array(
 	// 方法名称
 	'common_regex_action'				=>	'^[A-Za-z]{1}[A-Za-z0-9_]{0,29}$',
 
-	// 排序
+	// 顺序
 	'common_regex_sort'					=>	'^[0-9]{1,3}$',
 );
 ?>

@@ -40,13 +40,14 @@ class PowerController extends CommonController
 	public function Index()
 	{
 		// 获取权限列表
+		$m = M('Power');
 		$field = array('id', 'pid', 'name', 'control', 'action', 'sort', 'is_show');
-		$list = M('Power')->field($field)->where(array('pid'=>0))->order('sort')->select();
+		$list = $m->field($field)->where(array('pid'=>0))->order('sort')->select();
 		if(!empty($list))
 		{
 			foreach($list as $k=>$v)
 			{
-				$item =  M('Power')->field($field)->where(array('pid'=>$v['id']))->order('sort')->select();
+				$item =  $m->field($field)->where(array('pid'=>$v['id']))->order('sort')->select();
 				if(!empty($item))
 				{
 					$list[$k]['item'] = $item;
@@ -90,6 +91,9 @@ class PowerController extends CommonController
 				// 写入数据库
 				if($m->add())
 				{
+					// 清空缓存目录下的数据
+					EmptyDir(C('DATA_CACHE_PATH'));
+
 					$this->ajaxReturn(L('common_operation_add_success'));
 				} else {
 					$this->ajaxReturn(L('common_operation_add_error'), -100);
@@ -105,6 +109,9 @@ class PowerController extends CommonController
 				// 更新数据库
 				if($m->where(array('id'=>I('id')))->save())
 				{
+					// 清空缓存目录下的数据
+					EmptyDir(C('DATA_CACHE_PATH'));
+
 					$this->ajaxReturn(L('common_operation_edit_success'));
 				} else {
 					$this->ajaxReturn(L('common_operation_edit_error'), -100);
@@ -133,6 +140,9 @@ class PowerController extends CommonController
 		{
 			if($m->delete(I('id')))
 			{
+				// 清空缓存目录下的数据
+				EmptyDir(C('DATA_CACHE_PATH'));
+
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {
 				$this->ajaxReturn(L('common_operation_delete_error'), -100);
@@ -176,7 +186,7 @@ class PowerController extends CommonController
 	{
 		// 角色组
 		$role = M('Role')->field(array('id', 'name', 'is_enable'))->find(I('id'));
-		$role_id = isset($role['id']) ? $role['id'] : $this->user['role_id'];
+		$role_id = isset($role['id']) ? $role['id'] : $this->admin['role_id'];
 		$power = array();
 		if($role_id > 0)
 		{
@@ -395,7 +405,41 @@ class PowerController extends CommonController
 	 */
 	public function RoleDelete()
 	{
-		print_r($_POST);
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 参数是否有误
+		if(empty(I('id')))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 角色模型
+		$r = M('Role');
+
+		// 开启事务
+		$r->startTrans();
+
+		// 删除角色
+		$role_state = $r->delete(I('id'));
+		$rp_state = M('RolePower')->where(array('role_id'=>I('id')))->delete();
+		if($role_state && $rp_state)
+		{
+			// 提交事务
+			$r->commit();
+
+			// 清空缓存目录下的数据
+			EmptyDir(C('DATA_CACHE_PATH'));
+
+			$this->ajaxReturn(L('common_operation_delete_success'));
+		} else {
+			// 回滚事务
+			$r->rollback();
+			$this->ajaxReturn(L('common_operation_delete_error'), -100);
+		}
 	}
 }
 ?>

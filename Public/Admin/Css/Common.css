@@ -1191,3 +1191,13 @@ legend { padding-bottom: 0.2rem !important; }
 select { height: 32px !important; }
 .bk-cr-gray { background: #f3f3f3 !important; }
 .bk-cr-ffd { background: #ffd !important; }
+.t-c { text-align:center; }
+
+
+/**
+ * 公共分类样式
+ */
+@media only screen and (min-width: 641px) {
+  .submit { display: none; }
+  #tree tr:hover .submit { display: block !important; }
+}

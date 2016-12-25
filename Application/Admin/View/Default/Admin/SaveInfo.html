@@ -28,29 +28,30 @@
 				</legend>
 				<div class="am-form-group">
 					<label>{{:L('login_username_text')}}：</label>
-					<input type="text" placeholder="{{:L('login_username_text')}}" name="username" pattern="{{:L('common_regex_username')}}" data-validation-message="{{:L('login_username_format')}}" class="am-radius" <present name="user"> value="{{$user.username}}" disabled</present> required />
+					<input type="text" placeholder="{{:L('login_username_text')}}" name="username" pattern="{{:L('common_regex_username')}}" data-validation-message="{{:L('login_username_format')}}" class="am-radius" <present name="data"> value="{{$data.username}}" disabled</present> required />
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('login_login_pwd_text')}}：</label>
-					<input type="password" placeholder="{{:L('login_login_pwd_text')}}" name="login_pwd" pattern="{{:L('common_regex_pwd')}}"  data-validation-message="{{:L('login_login_pwd_format')}}" class="am-radius" <notpresent name="user">required</notpresent> />
+					<input type="password" placeholder="{{:L('login_login_pwd_text')}}" name="login_pwd" pattern="{{:L('common_regex_pwd')}}"  data-validation-message="{{:L('login_login_pwd_format')}}" class="am-radius" <notpresent name="data">required</notpresent> />
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('common_mobile_name')}}：</label>
-					<input type="text" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" class="am-radius" <present name="user"> value="{{$user.mobile}}"</present> />
+					<input type="text" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" class="am-radius" <present name="data"> value="{{$data.mobile}}"</present> />
 				</div>
-				<div class="am-form-group">
-					<label>{{:L('admin_view_role_name')}}：</label>
-					<select  class="am-radius c-p" name="role_id" data-validation-message="{{:L('login_role_id_format')}}" required>
-						<option value="">{{:L('common_select_can_choose')}}</option>
-						<foreach name="role" item="v">
-							<option value="{{$v.id}}" <if condition="isset($user['role_id']) and $user['role_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
-						</foreach>
-					</select>
-				</div>
+				<if condition="$admin['id'] neq $data['id']">
+					<div class="am-form-group">
+						<label>{{:L('admin_view_role_name')}}：</label>
+						<select  class="am-radius c-p" name="role_id" data-validation-message="{{:L('login_role_id_format')}}" required>
+							<option value="">{{:L('common_select_can_choose')}}</option>
+							<foreach name="role" item="v">
+								<option value="{{$v.id}}" <if condition="isset($data['role_id']) and $data['role_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+							</foreach>
+						</select>
+					</div>
+				</if>
 				<include file="Lib/Gender" />
 				<div class="am-form-group">
 					<input type="hidden" name="id" <present name="id"> value="{{$id}}"</present>" />
-					<input type="hidden" name="value_md5" <present name="value_md5"> value="{{$value_md5}}"</present>" />
 					<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
 				</div>
 			</form>

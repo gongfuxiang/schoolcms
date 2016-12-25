@@ -12,12 +12,8 @@ use Think\Controller;
  */
 class IndexController extends Controller
 {
-    public function index()
-    {
-    	test2();
-    	test();
-    	$test = C('test');
-    	$this->assign('test', $test);
-    	$this->display();
-    }
+	public function index()
+	{
+		$this->display();
+	}
 }

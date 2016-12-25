@@ -59,22 +59,22 @@ class CommonController extends Controller
 			if(isset($msg['info']))
 			{
 				// success模式下code=0, error模式下code参数-1
-				$data = array('msg'=>$msg['info'], 'code'=>-1, 'data'=>'');
+				$result = array('msg'=>$msg['info'], 'code'=>-1, 'data'=>'');
 			}
 		}
 		
 		// 默认情况下，手动调用当前方法
-		if(empty($data))
+		if(empty($result))
 		{
-			$data = array('msg'=>$msg, 'code'=>$code, 'data'=>$data);
+			$result = array('msg'=>$msg, 'code'=>$code, 'data'=>$data);
 		}
 
 		// 错误情况下，防止提示信息为空
-		if($data['code'] != 0 && empty($data['msg']))
+		if($result['code'] != 0 && empty($result['msg']))
 		{
-			$data['msg'] = L('common_operation_error');
+			$result['msg'] = L('common_operation_error');
 		}
-		exit(json_encode($data));
+		exit(json_encode($result));
 	}
 
 	/**
@@ -86,12 +86,12 @@ class CommonController extends Controller
 	 */
 	protected function Is_Login()
 	{
-		if(empty($_SESSION['user']))
+		if(empty($_SESSION['admin']))
 		{
 			$this->error(L('common_login_invalid'), U('Admin/Admin/LoginInfo'));
 		} else {
 			// 用户
-			$this->user = I('session.user');
+			$this->admin = I('session.admin');
 		}
 	}
 
@@ -112,6 +112,9 @@ class CommonController extends Controller
 
 		// 权限菜单
 		$this->assign('left_menu', $this->left_menu);
+
+		// 用户
+		$this->assign('admin', $this->admin);
 	}
 
 	/**
@@ -124,8 +127,8 @@ class CommonController extends Controller
 	private function PowerInit()
 	{
 		// 基础参数
-		$admin_id = isset($_SESSION['user']['id']) ? intval($_SESSION['user']['id']) : 0;
-		$role_id = isset($_SESSION['user']['role_id']) ? intval($_SESSION['user']['role_id']) : 0;
+		$admin_id = isset($_SESSION['admin']['id']) ? intval($_SESSION['admin']['id']) : 0;
+		$role_id = isset($_SESSION['admin']['role_id']) ? intval($_SESSION['admin']['role_id']) : 0;
 
 		// 读取缓存数据
 		$this->left_menu = S('common_left_menu');

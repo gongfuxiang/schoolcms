@@ -2,12 +2,12 @@
 	<div class="am-offcanvas-bar admin-offcanvas-bar">
 		<ul class="am-list admin-sidebar-list common-left-menu">
 			<li>
-				<a href="{{:U('Admin/Index/Index')}}" <if condition="CONTROLLER_NAME.ACTION_NAME eq 'IndexIndex'">class="common-left-menu-active"</if>>首页</a>
+				<a href="{{:U('Admin/Index/Index')}}" <if condition="CONTROLLER_NAME.ACTION_NAME eq 'IndexIndex'">class="common-left-menu-active"</if> id="common-left-menu-home">首页</a>
 			</li>
 			<foreach name="left_menu" item="v">
 				<if condition="empty($v['item'])">
 					<li>
-						<a href="{{:U('Admin/'.$v['control'].'/'.$v['action'])}}" <if condition="CONTROLLER_NAME.ACTION_NAME eq $v['control'].$v['action']">class="common-left-menu-active"</if>>{{$v.name}}</a>
+						<a href="{{:U('Admin/'.$v['control'].'/'.$v['action'])}}" <if condition="CONTROLLER_NAME.ACTION_NAME eq $v['control'].$v['action']">class="common-left-menu-active"</if> id="common-left-menu-{{$v.id}}">{{$v.name}}</a>
 					</li>
 				<else />
 					<li class="admin-parent">
@@ -18,7 +18,7 @@
 						<ul class="am-list am-collapse admin-sidebar-sub am-in" id="power-menu-{{$v.id}}">
 							<foreach name="v.item" item="vs">
 								<li>
-									<a href="{{:U('Admin/'.$vs['control'].'/'.$vs['action'])}}" <if condition="CONTROLLER_NAME.ACTION_NAME eq $vs['control'].$vs['action']">class="common-left-menu-active"</if>>{{$vs.name}}</a>
+									<a href="{{:U('Admin/'.$vs['control'].'/'.$vs['action'])}}" <if condition="CONTROLLER_NAME.ACTION_NAME eq $vs['control'].$vs['action']">class="common-left-menu-active"</if> id="common-left-menu-{{$vs.id}}">{{$vs.name}}</a>
 								</li>
 							</foreach>
 						</ul>

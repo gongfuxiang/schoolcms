@@ -20,19 +20,13 @@
 			<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
 				<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
 					<i class="am-icon-user"></i>
-					<span class="tpl-header-list-user-nick">{{$Think.session.user.username}}</span>
+					<span class="tpl-header-list-user-nick">{{$admin.username}}</span>
 					<span class="tpl-header-list-user-ico">
 					</span>
 				</a>
 				<ul class="am-dropdown-content">
 					<li>
-						<a href="#">
-							<i class="am-icon-bell-o"></i>
-							资料
-						</a>
-					</li>
-					<li>
-						<a href="#">
+						<a href="{{:U('Admin/Admin/SaveInfo', array('id'=>$admin['id']))}}">
 							<i class="am-icon-cog"></i>
 							设置
 						</a>

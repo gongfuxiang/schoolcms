@@ -44,8 +44,14 @@ class AdminModel extends CommonModel
 	 */
 	public function IsExistRole()
 	{
-		$id = $this->db(0)->table('__ROLE__')->where(array('id'=>I('role_id')))->getField('id');
-		return !empty($id);
+		// 当用户操作自身的情况下不需要校验
+		$admin_id = isset($_SESSION['admin']['id']) ? $_SESSION['admin']['id'] : 0;
+		if(I('id') != $admin_id)
+		{
+			$id = $this->db(0)->table('__ROLE__')->where(array('id'=>I('role_id')))->getField('id');
+			return !empty($id);
+		}
+		return true;
 	}
 
 	/**

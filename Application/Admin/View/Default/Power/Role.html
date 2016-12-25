@@ -15,7 +15,7 @@
 	<div class="content-right">
 		<div class="content">
             <!-- operation start -->
-            <div class="am-g m-t-15">
+            <div class="am-g">
 	            <a href="{{:U('Admin/Power/RoleSaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
 	        </div>
 	        <!-- operation end -->
@@ -65,12 +65,6 @@
 				</tbody>
 			</table>
 			<!-- list end -->
-
-			<!-- page start -->
-			<if condition="!empty($list)">
-				{{$page_html}}
-			</if>
-			<!-- page end -->
 		</div>
 	</div>
 	<!-- right content end  -->

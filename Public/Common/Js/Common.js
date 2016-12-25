@@ -269,6 +269,73 @@ function FormDataFill(json)
 	}
 }
 
+// 树方法
+function Tree(id, url, level)
+{
+	$.ajax({
+		url:url,
+		type:'POST',
+		dataType:"json",
+		timeout:10000,
+		data:{"id":id},
+		success:function(result)
+		{
+			if(result.code == 0 && result.data.length > 0)
+			{
+				html = (id != 0) ? '' : '<table class="am-table am-table-striped am-table-hover">';
+				for(var i in result.data)
+				{
+					// 数据 start
+					var is_active = (result.data[i]['is_enable'] == 0) ? 'am-active' : '';
+					html += '<tr id="data-list-'+result.data[i]['id']+'" class="tree-pid-'+id+' '+is_active+'"><td>';
+					tmp_level = (id != 0) ? parseInt(level)+20 : parseInt(level);
+					if(result.data[i]['is_son'] == 'ok')
+					{
+						html += '<i class="am-icon-plus c-p tree-submit" data-id="'+result.data[i]['id']+'" data-url="'+result.data[i]['ajax_url']+'" data-level="'+tmp_level+'" style="margin-right:8px;width:12px;';
+						if(id != 0)
+						{
+							html += 'margin-left:'+tmp_level+'px;';
+						}
+						html += '"></i>';
+						html += '<span>'+result.data[i]['name']+'</span>';
+					} else {
+						html += '<span style="padding-left:'+tmp_level+'px;">'+result.data[i]['name']+'</span>';
+					}
+					// 数据 end
+
+					// 操作项 start
+					html += '<div class="fr m-r-20 submit">';
+					html += '<span class="am-icon-edit am-icon-sm c-p submit-edit" data-am-modal="{target: \'#tree-save-win\'}" data-json=\''+result.data[i]['json']+'\'></span>';
+					if(result.data[i]['is_son'] != 'ok')
+					{
+						html += '<span class="am-icon-trash-o am-icon-sm c-p m-l-20 m-r-15 submit-delete" data-id="'+result.data[i]['id']+'" data-url="'+result.data[i]['delete_url']+'"></span>';
+					}
+					html += '</div>';
+					// 操作项 end
+					
+					html += '</td></tr>';
+				}
+				html += (id != 0) ? '' : '</table>';
+				if(id == 0)
+				{
+					$('#tree').html(html);
+				} else {
+					$('#data-list-'+id).after(html);
+					$('#data-list-'+id).find('.tree-submit').attr('state', 'ok');
+					$('#data-list-'+id).find('.tree-submit').removeClass('am-icon-plus');
+					$('#data-list-'+id).find('.tree-submit').addClass('am-icon-minus-square');
+				}
+			} else {
+				$('#tree').find('p').text(result.msg);
+			}
+		},
+		error:function(xhr, type)
+		{
+			$('#tree').find('p').text('异常出错');
+		}
+	});
+}
+
 // 公共数据操作
 $(function()
 {
@@ -281,7 +348,7 @@ $(function()
 	 * @param    {[int] 	[data-id] 	[数据id]}
 	 * @param    {[string] 	[data-url] 	[请求地址]}
 	 */
-	$('.submit-delete').on('click', function()
+	$(document).on('click', '.submit-delete', function()
 	{
 		$('#common-confirm-delete').modal({
 			relatedTarget: this,
@@ -332,11 +399,69 @@ $(function()
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-14T13:53:13+0800
-	 * @param    {[type]}                 )	{		var json          [description]
-	 * @return   {[type]}                           [description]
 	 */
-	$('.submit-edit').on('click', function()
+	$(document).on('click', '.submit-edit', function()
 	{
 		FormDataFill($(this).data('json'));
+	});
+
+	/**
+	 * [tree-submit 公共无限节点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-25T22:12:10+0800
+	 */
+	$('#tree').on('click', '.tree-submit', function()
+	{
+		var id = parseInt($(this).data('id')) || 0;
+		// 状态
+		if($('#tree-list-'+id).find('.tree-submit').attr('state') == 'ok')
+		{
+			if($(this).hasClass('am-icon-plus'))
+			{
+				$(this).removeClass('am-icon-plus');
+				$(this).addClass('am-icon-minus-square');
+			} else {
+				$(this).removeClass('am-icon-minus-square');
+				$(this).addClass('am-icon-plus');
+			}
+			$('.tree-pid-'+id).toggle(100);
+		} else {
+			var url = $(this).data('url') || '';
+			var level = parseInt($(this).data('level')) || 0;
+			if(id > 0 && url != '')
+			{
+				Tree(id, url, level);
+			} else {
+				Prompt('参数有误');
+			}
+		}
+	});
+
+	/**
+	 * [tree-submit-add 公共无限节点新增按钮处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-25T22:11:34+0800
+	 */
+	$('.tree-submit-add').on('click', function()
+	{
+		// 更改窗口名称
+		$title = $('#tree-save-win').find('.am-popup-title');
+		$title.text($title.data('add-title'));
+
+		// 清空表单
+		FormDataFill({"id":"", "pid":0, "name":"", "sort":0, "is_enable":1});
+
+		// 移除菜单禁止状态
+		$('form select[name="pid"]').removeAttr('disabled');
+
+		// 校验成功状态增加失去焦点
+		$('form').find('.am-field-valid').each(function()
+		{
+			$(this).blur();
+		});
 	});
 });

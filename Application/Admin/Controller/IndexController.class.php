@@ -29,8 +29,6 @@ class IndexController extends CommonController
 
 	public function Index()
 	{
-		//var_dump(IS_AJAX);
-		//print_r($_SESSION['user']);
 		$this->display();
 	}
 }

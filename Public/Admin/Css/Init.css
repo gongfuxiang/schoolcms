@@ -131,7 +131,7 @@ ul {
   }
 }
 
-.admin-menu {
+.common-nav-bar {
     position: fixed;
     z-index: 10;
     bottom: 30px;
