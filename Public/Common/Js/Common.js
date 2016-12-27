@@ -305,7 +305,7 @@ function Tree(id, url, level)
 
 					// 操作项 start
 					html += '<div class="fr m-r-20 submit">';
-					html += '<span class="am-icon-edit am-icon-sm c-p submit-edit" data-am-modal="{target: \'#tree-save-win\'}" data-json=\''+result.data[i]['json']+'\'></span>';
+					html += '<span class="am-icon-edit am-icon-sm c-p submit-edit" data-am-modal="{target: \'#data-save-win\'}" data-json=\''+result.data[i]['json']+'\'></span>';
 					if(result.data[i]['is_son'] != 'ok')
 					{
 						html += '<span class="am-icon-trash-o am-icon-sm c-p m-l-20 m-r-15 submit-delete" data-id="'+result.data[i]['id']+'" data-url="'+result.data[i]['delete_url']+'"></span>';
@@ -403,9 +403,9 @@ $(function()
 	$(document).on('click', '.submit-edit', function()
 	{
 		// 更改窗口名称
-		if($('#tree-save-win').length > 0)
+		if($('#data-save-win').length > 0)
 		{
-			$title = $('#tree-save-win').find('.am-popup-title');
+			$title = $('#data-save-win').find('.am-popup-title');
 			$title.text($title.data('edit-title'));
 		}
 		
@@ -456,7 +456,7 @@ $(function()
 	$('.tree-submit-add').on('click', function()
 	{
 		// 更改窗口名称
-		$title = $('#tree-save-win').find('.am-popup-title');
+		$title = $('#data-save-win').find('.am-popup-title');
 		$title.text($title.data('add-title'));
 
 		// 清空表单

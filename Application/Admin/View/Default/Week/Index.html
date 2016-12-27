@@ -23,22 +23,13 @@
 	        <div class="am-popup am-radius" id="data-save-win">
 				<div class="am-popup-inner">
 					<div class="am-popup-hd">
-						<h4 class="am-popup-title" data-add-title="{{:L('class_add_name')}}" data-edit-title="{{:L('class_edit_name')}}">{{:L('class_add_name')}}</h4>
+						<h4 class="am-popup-title" data-add-title="{{:L('week_add_name')}}" data-edit-title="{{:L('week_edit_name')}}">{{:L('week_add_name')}}</h4>
 						<span data-am-modal-close
 						class="am-close">&times;</span>
 					</div>
 					<div class="am-popup-bd">
 						<!-- form start -->
-						<form class="am-form form-validation admin-save" action="{{:U('Admin/Class/Save')}}" method="POST" request-type="ajax-reload" request-value="">
-							<div class="am-form-group">
-								<label>{{:L('common_pid_text')}}：</label>
-								<select  class="am-radius c-p" name="pid" data-validation-message="{{:L('common_pid_format')}}">
-									<option value="0">{{:L('common_select_level_one_choice')}}</option>
-									<foreach name="list" item="v">
-										<option value="{{$v.id}}">{{$v.name}}</option>
-									</foreach>
-								</select>
-							</div>
+						<form class="am-form form-validation admin-save" action="{{:U('Admin/Week/Save')}}" method="POST" request-type="ajax-reload" request-value="">
 							<div class="am-form-group">
 								<label>{{:L('common_name_text')}}：</label>
 								<input type="text" placeholder="{{:L('common_name_text')}}" name="name" minlength="2" maxlength="16" data-validation-message="{{:L('common_name_format')}}" class="am-radius" required />
@@ -75,5 +66,5 @@
 <include file="Public/Footer" />
 <!-- footer end -->
 <script>
-	Tree(0, "{{:U('Admin/Class/GetNodeSon')}}", 0);
+	Tree(0, "{{:U('Admin/Week/GetNodeSon')}}", 0);
 </script>
