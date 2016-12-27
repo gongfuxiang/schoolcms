@@ -28,6 +28,8 @@ return array(
 	'common_create_time_name'			=>	'创建时间',
 	'common_delete_tips'				=>	'你，确定要删除这条记录吗？',
 	'common_do_not_operate'				=>	'不可操作',
+	'common_name_text'					=>	'名称',
+	'common_pid_text'					=>	'父id',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -40,6 +42,8 @@ return array(
 	'common_select_level_one_choice'	=>	'一级栏目...',
 	'common_sort_error'					=>	'顺序只能为数字（不能超过3位）',
 	'common_is_exist_son_error'			=>	'该节点下还存在子级数据',
+	'common_name_format'				=>	'名称格式 2~16 个字符',
+	'common_pid_format'					=>	'请选择所属级别',
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',

@@ -23,13 +23,13 @@
 	        <div class="am-popup am-radius" id="tree-save-win">
 				<div class="am-popup-inner">
 					<div class="am-popup-hd">
-						<h4 class="am-popup-title" data-add-title="{{:L('region_add_name')}}" data-edit-title="{{:L('region_edit_name')}}">{{:L('region_add_name')}}</h4>
+						<h4 class="am-popup-title" data-add-title="{{:L('class_add_name')}}" data-edit-title="{{:L('class_edit_name')}}">{{:L('class_add_name')}}</h4>
 						<span data-am-modal-close
 						class="am-close">&times;</span>
 						</div>
 					<div class="am-popup-bd">
 						<!-- form start -->
-						<form class="am-form form-validation admin-save" action="{{:U('Admin/Region/Save')}}" method="POST" request-type="ajax-reload" request-value="">
+						<form class="am-form form-validation admin-save" action="{{:U('Admin/Class/Save')}}" method="POST" request-type="ajax-reload" request-value="">
 							<div class="am-form-group">
 								<label>{{:L('common_pid_text')}}：</label>
 								<select  class="am-radius c-p" name="pid" data-validation-message="{{:L('common_pid_format')}}">
@@ -75,5 +75,5 @@
 <include file="Public/Footer" />
 <!-- footer end -->
 <script>
-	Tree(0, "{{:U('Admin/Region/GetNodeSon')}}", 0);
+	Tree(0, "{{:U('Admin/Class/GetNodeSon')}}", 0);
 </script>

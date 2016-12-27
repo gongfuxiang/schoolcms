@@ -402,6 +402,13 @@ $(function()
 	 */
 	$(document).on('click', '.submit-edit', function()
 	{
+		// 更改窗口名称
+		if($('#tree-save-win').length > 0)
+		{
+			$title = $('#tree-save-win').find('.am-popup-title');
+			$title.text($title.data('edit-title'));
+		}
+		
 		FormDataFill($(this).data('json'));
 	});
 
@@ -416,7 +423,7 @@ $(function()
 	{
 		var id = parseInt($(this).data('id')) || 0;
 		// 状态
-		if($('#tree-list-'+id).find('.tree-submit').attr('state') == 'ok')
+		if($('#data-list-'+id).find('.tree-submit').attr('state') == 'ok')
 		{
 			if($(this).hasClass('am-icon-plus'))
 			{

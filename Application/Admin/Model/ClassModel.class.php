@@ -4,13 +4,13 @@ namespace Admin\Model;
 use Think\Model;
 
 /**
- * 地区模型
+ * 班级模型
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
-class RegionModel extends CommonModel
+class ClassModel extends CommonModel
 {
 	// 数据自动校验
 	protected $_validate = array(
@@ -23,7 +23,7 @@ class RegionModel extends CommonModel
 	);
 
 	/**
-	 * [CheckName 地区名称校验]
+	 * [CheckName 班级名称校验]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
