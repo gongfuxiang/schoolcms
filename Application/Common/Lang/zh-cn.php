@@ -30,6 +30,7 @@ return array(
 	'common_do_not_operate'				=>	'不可操作',
 	'common_name_text'					=>	'名称',
 	'common_pid_text'					=>	'父id',
+	'common_address_text'				=>	'详细地址',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -44,6 +45,8 @@ return array(
 	'common_is_exist_son_error'			=>	'该节点下还存在子级数据',
 	'common_name_format'				=>	'名称格式 2~16 个字符',
 	'common_pid_format'					=>	'请选择所属级别',
+	'common_student_state_format'		=>	'请选择学生状态',
+	'common_address_format'				=>	'详细地址2~30 个字符',
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',
@@ -66,6 +69,7 @@ return array(
 	'common_value_not_change'			=>	'数据未改变',
 	'common_gender_tips'				=>	'性别的值范围不正确',
 	'common_enable_tips'				=>	'启用的值范围不正确',
+	'common_view_pay_cost_tips'			=>	'缴费状态的值范围不正确',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -73,6 +77,8 @@ return array(
 	'common_view_state_title'			=>	'状态',
 	'common_view_is_show_title'			=>	'是否显示',
 	'common_view_sort_title'			=>	'顺序',
+	'common_view_student_state_name'	=>	'学生状态',
+	'common_view_pay_cost_name'			=>	'缴费状态',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -100,6 +106,21 @@ return array(
 	'common_is_show_list'				=>	array(
 			0 => array('id' => 0, 'name' => '不显示'),
 			1 => array('id' => 1, 'name' => '显示', 'checked' => true),
+		),
+
+	// 学生状态
+	'common_student_state_list'			=>	array(
+			0 => array('id' => 0, 'name' => '待入学', 'checked' => true),
+			1 => array('id' => 1, 'name' => '在读'),
+			2 => array('id' => 2, 'name' => '已毕业'),
+			3 => array('id' => 3, 'name' => '弃学'),
+			4 => array('id' => 4, 'name' => '已开除'),
+		),
+
+	// 缴费状态
+	'common_pay_cost_list'			=>	array(
+			0 => array('id' => 0, 'name' => '待缴费', 'checked' => true),
+			1 => array('id' => 1, 'name' => '已缴费'),
 		),
 
 	// 色彩值

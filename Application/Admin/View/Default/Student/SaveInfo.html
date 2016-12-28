@@ -1,0 +1,105 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+<!-- nav start -->
+<include file="Public/Nav" />
+<!-- nav end -->
+		
+<!-- content start -->
+<div class="admin">
+	<!-- left menu start -->
+	<include file="Public/Menu" />
+	<!-- left menu end -->
+
+	<!-- right content start  -->
+	<div class="content-right">
+		<div class="content">
+			<!-- form start -->
+			<form class="am-form form-validation admin-save" action="{{:U('Admin/Student/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Student/Index')}}">
+				<legend>
+					<span class="fs-16">
+						<if condition="empty($user['id'])">
+							{{:L('student_add_name')}}
+						<else />
+							{{:L('student_edit_name')}}
+						</if>
+					</span>
+					<a href="{{:U('Admin/Student/Index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
+				</legend>
+				<div class="am-form-group">
+					<label>{{:L('student_username_text')}}：</label>
+					<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <present name="data"> value="{{$data.username}}" disabled</present> required />
+				</div>
+				<include file="Lib/Gender" />
+				<div class="am-form-group">
+					<label>{{:L('student_birthday_text')}}：</label>
+					<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" data-validation-message="{{:L('student_birthday_format')}}" <present name="data"> value="{{$data.birthday}}" disabled</present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
+				</div>
+				<div class="am-form-group">
+					<label>{{:L('student_class_text')}}：</label>
+					<select name="class_id" class="am-radius c-p" data-validation-message="{{:L('student_class_format')}}" required>
+						<option value="">{{:L('common_select_can_choose')}}</option>
+						<foreach name="class_list" item="v">
+							<if condition="empty($v['item'])">
+								<option value="{{$v.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+							<else />
+								<optgroup label="{{$v.name}}">
+									<foreach name="v.item" item="vs">
+										<option value="{{$vs.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
+									</foreach>
+								</optgroup>
+							</if>
+						</foreach>
+					</select>
+				</div>
+				<div class="am-form-group">
+					<label>{{:L('student_region_text')}}：</label>
+					<select name="region_id" class="am-radius c-p" data-validation-message="{{:L('student_region_format')}}" required>
+						<option value="">{{:L('common_select_can_choose')}}</option>
+						<foreach name="region_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
+					</select>
+				</div>
+				<div class="am-form-group">
+					<label>{{:L('common_address_text')}}：</label>
+					<input type="text" placeholder="{{:L('common_address_text')}}" name="address" minlength="2" maxlength="30" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <present name="data"> value="{{$data.address}}" disabled</present> required />
+				</div>
+				<include file="Lib/StudentState" />
+
+
+				<div class="am-form-group">
+					<label>{{:L('common_mobile_name')}}：</label>
+					<input type="text" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" class="am-radius" <present name="data"> value="{{$data.mobile}}"</present> />
+				</div>
+				<if condition="$admin['id'] neq $data['id']">
+					<div class="am-form-group">
+						<label>{{:L('admin_view_role_name')}}：</label>
+						<select  class="am-radius c-p" name="role_id" data-validation-message="{{:L('student_role_id_format')}}" required>
+							<option value="">{{:L('common_select_can_choose')}}</option>
+							<foreach name="role" item="v">
+								<option value="{{$v.id}}" <if condition="isset($data['role_id']) and $data['role_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+							</foreach>
+						</select>
+					</div>
+				</if>
+				
+				<div class="am-form-group">
+					<input type="hidden" name="id" <present name="id"> value="{{$id}}"</present>" />
+					<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
+				</div>
+			</form>
+            <!-- form end -->
+		</div>
+	</div>
+	<!-- right content end  -->
+</div>
+<!-- content end -->
+
+<!-- navbar start -->
+<include file="Public/NavBar" />
+<!-- navbar end -->
+		
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end
