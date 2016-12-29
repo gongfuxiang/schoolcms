@@ -152,13 +152,14 @@ class StudentController extends CommonController
 	private function Add()
 	{
 		// 学生对象
-		$m = M('Student');
+		$m = D('Student');
 
 		// 数据自动校验
 		if($m->create($_POST, 1))
 		{
 			// 额外数据处理
 			$m->add_time	=	time();
+			$m->birthday	=	strtotime($m->birthday);
 			
 			// 写入数据库
 			if($m->add())
@@ -182,11 +183,17 @@ class StudentController extends CommonController
 	private function Edit()
 	{
 		// 学生对象
-		$m = M('Student');
+		$m = D('Student');
 
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
+			// 额外数据处理
+			if(!empty($m->birthday))
+			{
+				$m->birthday	=	strtotime($m->birthday);
+			}
+
 			// 更新数据库
 			if($m->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->save())
 			{

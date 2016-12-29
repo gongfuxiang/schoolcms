@@ -28,7 +28,7 @@
 				</legend>
 				<div class="am-form-group">
 					<label>{{:L('student_username_text')}}：</label>
-					<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <present name="data"> value="{{$data.username}}" disabled</present> required />
+					<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <present name="data"> value="{{$data.username}}"</present> required />
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('common_view_id_card_text')}}：</label>
@@ -37,7 +37,7 @@
 				<include file="Lib/Gender" />
 				<div class="am-form-group">
 					<label>{{:L('student_birthday_text')}}：</label>
-					<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('student_birthday_format')}}" <present name="data"> value="{{$data.birthday}}" disabled</present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
+					<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('student_birthday_format')}}" <present name="data"> value="{{$data.birthday}}" </present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('student_class_text')}}：</label>
@@ -67,11 +67,11 @@
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('common_address_text')}}：</label>
-					<input type="text" placeholder="{{:L('common_address_text')}}" name="address" minlength="2" maxlength="30" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <present name="data"> value="{{$data.address}}" disabled</present> required />
+					<input type="text" placeholder="{{:L('common_address_text')}}" name="address" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <present name="data"> value="{{$data.address}}"</present> />
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('common_view_tel_name')}}：</label>
-					<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <present name="data"> value="{{$data.tel}}"</present> />
+					<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <present name="data"> value="{{$data.tel}}"</present> required />
 				</div>
 				<include file="Lib/StudentState" />
 				<div class="am-form-group">

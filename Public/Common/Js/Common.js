@@ -75,10 +75,10 @@ function GetFormVal(element)
 	// select 单选择和多选择
 	var tmp_all = [];
 	var i = 0;
-	$(element).find('select option:selected').each(function(key, tmp)
+	$(element).find('select').find('option:selected, optgroup option:selected').each(function(key, tmp)
 	{
 		// 单选择
-		var name = $(this).parent().attr('name');
+		var name = $(this).parents('select').attr('name');
 		if(name != undefined && name != '')
 		{
 			object[name] = tmp.value;

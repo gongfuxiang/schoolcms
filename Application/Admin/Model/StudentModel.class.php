@@ -26,11 +26,33 @@ class StudentModel extends CommonModel
 		array('tuition_state', array(0,1), '{%common_tuition_state_tips}', 1, 'in', 3),
 
 		// 添加
-		array('id_card', '', '{%common_is_exist_id_card_tips}', 1, 'unique', 1),
+		array('id_card', 'UniqueIdCard', '{%common_is_exist_id_card_tips}', 1, 'callback', 1),
 
 		// 编辑
 		array('id_card', 'NoExistIdCard', '{%common_no_exist_id_card_tips}', 1, 'callback', 2),
 	);
+
+	/**
+	 * [UniqueIdCard 身份证和学期号必须唯一]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-29T17:12:27+0800
+	 * @return [boolean] [存在false, 不存在true]
+	 */
+	public function UniqueIdCard()
+	{
+		// 读取学期配置信息
+		$semester_id = MyC('semester');
+		if(empty($semester_id) || I('id_card'))
+		{
+			return false;
+		}
+
+		// 校验是否唯一
+		$id = $this->db(0)->where(array('id_card'=>I('id_card'), 'semester_id'=>$semester_id))->getField('id');
+		return empty($id);
+	}
 
 	/**
 	 * [CheckUserName 姓名校验校验]
