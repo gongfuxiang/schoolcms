@@ -110,6 +110,9 @@ class StudentController extends CommonController
 		// 学生状态
 		$this->assign('common_student_state_list', L('common_student_state_list'));
 
+		// 缴费状态
+		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
+
 		$this->display();
 	}
 
@@ -131,80 +134,37 @@ class StudentController extends CommonController
 		// 添加
 		if(empty(I('id')))
 		{
-			$this->RoleAdd();
+			$this->Add();
 
 		// 编辑
 		} else {
-			if(I('id') == 1 && C('close_admin_operation') == 'ok')
-			{
-				$this->error(L('common_do_not_operate'), -10);
-			} else {
-				$this->RoleEdit();
-			}
+			$this->Edit();
 		}
 	}
 
 	/**
-	 * [RoleAdd 角色添加]
+	 * [Add 学生添加]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-18T16:20:59+0800
 	 */
-	private function RoleAdd()
+	private function Add()
 	{
-		// 角色对象
-		$r = M('Role');
+		// 学生对象
+		$m = M('Student');
 
 		// 数据自动校验
-		if($r->create($_POST, 1))
+		if($m->create($_POST, 1))
 		{
-			// 开启事务
-			$r->startTrans();
-
-			// 角色添加
-			$role_data = array(
-					'name'		=>	I('name'),
-					'is_enable'	=>	I('is_enable'),
-					'add_time'	=>	time(),
-				);
-			$role_id = $r->add($role_data);
-
-			// 角色权限关联添加
-			$rp_state = true;
-			if(!empty($_POST['power_id']) && is_array($_POST['power_id']))
+			// 额外数据处理
+			$m->add_time	=	time();
+			
+			// 写入数据库
+			if($m->add())
 			{
-				// 角色权限关联对象
-				$rp = M('RolePower');
-				foreach($_POST['power_id'] as $power_id)
-				{
-					if(!empty($power_id))
-					{
-						$rp_data = array(
-								'role_id'	=>	$role_id,
-								'power_id'	=>	$power_id,
-								'add_time'	=>	time(),
-							);
-						if(!$rp->add($rp_data))
-						{
-							$rp_state = false;
-							break;
-						}
-					}
-				}
-			}
-			if($role_id && $rp_state)
-			{
-				// 提交事务
-				$r->commit();
-
-				// 清空缓存目录下的数据
-				EmptyDir(C('DATA_CACHE_PATH'));
-
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
-				// 回滚事务
-				$r->rollback();
 				$this->ajaxReturn(L('common_operation_add_error'), -100);
 			}
 		} else {
@@ -213,72 +173,25 @@ class StudentController extends CommonController
 	}
 
 	/**
-	 * [RoleEdit 角色和角色权限关联编辑]
+	 * [Edit 学生编辑]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-17T22:13:40+0800
 	 */
-	private function RoleEdit()
+	private function Edit()
 	{
-		// 角色对象
-		$r = M('Role');
+		// 学生对象
+		$m = M('Student');
 
 		// 数据自动校验
-		if($r->create($_POST, 2))
+		if($m->create($_POST, 2))
 		{
-			// 开启事务
-			$r->startTrans();
-
-			// 角色数据更新
-			$role_data = array(
-					'name'		=>	I('name'),
-					'is_enable'	=>	I('is_enable'),
-				);
-			$r_state = ($r->where(array('id'=>I('id')))->save($role_data) !== false);
-
-			// 角色权限关联对象
-			$rp = M('RolePower');
-
-			// 角色id
-			$role_id = I('id');
-
-			// 权限关联数据删除
-			$rp_del_state = ($rp->where(array('role_id'=>$role_id))->delete() !== false);
-
-			// 权限关联数据添加
-			$rp_state = true;
-			if(!empty($_POST['power_id']) && is_array($_POST['power_id']))
+			// 更新数据库
+			if($m->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->save())
 			{
-				foreach($_POST['power_id'] as $power_id)
-				{
-					if(!empty($power_id))
-					{
-						$rp_data = array(
-								'role_id'	=>	$role_id,
-								'power_id'	=>	$power_id,
-								'add_time'	=>	time(),
-							);
-						if(!$rp->add($rp_data))
-						{
-							$rp_state = false;
-							break;
-						}
-					}
-				}
-			}
-			if($r_state && $rp_del_state && $rp_state)
-			{
-				// 提交事务
-				$r->commit();
-
-				// 清空缓存目录下的数据
-				EmptyDir(C('DATA_CACHE_PATH'));
-
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {
-				// 回滚事务
-				$r->rollback();
 				$this->ajaxReturn(L('common_operation_edit_error'), -100);
 			}
 		} else {
@@ -295,41 +208,48 @@ class StudentController extends CommonController
 	 */
 	public function Delete()
 	{
-		// 是否ajax请求
+		print_r($_POST);
+		/*// 是否ajax请求
 		if(!IS_AJAX)
 		{
 			$this->error(L('common_unauthorized_access'));
 		}
 
 		// 参数是否有误
-		if(empty(I('id')))
+		if(empty(I('id')) || empty(I('id_card')))
 		{
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}
 
-		// 角色模型
-		$r = M('Role');
+		// 学生模型
+		$s = M('Student');
+
+		// 学生是否存在
+		$data = $s->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->find();
+		if(empty($data))
+		{
+			$this->ajaxReturn(L('student_no_exist_error'), -2);
+		}
 
 		// 开启事务
 		$r->startTrans();
 
-		// 删除角色
-		$role_state = $r->delete(I('id'));
+		// 删除学生
+		$s_state = $r->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->delete();
+
+		// 删除成绩
 		$rp_state = M('RolePower')->where(array('role_id'=>I('id')))->delete();
-		if($role_state && $rp_state)
+		if($s_state && $rp_state)
 		{
 			// 提交事务
 			$r->commit();
-
-			// 清空缓存目录下的数据
-			EmptyDir(C('DATA_CACHE_PATH'));
 
 			$this->ajaxReturn(L('common_operation_delete_success'));
 		} else {
 			// 回滚事务
 			$r->rollback();
 			$this->ajaxReturn(L('common_operation_delete_error'), -100);
-		}
+		}*/
 	}
 }
 ?>

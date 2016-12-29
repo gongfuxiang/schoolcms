@@ -46,11 +46,3 @@
  * 管理员列表
  */
 .admin-list select, .admin-list input { width: 36% !important; display: initial !important; }
-
-
-/**
- * 管理员添加/编辑
- */
-@media only screen and (min-width: 641px) {
-    .admin-save input, .admin-save button, .admin-save select { width: 75% !important; }
-}

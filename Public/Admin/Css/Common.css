@@ -1198,6 +1198,10 @@ select { height: 32px !important; }
  * 公共分类样式
  */
 @media only screen and (min-width: 641px) {
+  /* 树 */
   .submit { display: none; }
   #tree tr:hover .submit { display: block !important; }
+
+  /* 添加/编辑 */
+  .view-save div { width: 75% !important; }
 }

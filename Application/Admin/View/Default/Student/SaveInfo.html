@@ -15,7 +15,7 @@
 	<div class="content-right">
 		<div class="content">
 			<!-- form start -->
-			<form class="am-form form-validation admin-save" action="{{:U('Admin/Student/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Student/Index')}}">
+			<form class="am-form form-validation view-save" action="{{:U('Admin/Student/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Student/Index')}}">
 				<legend>
 					<span class="fs-16">
 						<if condition="empty($user['id'])">
@@ -30,10 +30,14 @@
 					<label>{{:L('student_username_text')}}：</label>
 					<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <present name="data"> value="{{$data.username}}" disabled</present> required />
 				</div>
+				<div class="am-form-group">
+					<label>{{:L('common_view_id_card_text')}}：</label>
+					<input type="text" name="id_card" placeholder="{{:L('common_view_id_card_text')}}" pattern="{{:L('common_regex_id_card')}}" data-validation-message="{{:L('common_view_id_card_format')}}" class="am-radius" <present name="data"> value="{{$data.id_card}}" disabled</present> required />
+				</div>
 				<include file="Lib/Gender" />
 				<div class="am-form-group">
 					<label>{{:L('student_birthday_text')}}：</label>
-					<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" data-validation-message="{{:L('student_birthday_format')}}" <present name="data"> value="{{$data.birthday}}" disabled</present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
+					<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('student_birthday_format')}}" <present name="data"> value="{{$data.birthday}}" disabled</present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('student_class_text')}}：</label>
@@ -65,25 +69,21 @@
 					<label>{{:L('common_address_text')}}：</label>
 					<input type="text" placeholder="{{:L('common_address_text')}}" name="address" minlength="2" maxlength="30" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <present name="data"> value="{{$data.address}}" disabled</present> required />
 				</div>
-				<include file="Lib/StudentState" />
-
-
 				<div class="am-form-group">
-					<label>{{:L('common_mobile_name')}}：</label>
-					<input type="text" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" class="am-radius" <present name="data"> value="{{$data.mobile}}"</present> />
+					<label>{{:L('common_view_tel_name')}}：</label>
+					<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <present name="data"> value="{{$data.tel}}"</present> />
 				</div>
-				<if condition="$admin['id'] neq $data['id']">
-					<div class="am-form-group">
-						<label>{{:L('admin_view_role_name')}}：</label>
-						<select  class="am-radius c-p" name="role_id" data-validation-message="{{:L('student_role_id_format')}}" required>
-							<option value="">{{:L('common_select_can_choose')}}</option>
-							<foreach name="role" item="v">
-								<option value="{{$v.id}}" <if condition="isset($data['role_id']) and $data['role_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
-							</foreach>
-						</select>
+				<include file="Lib/StudentState" />
+				<div class="am-form-group">
+					<label>{{:L('student_pay_cost_text')}}：</label>
+					<div>
+						<foreach name="common_tuition_state_list" item="v">
+							<label class="am-radio-inline m-r-10">
+								<input type="radio" name="tuition_state" value="{{$v.id}}" <if condition="isset($data['tuition_state']) and $data['tuition_state'] eq $v['id']">checked="checked"<else /><if condition="!isset($data['tuition_state']) and isset($v['checked']) and $v['checked'] eq true">checked="checked"</if></if> data-am-ucheck /> {{$v.name}}
+							</label>
+						</foreach>
 					</div>
-				</if>
-				
+				</div>
 				<div class="am-form-group">
 					<input type="hidden" name="id" <present name="id"> value="{{$id}}"</present>" />
 					<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>

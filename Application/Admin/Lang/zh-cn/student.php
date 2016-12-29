@@ -13,12 +13,16 @@ return array(
 	'student_edit_name'					=>	'学生编辑',
 	'student_region_text'				=>	'所在地区',
 	'student_region_format'				=>	'请选择所在地区',
+	'student_region_tips'				=>	'地区有误',
 	'student_username_text'				=>	'学生真实姓名',
 	'student_username_format'			=>	'姓名格式 2~16 个字符',
 	'student_birthday_text'				=>	'生日',
-	'student_birthday_format'			=>	'请选择生日',
+	'student_birthday_format'			=>	'生日格式有误',
 	'student_class_text'				=>	'班级',
 	'student_class_format'				=>	'请选择班级',
-
+	'student_class_tips'				=>	'班级有误',
+	'student_pay_cost_text'				=>	'缴费状态',
+	'student_pay_cost_format'			=>	'请选择缴费状态',
+	'student_no_exist_error'			=>	'该学生不存在',
 );
 ?>

@@ -23,10 +23,6 @@
 /**
  * 角色添加/编辑
  */
-@media only screen and (min-width: 641px) {
-    .role-save div { width: 75% !important; }
-    
-}
 @media only screen and (max-width: 641px) {
     .role-list .submit-delete { margin-top: 5px; display: block !important; }
 }

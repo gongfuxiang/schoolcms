@@ -67,9 +67,16 @@ return array(
 	'common_operation_delete_error'		=>	'删除失败或数据不存在',
 	'common_operation_unauthorized'		=>	'非法操作',
 	'common_value_not_change'			=>	'数据未改变',
-	'common_gender_tips'				=>	'性别的值范围不正确',
-	'common_enable_tips'				=>	'启用的值范围不正确',
-	'common_view_pay_cost_tips'			=>	'缴费状态的值范围不正确',
+	'common_gender_tips'				=>	'性别值范围不正确',
+	'common_enable_tips'				=>	'启用值范围不正确',
+	'common_view_pay_cost_tips'			=>	'缴费状态值范围不正确',
+	'common_view_tel_error'				=>	'联系方式格式有误',
+	'common_view_tel_tips'				=>	'座机或手机号码',
+	'common_view_id_card_format'		=>	'身份证号码格式有误',
+	'common_no_exist_id_card_tips'		=>	'身份证号码不存在',
+	'common_is_exist_id_card_tips'		=>	'身份证号码已存在',
+	'common_student_state_tips'			=>	'学生状态值范围不正确',
+	'common_tuition_state_tips'			=>	'缴费状态值范围不正确',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -79,6 +86,8 @@ return array(
 	'common_view_sort_title'			=>	'顺序',
 	'common_view_student_state_name'	=>	'学生状态',
 	'common_view_pay_cost_name'			=>	'缴费状态',
+	'common_view_tel_name'				=>	'联系方式',
+	'common_view_id_card_text'			=>	'身份证号码',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -117,8 +126,8 @@ return array(
 			4 => array('id' => 4, 'name' => '已开除'),
 		),
 
-	// 缴费状态
-	'common_pay_cost_list'			=>	array(
+	// 学生缴费状态
+	'common_tuition_state_list'			=>	array(
 			0 => array('id' => 0, 'name' => '待缴费', 'checked' => true),
 			1 => array('id' => 1, 'name' => '已缴费'),
 		),
@@ -141,7 +150,10 @@ return array(
 	'common_regex_pwd'					=>	'^.{5,18}$',
 
 	// 手机号码
-	'common_regex_mobile'				=>	'^1((3|5|8){1}\d{1}|70)\d{8}$',
+	'common_regex_mobile'				=>	'^1((3|5|8|7){1}\d{1})\d{8}$',
+
+	// 联系方式
+	'common_regex_tel'					=>	'^(1((3|5|8|7){1}\d{1})\d{8})|(\d{3,4}-?\d{8})$',
 
 	// 身份证号码
 	'common_regex_id_card'				=>	'^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$',
@@ -163,5 +175,8 @@ return array(
 
 	// 顺序
 	'common_regex_sort'					=>	'^[0-9]{1,3}$',
+
+	// 生日
+	'common_regex_birthday'				=>	'^\d{4}-\d{2}-\d{2}$',
 );
 ?>
