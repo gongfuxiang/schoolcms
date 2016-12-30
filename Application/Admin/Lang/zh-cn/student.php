@@ -11,7 +11,7 @@ return array(
 	// 添加/编辑
 	'student_add_name'					=>	'学生添加',
 	'student_edit_name'					=>	'学生编辑',
-	'student_region_text'				=>	'所在地区',
+	'student_region_text'				=>	'地区',
 	'student_region_format'				=>	'请选择所在地区',
 	'student_region_tips'				=>	'地区有误',
 	'student_username_text'				=>	'学生真实姓名',
@@ -21,8 +21,10 @@ return array(
 	'student_class_text'				=>	'班级',
 	'student_class_format'				=>	'请选择班级',
 	'student_class_tips'				=>	'班级有误',
-	'student_pay_cost_text'				=>	'缴费状态',
-	'student_pay_cost_format'			=>	'请选择缴费状态',
+	'student_tuition_state_text'		=>	'缴费状态',
+	'student_tuition_state_format'		=>	'请选择缴费状态',
 	'student_no_exist_error'			=>	'该学生不存在',
+	'student_sign_up_name'				=>	'报名时间',
+	'student_so_keyword_tips'			=>	'姓名/身份证/手机/地址',
 );
 ?>

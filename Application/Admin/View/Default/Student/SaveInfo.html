@@ -45,11 +45,11 @@
 						<option value="">{{:L('common_select_can_choose')}}</option>
 						<foreach name="class_list" item="v">
 							<if condition="empty($v['item'])">
-								<option value="{{$v.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+								<option value="{{$v.id}}" <if condition="isset($data['class_id']) and $data['class_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
 							<else />
 								<optgroup label="{{$v.name}}">
 									<foreach name="v.item" item="vs">
-										<option value="{{$vs.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
+										<option value="{{$vs.id}}" <if condition="isset($data['class_id']) and $data['class_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
 									</foreach>
 								</optgroup>
 							</if>
@@ -75,7 +75,7 @@
 				</div>
 				<include file="Lib/StudentState" />
 				<div class="am-form-group">
-					<label>{{:L('student_pay_cost_text')}}：</label>
+					<label>{{:L('student_tuition_state_text')}}：</label>
 					<div>
 						<foreach name="common_tuition_state_list" item="v">
 							<label class="am-radio-inline m-r-10">

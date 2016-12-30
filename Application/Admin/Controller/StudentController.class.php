@@ -39,7 +39,7 @@ class StudentController extends CommonController
      */
 	public function Index()
 	{
-		/*// 登录校验
+		// 登录校验
 		$this->Is_Login();
 		
 		// 权限校验
@@ -49,10 +49,10 @@ class StudentController extends CommonController
 		$param = array_merge($_POST, $_GET);
 
 		// 模型对象
-		$m = M('Admin');
+		$m = M('Student');
 
 		// 条件
-		$where = $this->GetAdminIndexWhere();
+		$where = $this->GetStudentIndexWhere();
 
 		// 分页
 		$number = 10;
@@ -60,23 +60,122 @@ class StudentController extends CommonController
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
 				'where'		=>	$param,
-				'url'		=>	U('Admin/Admin/Index'),
+				'url'		=>	U('Admin/Student/Index'),
 			);
 		$page = new \My\Page($page_param);
 
 		// 登录校验
 		$this->Is_Login();
 
-		// 获取管理员列表
-		$list = $m->field(array('id', 'username', 'mobile', 'gender', 'login_total', 'login_time', 'add_time'))->where($where)->limit($page->GetPageStarNumber(), $number)->select();
-		
-		$role = M('Role')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
-		$this->assign('role', $role);
+		// 获取列表
+		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
+
+		// 性别
+		$this->assign('common_gender_list', L('common_gender_list'));
+
+		// 学生状态
+		$this->assign('common_student_state_list', L('common_student_state_list'));
+
+		// 缴费状态
+		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
+
+		// 地区
+		$region_list = M('Region')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
+		$this->assign('region_list', $region_list);
+
+		// 班级
+		$this->assign('class_list', $this->GetClassList());
+
+		// 参数
 		$this->assign('param', $param);
+
+		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
-		$this->assign('list', $list);*/
+
+		// 数据列表
+		$this->assign('list', $list);
 
 		$this->display();
+	}
+
+	/**
+	 * [SetDataHandle 数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-29T21:27:15+0800
+	 * @param    [array]      $data [学生数据]
+	 * @return   [array]            [处理好的数据]
+	 */
+	private function SetDataHandle($data)
+	{
+		if(!empty($data))
+		{
+			$c = M('Class');
+			$r = M('Region');
+			foreach($data as $k=>$v)
+			{
+				// 班级
+				$tmp_class = $c->field(array('pid', 'name'))->find($v['class_id']);
+				if(!empty($tmp_class))
+				{
+					$p_name = ($tmp_class['pid'] > 0) ? $c->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
+					$data[$k]['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
+				} else {
+					$data[$k]['class_name'] = '';
+				}
+				
+				// 地区
+				$data[$k]['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
+			}
+		}
+		return $data;
+	}
+
+	/**
+	 * [GetStudentIndexWhere 学生列表条件]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-10T22:16:29+0800
+	 */
+	private function GetStudentIndexWhere()
+	{
+		$where = array();
+
+		// 模糊
+		if(!empty(I('keyword')))
+		{
+			$where['username'] = array('like', '%'.I('keyword').'%');
+			$where['id_card'] = array('like', '%'.I('keyword').'%');
+			$where['tel'] = array('like', '%'.I('keyword').'%');
+			$where['_logic'] = 'or';
+		}
+
+		// 等值
+		$class_id = intval(I('class_id', 0));
+		if($class_id > 0)
+		{
+			$where['class_id'] = $class_id;
+		}
+		$region_id = intval(I('region_id', 0));
+		if($region_id > 0)
+		{
+			$where['region_id'] = $region_id;
+		}
+		if(isset($_POST['gender']))
+		{
+			$where['gender'] = intval(I('gender', 0));
+		}
+		if(isset($_POST['state']))
+		{
+			$where['state'] = intval(I('state', 0));
+		}
+		if(isset($_POST['tuition_state']))
+		{
+			$where['tuition_state'] = intval(I('tuition_state', 0));
+		}
+		return $where;
 	}
 
 	/**
@@ -93,16 +192,7 @@ class StudentController extends CommonController
 		$this->assign('region_list', $region_list);
 
 		// 班级
-		$c = M('Class');
-		$class_list = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
-		if(!empty($class_list))
-		{
-			foreach($class_list as $k=>$v)
-			{
-				$class_list[$k]['item'] = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
-			}
-		}
-		$this->assign('class_list', $class_list);
+		$this->assign('class_list', $this->GetClassList());
 
 		// 性别
 		$this->assign('common_gender_list', L('common_gender_list'));
@@ -114,6 +204,28 @@ class StudentController extends CommonController
 		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
 
 		$this->display();
+	}
+
+	/**
+	 * [GetClassList 获取班级列表,二级]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-30T13:26:00+0800
+	 * @return [array] [班级列表]
+	 */
+	private function GetClassList()
+	{
+		$c = M('Class');
+		$data = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
+		if(!empty($data))
+		{
+			foreach($data as $k=>$v)
+			{
+				$data[$k]['item'] = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
+			}
+		}
+		return $data;
 	}
 
 	/**

@@ -31,6 +31,7 @@ return array(
 	'common_name_text'					=>	'名称',
 	'common_pid_text'					=>	'父id',
 	'common_address_text'				=>	'详细地址',
+	'common_more_screening'				=>	'更多筛选',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
