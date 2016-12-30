@@ -26,5 +26,6 @@ return array(
 	'student_no_exist_error'			=>	'该学生不存在',
 	'student_sign_up_name'				=>	'报名时间',
 	'student_so_keyword_tips'			=>	'姓名/身份证/手机/地址',
+	'common_operation_resultInput'		=>	'录成绩',
 );
 ?>

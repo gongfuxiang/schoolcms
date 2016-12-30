@@ -55,7 +55,7 @@ class StudentModel extends CommonModel
 	}
 
 	/**
-	 * [CheckUserName 姓名校验校验]
+	 * [CheckUserName 姓名校验]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1

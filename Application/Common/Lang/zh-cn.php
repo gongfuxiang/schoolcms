@@ -179,5 +179,8 @@ return array(
 
 	// 生日
 	'common_regex_birthday'				=>	'^\d{4}-\d{2}-\d{2}$',
+
+	// 分数
+	'common_regex_score'				=>	'^[0-9]{1,3}$',
 );
 ?>

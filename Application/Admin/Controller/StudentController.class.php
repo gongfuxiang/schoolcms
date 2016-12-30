@@ -55,7 +55,7 @@ class StudentController extends CommonController
 		$where = $this->GetStudentIndexWhere();
 
 		// 分页
-		$number = 10;
+		$number = 1;
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
@@ -146,34 +146,42 @@ class StudentController extends CommonController
 		// 模糊
 		if(!empty(I('keyword')))
 		{
-			$where['username'] = array('like', '%'.I('keyword').'%');
-			$where['id_card'] = array('like', '%'.I('keyword').'%');
-			$where['tel'] = array('like', '%'.I('keyword').'%');
-			$where['_logic'] = 'or';
+			$where[] = array(
+					'username'	=>	array('like', '%'.I('keyword').'%'),
+					'id_card'	=>	array('like', '%'.I('keyword').'%'),
+					'tel'		=>	array('like', '%'.I('keyword').'%'),
+					'_logic'	=>	'or',
+				);
 		}
 
-		// 等值
-		$class_id = intval(I('class_id', 0));
-		if($class_id > 0)
+		// 是否更多条件
+		if(I('is_more', 0) == 1)
 		{
-			$where['class_id'] = $class_id;
-		}
-		$region_id = intval(I('region_id', 0));
-		if($region_id > 0)
-		{
-			$where['region_id'] = $region_id;
-		}
-		if(isset($_POST['gender']))
-		{
-			$where['gender'] = intval(I('gender', 0));
-		}
-		if(isset($_POST['state']))
-		{
-			$where['state'] = intval(I('state', 0));
-		}
-		if(isset($_POST['tuition_state']))
-		{
-			$where['tuition_state'] = intval(I('tuition_state', 0));
+			// 等值
+			if(I('class_id', 0) > 0)
+			{
+				$where['class_id'] = intval(I('class_id'));
+			}
+			if(I('region_id', 0) > 0)
+			{
+				$where['region_id'] = intval(I('region_id'));
+			}
+			if(I('gender', -1) > -1)
+			{
+				$where['gender'] = intval(I('gender', 0));
+			}
+			if(I('state', -1) > -1)
+			{
+				$where['state'] = intval(I('state', 0));
+			}
+			if(I('tuition_state', -1) > -1)
+			{
+				$where['tuition_state'] = intval(I('tuition_state', 0));
+			}
+			if(!empty(I('birthday')))
+			{
+				$where['birthday'] = strtotime(I('birthday'));
+			}
 		}
 		return $where;
 	}
@@ -187,6 +195,14 @@ class StudentController extends CommonController
 	 */
 	public function SaveInfo()
 	{
+		// 学生信息
+		$data = empty(I('id')) ? array() : M('Student')->find(I('id'));
+		if(!empty($data['birthday']))
+		{
+			$data['birthday'] = date('Y-m-d', $data['birthday']);
+		}
+		$this->assign('data', $data);
+
 		// 学期
 		$region_list = M('Region')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
 		$this->assign('region_list', $region_list);
@@ -305,6 +321,9 @@ class StudentController extends CommonController
 			{
 				$m->birthday	=	strtotime($m->birthday);
 			}
+
+			// 移除不能更新的数据
+			unset($m->id_card);
 
 			// 更新数据库
 			if($m->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->save())
