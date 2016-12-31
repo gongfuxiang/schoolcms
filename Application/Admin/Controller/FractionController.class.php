@@ -49,26 +49,26 @@ class FractionController extends CommonController
 		$param = array_merge($_POST, $_GET);
 
 		// 模型对象
-		$m = M('Student');
+		$m = M('Fraction');
 
 		// 条件
 		$where = $this->GetStudentIndexWhere();
 
 		// 分页
 		$number = 1;
+		$total = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->count('s.id');
 		$page_param = array(
 				'number'	=>	$number,
-				'total'		=>	$m->where($where)->count(),
+				'total'		=>	$total,
 				'where'		=>	$param,
 				'url'		=>	U('Admin/Fraction/Index'),
 			);
 		$page = new \My\Page($page_param);
 
-		// 登录校验
-		$this->Is_Login();
-
 		// 获取列表
-		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
+		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id');
+		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->select();
+		$list = $this->SetDataHandle($list);
 
 		// 班级
 		$this->assign('class_list', $this->GetClassList());
@@ -111,12 +111,7 @@ class FractionController extends CommonController
 		// 模糊
 		if(!empty(I('keyword')))
 		{
-			$where[] = array(
-					'username'	=>	array('like', '%'.I('keyword').'%'),
-					'id_card'	=>	array('like', '%'.I('keyword').'%'),
-					'tel'		=>	array('like', '%'.I('keyword').'%'),
-					'_logic'	=>	'or',
-				);
+			$where['s.username'] = array('like', '%'.I('keyword').'%');
 		}
 
 		// 是否更多条件
@@ -125,27 +120,24 @@ class FractionController extends CommonController
 			// 等值
 			if(I('class_id', 0) > 0)
 			{
-				$where['class_id'] = intval(I('class_id'));
+				$where['s.class_id'] = intval(I('class_id'));
 			}
-			if(I('region_id', 0) > 0)
+			if(I('score_id', 0) > 0)
 			{
-				$where['region_id'] = intval(I('region_id'));
+				$where['f.score_id'] = intval(I('score_id'));
 			}
-			if(I('gender', -1) > -1)
+			if(I('subject_id', 0) > 0)
 			{
-				$where['gender'] = intval(I('gender', 0));
+				$where['f.subject_id'] = intval(I('subject_id'));
 			}
-			if(I('state', -1) > -1)
+
+			if(I('score_level', -1) > -1)
 			{
-				$where['state'] = intval(I('state', 0));
-			}
-			if(I('tuition_state', -1) > -1)
-			{
-				$where['tuition_state'] = intval(I('tuition_state', 0));
-			}
-			if(!empty(I('birthday')))
-			{
-				$where['birthday'] = strtotime(I('birthday'));
+				$level = L('common_fraction_level_list')[I('score_level')];
+				$where[] = array(
+						array('f.score' => array('egt', $level['min'])),
+						array('f.score' => array('elt', $level['max'])),
+					);
 			}
 		}
 		return $where;
@@ -164,22 +156,40 @@ class FractionController extends CommonController
 	{
 		if(!empty($data))
 		{
-			$c = M('Class');
-			$r = M('Region');
+			$score = M('Score');
+			$subject = M('Subject');
+			$class = M('Class');
+			$score_level = L('common_fraction_level_list');
 			foreach($data as $k=>$v)
 			{
 				// 班级
-				$tmp_class = $c->field(array('pid', 'name'))->find($v['class_id']);
+				$tmp_class = $class->field(array('pid', 'name'))->find($v['class_id']);
 				if(!empty($tmp_class))
 				{
-					$p_name = ($tmp_class['pid'] > 0) ? $c->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
+					$p_name = ($tmp_class['pid'] > 0) ? $class->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
 					$data[$k]['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
 				} else {
 					$data[$k]['class_name'] = '';
 				}
 				
-				// 地区
-				$data[$k]['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
+				// 科目
+				$data[$k]['subject_name'] = $subject->where(array('id'=>$v['subject_id']))->getField('name');
+
+				// 成绩期号
+				$data[$k]['score_name'] = $score->where(array('id'=>$v['score_id']))->getField('name');
+
+				// 成绩等级
+				foreach($score_level as $level)
+				{
+					if($v['score'] >= $level['min'] && $v['score'] <= $level['max'])
+					{
+						$data[$k]['score_level'] = $level['name'];
+					}
+				}
+				if(!isset($data[$k]['score_level']))
+				{
+					$data[$k]['score_level'] = '';
+				}
 			}
 		}
 		return $data;

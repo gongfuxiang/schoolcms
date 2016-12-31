@@ -133,13 +133,13 @@ return array(
 			1 => array('id' => 1, 'name' => '已缴费'),
 		),
 
-	// 成绩等级
-	'common_fraction_level_list'			=>	array(
-			0 => array('id' => 0, 'name' => '差',),
-			1 => array('id' => 1, 'name' => '较差'),
-			2 => array('id' => 2, 'name' => '中'),
-			3 => array('id' => 3, 'name' => '良'),
-			4 => array('id' => 4, 'name' => '优'),
+	// 学生成绩等级
+	'common_fraction_level_list'		=>	array(
+			0 => array('id' => 0, 'name' => '差', 'min' => 0, 'max' => 19),
+			1 => array('id' => 1, 'name' => '较差', 'min' => 20, 'max' => 39),
+			2 => array('id' => 2, 'name' => '中', 'min' => 40, 'max' => 59),
+			3 => array('id' => 3, 'name' => '良', 'min' => 60, 'max' => 79),
+			4 => array('id' => 4, 'name' => '优', 'min' => 80, 'max' => 100),
 		),
 
 	// 色彩值

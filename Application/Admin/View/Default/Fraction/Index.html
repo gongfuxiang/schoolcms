@@ -52,10 +52,10 @@
 								<option value="{{$v.id}}" <if condition="isset($param['subject_id']) and $param['subject_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
 							</foreach>
 						</select>
-						<select name="state" class="am-radius c-p m-t-10">
+						<select name="score_level" class="am-radius c-p m-t-10">
 							<option value="-1">{{:L('fraction_score_level_text')}}</option>
 							<foreach name="common_fraction_level_list" item="v">
-								<option value="{{$v.id}}" <if condition="isset($param['state']) and $param['state'] eq $v['id']">selected</if>>{{$v.name}}</option>
+								<option value="{{$v.id}}" <if condition="isset($param['score_level']) and $param['score_level'] eq $v['id']">selected</if>>{{$v.name}}</option>
 							</foreach>
 						</select>
 					</div>
