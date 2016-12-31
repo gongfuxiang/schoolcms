@@ -1,0 +1,13 @@
+/**
+ * 列表
+ */
+@media only screen and (min-width: 641px) {
+	.view-list select, .view-list input { width: 22% !important; display: initial !important; }
+	input.form-keyword { width: 70% !important; }
+}
+@media only screen and (max-width: 641px) {
+	.view-list select, .view-list input { width: 49% !important; display: initial !important; }
+	input.form-keyword { width: 55% !important; display: initial !important; }
+}
+.more-submit:hover { color: #F60; }
+#is_more {  display: none !important; }

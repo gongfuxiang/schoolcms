@@ -133,6 +133,15 @@ return array(
 			1 => array('id' => 1, 'name' => '已缴费'),
 		),
 
+	// 成绩等级
+	'common_fraction_level_list'			=>	array(
+			0 => array('id' => 0, 'name' => '差',),
+			1 => array('id' => 1, 'name' => '较差'),
+			2 => array('id' => 2, 'name' => '中'),
+			3 => array('id' => 3, 'name' => '良'),
+			4 => array('id' => 4, 'name' => '优'),
+		),
+
 	// 色彩值
 	'common_color_list'					=>	array(
 			'',
