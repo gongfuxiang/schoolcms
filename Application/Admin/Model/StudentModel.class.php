@@ -43,11 +43,12 @@ class StudentModel extends CommonModel
 	public function UniqueIdCard()
 	{
 		// 读取学期配置信息
-		$semester_id = MyC('semester');
+		/*$semester_id = MyC('semester');
 		if(empty($semester_id) || I('id_card'))
 		{
 			return false;
-		}
+		}*/
+		$semester_id = 0;
 
 		// 校验是否唯一
 		$id = $this->db(0)->where(array('id_card'=>I('id_card'), 'semester_id'=>$semester_id))->getField('id');

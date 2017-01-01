@@ -32,7 +32,7 @@
 				</div>
 				<div class="am-form-group">
 					<label>{{:L('common_view_id_card_text')}}：</label>
-					<input type="text" name="id_card" placeholder="{{:L('common_view_id_card_text')}}" pattern="{{:L('common_regex_id_card')}}" data-validation-message="{{:L('common_view_id_card_format')}}" class="am-radius" <present name="data"> value="{{$data.id_card}}" disabled</present> required />
+					<input type="text" name="id_card" placeholder="{{:L('common_view_id_card_text')}}" pattern="{{:L('common_regex_id_card')}}" data-validation-message="{{:L('common_view_id_card_format')}}" class="am-radius" <notempty name="data"> value="{{$data.id_card}}" disabled</notempty> required />
 				</div>
 				<include file="Lib/Gender" />
 				<div class="am-form-group">
