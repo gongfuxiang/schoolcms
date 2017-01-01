@@ -23,7 +23,7 @@ return array(
 	'fraction_username_text'			=>	'学生姓名',
 	'fraction_student_username_format'	=>	'学生真实姓名',
 	'fraction_student_id_error'			=>	'学生信息有误',
-	'fraction_score_level_text'			=>	'成绩等级',
+	'fraction_score_level_text'			=>	'等级',
 	'fraction_class_id_text'			=>	'班级',
 );
 ?>

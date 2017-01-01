@@ -60,87 +60,41 @@
 						</select>
 					</div>
 				</div>
-            </form>
-            <!-- form end -->
-
-            <!-- operation start -->
-            <div class="am-g m-t-15">
-	            <a href="{{:U('Admin/Student/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
-	        </div>
-	        <!-- operation end -->
+			</form>
+			<!-- form end -->
 
 			<!-- list start -->
-			<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10">
+			<table class="am-table am-table-striped am-table-hover am-text-middle m-t-20">
 				<thead>
 					<tr>
-						<th>{{:L('common_admin_name')}}</th>
-						<th class="am-hide-sm-only">{{:L('common_view_id_card_text')}}</th>
-						<th>{{:L('common_view_gender_name')}}</th>
-						<th class="am-hide-sm-only">{{:L('student_class_text')}}</th>
-						<th class="am-hide-sm-only">{{:L('common_view_student_state_name')}}</th>
-						<th>更多</th>
+						<th>{{:L('fraction_username_text')}}</th>
+						<th class="am-hide-sm-only">{{:L('common_view_gender_name')}}</th>
+						<th class="am-hide-sm-only">{{:L('fraction_class_id_text')}}</th>
+						<th>{{:L('fraction_score_id_text')}}</th>
+						<th>{{:L('fraction_subject_text')}}</th>
+						<th class="am-hide-sm-only">{{:L('fraction_score_level_text')}}</th>
+						<th>{{:L('fraction_score_text')}}</th>
 						<th>{{:L('common_operation_name')}}</th>
 					</tr>
 				</thead>
 				<tbody>
 					<if condition="!empty($list)">
 						<foreach name="list" item="v">
-							<tr id="data-list-{{$v.id}}">
+							<tr id="data-list-{{$v.id}}-{{$v.student_id}}">
 								<td>{{$v.username}}</td>
-								<td class="am-hide-sm-only">{{$v.id_card}}</td>
-								<td>{{:L('common_gender_list')[$v['gender']]['name']}}</td>
+								<td class="am-hide-sm-only">{{:L('common_gender_list')[$v['gender']]['name']}}</td>
 								<td class="am-hide-sm-only">{{$v.class_name}}</td>
-								<td class="am-hide-sm-only">{{:L('common_student_state_list')[$v['state']]['name']}}</td>
+								<td>{{$v.score_name}}</td>
+								<td>{{$v.subject_name}}</td>
+								<td class="am-hide-sm-only">{{$v.score_level}}</td>
+								<td>{{$v.score}}</td>
 								<td>
-									<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> 查看更多</span>
-									<div class="am-popup am-radius" id="my-popup{{$v.id}}">
-										<div class="am-popup-inner">
-											<div class="am-popup-hd">
-												<h4 class="am-popup-title">详情内容</h4>
-												<span data-am-modal-close
-												class="am-close">&times;</span>
-											</div>
-											<div class="am-popup-bd">
-												<dl class="dl-content">
-													<dt>{{:L('common_address_text')}}</dt>
-													<dd>{{$v.region_name}} {{$v.address}}</dd>
-
-													<dt>{{:L('student_birthday_text')}}</dt>
-													<dd>{{:date('Y-m-d', $v['birthday'])}}</dd>
-
-													<dt>{{:L('student_sign_up_name')}}</dt>
-													<dd>{{:date('Y-m-d H:i:s', $v['add_time'])}}</dd>
-
-													<dt>{{:L('common_view_tel_name')}}</dt>
-													<dd>{{$v.tel}}</dd>
-
-													<dt>{{:L('student_tuition_state_text')}}</dt>
-													<dd>{{:L('common_tuition_state_list')[$v['tuition_state']]['name']}}</dd>
-
-													<dt>{{:L('common_view_student_state_name')}}</dt>
-													<dd>{{:L('common_student_state_list')[$v['state']]['name']}}</dd>
-												</dl>
-											</div>
-										</div>
-									</div>
-								</td>
-								<td>
-									<a href="{{:U('Admin/Fraction/SaveInfo', array('id'=>$v['id']))}}">
-										<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-line-chart" data-am-popover="{content: '{{:L('common_operation_resultInput')}}', trigger: 'hover focus'}"></button>
-									</a>
-									<if condition="$v['username'] eq 'admin'">
-										<span class="cr-ccc">{{:L('common_do_not_operate')}}</span>
-									<else />
-										<a href="{{:U('Admin/Student/SaveInfo', array('id'=>$v['id']))}}">
-											<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
-										</a>
-										<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Student/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
-									</if>
+									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Fraction/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}-{{$v.student_id}}"></button>
 								</td>
 							</tr>
 						</foreach>
 					<else />
-						<tr><td colspan="5" class="table-no">{{:L('common_not_data_tips')}}</td></tr>
+						<tr><td colspan="10" class="table-no">{{:L('common_not_data_tips')}}</td></tr>
 					</if>
 				</tbody>
 			</table>

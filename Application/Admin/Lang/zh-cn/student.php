@@ -15,6 +15,7 @@ return array(
 	'student_region_format'				=>	'请选择所在地区',
 	'student_region_tips'				=>	'地区有误',
 	'student_username_text'				=>	'学生真实姓名',
+	'student_username_name'				=>	'学生姓名',
 	'student_username_format'			=>	'姓名格式 2~16 个字符',
 	'student_birthday_text'				=>	'生日',
 	'student_birthday_format'			=>	'生日格式有误',

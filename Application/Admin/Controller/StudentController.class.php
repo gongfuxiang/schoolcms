@@ -39,12 +39,6 @@ class StudentController extends CommonController
      */
 	public function Index()
 	{
-		// 登录校验
-		$this->Is_Login();
-		
-		// 权限校验
-		$this->Is_Power();
-
 		// 参数
 		$param = array_merge($_POST, $_GET);
 
@@ -55,7 +49,7 @@ class StudentController extends CommonController
 		$where = $this->GetStudentIndexWhere();
 
 		// 分页
-		$number = 1;
+		$number = 10;
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
@@ -63,9 +57,6 @@ class StudentController extends CommonController
 				'url'		=>	U('Admin/Student/Index'),
 			);
 		$page = new \My\Page($page_param);
-
-		// 登录校验
-		$this->Is_Login();
 
 		// 获取列表
 		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
@@ -346,48 +337,50 @@ class StudentController extends CommonController
 	 */
 	public function Delete()
 	{
-		print_r($_POST);
-		/*// 是否ajax请求
+		// 是否ajax请求
 		if(!IS_AJAX)
 		{
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		// 参数是否有误
-		if(empty(I('id')) || empty(I('id_card')))
+		// 参数处理
+		list($id, $id_card) = (stripos(I('id'), '-') === false) ? array() : explode('-', I('id'));
+
+		// 删除数据
+		if($id != null && $id_card != null)
 		{
+			// 学生模型
+			$s = M('Student');
+
+			// 学生是否存在
+			$student = $s->where(array('id'=>$id, 'id_card'=>$id_card))->getField('id');
+			if(empty($student))
+			{
+				$this->ajaxReturn(L('student_no_exist_error'), -2);
+			}
+
+			// 开启事务
+			$s->startTrans();
+
+			// 删除学生
+			$s_state = $s->where(array('id'=>$id, 'id_card'=>$id_card))->delete();
+
+			// 删除成绩
+			$f_state = M('Fraction')->where(array('student_id'=>$id))->delete();
+			if($s_state && $f_state)
+			{
+				// 提交事务
+				$s->commit();
+
+				$this->ajaxReturn(L('common_operation_delete_success'));
+			} else {
+				// 回滚事务
+				$s->rollback();
+				$this->ajaxReturn(L('common_operation_delete_error'), -100);
+			}
+		} else {
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}
-
-		// 学生模型
-		$s = M('Student');
-
-		// 学生是否存在
-		$data = $s->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->find();
-		if(empty($data))
-		{
-			$this->ajaxReturn(L('student_no_exist_error'), -2);
-		}
-
-		// 开启事务
-		$r->startTrans();
-
-		// 删除学生
-		$s_state = $r->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->delete();
-
-		// 删除成绩
-		$rp_state = M('RolePower')->where(array('role_id'=>I('id')))->delete();
-		if($s_state && $rp_state)
-		{
-			// 提交事务
-			$r->commit();
-
-			$this->ajaxReturn(L('common_operation_delete_success'));
-		} else {
-			// 回滚事务
-			$r->rollback();
-			$this->ajaxReturn(L('common_operation_delete_error'), -100);
-		}*/
 	}
 }
 ?>

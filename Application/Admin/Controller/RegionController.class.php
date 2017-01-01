@@ -33,7 +33,7 @@ class RegionController extends CommonController
      */
 	public function Index()
 	{
-		$this->assign('list', M('Region')->field(array('id', 'name'))->select());
+		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 		$this->display();
 	}

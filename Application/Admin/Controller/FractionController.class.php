@@ -31,7 +31,7 @@ class FractionController extends CommonController
 	}
 
 	/**
-     * [Index 权限组列表]
+     * [Index 学生成绩列表]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -39,12 +39,6 @@ class FractionController extends CommonController
      */
 	public function Index()
 	{
-		// 登录校验
-		$this->Is_Login();
-		
-		// 权限校验
-		$this->Is_Power();
-
 		// 参数
 		$param = array_merge($_POST, $_GET);
 
@@ -55,8 +49,8 @@ class FractionController extends CommonController
 		$where = $this->GetStudentIndexWhere();
 
 		// 分页
-		$number = 1;
-		$total = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->count('s.id');
+		$number = 10;
+		$total = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->count();
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$total,
@@ -66,9 +60,10 @@ class FractionController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id');
-		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->select();
-		$list = $this->SetDataHandle($list);
+		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id');
+		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select();
+		// 数据列表
+		$this->assign('list', $this->SetDataHandle($list));
 
 		// 班级
 		$this->assign('class_list', $this->GetClassList());
@@ -83,16 +78,11 @@ class FractionController extends CommonController
 		// 成绩期号
 		$this->assign('score_list', M('Score')->select());
 
-		
-
 		// 参数
 		$this->assign('param', $param);
 
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
-
-		// 数据列表
-		$this->assign('list', $list);
 
 		$this->display();
 	}
@@ -315,6 +305,43 @@ class FractionController extends CommonController
 	private function Edit()
 	{
 		$this->error(L('common_unauthorized_access'));
+	}
+
+	/**
+	 * [Delete 学生成绩删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-14T21:40:29+0800
+	 */
+	public function Delete()
+	{
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 参数是否有误
+		if(empty(I('id')))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 参数处理
+		list($id, $student_id) = (stripos(I('id'), '-') === false) ? array() : explode('-', I('id'));
+
+		// 删除数据
+		if($id != null && $student_id != null)
+		{
+			if(M('Fraction')->where(array('id'=>$id, 'student_id'=>$student_id))->delete())
+			{
+				$this->ajaxReturn(L('common_operation_delete_success'));
+			} else {
+				$this->ajaxReturn(L('common_operation_delete_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
 	}
 }
 ?>

@@ -33,6 +33,8 @@ class IntervalController extends CommonController
      */
 	public function Index()
 	{
+		// 是否启用
+		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 		$this->display();
 	}
 
