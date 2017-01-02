@@ -39,14 +39,14 @@ class ConfigController extends CommonController
      */
 	public function Index()
 	{
-		// 配置信息
-		$data = M('Config')->getField('only_tag,name,describe,value');
-		$this->assign('data', $data);
-
 		// 学期
 		$semester_list = M('Semester')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
 		$this->assign('semester_list', $semester_list);
 
+		// 配置信息
+		$data = M('Config')->getField('only_tag,name,describe,value');
+		$this->assign('data', $data);
+		
 		$this->display();
 	}
 
