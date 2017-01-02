@@ -190,9 +190,15 @@ class CommonController extends Controller
 	 */
 	protected function Is_Power()
 	{
-		if(!in_array(CONTROLLER_NAME.'_'.ACTION_NAME, $this->power))
+		// 不需要校验权限的方法
+		$unwanted_power = array('GetNodeSon');
+		if(!in_array(ACTION_NAME, $unwanted_power))
 		{
-			$this->error(L('common_there_is_no_power'));
+			// 角色组权限列表校验
+			if(!in_array(CONTROLLER_NAME.'_'.ACTION_NAME, $this->power))
+			{
+				$this->error(L('common_there_is_no_power'));
+			}
 		}
 	}
 }

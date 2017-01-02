@@ -39,7 +39,27 @@ class ConfigController extends CommonController
      */
 	public function Index()
 	{
+		// 配置信息
+		$data = M('Config')->getField('only_tag,name,describe,value');
+		$this->assign('data', $data);
+
+		// 学期
+		$semester_list = M('Semester')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
+		$this->assign('semester_list', $semester_list);
+
 		$this->display();
+	}
+
+	/**
+	 * [Save 数据保存]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-02T23:08:19+0800
+	 */
+	public function Save()
+	{
+		print_r($_POST);
 	}
 }
 ?>
