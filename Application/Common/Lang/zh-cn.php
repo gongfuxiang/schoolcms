@@ -145,6 +145,12 @@ return array(
 			4 => array('id' => 4, 'name' => '优', 'min' => 80, 'max' => 100),
 		),
 
+	// CSV编码列表
+	'common_csv_charset_list'			=>	array(
+			0 => array('id' => 0, 'value' => 'utf-8', 'name' => 'utf-8'),
+			1 => array('id' => 1, 'value' => 'gbk', 'name' => 'gbk'),
+		),
+
 	// 色彩值
 	'common_color_list'					=>	array(
 			'',

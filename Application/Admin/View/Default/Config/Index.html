@@ -1,0 +1,64 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+<!-- nav start -->
+<include file="Public/Nav" />
+<!-- nav end -->
+		
+<!-- content start -->
+<div class="admin">
+	<!-- left menu start -->
+	<include file="Public/Menu" />
+	<!-- left menu end -->
+
+	<!-- right content start  -->
+	<div class="content-right">
+		<div class="content">
+			<!-- form start -->
+			<form class="am-form form-validation view-save" action="{{:U('Admin/Fraction/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Fraction/Index')}}">
+				<div class="am-form-group">
+					<label>{{:L('fraction_username_text')}}：</label>
+					<input type="text" placeholder="{{:L('fraction_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('fraction_student_username_format')}}" class="am-radius" <present name="student"> value="{{$student.username}}"</present> disabled required />
+				</div>
+				<div class="am-form-group">
+					<label>{{:L('fraction_score_id_text')}}：</label>
+					<select name="score_id" class="am-radius c-p" data-validation-message="{{:L('fraction_score_id_format')}}" required>
+						<option value="">{{:L('common_select_can_choose')}}</option>
+						<foreach name="score_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($data['score_id']) and $data['score_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
+					</select>
+				</div>
+				<div class="am-form-group">
+					<label>{{:L('fraction_subject_text')}}：</label>
+					<select name="subject_id" class="am-radius c-p" data-validation-message="{{:L('fraction_subject_format')}}" required>
+						<option value="">{{:L('common_select_can_choose')}}</option>
+						<foreach name="subject_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($data['subject_id']) and $data['subject_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
+					</select>
+				</div>
+				<div class="am-form-group">
+					<label>{{:L('fraction_score_text')}}：</label>
+					<input type="number" name="score" placeholder="{{:L('fraction_score_text')}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{:L('fraction_score_format')}}" class="am-radius" <present name="data"> value="{{$data.score}}"</present> required />
+				</div>
+				<div class="am-form-group">
+					<input type="hidden" name="student_id" <present name="student"> value="{{$student.id}}"</present>" />
+					<input type="hidden" name="id" <present name="data"> value="{{$data.id}}"</present>" />
+					<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
+				</div>
+			</form>
+            <!-- form end -->
+		</div>
+	</div>
+	<!-- right content end  -->
+</div>
+<!-- content end -->
+
+<!-- navbar start -->
+<include file="Public/NavBar" />
+<!-- navbar end -->
+		
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end
