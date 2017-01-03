@@ -9,7 +9,7 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'Hello',
+	'common_site_name'					=>	'',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 	'common_site_title'					=>	'hello',
 
@@ -147,7 +147,7 @@ return array(
 
 	// CSV编码列表
 	'common_csv_charset_list'			=>	array(
-			0 => array('id' => 0, 'value' => 'utf-8', 'name' => 'utf-8'),
+			0 => array('id' => 0, 'value' => 'utf-8', 'name' => 'utf-8', 'checked' => true),
 			1 => array('id' => 1, 'value' => 'gbk', 'name' => 'gbk'),
 		),
 
@@ -200,5 +200,8 @@ return array(
 
 	// 分数
 	'common_regex_score'				=>	'^[0-9]{1,3}$',
+
+	// 分页
+	'common_regex_page_number'			=>	'^[1-9]{1}[0-9]{0,2}$',
 );
 ?>

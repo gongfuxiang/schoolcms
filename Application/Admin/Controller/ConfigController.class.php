@@ -40,11 +40,14 @@ class ConfigController extends CommonController
 	public function Index()
 	{
 		// 学期
-		$semester_list = M('Semester')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
+		$semester_list = M('Semester')->field(array('id', 'name'))->where(array('is_enable'=>1))->order('id desc')->select();
 		$this->assign('semester_list', $semester_list);
 
+		// csv
+		$this->assign('common_csv_charset_list', L('common_csv_charset_list'));
+
 		// 配置信息
-		$data = M('Config')->getField('only_tag,name,describe,value');
+		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);
 		
 		$this->display();
@@ -59,7 +62,34 @@ class ConfigController extends CommonController
 	 */
 	public function Save()
 	{
-		print_r($_POST);
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 参数校验
+		if(empty($_POST))
+		{
+			$this->error(L('common_param_error'));
+		}
+
+		// 循环保存数据
+		$success = 0;
+		$c = M('Config');
+		foreach($_POST as $k=>$v)
+		{
+			if($c->where(array('only_tag'=>$k))->save(array('value'=>$v)))
+			{
+				$success++;
+			}
+		}
+		if($success > 0)
+		{
+			$this->ajaxReturn(L('common_operation_edit_success').'['.$success.']');
+		} else {
+			$this->ajaxReturn(L('common_operation_edit_error'), -100);
+		}
 	}
 }
 ?>
