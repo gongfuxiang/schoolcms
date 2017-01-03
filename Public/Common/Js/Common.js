@@ -327,11 +327,13 @@ function Tree(id, url, level)
 				}
 			} else {
 				$('#tree').find('p').text(result.msg);
+				$('#tree').find('img').remove();
 			}
 		},
 		error:function(xhr, type)
 		{
 			$('#tree').find('p').text('异常出错');
+			$('#tree').find('img').remove();
 		}
 	});
 }
