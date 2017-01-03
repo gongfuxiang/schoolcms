@@ -49,7 +49,7 @@ class StudentController extends CommonController
 		$where = $this->GetStudentIndexWhere();
 
 		// 分页
-		$number = 10;
+		$number = MyC('page_number');
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
@@ -133,6 +133,9 @@ class StudentController extends CommonController
 	private function GetStudentIndexWhere()
 	{
 		$where = array();
+
+		// 学期id
+		$where['semester_id'] = MyC('semester_id');
 
 		// 模糊
 		if(!empty(I('keyword')))
@@ -279,6 +282,7 @@ class StudentController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
+			$m->semester_id	=	MyC('semester_id');
 			
 			// 写入数据库
 			if($m->add())
@@ -312,6 +316,9 @@ class StudentController extends CommonController
 			{
 				$m->birthday	=	strtotime($m->birthday);
 			}
+
+			// 学期id
+			$m->semester_id		=	MyC('semester_id');
 
 			// 移除不能更新的数据
 			unset($m->id_card);

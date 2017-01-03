@@ -49,7 +49,7 @@ class AdminController extends CommonController
 		$where = $this->GetAdminIndexWhere();
 
 		// 分页
-		$number = 10;
+		$number = MyC('page_number');
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),

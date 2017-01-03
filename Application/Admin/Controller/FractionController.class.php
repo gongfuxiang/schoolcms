@@ -46,10 +46,10 @@ class FractionController extends CommonController
 		$m = M('Fraction');
 
 		// 条件
-		$where = $this->GetStudentIndexWhere();
+		$where = $this->GetFractionIndexWhere();
 
 		// 分页
-		$number = 10;
+		$number = MyC('page_number');
 		$total = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->count();
 		$page_param = array(
 				'number'	=>	$number,
@@ -88,15 +88,18 @@ class FractionController extends CommonController
 	}
 
 	/**
-	 * [GetStudentIndexWhere 学生列表条件]
+	 * [GetFractionIndexWhere 学生列表条件]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T22:16:29+0800
 	 */
-	private function GetStudentIndexWhere()
+	private function GetFractionIndexWhere()
 	{
 		$where = array();
+
+		// 学期id
+		$where['f.semester_id'] = MyC('semester_id');
 
 		// 模糊
 		if(!empty(I('keyword')))
@@ -282,6 +285,9 @@ class FractionController extends CommonController
 		{
 			// 额外数据处理
 			$m->add_time	=	time();
+
+			// 学期id
+			$m->semester_id	=	MyC('semester_id');
 			
 			// 写入数据库
 			if($m->add())

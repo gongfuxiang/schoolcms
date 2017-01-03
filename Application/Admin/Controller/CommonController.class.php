@@ -38,6 +38,9 @@ class CommonController extends Controller
 
 		// 视图初始化
 		$this->ViewInit();
+
+		// 配置信息初始化
+		$this->MyConfigInit();
 	}
 
 	/**
@@ -131,8 +134,8 @@ class CommonController extends Controller
 		$role_id = isset($_SESSION['admin']['role_id']) ? intval($_SESSION['admin']['role_id']) : 0;
 
 		// 读取缓存数据
-		$this->left_menu = S('common_left_menu');
-		$this->power = S('common_power_'.$admin_id);
+		$this->left_menu = S(C('common_left_menu_key'));
+		$this->power = S(C('common_power_key').$admin_id);
 
 		// 缓存没数据则从数据库重新读取
 		if($role_id > 0 && empty($this->left_menu))
@@ -176,8 +179,8 @@ class CommonController extends Controller
 					}
 				}
 			}
-			S('common_left_menu', $this->left_menu);
-			S('common_power_'.$admin_id, $this->power);
+			S(C('common_left_menu_key'), $this->left_menu);
+			S(C('common_power_key').$admin_id, $this->power);
 		}
 	}
 
@@ -199,6 +202,24 @@ class CommonController extends Controller
 			{
 				$this->error(L('common_there_is_no_power'));
 			}
+		}
+	}
+
+	/**
+	 * [MyConfigInit 系统配置信息初始化]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-03T21:36:55+0800
+	 * @param    [int] $state [是否更新数据,0否,1是]
+	 */
+	protected function MyConfigInit($state = 0)
+	{
+		$key = C('common_my_config_key');
+		if($state == 1 || empty(S($key)))
+		{
+			$data = M('Config')->getField('only_tag,value');
+			S($key, $data);
 		}
 	}
 }

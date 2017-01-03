@@ -19,7 +19,7 @@ return array(
 	'ver_to_view_name'					=>	'查看最新版本',
 	'copyright_name'					=>	'版权所有',
 	'originator_name'					=>	'发起人',
-	'research_name'						=>	'研发',
+	'research_name'						=>	'研发成员',
 	'ued_name'							=>	'UED',
 	'market_operation'					=>	'市场运作',
 	'os_view_title'						=>	'系统信息',

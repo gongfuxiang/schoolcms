@@ -86,6 +86,9 @@ class ConfigController extends CommonController
 		}
 		if($success > 0)
 		{
+			// 配置信息更新
+			$this->MyConfigInit(1);
+
 			$this->ajaxReturn(L('common_operation_edit_success').'['.$success.']');
 		} else {
 			$this->ajaxReturn(L('common_operation_edit_error'), -100);
