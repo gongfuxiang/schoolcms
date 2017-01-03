@@ -14,70 +14,38 @@
 	<!-- right content start  -->
 	<div class="content-right">
 		<div class="content">
-			<div class="am-g">
-				<!-- content start -->
-				<div class="am-u-md-3">
-					<div class="card-box">
-						<h4 class="header-title m-t-0 m-b-30">总收入</h4>
-						<div class="widget-chart-1 am-cf">
-                            <div id="widget-chart-box-1" style="height: 110px;width: 110px;float: left;">
-                            </div>
+			<p class="fw-700 list-title">{{:L('os_view_title')}}</p>
+			<dl class="dl-content">
+				<dt>{{:L('ver_name')}}</dt>
+				<dd>{{$data.ver}}<a href="{{:L('common_application_website')}}" target="_blank" class="m-l-10">{{:L('ver_to_view_name')}}</a></dd>
 
-                            <div class="widget-detail-1" style="float: right;">
-                                <h2 class="p-t-10 m-b-0"> 256 </h2>
-                                <p class="text-muted">今日收入</p>
-                            </div>
-                        </div>
-					</div>
-				</div>
-				<!-- col end -->
-				<div class="am-u-md-3">
-					<div class="card-box">
-						<h4 class="header-title m-t-0 m-b-30">销售分析</h4>
-						<div class="widget-box-2">
-                            <div class="widget-detail-2">
-                                <span class="badge  pull-left m-t-20  am-round" style="color: #fff; background: #0e90d2;">32% <i class="zmdi zmdi-trending-up"></i> </span>
-                                <h2 class="m-b-0"> 8451 </h2>
-                                <p class="text-muted m-b-25">Revenue today</p>
-                            </div>
-                            <div class="am-progress am-progress-xs am-margin-bottom-0">
-							    <div class="am-progress-bar" style="width: 80%"></div>
-							</div>
-                        </div>
-					</div>
-				</div>
-				<!-- col end -->
-				<div class="am-u-md-3">
-					<div class="card-box">
-						<h4 class="header-title m-t-0 m-b-30">总收入</h4>
-						<div class="widget-chart-1 am-cf">
-                            <div id="widget-chart-box-2" style="height: 110px;width: 110px;float: left;">
-                            </div>
+				<dt>{{:L('os_ver_name')}}</dt>
+				<dd>{{$data.os_ver}}</dd>
 
-                            <div class="widget-detail-1" style="float: right;">
-                                <h2 class="p-t-10 m-b-0"> 256 </h2>
-                                <p class="text-muted">今日收入</p>
-                            </div>
-                        </div>
-					</div>
-				</div>
-				<!-- col end -->
-				<div class="am-u-md-3">
-					<div class="card-box">
-						<h4 class="header-title m-t-0 m-b-30">销售分析</h4>
-						<div class="widget-box-2">
-                            <div class="widget-detail-2">
-                                <span class="badge  pull-left m-t-20  am-round progress-bar-pink" style="color: #fff;">32% <i class="zmdi zmdi-trending-up"></i> </span>
-                                <h2 class="m-b-0"> 8451 </h2>
-                                <p class="text-muted m-b-25">Revenue today</p>
-                            </div>
-                            <div class="am-progress am-progress-xs am-margin-bottom-0" style="background: rgba(255, 138, 204, 0.2);">
-							    <div class="am-progress-bar progress-bar-pink" style="width: 80%"></div>
-							</div>
-                        </div>
-					</div>
-				</div>
-			</div>
+				<dt>{{:L('php_ver_name')}}</dt>
+				<dd>{{$data.php_ver}}</dd>
+
+				<dt>{{:L('mysql_ver_name')}}</dt>
+				<dd>{{$data.mysql_ver}}</dd>
+
+				<dt>{{:L('server_ver_name')}}</dt>
+				<dd>{{$data.server_ver}}</dd>
+
+				<dt>{{:L('host_name')}}</dt>
+				<dd>{{$data.host}}</dd>
+			</dl>
+
+			<p class="fw-700 list-title">{{:L('team_view_title')}}</p>
+			<dl class="dl-content">
+				<dt>{{:L('copyright_name')}}</dt>
+				<dd>{{:L('common_application_name')}}</dd>
+
+				<dt>{{:L('originator_name')}}</dt>
+				<dd>Devil</dd>
+
+				<dt>{{:L('research_name')}}</dt>
+				<dd><a href="http://gong.gg/" target="_blank">Devil</a>，小会</dd>
+			</dl>
 		</div>
 	</div>
 	<!-- right content end  -->

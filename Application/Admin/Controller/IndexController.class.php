@@ -29,6 +29,16 @@ class IndexController extends CommonController
 
 	public function Index()
 	{
+		$mysql_ver = M()->query('SELECT VERSION() AS `ver`');
+		$data = array(
+				'server_ver'	=>	php_sapi_name(),
+				'php_ver'		=>	PHP_VERSION,
+				'mysql_ver'		=>	isset($mysql_ver[0]['ver']) ? $mysql_ver[0]['ver'] : '',
+				'os_ver'		=>	PHP_OS,
+				'host'			=>	isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : '',
+				'ver'			=>	L('common_application_name').' '.L('common_application_ver'),
+			);
+		$this->assign('data', $data);
 		$this->display();
 	}
 }

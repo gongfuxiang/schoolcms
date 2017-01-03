@@ -13,6 +13,11 @@ return array(
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 	'common_site_title'					=>	'hello',
 
+	// 应用信息
+	'common_application_name'			=>	'SchoolCMS',
+	'common_application_ver'			=>	'v2.0',
+	'common_application_website'		=>	'http://schoolcms.org/',
+
 	// 公共
 	'common_login_invalid'				=>	'登录失效，请重新登录',
 	'common_jump_tips'					=>	'页面跳转中...',
