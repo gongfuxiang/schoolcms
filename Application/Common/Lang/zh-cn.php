@@ -143,11 +143,36 @@ return array(
 
 	// 学生成绩等级
 	'common_fraction_level_list'		=>	array(
-			0 => array('id' => 0, 'name' => '差', 'min' => 0, 'max' => intval(MyC('fraction_weak'))-1),
-			1 => array('id' => 1, 'name' => '较差', 'min' => MyC('fraction_weak'), 'max' => intval(MyC('fraction_poor'))-1),
-			2 => array('id' => 2, 'name' => '中', 'min' => MyC('fraction_poor'), 'max' => intval(MyC('fraction_commonly'))-1),
-			3 => array('id' => 3, 'name' => '良', 'min' => MyC('fraction_commonly'), 'max' => intval(MyC('fraction_good'))-1),
-			4 => array('id' => 4, 'name' => '优', 'min' => MyC('fraction_good'), 'max' => MyC('fraction_excellent')),
+			0 => array(
+					'id'	=>	0,
+					'name'	=>	'差',
+					'min'	=>	0,
+					'max'	=>	intval(MyC('fraction_weak', 20))-1
+				),
+			1 => array(
+					'id'	=>	1,
+					'name'	=>	'较差',
+					'min'	=>	MyC('fraction_weak', 20),
+					'max'	=>	intval(MyC('fraction_poor', 40))-1
+				),
+			2 => array(
+					'id'	=>	2,
+					'name'	=>	'中',
+					'min'	=>	MyC('fraction_poor', 40),
+					'max'	=>	intval(MyC('fraction_commonly', 60))-1
+			),
+			3 => array(
+					'id'	=>	3,
+					'name'	=>	'良',
+					'min'	=>	MyC('fraction_commonly', 60),
+					'max'	=>	intval(MyC('fraction_good', 80))-1
+				),
+			4 => array(
+					'id'	=>	4,
+					'name'	=>	'优',
+					'min'	=>	MyC('fraction_good', 80),
+					'max'	=>	MyC('fraction_excellent', 100)
+				),
 		),
 
 	// CSV编码列表
