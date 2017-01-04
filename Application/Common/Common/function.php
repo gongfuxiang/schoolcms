@@ -9,6 +9,22 @@
  */
 
 /**
+ * [MyC 读取站点配置信息]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-29T17:17:25+0800
+ * @param    [string]    $key     [索引名称]
+ * @param    [mixed]     $default [默认值]
+ * @return   [mixed]              [配置信息值,没找到返回null]
+ */
+function MyC($key, $default = null)
+{
+    $data = S(C('common_my_config_key'));
+    return isset($data[$key]) ? $data[$key] : $default;
+}
+
+/**
  * [EmptyDir 清空目录下所有文件]
  * @author   Devil
  * @blog     http://gong.gg/
