@@ -316,14 +316,19 @@ function Tree(id, url, level)
 					html += '</td></tr>';
 				}
 				html += (id != 0) ? '' : '</table>';
-				if(id == 0)
+
+				// 防止网络慢的情况下重复添加
+				if($('#data-list-'+id).find('.tree-submit').attr('state') != 'ok')
 				{
-					$('#tree').html(html);
-				} else {
-					$('#data-list-'+id).after(html);
-					$('#data-list-'+id).find('.tree-submit').attr('state', 'ok');
-					$('#data-list-'+id).find('.tree-submit').removeClass('am-icon-plus');
-					$('#data-list-'+id).find('.tree-submit').addClass('am-icon-minus-square');
+					if(id == 0)
+					{
+						$('#tree').html(html);
+					} else {
+						$('#data-list-'+id).after(html);
+						$('#data-list-'+id).find('.tree-submit').attr('state', 'ok');
+						$('#data-list-'+id).find('.tree-submit').removeClass('am-icon-plus');
+						$('#data-list-'+id).find('.tree-submit').addClass('am-icon-minus-square');
+					}
 				}
 			} else {
 				$('#tree').find('p').text(result.msg);
