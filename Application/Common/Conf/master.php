@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 正式环境
+ * 数据库配置信息-自动安装生成
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1

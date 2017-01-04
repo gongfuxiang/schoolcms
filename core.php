@@ -11,6 +11,13 @@
 
 // 公共应用入口文件
 
+// 检测是否是新安装
+if(is_dir("./Install") && !file_exists("./Install/install.lock"))
+{
+	$url = $_SERVER['HTTP_HOST'].trim($_SERVER['SCRIPT_NAME'],'index.php admin.php').'Install/index.php';
+    exit(header('location:http://'.$url));
+}
+
 // 检测PHP环境
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 

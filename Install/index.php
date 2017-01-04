@@ -1,29 +1,41 @@
 <?php
+
 /**
  * 安装向导
  */
+// 编码
 header('Content-type:text/html;charset=utf-8');
+
 // 检测是否安装过
-if (file_exists('./install.lock')) {
-    echo '你已经安装过该系统，重新安装需要先删除./install.lock 文件';
-    die;
+if(file_exists('./install.lock'))
+{
+    exit('你已经安装过该系统，重新安装需要先删除./Install/install.lock 文件');
 }
+
+// 参数
+$c = isset($_GET['c']) ? trim($_GET['c']) : '';
+
 // 同意协议页面
-if(@!isset($_GET['c']) || @$_GET['c']=='agreement'){
-    require './agreement.html';
+if($c == 'agreement' || empty($c))
+{
+    exit(require './agreement.html');
 }
 // 检测环境页面
-if(@$_GET['c']=='test'){
-    require './test.html';
+if($c == 'test')
+{
+    exit(require './test.html');
 }
 // 创建数据库页面
-if(@$_GET['c']=='create'){
-    require './create.html';
+if($c == 'create')
+{
+    exit(require './create.html');
 }
 // 安装成功页面
-if(@$_GET['c']=='success'){
+if($c == 'success')
+{
     // 判断是否为post
-    if($_SERVER['REQUEST_METHOD']=='POST'){
+    if($_SERVER['REQUEST_METHOD']=='POST')
+    {
         $data=$_POST;
         // 连接数据库
         $link=@new mysqli("{$data['DB_HOST']}:{$data['DB_PORT']}",$data['DB_USER'],$data['DB_PWD']);
@@ -56,7 +68,7 @@ if(@$_GET['c']=='success'){
 <?php
 
 /**
- * 正式环境
+ * 数据库配置信息-自动安装生成
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
@@ -77,11 +89,14 @@ return array(
 );
 ?>
 php;
-        // 创建数据库链接配置文件
+        // 创建数据库链接配置文件,master,develop,test,debug 分别都更新，core模式没更改
         file_put_contents('../Application/Common/Conf/master.php', $db_str);
+        file_put_contents('../Application/Common/Conf/develop.php', $db_str);
+        file_put_contents('../Application/Common/Conf/test.php', $db_str);
+        file_put_contents('../Application/Common/Conf/debug.php', $db_str);
         @touch('./install.lock');
-        require './success.html';
+        exit(require './success.html');
     }
-
 }
-
+exit('非法访问');
+?>
