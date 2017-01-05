@@ -9,12 +9,12 @@
 }
 @media only screen and (max-width: 641px) {
     .account-pages {
-        padding-top: 30%;
+        padding-top: 15%;
     }
 }
 @media only screen and (min-width: 641px) {
     .account-pages {
-        padding-top: 12%;
+        padding-top: 10%;
     }
 }
 .wrapper-page {

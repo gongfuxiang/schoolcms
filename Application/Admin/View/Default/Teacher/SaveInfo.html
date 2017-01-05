@@ -6,20 +6,20 @@
 <div class="content-right">
 	<div class="content">
 		<!-- form start -->
-		<form class="am-form form-validation view-save" action="{{:U('Admin/Student/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Student/Index')}}">
+		<form class="am-form form-validation view-save" action="{{:U('Admin/Teacher/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Teacher/Index')}}">
 			<legend>
 				<span class="fs-16">
 					<if condition="empty($data['id'])">
-						{{:L('student_add_name')}}
+						{{:L('teacher_add_name')}}
 					<else />
-						{{:L('student_edit_name')}}
+						{{:L('teacher_edit_name')}}
 					</if>
 				</span>
-				<a href="{{:U('Admin/Student/Index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
+				<a href="{{:U('Admin/Teacher/Index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
 			</legend>
 			<div class="am-form-group">
-				<label>{{:L('student_username_text')}}：</label>
-				<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <notempty name="data"> value="{{$data.username}}"</notempty> required />
+				<label>{{:L('teacher_username_text')}}：</label>
+				<input type="text" name="username" placeholder="{{:L('teacher_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('teacher_username_format')}}" class="am-radius" <notempty name="data"> value="{{$data.username}}"</notempty> required />
 			</div>
 			<div class="am-form-group">
 				<label>{{:L('common_view_id_card_text')}}：</label>
@@ -27,12 +27,12 @@
 			</div>
 			<include file="Lib/Gender" />
 			<div class="am-form-group">
-				<label>{{:L('student_birthday_text')}}：</label>
-				<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('student_birthday_format')}}" <notempty name="data"> value="{{$data.birthday}}" </notempty> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
+				<label>{{:L('teacher_birthday_text')}}：</label>
+				<input type="text" name="birthday" class="am-radius" placeholder="{{:L('teacher_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('teacher_birthday_format')}}" <notempty name="data"> value="{{$data.birthday}}" </notempty> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('student_class_text')}}：</label>
-				<select name="class_id" class="am-radius c-p" data-validation-message="{{:L('student_class_format')}}" required>
+				<label>{{:L('teacher_class_text')}}：</label>
+				<select name="class_id" class="am-radius c-p" data-validation-message="{{:L('teacher_class_format')}}" required>
 					<option value="">{{:L('common_select_can_choose')}}</option>
 					<foreach name="class_list" item="v">
 						<if condition="empty($v['item'])">
@@ -48,8 +48,8 @@
 				</select>
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('student_region_text')}}：</label>
-				<select name="region_id" class="am-radius c-p" data-validation-message="{{:L('student_region_format')}}" required>
+				<label>{{:L('teacher_region_text')}}：</label>
+				<select name="region_id" class="am-radius c-p" data-validation-message="{{:L('teacher_region_format')}}" required>
 					<option value="">{{:L('common_select_can_choose')}}</option>
 					<foreach name="region_list" item="v">
 						<option value="{{$v.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
@@ -66,7 +66,7 @@
 			</div>
 			<include file="Lib/StudentState" />
 			<div class="am-form-group">
-				<label>{{:L('student_tuition_state_text')}}：</label>
+				<label>{{:L('teacher_tuition_state_text')}}：</label>
 				<div>
 					<foreach name="common_tuition_state_list" item="v">
 						<label class="am-radio-inline m-r-10">

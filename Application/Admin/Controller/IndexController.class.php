@@ -27,7 +27,26 @@ class IndexController extends CommonController
 		$this->Is_Login();
 	}
 
+	/**
+	 * [Index 首页]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-05T21:36:13+0800
+	 */
 	public function Index()
+	{
+		$this->display();
+	}
+
+	/**
+	 * [Init 初始化页面]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-05T21:36:41+0800
+	 */
+	public function Init()
 	{
 		$mysql_ver = M()->query('SELECT VERSION() AS `ver`');
 		$data = array(

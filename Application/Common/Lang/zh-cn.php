@@ -9,7 +9,7 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'',
+	'common_site_name'					=>	'Hello',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 	'common_site_title'					=>	'hello',
 
