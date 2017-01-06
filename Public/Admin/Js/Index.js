@@ -37,6 +37,12 @@ $('.common-left-menu, .common-nav-top').find('li a').on('click', function()
         		$(this).parents('.common-nav-top').trigger('click');
         	}
         }
+
+        // 关闭左侧弹层
+        if(type == 'menu')
+        {
+            $('#admin-offcanvas').offCanvas('close');
+        }
     } else {
     	// 左侧菜单剪头方向处理
     	if(type == 'menu')
@@ -56,5 +62,4 @@ $('.common-left-menu li a').on('click', function()
 {
     $('.common-left-menu a').removeClass('common-left-menu-active');
     $(this).addClass('common-left-menu-active');
-    $('#admin-offcanvas').offCanvas('close');
 });

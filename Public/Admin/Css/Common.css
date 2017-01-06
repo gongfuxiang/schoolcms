@@ -2,11 +2,13 @@ body {
   margin: 0;
   color: #797979;
   font-size: 14px;
-  position: relative;
+  
 }
 html, body {
-  height: 100%;
+  position: relative;
   background: #fff;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 h1,
