@@ -14,7 +14,8 @@ $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function()
 /**
  * url加载
  */
-$('.common-left-menu, .common-nav-top').find('li a').on('click', function(){  
+$('.common-left-menu, .common-nav-top').find('li a').on('click', function()
+{
     var link = $(this).data('url');
     var type = $(this).data('type');
     if(link != undefined)
