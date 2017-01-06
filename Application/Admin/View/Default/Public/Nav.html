@@ -4,8 +4,7 @@
 			<h2>{{:L('common_site_name')}}</h2>
 		</a>
 	</div>
-	<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only am-radius"
-	data-am-collapse="{target: '#topbar-collapse'}">
+	<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only am-radius header-nav-submit" data-am-collapse="{target: '#topbar-collapse'}">
 		<span class="am-sr-only">{{:L('nav_switch_text')}}</span>
 		<i class="am-icon-bars"></i>
 	</button>
@@ -17,7 +16,7 @@
 					<span class="admin-fulltext" fulltext-open="{{:L('nav_fulltext_open')}}" fulltext-exit="{{:L('nav_fulltext_exit')}}">{{:L('nav_fulltext_open')}}</span>
 				</a>
 			</li>
-			<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+			<li class="am-dropdown common-nav-top" data-am-dropdown data-am-dropdown-toggle>
 				<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
 					<i class="am-icon-user"></i>
 					<span class="tpl-header-list-user-nick">{{$admin.username}}</span>
@@ -26,7 +25,7 @@
 				</a>
 				<ul class="am-dropdown-content">
 					<li>
-						<a href="{{:U('Admin/Admin/SaveInfo', array('id'=>$admin['id']))}}">
+						<a href="javascript:;" data-type="nav" data-url="{{:U('Admin/Admin/SaveInfo', array('id'=>$admin['id']))}}">
 							<i class="am-icon-cog"></i>
 							设置
 						</a>

@@ -14,23 +14,32 @@ $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function()
 /**
  * url加载
  */
-$('.common-left-menu').find('li a').on('click', function(){  
+$('.common-left-menu, .common-nav-top').find('li a').on('click', function(){  
     var link = $(this).data('url');
+    var type = $(this).data('type');
     if(link != undefined)
     {
+    	// 打开url地址
         $('#ifcontent').attr('src', link);
+
+        // 顶部菜单事件，关闭弹层
+        if(type == 'nav')
+        {
+        	if($(document).width() < 641)
+        	{
+        		$('.header-nav-submit').trigger('click');
+        	} else {
+        		$(this).parents('.common-nav-top').trigger('click');
+        	}
+        }
     } else {
-    	if($(this).find('i').length > 0)
+    	// 左侧菜单剪头方向处理
+    	if(type == 'menu')
     	{
-    		/*if($(this).find('i').hasClass('am-icon-angle-down'))
-    		{
-    			$(this).find('i').removeClass('am-icon-angle-down');
-    			$(this).find('i').addClass('am-icon-angle-right');
-    		} else {
-    			$(this).find('i').removeClass('am-icon-angle-right');
-    			$(this).find('i').addClass('am-icon-angle-down');
-    		}*/
-    		$(this).find('i').toggleClass('left-menu-more-ico-rotate');
+	    	if($(this).find('i').length > 0)
+	    	{
+	    		$(this).find('i').toggleClass('left-menu-more-ico-rotate');
+	    	}
     	}
     }
 });
