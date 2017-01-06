@@ -1,15 +1,19 @@
 /**
  * 全屏操作
  */
+var $fullscreen = $.AMUI.fullscreen;
 $('#admin-fullscreen').on('click', function()
 {
-	$.AMUI.fullscreen.toggle();
+	$fullscreen.toggle();
 });
-$(document).on($.AMUI.fullscreen.raw.fullscreenchange, function()
+if($fullscreen.enabled)
 {
-	$tag = $('.admin-fulltext');
-	$tag.text($.AMUI.fullscreen.isFullscreen ? $tag.attr('fulltext-exit') : $tag.attr('fulltext-open'));
-});
+    $(document).on($fullscreen.raw.fullscreenchange, function()
+    {
+    	$tag = $('.admin-fulltext');
+    	$tag.text($fullscreen.isFullscreen ? $tag.attr('fulltext-exit') : $tag.attr('fulltext-open'));
+    });
+}
 
 /**
  * url加载
