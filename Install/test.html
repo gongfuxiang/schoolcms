@@ -90,14 +90,14 @@ function testClick(){
                     <td>./</td>
                     <td>可写</td>
                     <td>
-                        <?php if (is_writable('../../')): ?>
+                        <?php if (is_writable('../')): ?>
                             可写
                         <?php else: ?>
                             不可写
                         <?php endif ?>
                     </td>
-                    <td class="<?php if(is_writable('../../'))echo 'yes'; ?>">
-                        <?php if (is_writable('../../')): ?>
+                    <td class="<?php if(is_writable('../'))echo 'yes'; ?>">
+                        <?php if (is_writable('../')): ?>
                             √
                         <?php else: ?>
                             ×
