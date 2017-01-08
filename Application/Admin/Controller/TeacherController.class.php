@@ -262,9 +262,7 @@ class TeacherController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		print_r($_POST);
-
-		/*// 参数处理
+		// 参数处理
 		list($id, $id_card) = (stripos(I('id'), '-') === false) ? array() : explode('-', I('id'));
 
 		// 删除数据
@@ -274,24 +272,21 @@ class TeacherController extends CommonController
 			$s = M('Teacher');
 
 			// 教师是否存在
-			$student = $s->where(array('id'=>$id, 'id_card'=>$id_card))->getField('id');
-			if(empty($student))
+			$teacher = $s->where(array('id'=>$id, 'id_card'=>$id_card))->getField('id');
+			if(empty($teacher))
 			{
-				$this->ajaxReturn(L('student_no_exist_error'), -2);
+				$this->ajaxReturn(L('teacher_no_exist_error'), -2);
 			}
 
 			// 开启事务
 			$s->startTrans();
 
 			// 删除教师
-			$s_state = $s->where(array('id'=>$id, 'id_card'=>$id_card))->delete();
+			$t_state = $s->where(array('id'=>$id, 'id_card'=>$id_card))->delete();
 
-			// 是否有成绩数据
-			$fraction_count = $s->where(array('id'=>$id, 'id_card'=>$id_card))->count();
-
-			// 删除成绩
-			$f_state = ($fraction_count == 0) ? true : M('Fraction')->where(array('student_id'=>$id))->delete();
-			if($s_state && $f_state)
+			// 删除课程
+			$c_state = M('Course')->where(array('teacher_id'=>$id))->delete();
+			if($t_state !== false && $c_state !== false)
 			{
 				// 提交事务
 				$s->commit();
@@ -304,7 +299,7 @@ class TeacherController extends CommonController
 			}
 		} else {
 			$this->ajaxReturn(L('common_param_error'), -1);
-		}*/
+		}
 	}
 }
 ?>

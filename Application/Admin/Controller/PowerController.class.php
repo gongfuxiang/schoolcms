@@ -377,7 +377,7 @@ class PowerController extends CommonController
 					}
 				}
 			}
-			if($r_state && $rp_del_state && $rp_state)
+			if($r_state !== false && $rp_del_state !== false && $rp_state !== false)
 			{
 				// 提交事务
 				$r->commit();
@@ -426,7 +426,7 @@ class PowerController extends CommonController
 		// 删除角色
 		$role_state = $r->delete(I('id'));
 		$rp_state = M('RolePower')->where(array('role_id'=>I('id')))->delete();
-		if($role_state && $rp_state)
+		if($role_state !== false && $rp_state !== false)
 		{
 			// 提交事务
 			$r->commit();

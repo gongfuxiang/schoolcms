@@ -356,12 +356,9 @@ class StudentController extends CommonController
 			// 删除学生
 			$s_state = $s->where(array('id'=>$id, 'id_card'=>$id_card))->delete();
 
-			// 是否有成绩数据
-			$fraction_count = $s->where(array('id'=>$id, 'id_card'=>$id_card))->count();
-
 			// 删除成绩
-			$f_state = ($fraction_count == 0) ? true : M('Fraction')->where(array('student_id'=>$id))->delete();
-			if($s_state && $f_state)
+			$f_state = M('Fraction')->where(array('student_id'=>$id))->delete();
+			if($s_state !== false && $f_state !== false)
 			{
 				// 提交事务
 				$s->commit();
