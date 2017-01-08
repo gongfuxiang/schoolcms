@@ -9,9 +9,9 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'Hello',
+	'common_site_name'					=>	'SchoolCMS',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
-	'common_site_title'					=>	'hello',
+	'common_site_title'					=>	'SchoolCMS',
 
 	// 应用信息
 	'common_application_name'			=>	'SchoolCMS',

@@ -144,7 +144,15 @@ class CourseController extends CommonController
 	public function SaveInfo()
 	{
 		// 课程信息
-		$data = empty(I('id')) ? array('teacher_id'=>I('teacher_id')) : M('Course')->find(I('id'));
+		if(empty(I('id')))
+		{
+			$data = array('teacher_id'=>I('teacher_id'));
+			$request_url = U('Admin/Teacher/Index');
+		} else {
+			$data = M('Course')->find(I('id'));
+			$request_url = U('Admin/Course/Index');
+		}
+		$this->assign('request_url', $request_url);
 		$this->assign('data', $data);
 
 		// 字段

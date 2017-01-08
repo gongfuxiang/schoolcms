@@ -162,7 +162,7 @@ class PowerController extends CommonController
 	public function Role()
 	{
 		$m = M('Role');
-		$list = $m->field(array('id', 'name', 'is_enable'))->select();
+		$list = $m->field(array('id', 'name', 'is_enable', 'add_time'))->select();
 		if(!empty($list))
 		{
 			foreach($list as $k=>$v)
