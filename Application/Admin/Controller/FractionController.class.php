@@ -262,11 +262,7 @@ class FractionController extends CommonController
 		if($m->create($_POST, 1))
 		{
 			// 数据不能重复
-			$tmp = M('Fraction')->where(array('semester_id'=>MyC('semester_id'), 'student_id'=>I('student_id'), 'subject_id'=>I('subject_id'), 'score_id'=>I('score_id')))->count();
-			if($tmp > 0)
-			{
-				$this->ajaxReturn(L('fraction_data_is_exist'), -2);
-			}
+			$this->IsExistData();
 
 			// 额外数据处理
 			$m->add_time	=	time();
@@ -296,6 +292,29 @@ class FractionController extends CommonController
 	private function Edit()
 	{
 		$this->error(L('common_unauthorized_access'));
+	}
+
+	/**
+	 * [IsExistData 校验数据不能重复添加]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-08T22:08:46+0800
+	 */
+	private function IsExistData()
+	{
+		// 数据是否已存在
+		$where = array(
+				'semester_id'	=>	MyC('semester_id'),
+				'student_id'	=>	I('student_id'),
+				'subject_id'	=>	I('subject_id'),
+				'score_id'		=>	I('score_id'),
+			);
+		$tmp = M('Fraction')->where($where)->getField('id');
+		if(!empty($tmp))
+		{
+			$this->ajaxReturn(L('common_data_is_exist_error'), -2);
+		}
 	}
 
 	/**
