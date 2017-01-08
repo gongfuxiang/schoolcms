@@ -238,7 +238,7 @@ class StudentController extends CommonController
 		}
 
 		// 添加
-		if(empty($_POST['id']))
+		if(empty($_REQUEST['id']))
 		{
 			$this->Add();
 
