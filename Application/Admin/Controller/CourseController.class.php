@@ -219,7 +219,7 @@ class CourseController extends CommonController
 		{
 			// 校验数据不能重复添加
 			$this->IsExistData();
-			
+
 			// 额外数据处理
 			$m->add_time	=	time();
 			
@@ -283,7 +283,7 @@ class CourseController extends CommonController
 				'week_id'		=>	I('week_id'),
 				'interval_id'	=>	I('interval_id'),
 			);
-		$tmp = $m->where($where)->getField('id');
+		$tmp = M('Course')->where($where)->getField('id');
 		if(!empty($tmp))
 		{
 			$this->ajaxReturn(L('common_data_is_exist_error'), -2);
