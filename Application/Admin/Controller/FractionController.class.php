@@ -198,7 +198,7 @@ class FractionController extends CommonController
 	public function SaveInfo()
 	{
 		// 参数
-		if(empty($_POST['id']))
+		if(empty($_REQUEST['id']))
 		{
 			$this->error(L('common_param_error'));
 		}
