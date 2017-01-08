@@ -194,8 +194,8 @@ class CommonController extends Controller
 	protected function Is_Power()
 	{
 		// 不需要校验权限的方法
-		$unwanted_power = array('GetNodeSon');
-		if(!in_array(ACTION_NAME, $unwanted_power))
+		$unwanted_power = array('getnodeson');
+		if(!in_array(strtolower(ACTION_NAME), $unwanted_power))
 		{
 			// 角色组权限列表校验
 			if(!in_array(strtolower(CONTROLLER_NAME.'_'.ACTION_NAME), $this->power))
