@@ -31,32 +31,6 @@
 				<input type="text" name="birthday" class="am-radius" placeholder="{{:L('teacher_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('teacher_birthday_format')}}" <notempty name="data"> value="{{$data.birthday}}" </notempty> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('teacher_class_text')}}：</label>
-				<select name="class_id" class="am-radius c-p" data-validation-message="{{:L('teacher_class_format')}}" required>
-					<option value="">{{:L('common_select_can_choose')}}</option>
-					<foreach name="class_list" item="v">
-						<if condition="empty($v['item'])">
-							<option value="{{$v.id}}" <if condition="isset($data['class_id']) and $data['class_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
-						<else />
-							<optgroup label="{{$v.name}}">
-								<foreach name="v.item" item="vs">
-									<option value="{{$vs.id}}" <if condition="isset($data['class_id']) and $data['class_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
-								</foreach>
-							</optgroup>
-						</if>
-					</foreach>
-				</select>
-			</div>
-			<div class="am-form-group">
-				<label>{{:L('teacher_region_text')}}：</label>
-				<select name="region_id" class="am-radius c-p" data-validation-message="{{:L('teacher_region_format')}}" required>
-					<option value="">{{:L('common_select_can_choose')}}</option>
-					<foreach name="region_list" item="v">
-						<option value="{{$v.id}}" <if condition="isset($data['region_id']) and $data['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
-					</foreach>
-				</select>
-			</div>
-			<div class="am-form-group">
 				<label>{{:L('common_address_text')}}：</label>
 				<input type="text" placeholder="{{:L('common_address_text')}}" name="address" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <notempty name="data"> value="{{$data.address}}"</notempty> />
 			</div>
@@ -64,17 +38,7 @@
 				<label>{{:L('common_view_tel_name')}}：</label>
 				<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <notempty name="data"> value="{{$data.tel}}"</notempty> required />
 			</div>
-			<include file="Lib/StudentState" />
-			<div class="am-form-group">
-				<label>{{:L('teacher_tuition_state_text')}}：</label>
-				<div>
-					<foreach name="common_tuition_state_list" item="v">
-						<label class="am-radio-inline m-r-10">
-							<input type="radio" name="tuition_state" value="{{$v.id}}" <if condition="isset($data['tuition_state']) and $data['tuition_state'] eq $v['id']">checked="checked"<else /><if condition="!isset($data['tuition_state']) and isset($v['checked']) and $v['checked'] eq true">checked="checked"</if></if> data-am-ucheck /> {{$v.name}}
-						</label>
-					</foreach>
-				</div>
-			</div>
+			<include file="Lib/TeacherState" />
 			<div class="am-form-group">
 				<input type="hidden" name="id" <notempty name="data"> value="{{$data.id}}"</notempty>" />
 				<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>

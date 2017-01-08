@@ -21,4 +21,26 @@ $(function()
 			$more_where.removeClass('none');
 		}
 	});
+
+	// 日期选择
+	var $time_start = $('#time_start');
+	var $time_end = $('#time_end');
+	var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+    var checkin = $time_start.datepicker({}).on('changeDate.datepicker.amui', function(ev) {
+		var newDate = new Date(ev.date)
+		newDate = (ev.date.valueOf() > checkout.date.valueOf() || ev.date.valueOf() == checkout.date.valueOf()) ? newDate.setDate(newDate.getDate() + 1) : checkout.date.valueOf();
+		checkout.setValue(newDate);
+		
+        checkin.close();
+        $time_end[0].blur();
+    }).data('amui.datepicker');
+    var checkout = $time_end.datepicker({
+      	onRender:function(date) {
+    		return date.valueOf() <= checkin.date.valueOf() ? 'am-disabled' : '';
+    	}
+    }).on('changeDate.datepicker.amui', function(ev) {
+      checkout.close();
+    }).data('amui.datepicker');
 });

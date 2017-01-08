@@ -17,13 +17,13 @@
 				</label>
 
 				<div class="more-where <if condition="!isset($param['is_more']) or $param['is_more'] neq 1">none</if>">
-					<select  class="am-radius c-p m-t-10" name="region_id">
+					<select  class="am-radius c-p m-t-10 m-l-5 param-where" name="region_id">
 						<option value="0">{{:L('student_region_text')}}</option>
 						<foreach name="region_list" item="v">
 							<option value="{{$v.id}}" <if condition="isset($param['region_id']) and $param['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<select name="class_id" class="am-radius c-p m-t-10">
+					<select name="class_id" class="am-radius c-p m-t-10 m-l-5 param-where">
 						<option value="0">{{:L('student_class_text')}}</option>
 						<foreach name="class_list" item="v">
 							<if condition="empty($v['item'])">
@@ -37,25 +37,29 @@
 							</if>
 						</foreach>
 					</select>
-					<select name="state" class="am-radius c-p m-t-10">
+					<select name="state" class="am-radius c-p m-t-10 m-l-5 param-where">
 						<option value="-1">{{:L('common_view_student_state_name')}}</option>
 						<foreach name="common_student_state_list" item="v">
 							<option value="{{$v.id}}" <if condition="isset($param['state']) and $param['state'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<select name="tuition_state" class="am-radius c-p m-t-10">
+					<select name="tuition_state" class="am-radius c-p m-t-10 m-l-5 param-where">
 						<option value="-1">{{:L('student_tuition_state_text')}}</option>
 						<foreach name="common_tuition_state_list" item="v">
 							<option value="{{$v.id}}" <if condition="isset($param['tuition_state']) and $param['tuition_state'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<select name="gender" class="am-radius c-p m-t-10">
+					<select name="gender" class="am-radius c-p m-t-10 m-l-5 param-where">
 						<option value="-1">{{:L('common_view_gender_name')}}</option>
 						<foreach name="common_gender_list" item="v">
 							<option value="{{$v.id}}" <if condition="isset($param['gender']) and $param['gender'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<input type="text" name="birthday" class="am-radius m-t-10" placeholder="{{:L('student_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('student_birthday_format')}}" <present name="param"> value="{{$param.birthday}}" </present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly />
+					<div class="param-date param-where m-l-5">
+						<input type="text" name="time_start" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('student_time_start_text')}}" id="time_start" <if condition="isset($param['time_start'])">value="{{$param.time_start}}"</if>/>
+						<span>~</span>
+						<input type="text" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('student_time_end_text')}}" name="time_end" id="time_end" <if condition="isset($param['time_end'])">value="{{$param.time_end}}"</if>/>
+					</div>
 				</div>
 			</div>
         </form>
@@ -68,7 +72,7 @@
         <!-- operation end -->
 
 		<!-- list start -->
-		<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10">
+		<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10 m-l-5">
 			<thead>
 				<tr>
 					<th>{{:L('student_username_name')}}</th>
@@ -124,7 +128,7 @@
 							</td>
 							<td>
 								<a href="{{:U('Admin/Fraction/SaveInfo', array('id'=>$v['id']))}}">
-									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-line-chart" data-am-popover="{content: '{{:L('common_operation_resultInput')}}', trigger: 'hover focus'}"></button>
+									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-line-chart" data-am-popover="{content: '{{:L('common_operation_fraction')}}', trigger: 'hover focus'}"></button>
 								</a>
 								<a href="{{:U('Admin/Student/SaveInfo', array('id'=>$v['id']))}}">
 									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>

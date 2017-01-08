@@ -46,7 +46,7 @@ class AdminController extends CommonController
 		$m = M('Admin');
 
 		// 条件
-		$where = $this->GetAdminIndexWhere();
+		$where = $this->GetIndexWhere();
 
 		// 分页
 		$number = MyC('page_number');
@@ -73,13 +73,13 @@ class AdminController extends CommonController
 	}
 
 	/**
-	 * [GetAdminIndexWhere 管理员列表条件]
+	 * [GetIndexWhere 管理员列表条件]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T22:16:29+0800
 	 */
-	private function GetAdminIndexWhere()
+	private function GetIndexWhere()
 	{
 		$where = array();
 		if(!empty(I('username')))

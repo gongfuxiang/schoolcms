@@ -46,7 +46,7 @@ class FractionController extends CommonController
 		$m = M('Fraction');
 
 		// 条件
-		$where = $this->GetFractionIndexWhere();
+		$where = $this->GetIndexWhere();
 
 		// 分页
 		$number = MyC('page_number');
@@ -88,13 +88,13 @@ class FractionController extends CommonController
 	}
 
 	/**
-	 * [GetFractionIndexWhere 学生列表条件]
+	 * [GetIndexWhere 学生列表条件]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T22:16:29+0800
 	 */
-	private function GetFractionIndexWhere()
+	private function GetIndexWhere()
 	{
 		$where = array();
 
@@ -183,28 +183,6 @@ class FractionController extends CommonController
 				{
 					$data[$k]['score_level'] = '';
 				}
-			}
-		}
-		return $data;
-	}
-
-	/**
-	 * [GetClassList 获取班级列表,二级]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-30T13:26:00+0800
-	 * @return [array] [班级列表]
-	 */
-	private function GetClassList()
-	{
-		$c = M('Class');
-		$data = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
-		if(!empty($data))
-		{
-			foreach($data as $k=>$v)
-			{
-				$data[$k]['item'] = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
 			}
 		}
 		return $data;

@@ -31,7 +31,7 @@ class TeacherController extends CommonController
 	}
 
 	/**
-     * [Index 权限组列表]
+     * [Index 教师列表]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -43,10 +43,10 @@ class TeacherController extends CommonController
 		$param = array_merge($_POST, $_GET);
 
 		// 模型对象
-		$m = M('Student');
+		$m = M('Teacher');
 
 		// 条件
-		$where = $this->GetStudentIndexWhere();
+		$where = $this->GetIndexWhere();
 
 		// 分页
 		$number = MyC('page_number');
@@ -54,28 +54,18 @@ class TeacherController extends CommonController
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
 				'where'		=>	$param,
-				'url'		=>	U('Admin/Student/Index'),
+				'url'		=>	U('Admin/Teacher/Index'),
 			);
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
+		$list = $m->where($where)->limit($page->GetPageStarNumber(), $number)->select();
 
 		// 性别
 		$this->assign('common_gender_list', L('common_gender_list'));
 
 		// 教师状态
-		$this->assign('common_student_state_list', L('common_student_state_list'));
-
-		// 缴费状态
-		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
-
-		// 地区
-		$region_list = M('Region')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
-		$this->assign('region_list', $region_list);
-
-		// 班级
-		$this->assign('class_list', $this->GetClassList());
+		$this->assign('common_teacher_state_list', L('common_teacher_state_list'));
 
 		// 参数
 		$this->assign('param', $param);
@@ -90,52 +80,15 @@ class TeacherController extends CommonController
 	}
 
 	/**
-	 * [SetDataHandle 数据处理]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-29T21:27:15+0800
-	 * @param    [array]      $data [教师数据]
-	 * @return   [array]            [处理好的数据]
-	 */
-	private function SetDataHandle($data)
-	{
-		if(!empty($data))
-		{
-			$c = M('Class');
-			$r = M('Region');
-			foreach($data as $k=>$v)
-			{
-				// 班级
-				$tmp_class = $c->field(array('pid', 'name'))->find($v['class_id']);
-				if(!empty($tmp_class))
-				{
-					$p_name = ($tmp_class['pid'] > 0) ? $c->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
-					$data[$k]['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
-				} else {
-					$data[$k]['class_name'] = '';
-				}
-				
-				// 地区
-				$data[$k]['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
-			}
-		}
-		return $data;
-	}
-
-	/**
-	 * [GetStudentIndexWhere 教师列表条件]
+	 * [GetIndexWhere 教师列表条件]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T22:16:29+0800
 	 */
-	private function GetStudentIndexWhere()
+	private function GetIndexWhere()
 	{
 		$where = array();
-
-		// 学期id
-		$where['semester_id'] = MyC('semester_id');
 
 		// 模糊
 		if(!empty(I('keyword')))
@@ -144,6 +97,7 @@ class TeacherController extends CommonController
 					'username'	=>	array('like', '%'.I('keyword').'%'),
 					'id_card'	=>	array('like', '%'.I('keyword').'%'),
 					'tel'		=>	array('like', '%'.I('keyword').'%'),
+					'address'	=>	array('like', '%'.I('keyword').'%'),
 					'_logic'	=>	'or',
 				);
 		}
@@ -152,14 +106,6 @@ class TeacherController extends CommonController
 		if(I('is_more', 0) == 1)
 		{
 			// 等值
-			if(I('class_id', 0) > 0)
-			{
-				$where['class_id'] = intval(I('class_id'));
-			}
-			if(I('region_id', 0) > 0)
-			{
-				$where['region_id'] = intval(I('region_id'));
-			}
 			if(I('gender', -1) > -1)
 			{
 				$where['gender'] = intval(I('gender', 0));
@@ -168,13 +114,15 @@ class TeacherController extends CommonController
 			{
 				$where['state'] = intval(I('state', 0));
 			}
-			if(I('tuition_state', -1) > -1)
+
+			// 表达式
+			if(!empty(I('time_start')))
 			{
-				$where['tuition_state'] = intval(I('tuition_state', 0));
+				$where['birthday'][] = array('gt', strtotime(I('time_start')));
 			}
-			if(!empty(I('birthday')))
+			if(!empty(I('time_end')))
 			{
-				$where['birthday'] = strtotime(I('birthday'));
+				$where['birthday'][] = array('lt', strtotime(I('time_end')));
 			}
 		}
 		return $where;
@@ -190,52 +138,20 @@ class TeacherController extends CommonController
 	public function SaveInfo()
 	{
 		// 教师信息
-		$data = empty(I('id')) ? array() : M('Student')->find(I('id'));
+		$data = empty(I('id')) ? array() : M('Teacher')->find(I('id'));
 		if(!empty($data['birthday']))
 		{
 			$data['birthday'] = date('Y-m-d', $data['birthday']);
 		}
 		$this->assign('data', $data);
 
-		// 学期
-		$region_list = M('Region')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
-		$this->assign('region_list', $region_list);
-
-		// 班级
-		$this->assign('class_list', $this->GetClassList());
-
 		// 性别
 		$this->assign('common_gender_list', L('common_gender_list'));
 
 		// 教师状态
-		$this->assign('common_student_state_list', L('common_student_state_list'));
-
-		// 缴费状态
-		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
+		$this->assign('common_teacher_state_list', L('common_teacher_state_list'));
 
 		$this->display();
-	}
-
-	/**
-	 * [GetClassList 获取班级列表,二级]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-30T13:26:00+0800
-	 * @return [array] [班级列表]
-	 */
-	private function GetClassList()
-	{
-		$c = M('Class');
-		$data = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
-		if(!empty($data))
-		{
-			foreach($data as $k=>$v)
-			{
-				$data[$k]['item'] = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
-			}
-		}
-		return $data;
 	}
 
 	/**
@@ -274,7 +190,7 @@ class TeacherController extends CommonController
 	private function Add()
 	{
 		// 教师对象
-		$m = D('Student');
+		$m = D('Teacher');
 
 		// 数据自动校验
 		if($m->create($_POST, 1))
@@ -282,7 +198,6 @@ class TeacherController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
-			$m->semester_id	=	MyC('semester_id');
 			
 			// 写入数据库
 			if($m->add())
@@ -306,7 +221,7 @@ class TeacherController extends CommonController
 	private function Edit()
 	{
 		// 教师对象
-		$m = D('Student');
+		$m = D('Teacher');
 
 		// 数据自动校验
 		if($m->create($_POST, 2))
@@ -316,9 +231,6 @@ class TeacherController extends CommonController
 			{
 				$m->birthday	=	strtotime($m->birthday);
 			}
-
-			// 学期id
-			$m->semester_id		=	MyC('semester_id');
 
 			// 移除不能更新的数据
 			unset($m->id_card);
@@ -350,14 +262,16 @@ class TeacherController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		// 参数处理
+		print_r($_POST);
+
+		/*// 参数处理
 		list($id, $id_card) = (stripos(I('id'), '-') === false) ? array() : explode('-', I('id'));
 
 		// 删除数据
 		if($id != null && $id_card != null)
 		{
 			// 教师模型
-			$s = M('Student');
+			$s = M('Teacher');
 
 			// 教师是否存在
 			$student = $s->where(array('id'=>$id, 'id_card'=>$id_card))->getField('id');
@@ -390,7 +304,7 @@ class TeacherController extends CommonController
 			}
 		} else {
 			$this->ajaxReturn(L('common_param_error'), -1);
-		}
+		}*/
 	}
 }
 ?>

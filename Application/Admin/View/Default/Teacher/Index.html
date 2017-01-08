@@ -17,45 +17,23 @@
 				</label>
 
 				<div class="more-where <if condition="!isset($param['is_more']) or $param['is_more'] neq 1">none</if>">
-					<select  class="am-radius c-p m-t-10" name="region_id">
-						<option value="0">{{:L('teacher_region_text')}}</option>
-						<foreach name="region_list" item="v">
-							<option value="{{$v.id}}" <if condition="isset($param['region_id']) and $param['region_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
-						</foreach>
-					</select>
-					<select name="class_id" class="am-radius c-p m-t-10">
-						<option value="0">{{:L('teacher_class_text')}}</option>
-						<foreach name="class_list" item="v">
-							<if condition="empty($v['item'])">
-								<option value="{{$v.id}}" <if condition="isset($param['class_id']) and $param['class_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
-							<else />
-								<optgroup label="{{$v.name}}">
-									<foreach name="v.item" item="vs">
-										<option value="{{$vs.id}}" <if condition="isset($param['class_id']) and $param['class_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
-									</foreach>
-								</optgroup>
-							</if>
-						</foreach>
-					</select>
-					<select name="state" class="am-radius c-p m-t-10">
+					<select name="state" class="am-radius c-p m-t-10 m-l-5 param-where">
 						<option value="-1">{{:L('common_view_teacher_state_name')}}</option>
 						<foreach name="common_teacher_state_list" item="v">
 							<option value="{{$v.id}}" <if condition="isset($param['state']) and $param['state'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<select name="tuition_state" class="am-radius c-p m-t-10">
-						<option value="-1">{{:L('teacher_tuition_state_text')}}</option>
-						<foreach name="common_tuition_state_list" item="v">
-							<option value="{{$v.id}}" <if condition="isset($param['tuition_state']) and $param['tuition_state'] eq $v['id']">selected</if>>{{$v.name}}</option>
-						</foreach>
-					</select>
-					<select name="gender" class="am-radius c-p m-t-10">
+					<select name="gender" class="am-radius c-p m-t-10 m-l-5 param-where">
 						<option value="-1">{{:L('common_view_gender_name')}}</option>
 						<foreach name="common_gender_list" item="v">
 							<option value="{{$v.id}}" <if condition="isset($param['gender']) and $param['gender'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<input type="text" name="birthday" class="am-radius m-t-10" placeholder="{{:L('teacher_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('teacher_birthday_format')}}" <present name="param"> value="{{$param.birthday}}" </present> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly />
+					<div class="param-date param-where m-l-5">
+						<input type="text" name="time_start" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('teacher_time_start_text')}}" id="time_start" <if condition="isset($param['time_start'])">value="{{$param.time_start}}"</if>/>
+						<span>~</span>
+						<input type="text" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('teacher_time_end_text')}}" name="time_end" id="time_end" <if condition="isset($param['time_end'])">value="{{$param.time_end}}"</if>/>
+					</div>
 				</div>
 			</div>
         </form>
@@ -74,7 +52,7 @@
 					<th>{{:L('teacher_username_name')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_id_card_text')}}</th>
 					<th>{{:L('common_view_gender_name')}}</th>
-					<th class="am-hide-sm-only">{{:L('teacher_class_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_view_tel_name')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_teacher_state_name')}}</th>
 					<th>{{:L('common_more_name')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
@@ -87,7 +65,7 @@
 							<td>{{$v.username}}</td>
 							<td class="am-hide-sm-only">{{$v.id_card}}</td>
 							<td>{{:L('common_gender_list')[$v['gender']]['name']}}</td>
-							<td class="am-hide-sm-only">{{$v.class_name}}</td>
+							<td class="am-hide-sm-only">{{$v.tel}}</td>
 							<td class="am-hide-sm-only">{{:L('common_teacher_state_list')[$v['state']]['name']}}</td>
 							<td>
 								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
@@ -112,9 +90,6 @@
 												<dt>{{:L('common_view_tel_name')}}</dt>
 												<dd>{{$v.tel}}</dd>
 
-												<dt>{{:L('teacher_tuition_state_text')}}</dt>
-												<dd>{{:L('common_tuition_state_list')[$v['tuition_state']]['name']}}</dd>
-
 												<dt>{{:L('common_view_teacher_state_name')}}</dt>
 												<dd>{{:L('common_teacher_state_list')[$v['state']]['name']}}</dd>
 											</dl>
@@ -123,13 +98,13 @@
 								</div>
 							</td>
 							<td>
-								<a href="{{:U('Admin/Fraction/SaveInfo', array('id'=>$v['id']))}}">
-									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-line-chart" data-am-popover="{content: '{{:L('common_operation_resultInput')}}', trigger: 'hover focus'}"></button>
+								<a href="{{:U('Admin/Course/SaveInfo', array('teacher_id'=>$v['id']))}}">
+									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-list-alt" data-am-popover="{content: '{{:L('teacher_operation_course')}}', trigger: 'hover focus'}"></button>
 								</a>
-								<a href="{{:U('Admin/Student/SaveInfo', array('id'=>$v['id']))}}">
+								<a href="{{:U('Admin/Teacher/SaveInfo', array('id'=>$v['id']))}}">
 									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
 								</a>
-								<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Student/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}-{{$v.id_card}}"></button>
+								<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Teacher/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}-{{$v.id_card}}"></button>
 							</td>
 						</tr>
 					</foreach>

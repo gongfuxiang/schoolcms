@@ -1,13 +1,15 @@
 /**
  * 列表
  */
-@media only screen and (min-width: 641px) {
-	.view-list select, .view-list input { width: 28% !important; display: initial !important; }
-	input.form-keyword { width: 70% !important; }
-}
+.form-keyword { width: 55% !important; display: initial !important; }
+.more-submit input { display: none; }
+.param-where, .param-date input { display: initial !important; }
+.param-date input { background-color: #fff !important; }
 @media only screen and (max-width: 641px) {
-	.view-list select, .view-list input { width: 49% !important; display: initial !important; }
-	input.form-keyword { width: 55% !important; display: initial !important; }
+	.param-where { width: 100% !important; }
+	.param-date input { width: 47% !important; }
 }
-.more-submit:hover { color: #F60; }
-#is_more {  display: none !important; }
+@media only screen and (min-width: 641px) {
+	.param-where { width: 32% !important; float: left; }
+	.param-date input { width: 45% !important; }
+}

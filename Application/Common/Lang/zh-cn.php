@@ -56,6 +56,7 @@ return array(
 	'common_pid_format'					=>	'请选择所属级别',
 	'common_student_state_format'		=>	'请选择学生状态',
 	'common_address_format'				=>	'详细地址2~30 个字符',
+	'common_teacher_state_format'		=>	'请选择教师状态',
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',
@@ -86,6 +87,7 @@ return array(
 	'common_is_exist_id_card_tips'		=>	'身份证号码已存在',
 	'common_student_state_tips'			=>	'学生状态值范围不正确',
 	'common_tuition_state_tips'			=>	'缴费状态值范围不正确',
+	'common_data_is_exist_error'		=>	'数据已存在',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -97,6 +99,7 @@ return array(
 	'common_view_pay_cost_name'			=>	'缴费状态',
 	'common_view_tel_name'				=>	'联系方式',
 	'common_view_id_card_text'			=>	'身份证号码',
+	'common_view_teacher_state_name'	=>	'教师状态',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -179,6 +182,15 @@ return array(
 	'common_csv_charset_list'			=>	array(
 			0 => array('id' => 0, 'value' => 'utf-8', 'name' => 'utf-8', 'checked' => true),
 			1 => array('id' => 1, 'value' => 'gbk', 'name' => 'gbk'),
+		),
+
+	// 教师状态
+	'common_teacher_state_list'			=>	array(
+			0 => array('id' => 0, 'name' => '待报道', 'checked' => true),
+			1 => array('id' => 1, 'name' => '在职'),
+			2 => array('id' => 2, 'name' => '已离职'),
+			3 => array('id' => 3, 'name' => '已退休'),
+			4 => array('id' => 4, 'name' => '已开除'),
 		),
 
 	// 色彩值

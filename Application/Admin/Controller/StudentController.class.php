@@ -31,7 +31,7 @@ class StudentController extends CommonController
 	}
 
 	/**
-     * [Index 权限组列表]
+     * [Index 学生列表]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -172,9 +172,15 @@ class StudentController extends CommonController
 			{
 				$where['tuition_state'] = intval(I('tuition_state', 0));
 			}
-			if(!empty(I('birthday')))
+
+			// 表达式
+			if(!empty(I('time_start')))
 			{
-				$where['birthday'] = strtotime(I('birthday'));
+				$where['birthday'][] = array('gt', strtotime(I('time_start')));
+			}
+			if(!empty(I('time_end')))
+			{
+				$where['birthday'][] = array('lt', strtotime(I('time_end')));
 			}
 		}
 		return $where;
@@ -197,7 +203,7 @@ class StudentController extends CommonController
 		}
 		$this->assign('data', $data);
 
-		// 学期
+		// 地区
 		$region_list = M('Region')->field(array('id', 'name'))->where(array('is_enable'=>1))->select();
 		$this->assign('region_list', $region_list);
 
@@ -214,28 +220,6 @@ class StudentController extends CommonController
 		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
 
 		$this->display();
-	}
-
-	/**
-	 * [GetClassList 获取班级列表,二级]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-30T13:26:00+0800
-	 * @return [array] [班级列表]
-	 */
-	private function GetClassList()
-	{
-		$c = M('Class');
-		$data = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
-		if(!empty($data))
-		{
-			foreach($data as $k=>$v)
-			{
-				$data[$k]['item'] = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
-			}
-		}
-		return $data;
 	}
 
 	/**

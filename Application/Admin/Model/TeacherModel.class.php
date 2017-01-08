@@ -15,15 +15,12 @@ class TeacherModel extends CommonModel
 	// 数据自动校验
 	protected $_validate = array(		
 		// 添加,编辑
-		array('username', 'CheckUserName', '{%student_username_format}', 1, 'callback', 3),
+		array('username', 'CheckUserName', '{%teacher_username_format}', 1, 'callback', 3),
 		array('id_card', 'CheckIdCard', '{%common_view_id_card_format}', 1, 'callback', 3),
 		array('gender', array(0,1,2), '{%common_gender_tips}', 1, 'in', 3),
-		array('birthday', 'CheckBirthday', '{%student_birthday_format}', 2, 'callback', 3),
-		array('class_id', 'IsExistClass', '{%student_class_tips}', 1, 'callback', 3),
-		array('region_id', 'IsExistRegion', '{%student_region_tips}', 1, 'callback', 3),
-		array('state', array(0,1,2,3,4), '{%common_student_state_tips}', 1, 'in', 3),
-		array('tel', 'CheckIdTel', '{%common_view_tel_error}', 1, 'callback', 3),
-		array('tuition_state', array(0,1), '{%common_tuition_state_tips}', 1, 'in', 3),
+		array('birthday', 'CheckBirthday', '{%teacher_birthday_format}', 2, 'callback', 3),
+		array('state', array(0,1,2,3,4), '{%common_teacher_state_tips}', 1, 'in', 3),
+		array('tel', 'CheckTel', '{%common_view_tel_error}', 1, 'callback', 3),
 
 		// 添加
 		array('id_card', 'UniqueIdCard', '{%common_is_exist_id_card_tips}', 1, 'callback', 1),
@@ -33,7 +30,7 @@ class TeacherModel extends CommonModel
 	);
 
 	/**
-	 * [UniqueIdCard 身份证和学期号必须唯一]
+	 * [UniqueIdCard 身份证必须唯一]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -42,15 +39,7 @@ class TeacherModel extends CommonModel
 	 */
 	public function UniqueIdCard()
 	{
-		// 读取学期配置信息
-		$semester_id = MyC('semester_id');
-		if(empty($semester_id) || empty(I('id_card')))
-		{
-			return false;
-		}
-
-		// 校验是否唯一
-		$id = $this->db(0)->where(array('id_card'=>I('id_card'), 'semester_id'=>$semester_id))->getField('id');
+		$id = $this->db(0)->where(array('id_card'=>I('id_card')))->getField('id');
 		return empty($id);
 	}
 
@@ -92,56 +81,13 @@ class TeacherModel extends CommonModel
 	}
 
 	/**
-	 * [IsExistClass 班级id是否存在]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-21T22:13:52+0800
-	 * @return [boolean] [存在true, 不存在false]
-	 */
-	public function IsExistClass()
-	{
-		// 当用户操作自身的情况下不需要校验
-		$class = $this->db(0)->table('__CLASS__')->field(array('id', 'pid'))->find(I('class_id'));
-		if(empty($class))
-		{
-			return false;
-		}
-
-		if($class['pid'] == 0)
-		{
-			// 是否存在子级
-			$count = $this->db(0)->table('__CLASS__')->where(array('pid'=>$class['id']))->count();
-			return ($count == 0);
-		} else {
-			// 父级是否存在
-			$count = $this->db(0)->table('__CLASS__')->where(array('id'=>$class['pid']))->count();
-			return ($count > 0);
-		}
-	}
-
-	/**
-	 * [IsExistRegion 地区是否存在]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-10T14:09:40+0800
-	 * @return [boolean] [存在true, 不存在false]
-	 */
-	public function IsExistRegion()
-	{
-		$id = $this->db(0)->table('__REGION__')->where(array('id'=>I('region_id')))->getField('id');
-		return !empty($id);
-	}
-
-	/**
-	 * [CheckIdTel 联系方式校验]
+	 * [CheckTel 联系方式校验]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-13T15:12:32+0800
 	 */
-	public function CheckIdTel()
+	public function CheckTel()
 	{
 		return (preg_match('/'.L('common_regex_tel').'/', I('tel')) == 1) ? true : false;
 	}
