@@ -11,8 +11,8 @@ return array(
 	// 允许访问的模块列表
 	'MODULE_ALLOW_LIST'		=>	array('Home', 'Admin'),
 
-	// 默认模块
-	'DEFAULT_MODULE'     	=>	'Home',
+	// 默认模块,暂时默认后端
+	'DEFAULT_MODULE'     	=>	'Admin',
 
 	// 默认控制器名称
 	'DEFAULT_CONTROLLER'	=>	'Index',
@@ -78,7 +78,7 @@ return array(
 	'DATA_CACHE_PREFIX'		=>	'',
 
 	// 数据缓存类型,支持:File|Db|Apc|Memcache|Shmop|Sqlite|Xcache|Apachenote|Eaccelerator
-	'DATA_CACHE_TYPE'		 =>	'File',
+	'DATA_CACHE_TYPE'		=>	'File',
 
 	// 缓存路径设置 (仅对File方式缓存有效)
 	'DATA_CACHE_PATH'		=>	RUNTIME_PATH.'My'.DS,
