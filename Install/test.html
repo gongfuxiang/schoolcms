@@ -105,17 +105,17 @@ function testClick(){
                     </td>
                 </tr>
                 <tr>
-                    <td>./Application/Runtime</td>
+                    <td>./Application</td>
                     <td>可写</td>
                     <td>
-                        <?php if (is_writable('../Application/Runtime')): ?>
+                        <?php if (is_writable('../Application')): ?>
                             可写
                         <?php else: ?>
                             不可写
                         <?php endif ?>
                     </td>
-                    <td class="<?php if(is_writable('../Application/Runtime'))echo 'yes'; ?>">
-                        <?php if (is_writable('../Application/Runtime')): ?>
+                    <td class="<?php if(is_writable('../Application'))echo 'yes'; ?>">
+                        <?php if (is_writable('../Application')): ?>
                             √
                         <?php else: ?>
                             ×
