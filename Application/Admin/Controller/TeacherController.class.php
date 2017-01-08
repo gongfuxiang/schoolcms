@@ -76,7 +76,7 @@ class TeacherController extends CommonController
 		// 数据列表
 		$this->assign('list', $list);
 
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -151,7 +151,7 @@ class TeacherController extends CommonController
 		// 教师状态
 		$this->assign('common_teacher_state_list', L('common_teacher_state_list'));
 
-		$this->display();
+		$this->display('SaveInfo');
 	}
 
 	/**

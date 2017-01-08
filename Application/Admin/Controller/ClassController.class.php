@@ -41,7 +41,7 @@ class ClassController extends CommonController
 	{
 		$this->assign('list', M('Class')->field(array('id', 'name'))->where(array('pid'=>0))->select());
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**

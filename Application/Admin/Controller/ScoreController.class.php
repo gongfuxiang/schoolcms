@@ -41,7 +41,7 @@ class ScoreController extends CommonController
 	{
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**

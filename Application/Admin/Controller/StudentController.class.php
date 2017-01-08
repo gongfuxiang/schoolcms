@@ -86,7 +86,7 @@ class StudentController extends CommonController
 		// 数据列表
 		$this->assign('list', $list);
 
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -219,7 +219,7 @@ class StudentController extends CommonController
 		// 缴费状态
 		$this->assign('common_tuition_state_list', L('common_tuition_state_list'));
 
-		$this->display();
+		$this->display('SaveInfo');
 	}
 
 	/**

@@ -56,7 +56,7 @@ class PowerController extends CommonController
 		}
 		$this->assign('common_is_show_list', L('common_is_show_list'));
 		$this->assign('list', $list);
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -172,7 +172,7 @@ class PowerController extends CommonController
 			}
 		}
 		$this->assign('list', $list);
-		$this->display();
+		$this->display('Role');
 	}
 
 	/**
@@ -220,7 +220,7 @@ class PowerController extends CommonController
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 		$this->assign('data', $role);
 		$this->assign('power', $power);
-		$this->display();
+		$this->display('RoleSaveInfo');
 	}
 
 	/**

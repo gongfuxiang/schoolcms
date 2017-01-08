@@ -36,7 +36,7 @@ class IndexController extends CommonController
 	 */
 	public function Index()
 	{
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -58,7 +58,7 @@ class IndexController extends CommonController
 				'ver'			=>	L('common_application_name').' '.L('common_application_ver'),
 			);
 		$this->assign('data', $data);
-		$this->display();
+		$this->display('Init');
 	}
 }
 ?>

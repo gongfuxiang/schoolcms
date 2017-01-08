@@ -69,7 +69,7 @@ class AdminController extends CommonController
 		$this->assign('param', $param);
 		$this->assign('page_html', $page->GetPageHtml());
 		$this->assign('list', $list);
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -129,7 +129,7 @@ class AdminController extends CommonController
 		$this->assign('role', $role);
 		$this->assign('id', $id);
 		$this->assign('common_gender_list', L('common_gender_list'));
-		$this->display();
+		$this->display('SaveInfo');
 	}
 
 	/**
@@ -291,7 +291,7 @@ class AdminController extends CommonController
 			redirect(U('Admin/Index/Index'));
 		}
 
-		$this->display();
+		$this->display('LoginInfo');
 	}
 
 	/**

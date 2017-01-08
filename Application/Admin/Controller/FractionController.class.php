@@ -84,7 +84,7 @@ class FractionController extends CommonController
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
 
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -217,7 +217,7 @@ class FractionController extends CommonController
 		// 科目
 		$this->assign('subject_list', M('Subject')->select());
 
-		$this->display();
+		$this->display('SaveInfo');
 	}
 
 	/**

@@ -50,7 +50,7 @@ class ConfigController extends CommonController
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);
 		
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**

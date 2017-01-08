@@ -90,7 +90,7 @@ class CourseController extends CommonController
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
 
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**
@@ -173,7 +173,7 @@ class CourseController extends CommonController
 		// 时段
 		$this->assign('interval_list', M('Interval')->field($field)->where($where)->select());
 
-		$this->display();
+		$this->display('SaveInfo');
 	}
 
 	/**

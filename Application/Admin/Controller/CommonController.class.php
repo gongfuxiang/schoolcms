@@ -148,7 +148,7 @@ class CommonController extends Controller
 				foreach($this->left_menu as $k=>$v)
 				{
 					// 权限
-					$this->power[$v['id']] = $v['control'].'_'.$v['action'];
+					$this->power[$v['id']] = strtolower($v['control'].'_'.$v['action']);
 
 					// 获取子权限
 					$item = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$role_id, 'p.pid'=>$v['id']))->field($field)->order('p.sort')->select();
@@ -159,7 +159,7 @@ class CommonController extends Controller
 						foreach($item as $ks=>$vs)
 						{
 							// 权限
-							$this->power[$vs['id']] = $vs['control'].'_'.$vs['action'];
+							$this->power[$vs['id']] = strtolower($vs['control'].'_'.$vs['action']);
 
 							// 是否显示视图
 							if($vs['is_show'] == 0)
@@ -198,7 +198,7 @@ class CommonController extends Controller
 		if(!in_array(ACTION_NAME, $unwanted_power))
 		{
 			// 角色组权限列表校验
-			if(!in_array(CONTROLLER_NAME.'_'.ACTION_NAME, $this->power))
+			if(!in_array(strtolower(CONTROLLER_NAME.'_'.ACTION_NAME), $this->power))
 			{
 				$this->error(L('common_there_is_no_power'));
 			}
