@@ -9,7 +9,7 @@
  Target Server Version : 50716
  File Encoding         : utf-8
 
- Date: 01/08/2017 17:58:51 PM
+ Date: 01/08/2017 22:33:41 PM
 */
 
 SET NAMES utf8;
@@ -122,6 +122,7 @@ CREATE TABLE `sc_fraction` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `semester_student_subject_score` (`semester_id`,`student_id`,`subject_id`,`score_id`),
   KEY `student_id` (`student_id`),
   KEY `subject_id` (`subject_id`),
   KEY `score_id` (`score_id`),
