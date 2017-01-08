@@ -44,7 +44,7 @@ class StudentModel extends CommonModel
 	{
 		// 读取学期配置信息
 		$semester_id = MyC('semester_id');
-		if(empty($semester_id) || empty(I('id_card')))
+		if(empty($semester_id) || empty($_POST['id_card']))
 		{
 			return false;
 		}

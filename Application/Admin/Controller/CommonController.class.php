@@ -216,7 +216,8 @@ class CommonController extends Controller
 	protected function MyConfigInit($state = 0)
 	{
 		$key = C('common_my_config_key');
-		if($state == 1 || empty(S($key)))
+		$data = S($key);
+		if($state == 1 || empty($data))
 		{
 			$data = M('Config')->getField('only_tag,value');
 			S($key, $data);

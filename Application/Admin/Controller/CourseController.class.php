@@ -105,7 +105,7 @@ class CourseController extends CommonController
 		$where = array();
 
 		// 模糊
-		if(!empty(I('keyword')))
+		if(!empty($_REQUEST['keyword']))
 		{
 			$where['t.username'] = array('like', '%'.I('keyword').'%');
 		}
@@ -144,7 +144,7 @@ class CourseController extends CommonController
 	public function SaveInfo()
 	{
 		// 课程信息
-		if(empty(I('id')))
+		if(empty($_REQUEST['id']))
 		{
 			$data = array('teacher_id'=>I('teacher_id'));
 			$request_url = U('Admin/Teacher/Index');
@@ -192,7 +192,7 @@ class CourseController extends CommonController
 		}
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->Add();
 
@@ -290,7 +290,7 @@ class CourseController extends CommonController
 		}
 
 		// 参数处理
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}

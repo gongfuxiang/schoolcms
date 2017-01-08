@@ -91,7 +91,7 @@ class TeacherController extends CommonController
 		$where = array();
 
 		// 模糊
-		if(!empty(I('keyword')))
+		if(!empty($_REQUEST['keyword']))
 		{
 			$where[] = array(
 					'username'	=>	array('like', '%'.I('keyword').'%'),
@@ -116,11 +116,11 @@ class TeacherController extends CommonController
 			}
 
 			// 表达式
-			if(!empty(I('time_start')))
+			if(!empty($_REQUEST['time_start']))
 			{
 				$where['birthday'][] = array('gt', strtotime(I('time_start')));
 			}
-			if(!empty(I('time_end')))
+			if(!empty($_REQUEST['time_end']))
 			{
 				$where['birthday'][] = array('lt', strtotime(I('time_end')));
 			}
@@ -138,7 +138,7 @@ class TeacherController extends CommonController
 	public function SaveInfo()
 	{
 		// 教师信息
-		$data = empty(I('id')) ? array() : M('Teacher')->find(I('id'));
+		$data = empty($_POST['id']) ? array() : M('Teacher')->find(I('id'));
 		if(!empty($data['birthday']))
 		{
 			$data['birthday'] = date('Y-m-d', $data['birthday']);
@@ -170,7 +170,7 @@ class TeacherController extends CommonController
 		}
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->Add();
 

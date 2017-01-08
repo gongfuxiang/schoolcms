@@ -82,11 +82,11 @@ class AdminController extends CommonController
 	private function GetIndexWhere()
 	{
 		$where = array();
-		if(!empty(I('username')))
+		if(!empty($_REQUEST['username']))
 		{
 			$where['username'] = array('like', '%'.I('username').'%');
 		}
-		$role_id = empty(I('role_id')) ? 0 : intval(I('role_id'));
+		$role_id = empty($_REQUEST['role_id']) ? 0 : intval(I('role_id'));
 		if($role_id > 0)
 		{
 			$where['role_id'] = $role_id;
@@ -157,7 +157,7 @@ class AdminController extends CommonController
 		}
 
 		// id为空则表示是新增
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->AdminAdd();
 		} else {
@@ -213,7 +213,7 @@ class AdminController extends CommonController
 			}
 
 			// 有密码，则更新密码
-			if(!empty(I('login_pwd')))
+			if(!empty($_POST['login_pwd']))
 			{
 				$m->login_salt	=	GetNumberCode(6);
 				$m->login_pwd 	=	LoginPwdEncryption($m->login_pwd, $m->login_salt);
@@ -228,7 +228,7 @@ class AdminController extends CommonController
 			if($m->where(array('id'=>I('id')))->save())
 			{
 				// 编辑自身则退出重新登录
-				if(!empty(I('login_pwd')) && I('id') == $this->admin['id'])
+				if(!empty($_POST['login_pwd']) && I('id') == $this->admin['id'])
 				{
 					session_destroy();
 				}

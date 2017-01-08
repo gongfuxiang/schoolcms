@@ -138,7 +138,7 @@ class StudentController extends CommonController
 		$where['semester_id'] = MyC('semester_id');
 
 		// 模糊
-		if(!empty(I('keyword')))
+		if(!empty($_REQUEST['keyword']))
 		{
 			$where[] = array(
 					'username'	=>	array('like', '%'.I('keyword').'%'),
@@ -174,11 +174,11 @@ class StudentController extends CommonController
 			}
 
 			// 表达式
-			if(!empty(I('time_start')))
+			if(!empty($_REQUEST['time_start']))
 			{
 				$where['birthday'][] = array('gt', strtotime(I('time_start')));
 			}
-			if(!empty(I('time_end')))
+			if(!empty($_REQUEST['time_end']))
 			{
 				$where['birthday'][] = array('lt', strtotime(I('time_end')));
 			}
@@ -196,7 +196,7 @@ class StudentController extends CommonController
 	public function SaveInfo()
 	{
 		// 学生信息
-		$data = empty(I('id')) ? array() : M('Student')->find(I('id'));
+		$data = empty($_REQUEST['id']) ? array() : M('Student')->find(I('id'));
 		if(!empty($data['birthday']))
 		{
 			$data['birthday'] = date('Y-m-d', $data['birthday']);
@@ -238,7 +238,7 @@ class StudentController extends CommonController
 		}
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->Add();
 

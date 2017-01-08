@@ -81,7 +81,7 @@ class PowerController extends CommonController
 		$m->sort 	=	intval(I('sort'));
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			if($m->create($_POST, 1))
 			{
@@ -191,7 +191,7 @@ class PowerController extends CommonController
 		if($role_id > 0)
 		{
 			// 权限关联数据
-			$action = empty(I('id')) ? array() : M('RolePower')->where(array('role_id'=>$role_id))->getField('power_id', true);
+			$action = empty($_REQUEST['id']) ? array() : M('RolePower')->where(array('role_id'=>$role_id))->getField('power_id', true);
 
 			// 权限列表
 			$m = M('Power');
@@ -239,7 +239,7 @@ class PowerController extends CommonController
 		}
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->RoleAdd();
 
@@ -412,7 +412,7 @@ class PowerController extends CommonController
 		}
 
 		// 参数是否有误
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}

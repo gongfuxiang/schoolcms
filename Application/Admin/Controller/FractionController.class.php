@@ -102,7 +102,7 @@ class FractionController extends CommonController
 		$where['f.semester_id'] = MyC('semester_id');
 
 		// 模糊
-		if(!empty(I('keyword')))
+		if(!empty($_REQUEST['keyword']))
 		{
 			$where['s.username'] = array('like', '%'.I('keyword').'%');
 		}
@@ -198,7 +198,7 @@ class FractionController extends CommonController
 	public function SaveInfo()
 	{
 		// 参数
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->error(L('common_param_error'));
 		}
@@ -236,7 +236,7 @@ class FractionController extends CommonController
 		}
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->Add();
 
@@ -306,7 +306,7 @@ class FractionController extends CommonController
 		}
 
 		// 参数是否有误
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}

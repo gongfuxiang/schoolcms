@@ -98,7 +98,7 @@ class IntervalController extends CommonController
 		$m->sort 	=	intval(I('sort'));
 
 		// 添加
-		if(empty(I('id')))
+		if(empty($_POST['id']))
 		{
 			if($m->create($_POST, 1))
 			{
