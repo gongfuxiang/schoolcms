@@ -261,6 +261,13 @@ class FractionController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 1))
 		{
+			// 数据不能重复
+			$tmp = M('Fraction')->where(array('semester_id'=>MyC('semester_id'), 'student_id'=>I('student_id'), 'subject_id'=>I('subject_id'), 'score_id'=>I('score_id')))->count();
+			if($tmp > 0)
+			{
+				$this->ajaxReturn(L('fraction_data_is_exist'), -2);
+			}
+
 			// 额外数据处理
 			$m->add_time	=	time();
 

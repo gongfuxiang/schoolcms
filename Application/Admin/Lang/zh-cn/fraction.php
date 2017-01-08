@@ -25,5 +25,6 @@ return array(
 	'fraction_student_id_error'			=>	'学生信息有误',
 	'fraction_score_level_text'			=>	'等级',
 	'fraction_class_id_text'			=>	'班级',
+	'fraction_data_is_exist'			=>	'该学生成绩已存在',
 );
 ?>
