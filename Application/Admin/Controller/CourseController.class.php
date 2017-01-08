@@ -217,19 +217,8 @@ class CourseController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 1))
 		{
-			// 数据是否已存在
-			$where = array(
-					'teacher_id'	=>	I('teacher_id'),
-					'class_id'		=>	I('class_id'),
-					'subject_id'	=>	I('subject_id'),
-					'week_id'		=>	I('week_id'),
-					'interval_id'	=>	I('interval_id'),
-				);
-			$tmp = $m->where($where)->getField('id');
-			if(!empty($tmp))
-			{
-				$this->ajaxReturn(L('common_data_is_exist_error'), -2);
-			}
+			// 校验数据不能重复添加
+			$this->IsExistData();
 			
 			// 额外数据处理
 			$m->add_time	=	time();
@@ -261,6 +250,9 @@ class CourseController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
+			// 校验数据不能重复添加
+			$this->IsExistData();
+
 			// 移除 id
 			unset($m->id, $m->teacher_id);
 
@@ -271,6 +263,30 @@ class CourseController extends CommonController
 			} else {
 				$this->ajaxReturn(L('common_operation_edit_error'), -100);
 			}
+		}
+	}
+
+	/**
+	 * [IsExistData 校验数据不能重复添加]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-08T22:08:46+0800
+	 */
+	private function IsExistData()
+	{
+		// 数据是否已存在
+		$where = array(
+				'teacher_id'	=>	I('teacher_id'),
+				'class_id'		=>	I('class_id'),
+				'subject_id'	=>	I('subject_id'),
+				'week_id'		=>	I('week_id'),
+				'interval_id'	=>	I('interval_id'),
+			);
+		$tmp = $m->where($where)->getField('id');
+		if(!empty($tmp))
+		{
+			$this->ajaxReturn(L('common_data_is_exist_error'), -2);
 		}
 	}
 
