@@ -46,7 +46,7 @@ class StudentController extends CommonController
 		$m = M('Student');
 
 		// 条件
-		$where = $this->GetStudentIndexWhere();
+		$where = $this->GetIndexWhere();
 
 		// 分页
 		$number = MyC('page_number');
@@ -124,13 +124,13 @@ class StudentController extends CommonController
 	}
 
 	/**
-	 * [GetStudentIndexWhere 学生列表条件]
+	 * [GetIndexWhere 学生列表条件]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T22:16:29+0800
 	 */
-	private function GetStudentIndexWhere()
+	private function GetIndexWhere()
 	{
 		$where = array();
 

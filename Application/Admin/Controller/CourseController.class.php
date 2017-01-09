@@ -104,6 +104,9 @@ class CourseController extends CommonController
 	{
 		$where = array();
 
+		// 学期id
+		$where['c.semester_id'] = MyC('semester_id');
+
 		// 模糊
 		if(!empty($_REQUEST['keyword']))
 		{
@@ -222,6 +225,7 @@ class CourseController extends CommonController
 
 			// 额外数据处理
 			$m->add_time	=	time();
+			$m->semester_id	=	MyC('semester_id');
 			
 			// 写入数据库
 			if($m->add())
@@ -282,6 +286,7 @@ class CourseController extends CommonController
 				'subject_id'	=>	I('subject_id'),
 				'week_id'		=>	I('week_id'),
 				'interval_id'	=>	I('interval_id'),
+				'semester_id'	=>	MyC('semester_id'),
 			);
 		$tmp = M('Course')->where($where)->getField('id');
 		if(!empty($tmp))
