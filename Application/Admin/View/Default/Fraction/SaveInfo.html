@@ -44,6 +44,10 @@
 				<input type="number" name="score" placeholder="{{:L('fraction_score_text')}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{:L('fraction_score_format')}}" class="am-radius" <present name="data"> value="{{$data.score}}"</present> required />
 			</div>
 			<div class="am-form-group">
+				<label>{{:L('fraction_comment_text')}}：</label>
+				<textarea maxlength="255" name="comment" class="am-radius" placeholder="{{:L('fraction_comment_text')}}" data-validation-message="{{:L('fraction_comment_format')}}"><present name="data"> value="{{$data.comment}}"</present></textarea>
+			</div>
+			<div class="am-form-group">
 				<input type="hidden" name="student_id" <present name="student"> value="{{$student.id}}"</present>" />
 				<input type="hidden" name="id" <present name="data"> value="{{$data.id}}"</present>" />
 				<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>

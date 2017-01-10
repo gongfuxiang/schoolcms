@@ -68,7 +68,7 @@
         <!-- operation start -->
         <div class="am-g m-t-15">
             <a href="{{:U('Admin/Student/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
-            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10"> 导出Excel</a>
+            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o"> {{:L('common_operation_excel_name')}}</a>
         </div>
         <!-- operation end -->
 
@@ -108,6 +108,9 @@
 												<dt>{{:L('common_address_text')}}</dt>
 												<dd>{{$v.region_name}} {{$v.address}}</dd>
 
+												<dt>{{:L('common_view_gender_name')}}</dt>
+												<dd>{{$v.gender}}</dd>
+
 												<dt>{{:L('student_birthday_text')}}</dt>
 												<dd>{{$v.birthday}}</dd>
 
@@ -121,10 +124,10 @@
 												<dd>{{$v.class_name}}</dd>
 
 												<dt>{{:L('student_tuition_state_text')}}</dt>
-												<dd>{{:L('common_tuition_state_list')[$v['tuition_state']]['name']}}</dd>
+												<dd>{{$v.tuition_state}}</dd>
 
 												<dt>{{:L('common_view_student_state_name')}}</dt>
-												<dd>{{:L('common_student_state_list')[$v['state']]['name']}}</dd>
+												<dd>{{$v.state}}</dd>
 											</dl>
 										</div>
 									</div>

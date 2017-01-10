@@ -19,7 +19,20 @@ class FractionModel extends CommonModel
 		array('score_id', 'IsExistScoreId', '{%fraction_score_id_error}', 1, 'callback', 3),
 		array('subject_id', 'IsExistSubjectId', '{%fraction_subject_error}', 1, 'callback', 3),
 		array('student_id', 'IsExistStudentId', '{%fraction_student_id_error}', 1, 'callback', 3),
+		array('comment', 'CheckComment', '{%fraction_comment_format}', 1, 'callback', 3),
 	);
+
+	/**
+	 * [CheckComment 教师点评校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T19:29:30+0800
+	 */
+	public function CheckComment()
+	{
+		return (Utf8Strlen(I('comment')) <= 255);
+	}
 
 	/**
 	 * [CheckScore 分数校验]

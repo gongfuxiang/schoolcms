@@ -11,3 +11,6 @@ ALTER TABLE `sc_course` ADD INDEX semester_id(`semester_id`);
 
 # 配置信息更新 - csv变更为excel
 UPDATE `sc_config` SET `only_tag`="excel_charset", `describe`="excel模块编码选择", `name`="Excel编码" WHERE `id`=11;
+
+# 学生成绩 - 添加点评字段
+ALTER TABLE `sc_fraction` ADD `comment` char(255) NOT NULL DEFAULT '' COMMENT '教师点评' AFTER `score`;

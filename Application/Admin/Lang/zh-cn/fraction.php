@@ -18,12 +18,14 @@ return array(
 	'fraction_subject_format'			=>	'请选择科目',
 	'fraction_subject_error'			=>	'科目分类有误',
 	'fraction_score_text'				=>	'成绩',
-	'fraction_score_format'				=>	'分数格式错误，纯数字，不超过3位',
+	'fraction_score_format'				=>	'分数格式错误，纯数字，不能超过3位',
 	'fraction_student_error'			=>	'该学生不存在',
 	'fraction_username_text'			=>	'学生姓名',
 	'fraction_student_username_format'	=>	'学生真实姓名',
 	'fraction_student_id_error'			=>	'学生信息有误',
 	'fraction_score_level_text'			=>	'等级',
 	'fraction_class_id_text'			=>	'班级',
+	'fraction_comment_text'				=>	'教师点评',
+	'fraction_comment_format'			=>	'教师点评，不能超过255个字符',
 );
 ?>

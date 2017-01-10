@@ -54,6 +54,12 @@
 		</form>
 		<!-- form end -->
 
+		<!-- operation start -->
+        <div class="am-g m-t-15">
+            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs am-icon-file-excel-o"> {{:L('common_operation_excel_name')}}</a>
+        </div>
+        <!-- operation end -->
+
 		<!-- list start -->
 		<table class="am-table am-table-striped am-table-hover am-text-middle m-t-20">
 			<thead>
@@ -65,6 +71,7 @@
 					<th>{{:L('fraction_subject_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('fraction_score_level_text')}}</th>
 					<th>{{:L('fraction_score_text')}}</th>
+					<th>{{:L('common_more_name')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
 				</tr>
 			</thead>
@@ -73,12 +80,48 @@
 					<foreach name="list" item="v">
 						<tr id="data-list-{{$v.id}}-{{$v.student_id}}">
 							<td>{{$v.username}}</td>
-							<td class="am-hide-sm-only">{{:L('common_gender_list')[$v['gender']]['name']}}</td>
+							<td class="am-hide-sm-only">{{$v.gender}}</td>
 							<td class="am-hide-sm-only">{{$v.class_name}}</td>
 							<td>{{$v.score_name}}</td>
 							<td>{{$v.subject_name}}</td>
 							<td class="am-hide-sm-only">{{$v.score_level}}</td>
 							<td>{{$v.score}}</td>
+							<td class="am-show-sm-only">
+								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
+								<div class="am-popup am-radius" id="my-popup{{$v.id}}">
+									<div class="am-popup-inner">
+										<div class="am-popup-hd">
+											<h4 class="am-popup-title">{{:L('common_detail_content')}}</h4>
+											<span data-am-modal-close
+											class="am-close">&times;</span>
+										</div>
+										<div class="am-popup-bd">
+											<dl class="dl-content">
+												<dt>{{:L('fraction_username_text')}}</dt>
+												<dd>{{$v.username}}</dd>
+
+												<dt>{{:L('common_view_gender_name')}}</dt>
+												<dd>{{$v.gender}}</dd>
+
+												<dt>{{:L('fraction_class_id_text')}}</dt>
+												<dd>{{$v.class_name}}</dd>
+
+												<dt>{{:L('fraction_subject_text')}}</dt>
+												<dd>{{$v.subject_name}}</dd>
+
+												<dt>{{:L('fraction_score_level_text')}}</dt>
+												<dd>{{$v.score_level}}</dd>
+
+												<dt>{{:L('fraction_score_text')}}</dt>
+												<dd>{{$v.score}}</dd>
+
+												<dt>{{:L('fraction_comment_text')}}</dt>
+												<dd>{{$v.comment}}</dd>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</td>
 							<td>
 								<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Fraction/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}-{{$v.student_id}}"></button>
 							</td>

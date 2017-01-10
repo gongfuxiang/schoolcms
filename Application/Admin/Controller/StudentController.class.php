@@ -27,7 +27,7 @@ class StudentController extends CommonController
 		$this->Is_Login();
 
 		// 权限校验
-		//$this->Is_Power();
+		$this->Is_Power();
 	}
 
 	/**
@@ -153,6 +153,9 @@ class StudentController extends CommonController
 
 				// 状态
 				$data[$k]['state'] = L('common_student_state_list')[$v['state']]['name'];
+
+				// 缴费状态
+				$data[$k]['tuition_state'] = L('common_tuition_state_list')[$v['tuition_state']]['name'];
 			}
 		}
 		return $data;

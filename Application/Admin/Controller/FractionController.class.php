@@ -60,7 +60,7 @@ class FractionController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id');
+		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment');
 		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select();
 		// 数据列表
 		$this->assign('list', $this->SetDataHandle($list));
@@ -84,7 +84,31 @@ class FractionController extends CommonController
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
 
+		// Excel地址
+		$this->assign('excel_url', U('Admin/Fraction/ExcelExport', $param));
+
 		$this->display('Index');
+	}
+
+	/**
+	 * [ExcelExport excel文件导出]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-10T15:46:00+0800
+	 */
+	public function ExcelExport()
+	{
+		// 条件
+		$where = $this->GetIndexWhere();
+
+		// 读取数据
+		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment', 'f.add_time');
+		$data = $this->SetDataHandle(M('Fraction')->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->select());
+
+		// Excel驱动导出数据
+		$excel = new \My\Excel(array('filename'=>'fraction', 'title'=>L('excel_fraction_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel->Export();
 	}
 
 	/**
@@ -183,6 +207,12 @@ class FractionController extends CommonController
 				{
 					$data[$k]['score_level'] = '';
 				}
+
+				// 添加时间
+				$data[$k]['add_time'] = empty($v['add_time']) ? '' : date('Y-m-d H:i:s', $v['add_time']);
+
+				// 性别
+				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
 			}
 		}
 		return $data;
@@ -266,6 +296,7 @@ class FractionController extends CommonController
 
 			// 额外数据处理
 			$m->add_time	=	time();
+			$m->comment 	=	I('comment');
 
 			// 学期id
 			$m->semester_id	=	MyC('semester_id');

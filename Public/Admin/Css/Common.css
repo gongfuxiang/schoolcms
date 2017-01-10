@@ -1388,7 +1388,7 @@ ul {
 }
 
 /* 公共dl样式 */
-.dl-content dt { padding-left: 5px; float: left; overflow: hidden; clear: left;  
+.dl-content dt { float: left; padding-left: 5px; overflow: hidden; clear: left;  
         width: 25%; }
-.dl-content dd { border-bottom: 1px solid #efefef; }
-.dl-content dt, .dl-content dd { font-weight: normal !important; text-align: left; margin-top: 0px; line-height: 35px; height: 35px; }
+.dl-content dd { border-bottom: 1px solid #efefef; padding-left: 25%; }
+.dl-content dt, .dl-content dd { font-weight: normal !important; text-align: left; margin-top: 0px; line-height: 35px; min-height: 35px; }

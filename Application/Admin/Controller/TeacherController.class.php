@@ -59,7 +59,7 @@ class TeacherController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$list = $m->where($where)->limit($page->GetPageStarNumber(), $number)->select();
+		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
 
 		// 性别
 		$this->assign('common_gender_list', L('common_gender_list'));
@@ -76,7 +76,61 @@ class TeacherController extends CommonController
 		// 数据列表
 		$this->assign('list', $list);
 
+		// Excel地址
+		$this->assign('excel_url', U('Admin/Teacher/ExcelExport', $param));
+
 		$this->display('Index');
+	}
+
+	/**
+	 * [ExcelExport excel文件导出]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-10T15:46:00+0800
+	 */
+	public function ExcelExport()
+	{
+		// 条件
+		$where = $this->GetIndexWhere();
+
+		// 读取数据
+		$data = $this->SetDataHandle(M('Teacher')->where($where)->select());
+
+		// Excel驱动导出数据
+		$excel = new \My\Excel(array('filename'=>'teacher', 'title'=>L('excel_teacher_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel->Export();
+	}
+
+	/**
+	 * [SetDataHandle 数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-29T21:27:15+0800
+	 * @param    [array]      $data [教师数据]
+	 * @return   [array]            [处理好的数据]
+	 */
+	private function SetDataHandle($data)
+	{
+		if(!empty($data))
+		{
+			foreach($data as $k=>$v)
+			{
+				// 出生
+				$data[$k]['birthday'] = date('Y-m-d', $v['birthday']);
+
+				// 创建时间
+				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+
+				// 性别
+				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
+
+				// 状态
+				$data[$k]['state'] = L('common_teacher_state_list')[$v['state']]['name'];
+			}
+		}
+		return $data;
 	}
 
 	/**
@@ -138,7 +192,7 @@ class TeacherController extends CommonController
 	public function SaveInfo()
 	{
 		// 教师信息
-		$data = empty($_POST['id']) ? array() : M('Teacher')->find(I('id'));
+		$data = empty($_REQUEST['id']) ? array() : M('Teacher')->find(I('id'));
 		if(!empty($data['birthday']))
 		{
 			$data['birthday'] = date('Y-m-d', $data['birthday']);

@@ -39,6 +39,7 @@ return array(
 	'common_more_name'					=>	'更多',
 	'common_see_more_name'				=>	'查看更多',
 	'common_detail_content'				=>	'详情内容',
+	'common_operation_excel_name'		=>	'导出Excel',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',

@@ -13,7 +13,7 @@ return array(
 	'URL_MODEL'          		=>	'0',
 
 	// admin是否可以操作[ok, no]
-	'close_admin_operation'		=>	'ok',
+	'close_admin_operation'		=>	'no',
 
 	// 权限缓存存储key
 	'common_power_key'			=>	'common_power_',
