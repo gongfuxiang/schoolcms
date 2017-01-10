@@ -68,6 +68,7 @@
         <!-- operation start -->
         <div class="am-g m-t-15">
             <a href="{{:U('Admin/Student/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
+            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10"> 导出Excel</a>
         </div>
         <!-- operation end -->
 
@@ -90,9 +91,9 @@
 						<tr id="data-list-{{$v.id}}-{{$v.id_card}}">
 							<td>{{$v.username}}</td>
 							<td class="am-hide-sm-only">{{$v.id_card}}</td>
-							<td>{{:L('common_gender_list')[$v['gender']]['name']}}</td>
+							<td>{{$v.gender}}</td>
 							<td class="am-hide-sm-only">{{$v.class_name}}</td>
-							<td class="am-hide-sm-only">{{:L('common_student_state_list')[$v['state']]['name']}}</td>
+							<td class="am-hide-sm-only">{{$v.state}}</td>
 							<td>
 								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
 								<div class="am-popup am-radius" id="my-popup{{$v.id}}">
@@ -108,10 +109,10 @@
 												<dd>{{$v.region_name}} {{$v.address}}</dd>
 
 												<dt>{{:L('student_birthday_text')}}</dt>
-												<dd>{{:date('Y-m-d', $v['birthday'])}}</dd>
+												<dd>{{$v.birthday}}</dd>
 
 												<dt>{{:L('student_sign_up_name')}}</dt>
-												<dd>{{:date('Y-m-d H:i:s', $v['add_time'])}}</dd>
+												<dd>{{$v.add_time}}</dd>
 
 												<dt>{{:L('common_view_tel_name')}}</dt>
 												<dd>{{$v.tel}}</dd>

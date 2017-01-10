@@ -177,8 +177,8 @@ return array(
 				),
 		),
 
-	// CSV编码列表
-	'common_csv_charset_list'			=>	array(
+	// excel编码列表
+	'common_excel_charset_list'			=>	array(
 			0 => array('id' => 0, 'value' => 'utf-8', 'name' => 'utf-8', 'checked' => true),
 			1 => array('id' => 1, 'value' => 'gbk', 'name' => 'gbk'),
 		),

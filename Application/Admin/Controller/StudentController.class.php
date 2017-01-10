@@ -27,7 +27,7 @@ class StudentController extends CommonController
 		$this->Is_Login();
 
 		// 权限校验
-		$this->Is_Power();
+		//$this->Is_Power();
 	}
 
 	/**
@@ -86,7 +86,30 @@ class StudentController extends CommonController
 		// 数据列表
 		$this->assign('list', $list);
 
+		// Excel地址
+		$this->assign('excel_url', U('Admin/Student/ExcelExport', $param));
+
 		$this->display('Index');
+	}
+
+	/**
+	 * [ExcelExport excel文件导出]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-10T15:46:00+0800
+	 */
+	public function ExcelExport()
+	{
+		// 条件
+		$where = $this->GetIndexWhere();
+
+		// 读取数据
+		$data = $this->SetDataHandle(M('Student')->where($where)->select());
+
+		// Excel驱动导出数据
+		$excel = new \My\Excel(array('filename'=>'student', 'title'=>L('excel_student_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel->Export();
 	}
 
 	/**
@@ -118,6 +141,18 @@ class StudentController extends CommonController
 				
 				// 地区
 				$data[$k]['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
+
+				// 出生
+				$data[$k]['birthday'] = date('Y-m-d', $v['birthday']);
+
+				// 报名时间
+				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+
+				// 性别
+				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
+
+				// 状态
+				$data[$k]['state'] = L('common_student_state_list')[$v['state']]['name'];
 			}
 		}
 		return $data;

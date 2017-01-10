@@ -44,7 +44,7 @@ class ConfigController extends CommonController
 		$this->assign('semester_list', $semester_list);
 
 		// csv
-		$this->assign('common_csv_charset_list', L('common_csv_charset_list'));
+		$this->assign('common_excel_charset_list', L('common_excel_charset_list'));
 
 		// 配置信息
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');

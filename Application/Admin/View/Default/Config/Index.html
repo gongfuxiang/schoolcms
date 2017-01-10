@@ -17,10 +17,10 @@
 				</select>
 			</div>
 			<div class="am-form-group">
-				<label>{{$data.csv_charset.name}}<span class="fs-12 fw-100 cr-999">（{{$data.csv_charset.describe}}）</span></label>
-				<select name="{{$data.csv_charset.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.csv_charset.error_tips}}" required>
-					<foreach name="common_csv_charset_list" item="v">
-						<option value="{{$v.id}}" <if condition="isset($data['csv_charset']['value']) and $data['csv_charset']['value'] eq $v['id']">selected</if>>{{$v.name}}</option>
+				<label>{{$data.excel_charset.name}}<span class="fs-12 fw-100 cr-999">（{{$data.excel_charset.describe}}）</span></label>
+				<select name="{{$data.excel_charset.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.excel_charset.error_tips}}" required>
+					<foreach name="common_excel_charset_list" item="v">
+						<option value="{{$v.id}}" <if condition="isset($data['excel_charset']['value']) and $data['excel_charset']['value'] eq $v['id']">selected</if>>{{$v.name}}</option>
 					</foreach>
 				</select>
 			</div>

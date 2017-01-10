@@ -9,6 +9,37 @@
  */
 
 /**
+ * [UrlParamJoin url参数拼接]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-01-09T23:33:44+0800
+ * @param    [array]      $param [url参数一维数组]
+ * @return   [string]            [url参数字符串]
+ */
+function UrlParamJoin($param)
+{
+    $string = '';
+    if(!empty($param) && is_array($param))
+    {
+        foreach($param as $k=>$v)
+        {
+            if(is_string($v))
+            {
+                $string .= $k.'='.$v.'&';
+            }
+        }
+        if(!empty($string))
+        {
+            $url_model= C('URL_MODEL');
+            $join_tag = ($url_model == 0 || $url_model == 3) ? '&' : '?';
+            $string = $join_tag.substr($string, 0, -1);
+        }
+    }
+    return $string;
+}
+
+/**
  * [MyC 读取站点配置信息]
  * @author   Devil
  * @blog     http://gong.gg/
@@ -311,7 +342,7 @@ function CheckUserName($string)
  */
 function CheckLoginPwd($string)
 {
-    $len = strlen($pwd);
+    $len = strlen($string);
     return (preg_match('/'.L('common_regex_pwd').'/', $string) == 1) ? true : false;
     return ($len >= 6 && $len <= 18);
 }

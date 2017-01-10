@@ -8,3 +8,6 @@ ALTER TABLE `sc_course` ADD `semester_id` int(11) UNSIGNED NOT NULL DEFAULT '0' 
 ALTER TABLE `sc_course` DROP INDEX `teacher_class_subject_week_interval`;
 ALTER TABLE `sc_course` ADD UNIQUE `semester_teacher_class_subject_week_interval` USING BTREE (`semester_id`, `teacher_id`, `class_id`, `subject_id`, `week_id`, `interval_id`);
 ALTER TABLE `sc_course` ADD INDEX semester_id(`semester_id`);
+
+# 配置信息更新 - csv变更为excel
+UPDATE `sc_config` SET `only_tag`="excel_charset", `describe`="excel模块编码选择", `name`="Excel编码" WHERE `id`=11;
