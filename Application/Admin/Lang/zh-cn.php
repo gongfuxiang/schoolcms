@@ -45,7 +45,17 @@ return array(
 			'tel'			=>	'联系电话',
 			'address'		=>	'详细地址',
 			'state'			=>	'教师状态',
-			'add_time'		=>	'创建时间',
+			'add_time'		=>	'添加时间',
+		),
+
+	// 教师课程excel导出标题列表
+	'excel_course_title_list'		=>	array(
+			'teacher_name'	=>	'教师姓名',
+			'class_name'	=>	'班级',
+			'subject_name'	=>	'科目',
+			'week_name'		=>	'周天',
+			'interval_name'	=>	'时段',
+			'add_time'		=>	'添加时间',
 		),
 );
 ?>

@@ -60,8 +60,8 @@ class CourseController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$field = array('c.id, t.username AS teacher_name', 'cs.name AS class_name', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name');
-		$list = $m->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select();
+		$field = array('c.id', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name');
+		$list = $this->SetDataHandle($m->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select());
 
 		// 数据列表
 		$this->assign('list', $list);
@@ -90,7 +90,64 @@ class CourseController extends CommonController
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
 
+		// Excel地址
+		$this->assign('excel_url', U('Admin/Course/ExcelExport', $param));
+
 		$this->display('Index');
+	}
+
+	/**
+	 * [ExcelExport excel文件导出]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-10T15:46:00+0800
+	 */
+	public function ExcelExport()
+	{
+		// 条件
+		$where = $this->GetIndexWhere();
+
+		// 读取数据
+		$field = array('c.id', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name', 'c.add_time AS add_time');
+		$data = $this->SetDataHandle(M('Course')->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->select());
+
+		// Excel驱动导出数据
+		$excel = new \My\Excel(array('filename'=>'course', 'title'=>L('excel_course_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel->Export();
+	}
+
+	/**
+	 * [SetDataHandle 数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-29T21:27:15+0800
+	 * @param    [array]      $data [教师课程数据]
+	 * @return   [array]            [处理好的数据]
+	 */
+	private function SetDataHandle($data)
+	{
+		if(!empty($data))
+		{
+			$c = M('Class');
+			foreach($data as $k=>$v)
+			{
+				// 班级
+				if($v['class_pid'] != 0)
+				{
+					$p_name = $c->where(array('id'=>$v['class_pid']))->getField('name');
+					$data[$k]['class_name'] = empty($p_name) ? $v['class_name'] : $p_name.'-'.$v['class_name'];
+				}
+
+				// 添加时间
+				if(isset($v['add_time']))
+				{
+					$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+				}
+			}
+		}
+		return $data;
 	}
 
 	/**
