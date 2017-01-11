@@ -10,4 +10,4 @@ Logs
 logs
 Log
 log
-install.lock
+*.lock
