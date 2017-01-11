@@ -1378,6 +1378,10 @@ ul {
 /**
  * 公共分类样式
  */
+
+/**
+ * PC
+ */
 @media only screen and (min-width: 641px) {
   /* 树 */
   .submit { display: none; }
@@ -1387,8 +1391,15 @@ ul {
   .view-save div { width: 75% !important; }
 }
 
+/**
+ * 手机
+ */
+@media only screen and (max-width: 641px) {
+
+}
+
 /* 公共dl样式 */
 .dl-content dt { float: left; padding-left: 5px; overflow: hidden; clear: left;  
-        width: 25%; }
-.dl-content dd { border-bottom: 1px solid #efefef; padding-left: 25%; }
+        width: 30%; }
+.dl-content dd { border-bottom: 1px solid #efefef; padding-left: 30%; }
 .dl-content dt, .dl-content dd { font-weight: normal !important; text-align: left; margin-top: 0px; line-height: 35px; min-height: 35px; }

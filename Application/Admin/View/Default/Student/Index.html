@@ -68,7 +68,9 @@
         <!-- operation start -->
         <div class="am-g m-t-15">
             <a href="{{:U('Admin/Student/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
-            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o"> {{:L('common_operation_excel_name')}}</a>
+            <if condition="!IsMobile()">
+            	<a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o"> {{:L('common_operation_excel_name')}}</a>
+            </if>
         </div>
         <!-- operation end -->
 
@@ -133,7 +135,7 @@
 									</div>
 								</div>
 							</td>
-							<td>
+							<td class="view-operation">
 								<a href="{{:U('Admin/Fraction/SaveInfo', array('id'=>$v['id']))}}">
 									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-line-chart" data-am-popover="{content: '{{:L('common_operation_fraction')}}', trigger: 'hover focus'}"></button>
 								</a>

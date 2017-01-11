@@ -13,3 +13,6 @@
 	.param-where { width: 32% !important; float: left; }
 	.param-date input { width: 45% !important; }
 }
+@media only screen and (max-width: 321px) {
+	.view-operation button { margin: 2px 0px; }
+}
