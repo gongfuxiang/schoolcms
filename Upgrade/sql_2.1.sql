@@ -2,6 +2,8 @@
 # author : Devil
 # version: 2.1
 
+# PS 权限部分sql后面再导出添加
+
 # 教师课程 - 添加学期id并且跳转顺序到id后面
 ALTER TABLE `sc_course` ADD `semester_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '学期id' AFTER `id`;
 

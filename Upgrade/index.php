@@ -27,6 +27,18 @@ if(empty($config))
     exit('../Application/Common/Conf/master.php 配置文件没找到');
 }
 
+// 引入公共方法
+require '../Application/Common/Common/function.php';
+if(function_exists('DelDirFile'))
+{
+    DelDirFile('../Application/Runtime/Cache');
+    DelDirFile('../Application/Runtime/Data');
+    DelDirFile('../Application/Runtime/My');
+    DelDirFile('../Application/Runtime/Temp');
+} else {
+    exit('函数未定义[DelDirFile]，请确保升级包文件已覆盖旧文件');
+}
+
 // 数据库配置信息
 if(empty($config['DB_HOST']) || empty($config['DB_NAME']) || empty($config['DB_USER']) || empty($config['DB_PWD']) || empty($config['DB_PORT']))
 {
@@ -65,7 +77,7 @@ if(!is_object($temp) || $temp->num_rows == 0)
 }
 
 // 选中数据库
-$link->select_db($data['DB_NAME']);
+$link->select_db($config['DB_NAME']);
 
 // 升级sql
 $sql_array = preg_split("/;[\r\n]+/", str_replace('sc_', $config['DB_PREFIX'], file_get_contents('./sql_'.$ver.'.sql')));
