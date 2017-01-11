@@ -2,7 +2,6 @@
 .DS_Store
 .ide
 *.log
-*.html.php
 Runtime
 Temp
 temp
