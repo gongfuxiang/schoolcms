@@ -22,11 +22,11 @@
 					<!-- form start -->
 					<form class="am-form form-validation admin-save" action="{{:U('Admin/Semester/Save')}}" method="POST" request-type="ajax-reload" request-value="">
 						<div class="am-form-group">
-							<label>{{:L('common_name_text')}}：</label>
+							<label>{{:L('common_name_text')}}</label>
 							<input type="text" placeholder="{{:L('common_name_text')}}" name="name" minlength="2" maxlength="16" data-validation-message="{{:L('common_name_format')}}" class="am-radius" required />
 						</div>
 						<div class="am-form-group">
-							<label>{{:L('common_view_sort_title')}}：</label>
+							<label>{{:L('common_view_sort_title')}}</label>
 							<input type="number" placeholder="{{:L('common_view_sort_title')}}" name="sort" pattern="{{:L('common_regex_sort')}}" data-validation-message="{{:L('common_sort_error')}}" class="am-radius" value="0" required />
 						</div>
 						<include file="Lib/Enable" />

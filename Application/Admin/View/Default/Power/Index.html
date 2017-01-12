@@ -22,7 +22,7 @@
 					<!-- form start -->
 					<form class="am-form form-validation admin-save" action="{{:U('Admin/Power/PowerSave')}}" method="POST" request-type="ajax-reload" request-value="">
 						<div class="am-form-group">
-							<label>{{:L('power_level_text')}}：</label>
+							<label>{{:L('power_level_text')}}</label>
 							<select  class="am-radius c-p" name="pid" data-validation-message="{{:L('power_level_format')}}">
 								<option value="0">{{:L('common_select_level_one_choice')}}</option>
 								<foreach name="list" item="v">
@@ -31,19 +31,19 @@
 							</select>
 						</div>
 						<div class="am-form-group">
-							<label>{{:L('power_name_text')}}：</label>
+							<label>{{:L('power_name_text')}}</label>
 							<input type="text" placeholder="{{:L('power_name_text')}}" name="name" minlength="2" maxlength="16" data-validation-message="{{:L('power_name_format')}}" class="am-radius" required />
 						</div>
 						<div class="am-form-group">
-							<label>{{:L('power_control_text')}}：</label>
+							<label>{{:L('power_control_text')}}</label>
 							<input type="text" placeholder="{{:L('power_control_text')}}" name="control" pattern="{{:L('common_regex_control')}}"  data-validation-message="{{:L('power_control_format')}}" class="am-radius" required />
 						</div>
 						<div class="am-form-group">
-							<label>{{:L('power_action_text')}}：</label>
+							<label>{{:L('power_action_text')}}</label>
 							<input type="text" placeholder="{{:L('power_action_text')}}" name="action" pattern="{{:L('common_regex_action')}}"  data-validation-message="{{:L('power_action_format')}}" class="am-radius" required />
 						</div>
 						<div class="am-form-group">
-							<label>{{:L('common_view_sort_title')}}：</label>
+							<label>{{:L('common_view_sort_title')}}</label>
 							<input type="number" placeholder="{{:L('common_view_sort_title')}}" name="sort" pattern="{{:L('common_regex_sort')}}" data-validation-message="{{:L('common_sort_error')}}" class="am-radius" value="0" required />
 						</div>
 						<include file="Lib/IsShow" />

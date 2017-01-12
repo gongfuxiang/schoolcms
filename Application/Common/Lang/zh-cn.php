@@ -9,7 +9,7 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'SchoolCMS',
+	'common_site_name'					=>	'hello',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 
 	// 应用信息
@@ -245,5 +245,8 @@ return array(
 
 	// 分页
 	'common_regex_page_number'			=>	'^[1-9]{1}[0-9]{0,2}$',
+
+	// 时段格式 10:00-10:45
+	'common_regex_interval'			=>	'^\d{2}\:\d{2}\-\d{2}\:\d{2}$',
 );
 ?>

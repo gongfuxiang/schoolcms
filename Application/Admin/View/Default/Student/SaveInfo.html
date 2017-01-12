@@ -18,20 +18,20 @@
 				<a href="{{:U('Admin/Student/Index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
 			</legend>
 			<div class="am-form-group">
-				<label>{{:L('student_username_text')}}：</label>
+				<label>{{:L('student_username_text')}}</label>
 				<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <notempty name="data"> value="{{$data.username}}"</notempty> required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('common_view_id_card_text')}}：</label>
+				<label>{{:L('common_view_id_card_text')}}</label>
 				<input type="text" name="id_card" placeholder="{{:L('common_view_id_card_text')}}" pattern="{{:L('common_regex_id_card')}}" data-validation-message="{{:L('common_view_id_card_format')}}" class="am-radius" <notempty name="data"> value="{{$data.id_card}}" disabled</notempty> required />
 			</div>
 			<include file="Lib/Gender" />
 			<div class="am-form-group">
-				<label>{{:L('student_birthday_text')}}：</label>
+				<label>{{:L('student_birthday_text')}}</label>
 				<input type="text" name="birthday" class="am-radius" placeholder="{{:L('student_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('student_birthday_format')}}" <notempty name="data"> value="{{$data.birthday}}" </notempty> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('student_class_text')}}：</label>
+				<label>{{:L('student_class_text')}}</label>
 				<select name="class_id" class="am-radius c-p" data-validation-message="{{:L('student_class_format')}}" required>
 					<option value="">{{:L('common_select_can_choose')}}</option>
 					<foreach name="class_list" item="v">
@@ -48,7 +48,7 @@
 				</select>
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('student_region_text')}}：</label>
+				<label>{{:L('student_region_text')}}</label>
 				<select name="region_id" class="am-radius c-p" data-validation-message="{{:L('student_region_format')}}" required>
 					<option value="">{{:L('common_select_can_choose')}}</option>
 					<foreach name="region_list" item="v">
@@ -57,16 +57,16 @@
 				</select>
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('common_address_text')}}：</label>
+				<label>{{:L('common_address_text')}}</label>
 				<input type="text" placeholder="{{:L('common_address_text')}}" name="address" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <notempty name="data"> value="{{$data.address}}"</notempty> />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('common_view_tel_name')}}：</label>
+				<label>{{:L('common_view_tel_name')}}</label>
 				<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <notempty name="data"> value="{{$data.tel}}"</notempty> required />
 			</div>
 			<include file="Lib/StudentState" />
 			<div class="am-form-group">
-				<label>{{:L('student_tuition_state_text')}}：</label>
+				<label>{{:L('student_tuition_state_text')}}</label>
 				<div>
 					<foreach name="common_tuition_state_list" item="v">
 						<label class="am-radio-inline m-r-10">

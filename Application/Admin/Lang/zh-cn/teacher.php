@@ -25,5 +25,7 @@ return array(
 	'teacher_operation_course'			=>	'添加课程',
 	'teacher_time_start_text'			=>	'出生开始',
 	'teacher_time_end_text'				=>	'出生结束',
+	'teacher_subject_text'				=>	'贯通科目',
+	'teacher_subject_format'			=>	'请至少选择一项科目',
 );
 ?>

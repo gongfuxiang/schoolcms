@@ -17,3 +17,17 @@ UPDATE `sc_config` SET `only_tag`="excel_charset", `describe`="excel模块编码
 
 # 学生成绩 - 添加点评字段
 ALTER TABLE `sc_fraction` ADD `comment` char(255) NOT NULL DEFAULT '' COMMENT '教师点评' AFTER `score`;
+
+# 教师课程 - 添加状态字段
+
+# 教师科目贯通关联表
+CREATE TABLE `sc_teacher_subject` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '关联id',
+  `teacher_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
+  `subject_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '科目id',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `teacher_subject` (`teacher_id`,`subject_id`),
+  KEY `teacher_id` (`teacher_id`) USING BTREE,
+  KEY `subject_id` (`subject_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教师科目关联';

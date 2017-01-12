@@ -115,6 +115,7 @@ class TeacherController extends CommonController
 	{
 		if(!empty($data))
 		{
+			$ts = M('TeacherSubject');
 			foreach($data as $k=>$v)
 			{
 				// 出生
@@ -128,6 +129,10 @@ class TeacherController extends CommonController
 
 				// 状态
 				$data[$k]['state'] = L('common_teacher_state_list')[$v['state']]['name'];
+
+				// 贯通科目
+				$temp = $ts->alias('AS ts')->join('__SUBJECT__ AS s ON ts.subject_id = s.id')->where(array('ts.teacher_id'=>$v['id']))->field(array('s.name AS name'))->getField('name', true);
+				$data[$k]['subject_list'] = empty($temp) ? '' : implode(', ', $temp);
 			}
 		}
 		return $data;
@@ -196,6 +201,9 @@ class TeacherController extends CommonController
 		if(!empty($data['birthday']))
 		{
 			$data['birthday'] = date('Y-m-d', $data['birthday']);
+
+			// 科目关联数据
+			$data['subject_id'] = M('TeacherSubject')->where(array('teacher_id'=>$data['id']))->getField('subject_id', true);
 		}
 		$this->assign('data', $data);
 
@@ -204,6 +212,9 @@ class TeacherController extends CommonController
 
 		// 教师状态
 		$this->assign('common_teacher_state_list', L('common_teacher_state_list'));
+
+		// 科目列表
+		$this->assign('subject_list', M('Subject')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());		
 
 		$this->display('SaveInfo');
 	}
@@ -249,15 +260,51 @@ class TeacherController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 1))
 		{
+			// 教师科目参数
+			if(empty($_POST['subject_id']) || !is_array($_POST['subject_id']))
+			{
+				$this->ajaxReturn(L('teacher_subject_format'), -2);
+			}
+
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
+
+			// 开启事务
+			$m->startTrans();
 			
-			// 写入数据库
-			if($m->add())
+			// 教师写入数据库
+			$teacher_id = $m->add();
+
+			// 添加教师科目关联数据
+			$ts_state = true;
+			$ts = M('TeacherSubject');
+			foreach($_POST['subject_id'] as $subject_id)
 			{
+				if(!empty($subject_id))
+				{
+					$temp_data = array(
+							'teacher_id'	=>	$teacher_id,
+							'subject_id'	=>	$subject_id,
+							'add_time'		=>	time(),
+						);
+					if(!$ts->add($temp_data))
+					{
+						$ts_state = false;
+						break;
+					}
+				}
+			}
+			if($teacher_id && $ts_state)
+			{
+				// 提交事务
+				$m->commit();
+
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
+				// 回滚事务
+				$m->rollback();
+
 				$this->ajaxReturn(L('common_operation_add_error'), -100);
 			}
 		} else {
@@ -280,6 +327,12 @@ class TeacherController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
+			// 教师科目参数
+			if(empty($_POST['subject_id']) || !is_array($_POST['subject_id']))
+			{
+				$this->ajaxReturn(L('teacher_subject_format'), -2);
+			}
+
 			// 额外数据处理
 			if(!empty($m->birthday))
 			{
@@ -289,11 +342,47 @@ class TeacherController extends CommonController
 			// 移除不能更新的数据
 			unset($m->id_card);
 
-			// 更新数据库
-			if($m->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->save())
+			// 开启事务
+			$m->startTrans();
+
+			// 教师id
+			$teacher_id = I('id');
+
+			// 更新教师
+			$t_state = $m->where(array('id'=>$teacher_id, 'id_card'=>I('id_card')))->save();
+
+			// 删除教师科目关联数据
+			$ts = M('TeacherSubject');
+			$ts_state_del = $ts->where(array('teacher_id'=>$teacher_id))->delete();
+
+			// 添加教师科目关联数据
+			$ts_state = true;
+			foreach($_POST['subject_id'] as $subject_id)
 			{
+				if(!empty($subject_id))
+				{
+					$temp_data = array(
+							'teacher_id'	=>	$teacher_id,
+							'subject_id'	=>	$subject_id,
+							'add_time'		=>	time(),
+						);
+					if(!$ts->add($temp_data))
+					{
+						$ts_state = false;
+						break;
+					}
+				}
+			}
+			if($t_state !== false && $ts_state_del !== false && $ts_state !== false)
+			{
+				// 提交事务
+				$m->commit();
+
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {
+				// 回滚事务
+				$m->rollback();
+
 				$this->ajaxReturn(L('common_operation_edit_error'), -100);
 			}
 		} else {

@@ -227,8 +227,9 @@ class CourseController extends CommonController
 		// 周天
 		$this->assign('week_list', M('Week')->field($field)->where($where)->select());
 
-		// 科目
-		$this->assign('subject_list', M('Subject')->field($field)->where($where)->select());
+		// 教师贯通的科目
+		$subject_list = M('TeacherSubject')->alias('AS ts')->join('__SUBJECT__ AS s ON ts.subject_id = s.id')->where(array('ts.teacher_id'=>$data['teacher_id']))->field(array('s.id AS id', 's.name AS name'))->select();
+		$this->assign('subject_list', $subject_list);
 
 		// 时段
 		$this->assign('interval_list', M('Interval')->field($field)->where($where)->select());

@@ -4,7 +4,6 @@
 .form-keyword { width: 55% !important; display: initial !important; }
 .more-submit input { display: none; }
 .param-where, .param-date input { display: initial !important; }
-.param-date input { background-color: #fff !important; }
 @media only screen and (max-width: 641px) {
 	.param-where { width: 100% !important; }
 	.param-date input { width: 47% !important; }

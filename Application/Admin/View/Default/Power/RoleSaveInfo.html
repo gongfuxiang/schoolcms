@@ -18,12 +18,12 @@
 				<a href="{{:U('Admin/Power/Role')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
 			</legend>
         	<div class="am-form-group">
-				<label>{{:L('role_view_role_text')}}：</label>
+				<label>{{:L('role_view_role_text')}}</label>
 				<input type="text" placeholder="{{:L('role_view_role_text')}}" name="name" minlength="2" maxlength="16" data-validation-message="{{:L('role_name_format')}}" class="am-radius" <present name="data"> value="{{$data.name}}"</present> required />
 			</div>
 			<include file="Lib/Enable" />
 			<div class="am-form-group">
-				<label>{{:L('power_view_have_title')}}：</label>
+				<label>{{:L('power_view_have_title')}}</label>
 				<ul class="tree-list p-0">
 					<foreach name="power" item="v">
 						<li <if condition="$v['is_show'] eq 0">class="bk-cr-ffd"</if>>

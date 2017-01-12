@@ -4,7 +4,6 @@
 .form-keyword { width: 55% !important; display: initial !important; }
 .more-submit input { display: none; }
 .param-where, .param-date input { display: initial !important; }
-.param-date input { background-color: #fff !important; }
 @media only screen and (max-width: 641px) {
 	.param-where { width: 100% !important; }
 	.param-date input { width: 47% !important; }
@@ -13,3 +12,9 @@
 	.param-where { width: 32% !important; float: left; }
 	.param-date input { width: 45% !important; }
 }
+@media only screen and (max-width: 321px) {
+	.view-operation button { margin: 2px 0px; }
+}
+.view-checkbox-list input { margin: 0px !important; }
+.view-checkbox-list .am-ucheck-icons { line-height: 23px !important; }
+.view-checkbox-list .am-checkbox-inline { margin-left: 0px !important; }

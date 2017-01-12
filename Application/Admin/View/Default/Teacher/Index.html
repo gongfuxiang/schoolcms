@@ -102,6 +102,9 @@
 												<dt>{{:L('teacher_birthday_text')}}</dt>
 												<dd>{{$v.birthday}}</dd>
 
+												<dt>{{:L('teacher_subject_text')}}</dt>
+												<dd>{{$v.subject_list}}</dd>
+
 												<dt>{{:L('teacher_create_time_name')}}</dt>
 												<dd>{{$v.add_time}}</dd>
 											</dl>
@@ -109,7 +112,7 @@
 									</div>
 								</div>
 							</td>
-							<td>
+							<td class="view-operation">
 								<a href="{{:U('Admin/Course/SaveInfo', array('teacher_id'=>$v['id']))}}">
 									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-list-alt" data-am-popover="{content: '{{:L('teacher_operation_course')}}', trigger: 'hover focus'}"></button>
 								</a>

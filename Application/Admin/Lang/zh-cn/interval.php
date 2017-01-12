@@ -11,5 +11,7 @@ return array(
 	// 添加/编辑
 	'interval_add_name'					=>	'时段添加',
 	'interval_edit_name'				=>	'时段编辑',
+	'interval_name_format'				=>	'时段格式错误 格式如 10:00-11:30',
+	'interval_name_format_tips'			=>	'格式如 10:00-11:30',
 );
 ?>

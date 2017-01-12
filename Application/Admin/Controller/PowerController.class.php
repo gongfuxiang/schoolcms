@@ -354,7 +354,7 @@ class PowerController extends CommonController
 			$role_id = I('id');
 
 			// 权限关联数据删除
-			$rp_del_state = ($rp->where(array('role_id'=>$role_id))->delete() !== false);
+			$rp_del_state = $rp->where(array('role_id'=>$role_id))->delete();
 
 			// 权限关联数据添加
 			$rp_state = true;

@@ -1378,6 +1378,7 @@ ul {
 /**
  * 公共分类样式
  */
+input[type="text"][readonly] { background: #fff !important; }
 
 /**
  * PC

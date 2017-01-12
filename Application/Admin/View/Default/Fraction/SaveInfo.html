@@ -18,11 +18,11 @@
 				<a href="{{:U('Admin/Student/Index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> {{:L('common_operation_back')}}</a>
 			</legend>
 			<div class="am-form-group">
-				<label>{{:L('fraction_username_text')}}：</label>
+				<label>{{:L('fraction_username_text')}}</label>
 				<input type="text" placeholder="{{:L('fraction_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('fraction_student_username_format')}}" class="am-radius" <present name="student"> value="{{$student.username}}"</present> disabled required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('fraction_score_id_text')}}：</label>
+				<label>{{:L('fraction_score_id_text')}}</label>
 				<select name="score_id" class="am-radius c-p" data-validation-message="{{:L('fraction_score_id_format')}}" required>
 					<option value="">{{:L('common_select_can_choose')}}</option>
 					<foreach name="score_list" item="v">
@@ -31,7 +31,7 @@
 				</select>
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('fraction_subject_text')}}：</label>
+				<label>{{:L('fraction_subject_text')}}</label>
 				<select name="subject_id" class="am-radius c-p" data-validation-message="{{:L('fraction_subject_format')}}" required>
 					<option value="">{{:L('common_select_can_choose')}}</option>
 					<foreach name="subject_list" item="v">
@@ -40,12 +40,12 @@
 				</select>
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('fraction_score_text')}}：</label>
+				<label>{{:L('fraction_score_text')}}</label>
 				<input type="number" name="score" placeholder="{{:L('fraction_score_text')}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{:L('fraction_score_format')}}" class="am-radius" <present name="data"> value="{{$data.score}}"</present> required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('fraction_comment_text')}}：</label>
-				<textarea maxlength="255" name="comment" class="am-radius" placeholder="{{:L('fraction_comment_text')}}" data-validation-message="{{:L('fraction_comment_format')}}"><present name="data"> value="{{$data.comment}}"</present></textarea>
+				<label>{{:L('fraction_comment_text')}}</label>
+				<textarea rows="3" maxlength="255" name="comment" class="am-radius" placeholder="{{:L('fraction_comment_text')}}" data-validation-message="{{:L('fraction_comment_format')}}"><present name="data"> value="{{$data.comment}}"</present></textarea>
 			</div>
 			<div class="am-form-group">
 				<input type="hidden" name="student_id" <present name="student"> value="{{$student.id}}"</present>" />
