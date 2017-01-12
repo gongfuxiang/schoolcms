@@ -32,8 +32,8 @@ class CourseModel extends CommonModel
 	 */
 	public function IsExistTeacher()
 	{
-		$id = $this->db(0)->table('__TEACHER__')->field(array('id'))->find(I('teacher_id'));
-		return !empty($id);
+		$temp = $this->db(0)->table('__TEACHER__')->field(array('id'))->find(I('teacher_id'));
+		return !empty($temp);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class CourseModel extends CommonModel
 	}
 
 	/**
-	 * [IsExistSubject 科目是否存在]
+	 * [IsExistSubject 教师关联的科目是否存在]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -75,8 +75,8 @@ class CourseModel extends CommonModel
 	 */
 	public function IsExistSubject()
 	{
-		$id = $this->db(0)->table('__SUBJECT__')->field(array('id'))->find(I('subject_id'));
-		return !empty($id);
+		$temp = $this->db(0)->table('__TEACHER_SUBJECT__')->alias('AS ts')->join('__SUBJECT__ AS s ON ts.subject_id = s.id')->where(array('s.id'=>I('subject_id')))->field(array('s.id AS id'))->find();
+		return !empty($temp);
 	}
 
 	/**
@@ -89,8 +89,8 @@ class CourseModel extends CommonModel
 	 */
 	public function IsExistWeek()
 	{
-		$id = $this->db(0)->table('__WEEK__')->field(array('id'))->find(I('week_id'));
-		return !empty($id);
+		$temp = $this->db(0)->table('__WEEK__')->field(array('id'))->find(I('week_id'));
+		return !empty($temp);
 	}
 
 	/**
@@ -103,8 +103,8 @@ class CourseModel extends CommonModel
 	 */
 	public function IsExistInterval()
 	{
-		$id = $this->db(0)->table('__INTERVAL__')->field(array('id'))->find(I('interval_id'));
-		return !empty($id);
+		$temp = $this->db(0)->table('__INTERVAL__')->field(array('id'))->find(I('interval_id'));
+		return !empty($temp);
 	}
 }
 ?>

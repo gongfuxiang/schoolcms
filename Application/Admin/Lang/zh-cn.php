@@ -45,6 +45,7 @@ return array(
 			'tel'			=>	'联系电话',
 			'address'		=>	'详细地址',
 			'state'			=>	'教师状态',
+			'subject_list'	=>	'贯通科目',
 			'add_time'		=>	'添加时间',
 		),
 
