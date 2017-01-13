@@ -7,6 +7,9 @@
 # 教师课程 - 添加学期id并且跳转顺序到id后面
 ALTER TABLE `sc_course` ADD `semester_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '学期id' AFTER `id`;
 
+# 教师课程 - 添加状态字段
+ALTER TABLE `sc_course` ADD `state` tinyint(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态（0不可用，1可用）' AFTER `interval_id`;
+
 # 教师课程 - 唯一索引修改(加入学期)
 ALTER TABLE `sc_course` DROP INDEX `teacher_class_subject_week_interval`;
 ALTER TABLE `sc_course` ADD UNIQUE `semester_teacher_class_subject_week_interval` USING BTREE (`semester_id`, `teacher_id`, `class_id`, `subject_id`, `week_id`, `interval_id`);
@@ -17,8 +20,6 @@ UPDATE `sc_config` SET `only_tag`="excel_charset", `describe`="excel模块编码
 
 # 学生成绩 - 添加点评字段
 ALTER TABLE `sc_fraction` ADD `comment` char(255) NOT NULL DEFAULT '' COMMENT '教师点评' AFTER `score`;
-
-# 教师课程 - 添加状态字段
 
 # 教师科目贯通关联表
 CREATE TABLE `sc_teacher_subject` (

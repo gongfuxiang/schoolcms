@@ -129,6 +129,12 @@ return array(
 			1 => array('id' => 1, 'name' => '显示', 'checked' => true),
 		),
 
+	// 状态
+	'common_state_list'				=>	array(
+			0 => array('id' => 0, 'name' => '不可用'),
+			1 => array('id' => 1, 'name' => '可用', 'checked' => true),
+		),
+
 	// 学生状态
 	'common_student_state_list'			=>	array(
 			0 => array('id' => 0, 'name' => '待入学', 'checked' => true),

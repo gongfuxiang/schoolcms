@@ -71,18 +71,22 @@
 					<th>{{:L('course_subject_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_week_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_interval_text')}}</th>
+					<th>{{:L('common_view_state_title')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
 				</tr>
 			</thead>
 			<tbody>
 				<if condition="!empty($list)">
 					<foreach name="list" item="v">
-						<tr id="data-list-{{$v.id}}">
+						<tr id="data-list-{{$v.id}}" <if condition="$v['state'] eq 0">class="am-active"</if>>
 							<td>{{$v.teacher_name}}</td>
 							<td>{{$v.class_name}}</td>
 							<td>{{$v.subject_name}}</td>
 							<td class="am-hide-sm-only">{{$v.week_name}}</td>
 							<td class="am-hide-sm-only">{{$v.interval_name}}</td>
+							<td>
+								<a href="javascript:;" class="am-icon-btn am-icon-check submit-state <if condition="$v['state'] eq 1">am-success<else />am-default</if>" data-url="{{:U('Admin/Course/StateUpdate')}}" data-id="{{$v.id}}" data-state="{{$v['state']}}"></a>
+							</td>
 							<td>
 								<a href="{{:U('Admin/Course/SaveInfo', array('id'=>$v['id']))}}">
 									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>

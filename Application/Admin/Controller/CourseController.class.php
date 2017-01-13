@@ -60,7 +60,7 @@ class CourseController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$field = array('c.id', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name');
+		$field = array('c.id', 'c.state', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name');
 		$list = $this->SetDataHandle($m->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select());
 
 		// 数据列表
@@ -109,7 +109,7 @@ class CourseController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 读取数据
-		$field = array('c.id', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name', 'c.add_time AS add_time');
+		$field = array('c.id', 'c.state', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name', 'c.add_time AS add_time');
 		$data = $this->SetDataHandle(M('Course')->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->select());
 
 		// Excel驱动导出数据
@@ -145,6 +145,9 @@ class CourseController extends CommonController
 				{
 					$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 				}
+
+				// 状态
+				$data[$k]['state_text'] = L('common_state_list')[$v['state']]['name'];
 			}
 		}
 		return $data;
@@ -380,6 +383,30 @@ class CourseController extends CommonController
 			$this->ajaxReturn(L('common_operation_delete_success'));
 		} else {
 			$this->ajaxReturn(L('common_operation_delete_error'), -100);
+		}
+	}
+
+	/**
+	 * [StateUpdate 状态更新]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-12T22:23:06+0800
+	 */
+	public function StateUpdate()
+	{
+		// 参数
+		if(empty($_POST['id']) || !isset($_POST['state']))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 数据更新
+		if(M('Course')->where(array('id'=>I('id')))->save(array('state'=>I('state'))))
+		{
+			$this->ajaxReturn(L('common_operation_edit_success'));
+		} else {
+			$this->ajaxReturn(L('common_operation_edit_error'), -100);
 		}
 	}
 }

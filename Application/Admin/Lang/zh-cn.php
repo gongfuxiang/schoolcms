@@ -56,6 +56,7 @@ return array(
 			'subject_name'	=>	'科目',
 			'week_name'		=>	'周天',
 			'interval_name'	=>	'时段',
+			'state_text'	=>	'状态',
 			'add_time'		=>	'添加时间',
 		),
 );

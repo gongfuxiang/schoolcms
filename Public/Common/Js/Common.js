@@ -269,7 +269,16 @@ function FormDataFill(json)
 	}
 }
 
-// 树方法
+/**
+ * [Tree 树方法]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-01-13T10:30:23+0800
+ * @param    {[int]}    	id    [节点id]
+ * @param    {[string]}   	url   [请求url地址]
+ * @param    {[int]}      	level [层级]
+ */
 function Tree(id, url, level)
 {
 	$.ajax({
@@ -397,6 +406,71 @@ $(function()
 				});
 			},
 			onCancel: function(){}
+		});
+	});
+
+	/**
+	 * [submit-state 公共数据状态操作]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-10T14:22:39+0800
+	 * @param    {[int] 	[data-id] 	[数据id]}
+	 * @param    {[int] 	[data-state][状态值]}
+	 * @param    {[string] 	[data-url] 	[请求地址]}
+	 */
+	$(document).on('click', '.submit-state', function()
+	{		
+		// 获取参数
+		var $tag = $(this);
+		var id = $tag.data('id');
+		var state = ($tag.data('state') == 1) ? 0 : 1;
+		var url = $tag.data('url');
+		if(id == undefined || url == undefined)
+		{
+			Prompt('参数配置有误');
+			return false;
+		}
+
+		// 请求更新数据
+		$.ajax({
+			url:url,
+			type:'POST',
+			dataType:"json",
+			timeout:10000,
+			data:{"id":id, "state":state},
+			success:function(result)
+			{
+				if(result.code == 0)
+				{
+					Prompt(result.msg, 'success');
+
+					// 成功则更新数据样式
+					if($tag.hasClass('am-success'))
+					{
+						$tag.removeClass('am-success');
+						$tag.addClass('am-default');
+						if($('#data-list-'+id).length > 0)
+						{
+							$('#data-list-'+id).addClass('am-active');
+						}
+					} else {
+						$tag.removeClass('am-default');
+						$tag.addClass('am-success');
+						if($('#data-list-'+id).length > 0)
+						{
+							$('#data-list-'+id).removeClass('am-active');
+						}
+					}
+					$tag.data('state', state);
+				} else {
+					Prompt(result.msg);
+				}
+			},
+			error:function(xhr, type)
+			{
+				Prompt('异常出错');
+			}
 		});
 	});
 
