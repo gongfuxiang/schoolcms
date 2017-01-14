@@ -54,7 +54,7 @@
 				<tr>
 					<th>{{:L('teacher_username_name')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_id_card_text')}}</th>
-					<th>{{:L('common_view_gender_name')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_view_gender_name')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_tel_name')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_teacher_state_name')}}</th>
 					<th>{{:L('common_more_name')}}</th>
@@ -67,7 +67,7 @@
 						<tr id="data-list-{{$v.id}}-{{$v.id_card}}">
 							<td>{{$v.username}}</td>
 							<td class="am-hide-sm-only">{{$v.id_card}}</td>
-							<td>{{$v.gender}}</td>
+							<td class="am-hide-sm-only">{{$v.gender}}</td>
 							<td class="am-hide-sm-only">{{$v.tel}}</td>
 							<td class="am-hide-sm-only">{{$v.state}}</td>
 							<td>
@@ -87,17 +87,17 @@
 												<dt>{{:L('common_view_id_card_text')}}</dt>
 												<dd>{{$v.id_card}}</dd>
 
-												<dt>{{:L('common_view_teacher_state_name')}}</dt>
-												<dd>{{$v.state}}</dd>
-
 												<dt>{{:L('common_view_gender_name')}}</dt>
 												<dd>{{$v.gender}}</dd>
 
-												<dt>{{:L('common_view_tel_name')}}</dt>
-												<dd>{{$v.tel}}</dd>
+												<dt>{{:L('common_view_teacher_state_name')}}</dt>
+												<dd>{{$v.state}}</dd>
 
 												<dt>{{:L('common_address_text')}}</dt>
 												<dd>{{$v.address}}</dd>
+
+												<dt>{{:L('common_view_tel_name')}}</dt>
+												<dd>{{$v.tel}}</dd>
 
 												<dt>{{:L('teacher_birthday_text')}}</dt>
 												<dd>{{$v.birthday}}</dd>
@@ -105,7 +105,7 @@
 												<dt>{{:L('teacher_subject_text')}}</dt>
 												<dd>{{$v.subject_list}}</dd>
 
-												<dt>{{:L('teacher_create_time_name')}}</dt>
+												<dt>{{:L('common_create_time_name')}}</dt>
 												<dd>{{$v.add_time}}</dd>
 											</dl>
 										</div>

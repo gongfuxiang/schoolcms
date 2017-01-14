@@ -49,6 +49,20 @@
 							<option value="{{$v.id}}" <if condition="isset($param['interval_id']) and $param['interval_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
+					<select name="room_id" class="am-radius c-p m-t-10 param-where">
+						<option value="0">{{:L('course_room_text')}}</option>
+						<foreach name="room_list" item="v">
+							<if condition="empty($v['item'])">
+								<option value="{{$v.id}}" <if condition="isset($param['room_id']) and $param['room_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+							<else />
+								<optgroup label="{{$v.name}}">
+									<foreach name="v.item" item="vs">
+										<option value="{{$vs.id}}" <if condition="isset($param['room_id']) and $param['room_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
+									</foreach>
+								</optgroup>
+							</if>
+						</foreach>
+					</select>
 				</div>
 			</div>
         </form>
@@ -66,12 +80,14 @@
 		<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10 m-l-5">
 			<thead>
 				<tr>
-					<th>{{:L('course_where_teacher_name')}}</th>
-					<th>{{:L('course_class_text')}}</th>
-					<th>{{:L('course_subject_text')}}</th>
+					<th>{{:L('course_teacher_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('course_class_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('course_subject_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_week_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_interval_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('course_room_text')}}</th>
 					<th>{{:L('common_view_state_title')}}</th>
+					<th>{{:L('common_more_name')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
 				</tr>
 			</thead>
@@ -80,12 +96,52 @@
 					<foreach name="list" item="v">
 						<tr id="data-list-{{$v.id}}" <if condition="$v['state'] eq 0">class="am-active"</if>>
 							<td>{{$v.teacher_name}}</td>
-							<td>{{$v.class_name}}</td>
-							<td>{{$v.subject_name}}</td>
+							<td class="am-hide-sm-only">{{$v.class_name}}</td>
+							<td class="am-hide-sm-only">{{$v.subject_name}}</td>
 							<td class="am-hide-sm-only">{{$v.week_name}}</td>
 							<td class="am-hide-sm-only">{{$v.interval_name}}</td>
+							<td class="am-hide-sm-only">{{$v.room_name}}</td>
 							<td>
 								<a href="javascript:;" class="am-icon-btn am-icon-check submit-state <if condition="$v['state'] eq 1">am-success<else />am-default</if>" data-url="{{:U('Admin/Course/StateUpdate')}}" data-id="{{$v.id}}" data-state="{{$v['state']}}"></a>
+							</td>
+							<td>
+								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
+								<div class="am-popup am-radius" id="my-popup{{$v.id}}">
+									<div class="am-popup-inner">
+										<div class="am-popup-hd">
+											<h4 class="am-popup-title">{{:L('common_detail_content')}}</h4>
+											<span data-am-modal-close
+											class="am-close">&times;</span>
+										</div>
+										<div class="am-popup-bd">
+											<dl class="dl-content">
+												<dt>{{:L('course_teacher_text')}}</dt>
+												<dd>{{$v.teacher_name}}</dd>
+
+												<dt>{{:L('course_class_text')}}</dt>
+												<dd>{{$v.class_name}}</dd>
+
+												<dt>{{:L('course_subject_text')}}</dt>
+												<dd>{{$v.subject_name}}</dd>
+
+												<dt>{{:L('course_week_text')}}</dt>
+												<dd>{{$v.week_name}}</dd>
+
+												<dt>{{:L('course_interval_text')}}</dt>
+												<dd>{{$v.interval_name}}</dd>
+
+												<dt>{{:L('course_room_text')}}</dt>
+												<dd>{{$v.room_name}}</dd>
+
+												<dt>{{:L('common_view_state_title')}}</dt>
+												<dd>{{$v.state_text}}</dd>
+
+												<dt>{{:L('common_create_time_name')}}</dt>
+												<dd>{{$v.add_time}}</dd>
+											</dl>
+										</div>
+									</div>
+								</div>
 							</td>
 							<td>
 								<a href="{{:U('Admin/Course/SaveInfo', array('id'=>$v['id']))}}">

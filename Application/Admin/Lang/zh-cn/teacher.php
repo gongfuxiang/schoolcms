@@ -20,7 +20,6 @@ return array(
 	'teacher_birthday_text'				=>	'出生日期',
 	'teacher_birthday_format'			=>	'出生日期格式有误',
 	'teacher_no_exist_error'			=>	'该教师不存在',
-	'teacher_create_time_name'			=>	'创建时间',
 	'teacher_so_keyword_tips'			=>	'姓名/身份证/电话/地址',
 	'teacher_operation_course'			=>	'添加课程',
 	'teacher_time_start_text'			=>	'出生开始',

@@ -20,6 +20,7 @@ class CourseModel extends CommonModel
 		array('subject_id', 'IsExistSubject', '{%course_subject_tips}', 1, 'callback', 3),
 		array('week_id', 'IsExistWeek', '{%course_week_tips}', 1, 'callback', 3),
 		array('interval_id', 'IsExistInterval', '{%course_interval_tips}', 1, 'callback', 3),
+		array('room_id', 'IsExistRoom', '{%course_room_tips}', 1, 'callback', 3),
 	);
 
 	/**
@@ -61,6 +62,35 @@ class CourseModel extends CommonModel
 		} else {
 			// 父级是否存在
 			$count = $this->db(0)->table('__CLASS__')->where(array('id'=>$class['pid']))->count();
+			return ($count > 0);
+		}
+	}
+
+	/**
+	 * [IsExistRoom 教室id是否存在]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-21T22:13:52+0800
+	 * @return [boolean] [存在true, 不存在false]
+	 */
+	public function IsExistRoom()
+	{
+		// 当用户操作自身的情况下不需要校验
+		$class = $this->db(0)->table('__ROOM__')->field(array('id', 'pid'))->find(I('room_id'));
+		if(empty($class))
+		{
+			return false;
+		}
+
+		if($class['pid'] == 0)
+		{
+			// 是否存在子级
+			$count = $this->db(0)->table('__ROOM__')->where(array('pid'=>$class['id']))->count();
+			return ($count == 0);
+		} else {
+			// 父级是否存在
+			$count = $this->db(0)->table('__ROOM__')->where(array('id'=>$class['pid']))->count();
 			return ($count > 0);
 		}
 	}

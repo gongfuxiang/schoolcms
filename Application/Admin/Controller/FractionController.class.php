@@ -60,7 +60,7 @@ class FractionController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment');
+		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment', 'f.add_time');
 		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select();
 		// 数据列表
 		$this->assign('list', $this->SetDataHandle($list));
@@ -209,7 +209,7 @@ class FractionController extends CommonController
 				}
 
 				// 添加时间
-				$data[$k]['add_time'] = empty($v['add_time']) ? '' : date('Y-m-d H:i:s', $v['add_time']);
+				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 
 				// 性别
 				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];

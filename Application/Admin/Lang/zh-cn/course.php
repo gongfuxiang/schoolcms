@@ -25,6 +25,10 @@ return array(
 	'course_week_tips'					=>	'周天不存在',
 	'course_interval_tips'				=>	'时段不存在',
 	'course_so_keyword_tips'			=>	'教师姓名',
-	'course_where_teacher_name'			=>	'姓名',
+	'course_teacher_text'				=>	'教师姓名',
+	'course_room_text'					=>	'教室',
+	'course_room_format'				=>	'请选择教室',
+	'course_room_tips'					=>	'教室不存在',
+	'course_room_occupy_tips'			=>	'当前周天时段的教室已被占用',
 );
 ?>

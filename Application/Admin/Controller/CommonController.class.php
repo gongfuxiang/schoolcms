@@ -234,13 +234,35 @@ class CommonController extends Controller
 	 */
 	protected function GetClassList()
 	{
-		$c = M('Class');
-		$data = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
+		$m = M('Class');
+		$data = $m->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
 		if(!empty($data))
 		{
 			foreach($data as $k=>$v)
 			{
-				$data[$k]['item'] = $c->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
+				$data[$k]['item'] = $m->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
+			}
+		}
+		return $data;
+	}
+
+	/**
+	 * [GetRoomList 获取教室列表,二级]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-30T13:26:00+0800
+	 * @return [array] [班级列表]
+	 */
+	protected function GetRoomList()
+	{
+		$m = M('Room');
+		$data = $m->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>0))->select();
+		if(!empty($data))
+		{
+			foreach($data as $k=>$v)
+			{
+				$data[$k]['item'] = $m->field(array('id', 'name'))->where(array('is_enable'=>1, 'pid'=>$v['id']))->select();
 			}
 		}
 		return $data;

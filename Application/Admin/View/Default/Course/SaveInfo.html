@@ -62,6 +62,23 @@
 				</select>
 			</div>
 			<div class="am-form-group">
+				<label>{{:L('course_room_text')}}</label>
+				<select name="room_id" class="am-radius c-p" data-validation-message="{{:L('course_room_format')}}" required>
+					<option value="">{{:L('common_select_can_choose')}}</option>
+					<foreach name="room_list" item="v">
+						<if condition="empty($v['item'])">
+							<option value="{{$v.id}}" <if condition="isset($data['room_id']) and $data['room_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						<else />
+							<optgroup label="{{$v.name}}">
+								<foreach name="v.item" item="vs">
+									<option value="{{$vs.id}}" <if condition="isset($data['room_id']) and $data['room_id'] eq $vs['id']">selected</if>>{{$vs.name}}</option>
+								</foreach>
+							</optgroup>
+						</if>
+					</foreach>
+				</select>
+			</div>
+			<div class="am-form-group">
 				<input type="hidden" name="id" <notempty name="data"> value="{{$data.id}}"</notempty>" />
 				<input type="hidden" name="teacher_id" <notempty name="data"> value="{{$data.teacher_id}}"</notempty>" />
 				<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>

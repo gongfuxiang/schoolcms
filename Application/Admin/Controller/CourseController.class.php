@@ -60,8 +60,8 @@ class CourseController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$field = array('c.id', 'c.state', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name');
-		$list = $this->SetDataHandle($m->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select());
+		$field = array('c.id', 'c.state', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name', 'c.add_time AS add_time', 'r.pid AS room_pid', 'r.name AS room_name');
+		$list = $this->SetDataHandle($m->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id INNER JOIN __ROOM__ AS r ON c.room_id = r.id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select());
 
 		// 数据列表
 		$this->assign('list', $list);
@@ -74,6 +74,9 @@ class CourseController extends CommonController
 
 		// 班级
 		$this->assign('class_list', $this->GetClassList());
+
+		// 教室
+		$this->assign('room_list', $this->GetRoomList());
 
 		// 周天
 		$this->assign('week_list', M('Week')->field($field)->where($where)->select());
@@ -109,8 +112,8 @@ class CourseController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 读取数据
-		$field = array('c.id', 'c.state', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name', 'c.add_time AS add_time');
-		$data = $this->SetDataHandle(M('Course')->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->field($field)->select());
+		$field = array('c.id', 'c.state', 't.username AS teacher_name', 'cs.name AS class_name', 'cs.pid AS class_pid', 's.name AS subject_name', 'w.name AS week_name', 'i.name AS interval_name', 'c.add_time AS add_time', 'r.pid AS room_pid', 'r.name AS room_name');
+		$data = $this->SetDataHandle(M('Course')->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id INNER JOIN __ROOM__ AS r ON c.room_id = r.id')->where($where)->field($field)->select());
 
 		// Excel驱动导出数据
 		$excel = new \My\Excel(array('filename'=>'course', 'title'=>L('excel_course_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
@@ -131,6 +134,7 @@ class CourseController extends CommonController
 		if(!empty($data))
 		{
 			$c = M('Class');
+			$r = M('Room');
 			foreach($data as $k=>$v)
 			{
 				// 班级
@@ -140,11 +144,15 @@ class CourseController extends CommonController
 					$data[$k]['class_name'] = empty($p_name) ? $v['class_name'] : $p_name.'-'.$v['class_name'];
 				}
 
-				// 添加时间
-				if(isset($v['add_time']))
+				// 教室
+				if($v['room_pid'] != 0)
 				{
-					$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+					$p_name = $r->where(array('id'=>$v['room_pid']))->getField('name');
+					$data[$k]['room_name'] = empty($p_name) ? $v['room_name'] : $p_name.'-'.$v['room_name'];
 				}
+
+				// 添加时间
+				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 
 				// 状态
 				$data[$k]['state_text'] = L('common_state_list')[$v['state']]['name'];
@@ -193,6 +201,10 @@ class CourseController extends CommonController
 			{
 				$where['c.interval_id'] = intval(I('interval_id'));
 			}
+			if(I('room_id', 0) > 0)
+			{
+				$where['c.room_id'] = intval(I('room_id'));
+			}
 		}
 		return $where;
 	}
@@ -226,6 +238,9 @@ class CourseController extends CommonController
 
 		// 班级
 		$this->assign('class_list', $this->GetClassList());
+
+		// 教室
+		$this->assign('room_list', $this->GetRoomList());
 
 		// 周天
 		$this->assign('week_list', M('Week')->field($field)->where($where)->select());
@@ -340,19 +355,40 @@ class CourseController extends CommonController
 	 */
 	private function IsExistData()
 	{
-		// 数据是否已存在
+		// 课程模型
+		$m = M('Course');
+
+		// 整条数据是否已存在
 		$where = array(
 				'teacher_id'	=>	I('teacher_id'),
 				'class_id'		=>	I('class_id'),
 				'subject_id'	=>	I('subject_id'),
 				'week_id'		=>	I('week_id'),
 				'interval_id'	=>	I('interval_id'),
+				'room_id'		=>	I('room_id'),
 				'semester_id'	=>	MyC('semester_id'),
 			);
-		$tmp = M('Course')->where($where)->getField('id');
-		if(!empty($tmp))
+		$temp = $m->where($where)->getField('id');
+		if(!empty($temp))
 		{
 			$this->ajaxReturn(L('common_data_is_exist_error'), -2);
+		}
+
+		// 学期-教室-周天-时段 是否已存在
+		$where = array(
+				'week_id'		=>	I('week_id'),
+				'interval_id'	=>	I('interval_id'),
+				'room_id'		=>	I('room_id'),
+				'semester_id'	=>	MyC('semester_id'),
+			);
+		$temp = $m->where($where)->getField('id');
+		if(!empty($temp))
+		{
+			// 如果编辑的不是当前数据则校验
+			if($temp != I('id'))
+			{
+				$this->ajaxReturn(L('course_room_occupy_tips'), -2);
+			}
 		}
 	}
 

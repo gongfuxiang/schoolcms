@@ -69,8 +69,8 @@
 					<th>{{:L('fraction_username_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_gender_name')}}</th>
 					<th class="am-hide-sm-only">{{:L('fraction_class_id_text')}}</th>
-					<th>{{:L('fraction_score_id_text')}}</th>
-					<th>{{:L('fraction_subject_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('fraction_score_id_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('fraction_subject_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('fraction_score_level_text')}}</th>
 					<th>{{:L('fraction_score_text')}}</th>
 					<th>{{:L('common_more_name')}}</th>
@@ -84,8 +84,8 @@
 							<td>{{$v.username}}</td>
 							<td class="am-hide-sm-only">{{$v.gender}}</td>
 							<td class="am-hide-sm-only">{{$v.class_name}}</td>
-							<td>{{$v.score_name}}</td>
-							<td>{{$v.subject_name}}</td>
+							<td class="am-hide-sm-only">{{$v.score_name}}</td>
+							<td class="am-hide-sm-only">{{$v.subject_name}}</td>
 							<td class="am-hide-sm-only">{{$v.score_level}}</td>
 							<td>{{$v.score}}</td>
 							<td class="am-show-sm-only">
@@ -119,6 +119,9 @@
 
 												<dt>{{:L('fraction_comment_text')}}</dt>
 												<dd>{{$v.comment}}</dd>
+
+												<dt>{{:L('common_create_time_name')}}</dt>
+												<dd>{{$v.add_time}}</dd>
 											</dl>
 										</div>
 									</div>
