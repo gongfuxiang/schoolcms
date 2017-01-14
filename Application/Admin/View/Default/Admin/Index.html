@@ -54,7 +54,7 @@
 							</td>
 							<td class="am-hide-sm-only">{{:date('Y-m-d H:i:s', $v['add_time'])}}</td>
 							<td>
-								<if condition="$v['username'] eq 'admin'">
+								<if condition="$v['id'] eq 1">
 									<span class="cr-ccc">{{:L('common_do_not_operate')}}</span>
 								<else />
 									<a href="{{:U('Admin/Admin/SaveInfo', array('id'=>$v['id']))}}">

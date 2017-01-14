@@ -82,11 +82,11 @@
 				<tr>
 					<th>{{:L('course_teacher_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_class_text')}}</th>
-					<th class="am-hide-sm-only">{{:L('course_subject_text')}}</th>
+					<th>{{:L('course_subject_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_week_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_interval_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('course_room_text')}}</th>
-					<th>{{:L('common_view_state_title')}}</th>
+					<!-- <th>{{:L('common_view_state_title')}}</th> -->
 					<th>{{:L('common_more_name')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
 				</tr>
@@ -97,13 +97,13 @@
 						<tr id="data-list-{{$v.id}}" <if condition="$v['state'] eq 0">class="am-active"</if>>
 							<td>{{$v.teacher_name}}</td>
 							<td class="am-hide-sm-only">{{$v.class_name}}</td>
-							<td class="am-hide-sm-only">{{$v.subject_name}}</td>
+							<td>{{$v.subject_name}}</td>
 							<td class="am-hide-sm-only">{{$v.week_name}}</td>
 							<td class="am-hide-sm-only">{{$v.interval_name}}</td>
 							<td class="am-hide-sm-only">{{$v.room_name}}</td>
-							<td>
+							<!-- <td>
 								<a href="javascript:;" class="am-icon-btn am-icon-check submit-state <if condition="$v['state'] eq 1">am-success<else />am-default</if>" data-url="{{:U('Admin/Course/StateUpdate')}}" data-id="{{$v.id}}" data-state="{{$v['state']}}"></a>
-							</td>
+							</td> -->
 							<td>
 								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
 								<div class="am-popup am-radius" id="my-popup{{$v.id}}">

@@ -168,7 +168,12 @@ class PowerController extends CommonController
 			foreach($list as $k=>$v)
 			{
 				// 关联查询权限和角色数据
-				$list[$k]['item'] = $m->alias('r')->join('__ROLE_POWER__ AS rp ON rp.role_id = r.id')->join('__POWER__ AS p ON rp.power_id = p.id')->where(array('r.id'=>$v['id']))->field(array('p.id', 'p.name'))->select();
+				if($v['id'] == 1)
+				{
+					$list[$k]['item'] = M('Power')->select();
+				} else {
+					$list[$k]['item'] = $m->alias('r')->join('__ROLE_POWER__ AS rp ON rp.role_id = r.id')->join('__POWER__ AS p ON rp.power_id = p.id')->where(array('r.id'=>$v['id']))->field(array('p.id', 'p.name'))->select();
+				}
 			}
 		}
 		$this->assign('list', $list);
@@ -245,7 +250,7 @@ class PowerController extends CommonController
 
 		// 编辑
 		} else {
-			if(I('id') == 1 && C('close_admin_operation') == 'ok')
+			if(I('id') == 1)
 			{
 				$this->error(L('common_do_not_operate'), -10);
 			} else {

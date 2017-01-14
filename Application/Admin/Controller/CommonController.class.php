@@ -138,11 +138,20 @@ class CommonController extends Controller
 		$this->power = S(C('common_power_key').$admin_id);
 
 		// 缓存没数据则从数据库重新读取
-		if($role_id > 0 && empty($this->left_menu))
+		if(($role_id > 0 || $admin_id == 1) && empty($this->left_menu))
 		{
+			// 获取一级数据
 			$p = M('Power');
-			$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_show');
-			$this->left_menu = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$role_id, 'p.pid'=>0))->field($field)->order('p.sort')->select();
+			if($admin_id == 1)
+			{
+				$field = array('id', 'name', 'control', 'action', 'is_show');
+				$this->left_menu = $p->where(array('pid' => 0))->field($field)->order('sort')->select();
+			} else {
+				$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_show');
+				$this->left_menu = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id' => $role_id, 'p.pid' => 0))->field($field)->order('p.sort')->select();
+			}
+			
+			// 有数据，则处理子级数据
 			if(!empty($this->left_menu))
 			{
 				foreach($this->left_menu as $k=>$v)
@@ -151,7 +160,12 @@ class CommonController extends Controller
 					$this->power[$v['id']] = strtolower($v['control'].'_'.$v['action']);
 
 					// 获取子权限
-					$item = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id'=>$role_id, 'p.pid'=>$v['id']))->field($field)->order('p.sort')->select();
+					if($admin_id == 1)
+					{
+						$item = $p->where(array('pid' => $v['id']))->field($field)->order('sort')->select();
+					} else {
+						$item = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id' => $role_id, 'p.pid' => $v['id']))->field($field)->order('p.sort')->select();
+					}
 
 					// 权限列表
 					if(!empty($item))
