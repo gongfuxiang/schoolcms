@@ -9,12 +9,12 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'hello',
+	'common_site_name'					=>	'SchoolCMS',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 
 	// 应用信息
 	'common_application_name'			=>	'SchoolCMS',
-	'common_application_ver'			=>	'v2.0',
+	'common_application_ver'			=>	'v2.1',
 	'common_application_website'		=>	'http://schoolcms.org/',
 
 	// 公共

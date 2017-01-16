@@ -20,6 +20,12 @@ if(file_exists('./upgrade_'.$ver.'.lock'))
     exit('已经升级过，重新升级需要先删除./Upgrade/upgrade_'.$ver.'.lock 文件');
 }
 
+// 权限判断
+if(!is_writable('./'))
+{
+    exit('[./Upgrade]没权限');
+}
+
 // 引入配置文件
 $config =  require '../Application/Common/Conf/master.php';
 if(empty($config))

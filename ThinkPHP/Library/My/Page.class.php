@@ -73,7 +73,7 @@ class Page
 					$this->url .= '&'.$k.'='.$v;
 				}
 			}
-			$this->page_start_tag = '&';
+			$this->page_start_tag = ($tmp == true) ? '?' : '&';
 		} else {
 			$this->page_start_tag = ($state === false) ? '?' : '&';
 		}

@@ -2,6 +2,9 @@
 # author : Devil
 # version: 2.1
 
+# 权限数据添加
+INSERT INTO `sc_power` VALUES ('63', '28', 'Excel导出', 'Student', 'ExcelExport', '5', '0', '1484058295'), ('64', '30', 'Excel导出', 'Fraction', 'ExcelExport', '5', '0', '1484058375'), ('65', '38', 'Excel导出', 'Teacher', 'ExcelExport', '5', '0', '1484058437'), ('66', '38', 'Excel导出', 'Course', 'ExcelExport', '24', '0', '1484058488'), ('67', '38', '课程状态更新', 'Course', 'StateUpdate', '25', '0', '1484231130'), ('68', '8', '教室管理', 'Room', 'Index', '80', '1', '1484304475'), ('69', '8', '教室添加/编辑', 'Room', 'Save', '81', '0', '1484304519'), ('70', '8', '教室删除', 'Room', 'Delete', '82', '0', '1484304545');
+
 # 教师课程 - 添加学期id并且跳转顺序到id后面
 ALTER TABLE `sc_course` ADD `semester_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '学期id' AFTER `id`;
 

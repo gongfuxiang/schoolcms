@@ -9,7 +9,7 @@
  Target Server Version : 50716
  File Encoding         : utf-8
 
- Date: 01/08/2017 22:33:41 PM
+ Date: 01/14/2017 22:03:57 PM
 */
 
 SET NAMES utf8;
@@ -32,13 +32,13 @@ CREATE TABLE `sc_admin` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='管理员';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='管理员';
 
 -- ----------------------------
 --  Records of `sc_admin`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_admin` VALUES ('1', 'admin', 'eb37fedfc854951082b1ea8076466f66', '708633', '', '0', '74', '1483863346', '1', '1481350313', '2017-01-08 17:04:42');
+INSERT INTO `sc_admin` VALUES ('1', 'admin', '1ce49c1505d0f7f72bc80f1810ae1903', '364336', '', '0', '182', '1484402565', '1', '1481350313', '2017-01-14 22:02:45'), ('3', 'testtest', 'd4dc946b6bf6b485efa14ac4ab44ebf5', '364506', '', '0', '20', '1484402389', '13', '1483947758', '2017-01-14 21:59:49');
 COMMIT;
 
 -- ----------------------------
@@ -55,13 +55,13 @@ CREATE TABLE `sc_class` (
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='班级类别';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='班级类别';
 
 -- ----------------------------
 --  Records of `sc_class`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_class` VALUES ('7', '0', '一年级', '1', '0', '0', '2016-12-25 14:41:23'), ('10', '0', '二年级', '1', '0', '0', '2016-12-25 14:42:31'), ('16', '0', '三年级', '1', '0', '1482840545', '2016-12-27 20:09:05'), ('17', '7', '一班', '1', '0', '1482840557', '2016-12-27 20:09:17'), ('18', '7', '二班', '1', '0', '1482840577', '2016-12-27 20:09:37'), ('19', '10', '天才班', '1', '0', '1482922284', '2016-12-28 18:51:24'), ('20', '10', '优秀班', '1', '0', '1482922305', '2016-12-28 18:51:45'), ('21', '10', '普通班', '1', '0', '1482922320', '2016-12-28 18:52:00');
+INSERT INTO `sc_class` VALUES ('7', '0', '一年级', '1', '0', '0', '2016-12-25 14:41:23'), ('10', '0', '二年级', '1', '0', '0', '2016-12-25 14:42:31'), ('16', '0', '三年级', '1', '0', '1482840545', '2016-12-27 20:09:05'), ('17', '7', '一班', '1', '0', '1482840557', '2016-12-27 20:09:17'), ('18', '7', '二班', '1', '0', '1482840577', '2016-12-27 20:09:37'), ('19', '10', '天才班', '1', '0', '1482922284', '2016-12-28 18:51:24'), ('20', '10', '优秀班', '1', '0', '1482922305', '2016-12-28 18:51:45'), ('21', '10', '普通班', '1', '0', '1482922320', '2016-12-28 18:52:00'), ('22', '7', 'NickName', '1', '0', '1483927006', '2017-01-09 09:56:46'), ('23', '10', 'ddd', '1', '0', '1483927617', '2017-01-09 10:06:57'), ('24', '16', '1班', '1', '0', '1483951541', '2017-01-09 16:45:41');
 COMMIT;
 
 -- ----------------------------
@@ -83,7 +83,7 @@ CREATE TABLE `sc_config` (
 --  Records of `sc_config`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_config` VALUES ('15', '10', '分页数量', '分页显示数量', '分页不能超过3位数', 'page_number'), ('3', '20', '成绩等级', '差', '差,较差,中,良,优，不能超过3位数', 'fraction_weak'), ('4', '40', '成绩等级', '较差', '', 'fraction_poor'), ('5', '60', '成绩等级', '中', '', 'fraction_commonly'), ('6', '80', '成绩等级', '良', '', 'fraction_good'), ('7', '100', '成绩等级', '优', '', 'fraction_excellent'), ('8', '8', '学期', '当前学期类id', '请选择学期', 'semester_id'), ('11', '0', 'csv编码', 'csv模块编码选择', '请选择编码', 'csv_charset');
+INSERT INTO `sc_config` VALUES ('15', '10', '分页数量', '分页显示数量', '分页不能超过3位数', 'page_number'), ('3', '20', '成绩等级', '差', '差,较差,中,良,优，不能超过3位数', 'fraction_weak'), ('4', '40', '成绩等级', '较差', '', 'fraction_poor'), ('5', '60', '成绩等级', '中', '', 'fraction_commonly'), ('6', '80', '成绩等级', '良', '', 'fraction_good'), ('7', '100', '成绩等级', '优', '', 'fraction_excellent'), ('8', '7', '学期', '当前学期类id', '请选择学期', 'semester_id'), ('11', '1', 'Excel编码', 'excel模块编码选择', '请选择编码', 'excel_charset');
 COMMIT;
 
 -- ----------------------------
@@ -92,21 +92,34 @@ COMMIT;
 DROP TABLE IF EXISTS `sc_course`;
 CREATE TABLE `sc_course` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `semester_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '学期id',
   `teacher_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
   `class_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '班级id',
   `subject_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '科目id',
   `week_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '周天id',
   `interval_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '时段id',
+  `room_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教室id',
+  `state` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态（0不可用，1可用）',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `teacher_class_subject_week_interval` (`teacher_id`,`class_id`,`subject_id`,`week_id`,`interval_id`),
+  UNIQUE KEY `semester_teacher_class_subject_week_interval` (`semester_id`,`teacher_id`,`class_id`,`subject_id`,`week_id`,`interval_id`),
+  UNIQUE KEY `semester_week_interval_room` (`semester_id`,`week_id`,`interval_id`,`room_id`) USING BTREE,
   KEY `teacher_id` (`teacher_id`),
   KEY `class_id` (`class_id`),
   KEY `subject_id` (`subject_id`),
   KEY `week_id` (`week_id`),
-  KEY `interval_id` (`interval_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='教师课程';
+  KEY `interval_id` (`interval_id`),
+  KEY `semester_id` (`semester_id`),
+  KEY `room_id` (`room_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教师课程';
+
+-- ----------------------------
+--  Records of `sc_course`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_course` VALUES ('11', '7', '4', '18', '17', '12', '14', '18', '1', '1484219105', '2017-01-14 18:00:16'), ('12', '7', '1', '17', '19', '12', '14', '17', '1', '1484367651', '2017-01-14 18:34:57'), ('13', '7', '2', '18', '20', '12', '14', '19', '1', '1484367695', '2017-01-14 12:21:35'), ('14', '7', '2', '19', '20', '14', '14', '17', '1', '1484367735', '2017-01-14 12:22:15');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `sc_fraction`
@@ -119,6 +132,7 @@ CREATE TABLE `sc_fraction` (
   `subject_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '科目id',
   `score_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '成绩期号',
   `score` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '分数',
+  `comment` char(255) NOT NULL DEFAULT '' COMMENT '教师点评',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -127,7 +141,14 @@ CREATE TABLE `sc_fraction` (
   KEY `subject_id` (`subject_id`),
   KEY `score_id` (`score_id`),
   KEY `score` (`score`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='学生成绩';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='学生成绩';
+
+-- ----------------------------
+--  Records of `sc_fraction`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_fraction` VALUES ('14', '7', '8', '19', '14', '88', '', '1483957162', '2017-01-09 18:19:22'), ('15', '7', '8', '19', '12', '98', 'sss', '1484041760', '2017-01-10 17:52:04'), ('16', '7', '8', '17', '14', '87', 'dd', '1484041823', '2017-01-10 17:50:23'), ('17', '7', '9', '17', '14', '77', '不错，比以前进步多了&lt;script&gt;alert(\'hello\');&lt;/script&gt;', '1484041940', '2017-01-10 17:52:20'), ('18', '7', '11', '20', '17', '78', '还不错的哦~', '1484056861', '2017-01-10 22:01:01'), ('19', '7', '10', '19', '14', '84', '', '1484057026', '2017-01-10 22:03:46'), ('20', '7', '12', '17', '14', '78', '哈哈哈很好的孩子', '1484393740', '2017-01-14 19:35:40');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `sc_interval`
@@ -141,13 +162,13 @@ CREATE TABLE `sc_interval` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='时段类别';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='时段类别';
 
 -- ----------------------------
 --  Records of `sc_interval`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_interval` VALUES ('12', '09:00-09:45', '1', '0', '0', '2016-12-25 14:43:30'), ('14', '10:00-10:45', '1', '0', '0', '2016-12-25 17:19:00'), ('17', '11:00-11:45', '1', '0', '1482840012', '2016-12-27 20:00:12'), ('19', '13:00-13:45', '1', '0', '1482851842', '2016-12-27 23:17:22'), ('20', '14:00-14:45', '1', '0', '1482851855', '2016-12-27 23:17:35'), ('21', '15:00-15:45', '1', '0', '1482852585', '2016-12-27 23:29:45'), ('22', '16:00-16:45', '1', '0', '1482852593', '2016-12-27 23:29:53');
+INSERT INTO `sc_interval` VALUES ('14', '10:00-10:45', '1', '0', '0', '2016-12-25 17:19:00'), ('17', '11:00-11:45', '1', '0', '1482840012', '2016-12-27 20:00:12'), ('19', '13:00-13:45', '1', '0', '1482851842', '2016-12-27 23:17:22'), ('20', '14:00-14:45', '1', '0', '1482851855', '2016-12-27 23:17:35'), ('21', '15:00-15:45', '1', '0', '1482852585', '2016-12-27 23:29:45'), ('22', '16:00-16:45', '1', '0', '1482852593', '2016-12-27 23:29:53');
 COMMIT;
 
 -- ----------------------------
@@ -164,13 +185,13 @@ CREATE TABLE `sc_power` (
   `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示（0否，1是）',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='权限';
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='权限';
 
 -- ----------------------------
 --  Records of `sc_power`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_power` VALUES ('1', '0', '权限控制', 'Power', 'Index', '1', '1', '1481612301'), ('4', '1', '角色管理', 'Power', 'Role', '11', '1', '1481639037'), ('8', '0', '类别管理', 'Routine', 'Index', '5', '1', '1481697671'), ('10', '8', '班级分类', 'Class', 'Index', '20', '1', '1481727987'), ('11', '8', '科目分类', 'Subject', 'Index', '30', '1', '1481728003'), ('12', '8', '学期分类', 'Semester', 'Index', '0', '1', '1481728021'), ('13', '1', '权限分配', 'Power', 'Index', '21', '1', '1482156143'), ('15', '1', '权限添加/编辑', 'Power', 'PowerSave', '22', '0', '1482243750'), ('16', '1', '权限删除', 'Power', 'PowerDelete', '23', '0', '1482243797'), ('17', '1', '角色组添加/编辑页面', 'Power', 'RoleSaveInfo', '12', '0', '1482243855'), ('18', '1', '角色组添加/编辑', 'Power', 'RoleSave', '13', '0', '1482243888'), ('19', '1', '管理员添加/编辑页面', 'Admin', 'SaveInfo', '2', '0', '1482244637'), ('20', '1', '管理员添加/编辑', 'Admin', 'Save', '3', '0', '1482244666'), ('21', '1', '管理员删除', 'Admin', 'Delete', '4', '0', '1482244688'), ('22', '1', '管理员列表', 'Admin', 'Index', '1', '1', '1482568868'), ('23', '1', '角色删除', 'Power', 'RoleDelete', '14', '0', '1482569155'), ('24', '8', '成绩分类', 'Score', 'Index', '40', '1', '1482638641'), ('25', '8', '周分类', 'Week', 'Index', '50', '1', '1482638899'), ('26', '8', '时段分类', 'Interval', 'Index', '60', '1', '1482638982'), ('27', '8', '地区管理', 'Region', 'Index', '70', '1', '1482639024'), ('28', '0', '学生管理', 'Student', 'Index', '2', '1', '1482854151'), ('29', '28', '学生列表', 'Student', 'Index', '1', '1', '1482854186'), ('30', '0', '成绩管理', 'Fraction', 'Index', '3', '1', '1482854384'), ('31', '30', '学生成绩', 'Fraction', 'Index', '1', '1', '1482854429'), ('32', '28', '学生添加/编辑页面', 'Student', 'SaveInfo', '2', '0', '1482915262'), ('33', '28', '学生添加/编辑', 'Student', 'Save', '3', '0', '1482915761'), ('34', '28', '学生删除', 'Student', 'Delete', '4', '0', '1482915804'), ('35', '30', '成绩录入页面', 'Fraction', 'SaveInfo', '2', '0', '1483096318'), ('36', '30', '成绩删除', 'Fraction', 'Delete', '4', '0', '1483096348'), ('37', '30', '成绩添加/编辑', 'Fraction', 'Save', '3', '0', '1483176255'), ('38', '0', '教师管理', 'Teacher', 'Index', '4', '1', '1483283430'), ('39', '38', '教师管理', 'Teacher', 'Index', '1', '1', '1483283546'), ('40', '38', '课程安排', 'Course', 'Index', '20', '1', '1483283640'), ('41', '0', '配置设置', 'Config', 'Index', '0', '1', '1483362358'), ('42', '41', '配置保存', 'Config', 'Save', '1', '0', '1483432335'), ('43', '8', '学期添加/编辑', 'Semester', 'Save', '1', '0', '1483456550'), ('44', '8', '班级添加/编辑', 'Class', 'Save', '21', '0', '1483456605'), ('45', '8', '科目添加/编辑', 'Subject', 'Save', '31', '0', '1483456640'), ('46', '8', '成绩添加/编辑', 'Score', 'Save', '41', '0', '1483456687'), ('47', '8', '周添加/编辑', 'Week', 'Save', '51', '0', '1483456721'), ('48', '8', '时段添加/编辑', 'Interval', 'Save', '61', '0', '1483456748'), ('49', '8', '地区添加/编辑', 'Region', 'Save', '71', '0', '1483456778'), ('50', '8', '学期删除', 'Semester', 'Delete', '2', '0', '1483457140'), ('51', '8', '班级删除', 'Class', 'Delete', '22', '0', '1483457222'), ('52', '8', '科目删除', 'Subject', 'Delete', '32', '0', '1483457265'), ('53', '8', '成绩删除', 'Score', 'Delete', '42', '0', '1483457291'), ('54', '8', '周删除', 'Week', 'Delete', '52', '0', '1483457365'), ('55', '8', '时段删除', 'Interval', 'Delete', '62', '0', '1483457405'), ('56', '8', '地区删除', 'Region', 'Delete', '72', '0', '1483457442'), ('57', '38', '教师添加/编辑页面', 'Teacher', 'SaveInfo', '2', '0', '1483616439'), ('58', '38', '教师添加/编辑', 'Teacher', 'Save', '3', '0', '1483616492'), ('59', '38', '教师删除', 'Teacher', 'Delete', '4', '0', '1483616569'), ('60', '38', '课程添加/编辑页面', 'Course', 'SaveInfo', '21', '0', '1483790861'), ('61', '38', '课程添加/编辑', 'Course', 'Save', '22', '0', '1483790940'), ('62', '38', '课程删除', 'Course', 'Delete', '23', '0', '1483790962');
+INSERT INTO `sc_power` VALUES ('1', '0', '权限控制', 'Power', 'Index', '1', '1', '1481612301'), ('4', '1', '角色管理', 'Power', 'Role', '11', '1', '1481639037'), ('8', '0', '类别管理', 'Routine', 'Index', '5', '1', '1481697671'), ('10', '8', '班级分类', 'Class', 'Index', '20', '1', '1481727987'), ('11', '8', '科目分类', 'Subject', 'Index', '30', '1', '1481728003'), ('12', '8', '学期分类', 'Semester', 'Index', '0', '1', '1481728021'), ('13', '1', '权限分配', 'Power', 'Index', '21', '1', '1482156143'), ('15', '1', '权限添加/编辑', 'Power', 'PowerSave', '22', '0', '1482243750'), ('16', '1', '权限删除', 'Power', 'PowerDelete', '23', '0', '1482243797'), ('17', '1', '角色组添加/编辑页面', 'Power', 'RoleSaveInfo', '12', '0', '1482243855'), ('18', '1', '角色组添加/编辑', 'Power', 'RoleSave', '13', '0', '1482243888'), ('19', '1', '管理员添加/编辑页面', 'Admin', 'SaveInfo', '2', '0', '1482244637'), ('20', '1', '管理员添加/编辑', 'Admin', 'Save', '3', '0', '1482244666'), ('21', '1', '管理员删除', 'Admin', 'Delete', '4', '0', '1482244688'), ('22', '1', '管理员列表', 'Admin', 'Index', '1', '1', '1482568868'), ('23', '1', '角色删除', 'Power', 'RoleDelete', '14', '0', '1482569155'), ('24', '8', '成绩分类', 'Score', 'Index', '40', '1', '1482638641'), ('25', '8', '周分类', 'Week', 'Index', '50', '1', '1482638899'), ('26', '8', '时段分类', 'Interval', 'Index', '60', '1', '1482638982'), ('27', '8', '地区管理', 'Region', 'Index', '70', '1', '1482639024'), ('28', '0', '学生管理', 'Student', 'Index', '2', '1', '1482854151'), ('29', '28', '学生列表', 'Student', 'Index', '1', '1', '1482854186'), ('30', '0', '成绩管理', 'Fraction', 'Index', '3', '1', '1482854384'), ('31', '30', '学生成绩', 'Fraction', 'Index', '1', '1', '1482854429'), ('32', '28', '学生添加/编辑页面', 'Student', 'SaveInfo', '2', '0', '1482915262'), ('33', '28', '学生添加/编辑', 'Student', 'Save', '3', '0', '1482915761'), ('34', '28', '学生删除', 'Student', 'Delete', '4', '0', '1482915804'), ('35', '30', '成绩录入页面', 'Fraction', 'SaveInfo', '2', '0', '1483096318'), ('36', '30', '成绩删除', 'Fraction', 'Delete', '4', '0', '1483096348'), ('37', '30', '成绩添加/编辑', 'Fraction', 'Save', '3', '0', '1483176255'), ('38', '0', '教师管理', 'Teacher', 'Index', '4', '1', '1483283430'), ('39', '38', '教师管理', 'Teacher', 'Index', '1', '1', '1483283546'), ('40', '38', '课程安排', 'Course', 'Index', '20', '1', '1483283640'), ('41', '0', '配置设置', 'Config', 'Index', '0', '1', '1483362358'), ('42', '41', '配置保存', 'Config', 'Save', '1', '0', '1483432335'), ('43', '8', '学期添加/编辑', 'Semester', 'Save', '1', '0', '1483456550'), ('44', '8', '班级添加/编辑', 'Class', 'Save', '21', '0', '1483456605'), ('45', '8', '科目添加/编辑', 'Subject', 'Save', '31', '0', '1483456640'), ('46', '8', '成绩添加/编辑', 'Score', 'Save', '41', '0', '1483456687'), ('47', '8', '周添加/编辑', 'Week', 'Save', '51', '0', '1483456721'), ('48', '8', '时段添加/编辑', 'Interval', 'Save', '61', '0', '1483456748'), ('49', '8', '地区添加/编辑', 'Region', 'Save', '71', '0', '1483456778'), ('50', '8', '学期删除', 'Semester', 'Delete', '2', '0', '1483457140'), ('51', '8', '班级删除', 'Class', 'Delete', '22', '0', '1483457222'), ('52', '8', '科目删除', 'Subject', 'Delete', '32', '0', '1483457265'), ('53', '8', '成绩删除', 'Score', 'Delete', '42', '0', '1483457291'), ('54', '8', '周删除', 'Week', 'Delete', '52', '0', '1483457365'), ('55', '8', '时段删除', 'Interval', 'Delete', '62', '0', '1483457405'), ('56', '8', '地区删除', 'Region', 'Delete', '72', '0', '1483457442'), ('57', '38', '教师添加/编辑页面', 'Teacher', 'SaveInfo', '2', '0', '1483616439'), ('58', '38', '教师添加/编辑', 'Teacher', 'Save', '3', '0', '1483616492'), ('59', '38', '教师删除', 'Teacher', 'Delete', '4', '0', '1483616569'), ('60', '38', '课程添加/编辑页面', 'Course', 'SaveInfo', '21', '0', '1483790861'), ('61', '38', '课程添加/编辑', 'Course', 'Save', '22', '0', '1483790940'), ('62', '38', '课程删除', 'Course', 'Delete', '23', '0', '1483790962'), ('63', '28', 'Excel导出', 'Student', 'ExcelExport', '5', '0', '1484058295'), ('64', '30', 'Excel导出', 'Fraction', 'ExcelExport', '5', '0', '1484058375'), ('65', '38', 'Excel导出', 'Teacher', 'ExcelExport', '5', '0', '1484058437'), ('66', '38', 'Excel导出', 'Course', 'ExcelExport', '24', '0', '1484058488'), ('67', '38', '课程状态更新', 'Course', 'StateUpdate', '25', '0', '1484231130'), ('68', '8', '教室管理', 'Room', 'Index', '80', '1', '1484304475'), ('69', '8', '教室添加/编辑', 'Room', 'Save', '81', '0', '1484304519'), ('70', '8', '教室删除', 'Room', 'Delete', '82', '0', '1484304545');
 COMMIT;
 
 -- ----------------------------
@@ -187,13 +208,13 @@ CREATE TABLE `sc_region` (
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='地区';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='地区';
 
 -- ----------------------------
 --  Records of `sc_region`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_region` VALUES ('7', '0', '谯家镇2', '1', '2', '0', '2016-12-25 14:41:23'), ('8', '7', '印山村2', '1', '0', '0', '2016-12-25 14:41:38'), ('9', '8', '康家坨', '1', '0', '0', '2016-12-25 14:41:54'), ('10', '0', '夹石镇', '0', '1', '0', '2016-12-25 14:42:31'), ('11', '10', '水进湾', '1', '0', '0', '2016-12-25 14:42:53'), ('12', '10', '小垫矮', '1', '0', '0', '2016-12-25 14:43:30'), ('14', '8', '麻池', '1', '0', '0', '2016-12-25 17:19:00'), ('15', '8', '并蛋鸭', '1', '0', '0', '2016-12-25 17:19:17'), ('17', '0', '试试水', '1', '0', '1482847113', '2016-12-27 21:58:33'), ('18', '7', '时代复分', '1', '0', '1482850246', '2016-12-27 22:50:46'), ('19', '9', '的方法发', '1', '0', '1482851116', '2016-12-27 23:05:16');
+INSERT INTO `sc_region` VALUES ('7', '0', '谯家镇2', '1', '2', '0', '2016-12-25 14:41:23'), ('8', '7', '印山村2', '1', '0', '0', '2016-12-25 14:41:38'), ('9', '8', '康家坨', '1', '0', '0', '2016-12-25 14:41:54'), ('10', '0', '夹石镇', '0', '1', '0', '2016-12-25 14:42:31'), ('11', '10', '水进湾', '1', '0', '0', '2016-12-25 14:42:53'), ('12', '0', '小垫矮', '1', '0', '0', '2016-12-25 14:43:30'), ('14', '8', '麻池', '1', '0', '0', '2016-12-25 17:19:00'), ('15', '8', '并蛋鸭', '1', '0', '0', '2016-12-25 17:19:17'), ('17', '0', '试试水', '1', '0', '1482847113', '2016-12-27 21:58:33'), ('18', '7', '时代复分', '1', '0', '1482850246', '2016-12-27 22:50:46'), ('19', '9', '的方法发', '1', '0', '1482851116', '2016-12-27 23:05:16'), ('20', '17', 'sdfsd', '1', '0', '1484204770', '2017-01-12 15:06:10');
 COMMIT;
 
 -- ----------------------------
@@ -207,13 +228,13 @@ CREATE TABLE `sc_role` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='角色组';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色组';
 
 -- ----------------------------
 --  Records of `sc_role`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_role` VALUES ('1', '系统管理员', '1', '1481350313', '2017-01-08 17:06:24');
+INSERT INTO `sc_role` VALUES ('1', '系统管理员', '1', '1481350313', '2017-01-08 17:06:24'), ('13', '超级管理员', '1', '1484402362', '2017-01-14 21:59:22');
 COMMIT;
 
 -- ----------------------------
@@ -228,13 +249,36 @@ CREATE TABLE `sc_role_power` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   KEY `power_id` (`power_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=689 DEFAULT CHARSET=utf8 COMMENT='角色与权限管理';
+) ENGINE=InnoDB AUTO_INCREMENT=1034 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色与权限管理';
 
 -- ----------------------------
 --  Records of `sc_role_power`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_role_power` VALUES ('570', '1', '41', '1483791035'), ('571', '1', '42', '1483791035'), ('572', '1', '1', '1483791035'), ('573', '1', '22', '1483791035'), ('574', '1', '19', '1483791035'), ('575', '1', '20', '1483791035'), ('576', '1', '21', '1483791035'), ('577', '1', '4', '1483791035'), ('578', '1', '17', '1483791035'), ('579', '1', '18', '1483791035'), ('580', '1', '23', '1483791035'), ('581', '1', '13', '1483791035'), ('582', '1', '15', '1483791035'), ('583', '1', '16', '1483791035'), ('584', '1', '28', '1483791035'), ('585', '1', '29', '1483791035'), ('586', '1', '32', '1483791035'), ('587', '1', '33', '1483791035'), ('588', '1', '34', '1483791035'), ('589', '1', '30', '1483791035'), ('590', '1', '31', '1483791035'), ('591', '1', '35', '1483791035'), ('592', '1', '37', '1483791035'), ('593', '1', '36', '1483791035'), ('594', '1', '38', '1483791035'), ('595', '1', '39', '1483791035'), ('596', '1', '57', '1483791035'), ('597', '1', '58', '1483791035'), ('598', '1', '59', '1483791035'), ('599', '1', '40', '1483791035'), ('600', '1', '60', '1483791035'), ('601', '1', '61', '1483791035'), ('602', '1', '62', '1483791035'), ('603', '1', '8', '1483791035'), ('604', '1', '12', '1483791035'), ('605', '1', '43', '1483791035'), ('606', '1', '50', '1483791035'), ('607', '1', '10', '1483791035'), ('608', '1', '44', '1483791035'), ('609', '1', '51', '1483791035'), ('610', '1', '11', '1483791035'), ('611', '1', '45', '1483791035'), ('612', '1', '52', '1483791035'), ('613', '1', '24', '1483791035'), ('614', '1', '46', '1483791035'), ('615', '1', '53', '1483791035'), ('616', '1', '25', '1483791035'), ('617', '1', '47', '1483791035'), ('618', '1', '54', '1483791035'), ('619', '1', '26', '1483791035'), ('620', '1', '48', '1483791035'), ('621', '1', '55', '1483791035'), ('622', '1', '27', '1483791035'), ('623', '1', '49', '1483791035'), ('624', '1', '56', '1483791035');
+INSERT INTO `sc_role_power` VALUES ('980', '13', '41', '1484402362'), ('981', '13', '42', '1484402362'), ('982', '13', '1', '1484402362'), ('983', '13', '22', '1484402362'), ('984', '13', '4', '1484402362'), ('985', '13', '28', '1484402362'), ('986', '13', '29', '1484402362'), ('987', '13', '32', '1484402362'), ('988', '13', '33', '1484402362'), ('989', '13', '34', '1484402362'), ('990', '13', '63', '1484402362'), ('991', '13', '30', '1484402362'), ('992', '13', '31', '1484402362'), ('993', '13', '35', '1484402362'), ('994', '13', '37', '1484402362'), ('995', '13', '36', '1484402362'), ('996', '13', '64', '1484402362'), ('997', '13', '38', '1484402362'), ('998', '13', '39', '1484402362'), ('999', '13', '57', '1484402362'), ('1000', '13', '58', '1484402362'), ('1001', '13', '59', '1484402362'), ('1002', '13', '65', '1484402362'), ('1003', '13', '40', '1484402362'), ('1004', '13', '60', '1484402362'), ('1005', '13', '61', '1484402362'), ('1006', '13', '62', '1484402362'), ('1007', '13', '66', '1484402362'), ('1008', '13', '67', '1484402362'), ('1009', '13', '8', '1484402362'), ('1010', '13', '12', '1484402362'), ('1011', '13', '43', '1484402362'), ('1012', '13', '50', '1484402362'), ('1013', '13', '10', '1484402362'), ('1014', '13', '44', '1484402362'), ('1015', '13', '51', '1484402362'), ('1016', '13', '11', '1484402362'), ('1017', '13', '45', '1484402362'), ('1018', '13', '52', '1484402362'), ('1019', '13', '24', '1484402362'), ('1020', '13', '46', '1484402362'), ('1021', '13', '53', '1484402362'), ('1022', '13', '25', '1484402362'), ('1023', '13', '47', '1484402362'), ('1024', '13', '54', '1484402362'), ('1025', '13', '26', '1484402362'), ('1026', '13', '48', '1484402362'), ('1027', '13', '55', '1484402362'), ('1028', '13', '27', '1484402362'), ('1029', '13', '49', '1484402362'), ('1030', '13', '56', '1484402362'), ('1031', '13', '68', '1484402362'), ('1032', '13', '69', '1484402362'), ('1033', '13', '70', '1484402362');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sc_room`
+-- ----------------------------
+DROP TABLE IF EXISTS `sc_room`;
+CREATE TABLE `sc_room` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
+  `name` char(30) NOT NULL COMMENT '名称',
+  `is_enable` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否启用（0否，1是）',
+  `sort` int(6) unsigned NOT NULL DEFAULT '0' COMMENT '顺序',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教室类别';
+
+-- ----------------------------
+--  Records of `sc_room`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_room` VALUES ('7', '0', '东区', '1', '0', '0', '2016-12-25 14:41:23'), ('10', '0', '西北区', '1', '0', '0', '2016-12-25 14:42:31'), ('16', '0', '天才班专用教室1号', '1', '0', '1482840545', '2016-12-27 20:09:05'), ('17', '7', '教室一', '1', '0', '1482840557', '2016-12-27 20:09:17'), ('18', '7', '教室二', '1', '0', '1482840577', '2016-12-27 20:09:37'), ('19', '10', '教室一', '1', '0', '1482922284', '2016-12-28 18:51:24'), ('20', '10', '教室二', '1', '0', '1482922305', '2016-12-28 18:51:45'), ('21', '10', '教室三', '1', '0', '1482922320', '2016-12-28 18:52:00'), ('24', '0', 'VIP教室', '1', '0', '1483951541', '2017-01-09 16:45:41');
 COMMIT;
 
 -- ----------------------------
@@ -249,7 +293,7 @@ CREATE TABLE `sc_score` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='成绩类别';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='成绩类别';
 
 -- ----------------------------
 --  Records of `sc_score`
@@ -270,13 +314,13 @@ CREATE TABLE `sc_semester` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='学期类别';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='学期类别';
 
 -- ----------------------------
 --  Records of `sc_semester`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_semester` VALUES ('7', '2016上学期', '1', '1', '0', '2016-12-25 14:41:23'), ('8', '2016下学期', '1', '0', '0', '2016-12-25 14:41:38');
+INSERT INTO `sc_semester` VALUES ('7', '2016上学期', '1', '1', '0', '2016-12-25 14:41:23'), ('8', '2016下学期', '1', '0', '0', '2016-12-25 14:41:38'), ('18', 'dsdsa', '1', '0', '1483952728', '2017-01-09 17:05:28');
 COMMIT;
 
 -- ----------------------------
@@ -307,7 +351,14 @@ CREATE TABLE `sc_student` (
   KEY `birthday` (`birthday`),
   KEY `gender` (`gender`),
   KEY `semester_id` (`semester_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='学生';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='学生';
+
+-- ----------------------------
+--  Records of `sc_student`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_student` VALUES ('8', '留洋', '142613199904234622', '2', '917452800', '7', '17', '7', '', '03667879265', '0', '0', '1483932878', '2017-01-10 22:58:05'), ('9', '张三', '533338198988888888', '2', '736012800', '7', '19', '8', '学校附近的888号', '17000000000', '1', '1', '1483936027', '2017-01-09 12:27:07'), ('10', '武松打虎', '677771999999999992', '2', '633801600', '7', '20', '9', '', '17666666666', '1', '1', '1483936080', '2017-01-09 12:28:00'), ('11', '小花', '211118199102111666', '1', '736012800', '7', '19', '11', '住校', '13199999999', '1', '1', '1483936138', '2017-01-09 12:28:58'), ('12', '大哥哥', '399998198898998887', '2', '839433600', '7', '16', '14', '', '13222222222', '1', '1', '1483936199', '2017-01-09 12:29:59'), ('13', '11', '441801198810252656', '2', '1483891200', '7', '18', '9', '111', '15915110562', '3', '1', '1483948630', '2017-01-09 15:57:10');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `sc_subject`
@@ -321,13 +372,13 @@ CREATE TABLE `sc_subject` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='科目类别';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='科目类别';
 
 -- ----------------------------
 --  Records of `sc_subject`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_subject` VALUES ('12', '语文', '1', '0', '0', '2016-12-25 14:43:30'), ('14', '数学', '1', '0', '0', '2016-12-25 17:19:00'), ('17', '政治', '1', '0', '1482840012', '2016-12-27 20:00:12'), ('19', '化学', '1', '0', '1482851842', '2016-12-27 23:17:22'), ('20', '地理', '1', '0', '1482851855', '2016-12-27 23:17:35');
+INSERT INTO `sc_subject` VALUES ('17', '政治', '1', '0', '1482840012', '2016-12-27 20:00:12'), ('19', '化学', '1', '0', '1482851842', '2016-12-27 23:17:22'), ('20', '地理', '1', '0', '1482851855', '2016-12-27 23:17:35');
 COMMIT;
 
 -- ----------------------------
@@ -346,11 +397,40 @@ CREATE TABLE `sc_teacher` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_card` (`id_card`) USING BTREE,
+  UNIQUE KEY `id_card` (`id_card`),
   KEY `state` (`state`),
   KEY `birthday` (`birthday`),
   KEY `gender` (`gender`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='教师';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教师';
+
+-- ----------------------------
+--  Records of `sc_teacher`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_teacher` VALUES ('1', '张老师', '222228198888888888', '0', '318182400', '', '13888888888', '2', '1483936487', '2017-01-10 23:12:08'), ('2', '刘老师', '822228198999999999', '2', '2390400', '哈哈呵呵', '021-33333333', '1', '1483957038', '2017-01-10 23:17:21'), ('3', 'hello', '522228198888888888', '2', '1367424000', '梵蒂冈', '17602128368', '2', '1484211799', '2017-01-12 17:03:19'), ('4', '的方法', '522229199999999933', '2', '1367424000', '电饭锅sdfsfsdfdfs', '021-33333333', '1', '1484211920', '2017-01-12 17:13:46');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sc_teacher_subject`
+-- ----------------------------
+DROP TABLE IF EXISTS `sc_teacher_subject`;
+CREATE TABLE `sc_teacher_subject` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '关联id',
+  `teacher_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
+  `subject_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '科目id',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `teacher_subject` (`teacher_id`,`subject_id`),
+  KEY `teacher_id` (`teacher_id`) USING BTREE,
+  KEY `subject_id` (`subject_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教师科目关联';
+
+-- ----------------------------
+--  Records of `sc_teacher_subject`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_teacher_subject` VALUES ('14', '4', '17', '1484212426'), ('15', '4', '20', '1484212426'), ('16', '3', '19', '1484212442'), ('17', '3', '20', '1484212442'), ('18', '1', '17', '1484367612'), ('19', '1', '19', '1484367612'), ('20', '1', '20', '1484367612'), ('21', '2', '20', '1484367657');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `sc_week`
@@ -364,7 +444,7 @@ CREATE TABLE `sc_week` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='周天类别';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='周天类别';
 
 -- ----------------------------
 --  Records of `sc_week`

@@ -31,7 +31,7 @@ function DelDirFile($dir_name, $is_del_dir = false)
                 {
                     DelDirFile("$dir_name/$item");  
                 } else {
-                    if(unlink("$dir_name/$item"))
+                    if(is_writable("$dir_name/$item") && @unlink("$dir_name/$item"))
                     {
                         $success++;
                     }
