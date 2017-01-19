@@ -198,13 +198,6 @@ class ArticleController extends CommonController
 	{
 		// 文章信息
 		$data = empty($_REQUEST['id']) ? array() : M('Article')->find(I('id'));
-		if(!empty($data['birthday']))
-		{
-			$data['birthday'] = date('Y-m-d', $data['birthday']);
-
-			// 科目关联数据
-			$data['subject_id'] = M('TeacherSubject')->where(array('article_id'=>$data['id']))->getField('subject_id', true);
-		}
 		$this->assign('data', $data);
 
 		// 是否启用
