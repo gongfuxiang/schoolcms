@@ -139,18 +139,53 @@ function IsExitsFunction(fun_name)
  * @param    {[string] [request-value] 	[回调值 ajax-url地址 或 ajax-fun方法]}
  */
 var form_name = 'form.form-validation';
+var editor_tag_name = 'editor-tag';
 var $form = $(form_name);
+var $editor_tag = $('[id='+editor_tag_name+']');
+var editor_count = $editor_tag.length;
+if(editor_count > 0)
+{
+	// 编辑器初始化
+	var editor = UE.getEditor(editor_tag_name);
+
+	// 编辑器内容变化时同步到 textarea
+	editor.addListener('contentChange', function()
+	{
+		editor.sync();
+
+		// 触发验证
+		$editor_tag.trigger('change');
+	});
+}
 $form.validator(
 {
 	onInValid: function(validity)
 	{
+		// 错误信息
 		var $field = $(validity.field);
 		var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
 		Prompt(msg);
-
 	},
 	submit: function()
 	{
+		if(editor_count > 0)
+		{
+			// 同步编辑器数据
+			editor.sync();
+
+			// 表单验证未成功，而且未成功的第一个元素为 UEEditor 时，focus 编辑器
+			if (!this.isFormValid() && $form.find('.' + this.options.inValidClass).eq(0).is($editor_tag))
+			{
+				// 编辑器获取焦点
+				editor.focus();
+
+				// 错误信息
+				var msg = $editor_tag.data('validationMessage') || $editor_tag.getValidationMessage(validity);
+				Prompt(msg);
+			}
+		}
+
+		// 通过验证
 		if(this.isFormValid())
 		{
 			// button加载

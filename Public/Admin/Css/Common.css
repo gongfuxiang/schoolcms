@@ -1390,7 +1390,7 @@ input[type="text"][readonly] { background: #fff !important; }
   #tree tr:hover .submit { display: block !important; }
 
   /* 添加/编辑 */
-  .view-save div { width: 75% !important; }
+  .view-save .am-form-group { width: 75% !important; }
 }
 
 /**

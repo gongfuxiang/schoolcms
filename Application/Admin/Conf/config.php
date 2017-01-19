@@ -49,7 +49,7 @@ return array(
 			'imageUrlPrefix'			=>	'',
 
 			// 上传保存路径,可以自定义保存路径和文件名格式 
-			'imagePathFormat'			=>	'/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+			'imagePathFormat'			=>	__ROOT__.'/Public/Upload/Article/image/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 
 			// 涂鸦图片上传配置项
@@ -60,7 +60,7 @@ return array(
 			'scrawlFieldName'		=>	'upfile',
 
 			// 上传保存路径,可以自定义保存路径和文件名格式
-			'scrawlPathFormat'		=>	'/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+			'scrawlPathFormat'		=>	__ROOT__.'/Public/Upload/Article/image/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 			// 上传大小限制，单位B
 			'scrawlMaxSize'			=>	2048000,
@@ -77,7 +77,7 @@ return array(
 			'snapscreenActionName'	=>	'uploadimage',
 
 			// 上传保存路径,可以自定义保存路径和文件名格式
-			'snapscreenPathFormat'	=>	'/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+			'snapscreenPathFormat'	=>	__ROOT__.'/Public/Upload/Article/image/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 			// 图片访问路径前缀
 			'snapscreenUrlPrefix'	=>	'',
@@ -97,7 +97,7 @@ return array(
 			'catcherFieldName'		=>	'source',
 
 			// 上传保存路径,可以自定义保存路径和文件名格式
-			'catcherPathFormat'		=>	'/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+			'catcherPathFormat'		=>	__ROOT__.'/Public/Upload/Article/image/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 			// 图片访问路径前缀
 			'catcherUrlPrefix'		=>	'',
@@ -117,7 +117,7 @@ return array(
 			'videoFieldName'		=>	'upfile',
 
 			// 上传保存路径,可以自定义保存路径和文件名格式
-			'videoPathFormat'		=>	'/ueditor/php/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}',
+			'videoPathFormat'		=>	__ROOT__.'/Public/Upload/Article/video/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 			// 视频访问路径前缀
 			'videoUrlPrefix'		=>	'',
@@ -137,7 +137,7 @@ return array(
 			'fileFieldName'			=>	'upfile',
 
 			// 上传保存路径,可以自定义保存路径和文件名格式
-			'filePathFormat'		=>	'/ueditor/php/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}',
+			'filePathFormat'		=>	__ROOT__.'/Public/Upload/Article/file/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 			// 文件访问路径前缀
 			'fileUrlPrefix'			=>	'',
@@ -154,7 +154,7 @@ return array(
 			'imageManagerActionName'=>	'listimage',
 
 			// 指定要列出图片的目录
-			'imageManagerListPath'	=>	'/ueditor/php/upload/image/',
+			'imageManagerListPath'	=>	__ROOT__.'/Public/Upload/Article/image/',
 
 			// 每次列出文件数量
 			'imageManagerListSize'	=>	20,
@@ -174,7 +174,7 @@ return array(
 			'fileManagerActionName'	=>	'listfile',
 
 			// 指定要列出文件的目录
-			'fileManagerListPath'	=>	'/ueditor/php/upload/file/',
+			'fileManagerListPath'	=>	__ROOT__.'/Public/Upload/Article/file/',
 
 			// 文件访问路径前缀
 			'fileManagerUrlPrefix'	=>	'',
