@@ -54,18 +54,18 @@ class ArticleController extends CommonController
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
 				'where'		=>	$param,
-				'url'		=>	U('Admin/Teacher/Index'),
+				'url'		=>	U('Admin/Article/Index'),
 			);
 		$page = new \My\Page($page_param);
 
 		// 获取列表
 		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
 
-		// 性别
-		$this->assign('common_gender_list', L('common_gender_list'));
+		// 是否启用
+		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 
-		// 文章状态
-		$this->assign('common_article_state_list', L('common_article_state_list'));
+		// 文章分类
+		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
 
 		// 参数
 		$this->assign('param', $param);
@@ -77,7 +77,7 @@ class ArticleController extends CommonController
 		$this->assign('list', $list);
 
 		// Excel地址
-		$this->assign('excel_url', U('Admin/Teacher/ExcelExport', $param));
+		$this->assign('excel_url', U('Admin/Article/ExcelExport', $param));
 
 		$this->display('Index');
 	}
@@ -98,7 +98,7 @@ class ArticleController extends CommonController
 		$data = $this->SetDataHandle(M('Article')->where($where)->select());
 
 		// Excel驱动导出数据
-		$excel = new \My\Excel(array('filename'=>'Article', 'title'=>L('excel_article_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel = new \My\Excel(array('filename'=>'article', 'title'=>L('excel_article_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
 		$excel->Export();
 	}
 
@@ -115,24 +115,17 @@ class ArticleController extends CommonController
 	{
 		if(!empty($data))
 		{
-			$ts = M('TeacherSubject');
+			$ac = M('ArticleClass');
 			foreach($data as $k=>$v)
 			{
-				// 出生
-				$data[$k]['birthday'] = date('Y-m-d', $v['birthday']);
-
 				// 创建时间
 				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 
-				// 性别
-				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
+				// 是否启用
+				$data[$k]['is_enable_text'] = L('common_is_enable_list')[$v['is_enable']]['name'];
 
-				// 状态
-				$data[$k]['state'] = L('common_article_state_list')[$v['state']]['name'];
-
-				// 贯通科目
-				$temp = $ts->alias('AS ts')->join('__SUBJECT__ AS s ON ts.subject_id = s.id')->where(array('ts.article_id'=>$v['id']))->field(array('s.name AS name'))->getField('name', true);
-				$data[$k]['subject_list'] = empty($temp) ? '' : implode(', ', $temp);
+				// 文章分类
+				$data[$k]['article_class_name'] = $ac->where(array('id'=>$v['article_class_id']))->getField('name');
 			}
 		}
 		return $data;
@@ -153,11 +146,7 @@ class ArticleController extends CommonController
 		if(!empty($_REQUEST['keyword']))
 		{
 			$where[] = array(
-					'username'	=>	array('like', '%'.I('keyword').'%'),
-					'id_card'	=>	array('like', '%'.I('keyword').'%'),
-					'tel'		=>	array('like', '%'.I('keyword').'%'),
-					'address'	=>	array('like', '%'.I('keyword').'%'),
-					'_logic'	=>	'or',
+					'title'		=>	array('like', '%'.I('keyword').'%'),
 				);
 		}
 
@@ -165,23 +154,23 @@ class ArticleController extends CommonController
 		if(I('is_more', 0) == 1)
 		{
 			// 等值
-			if(I('gender', -1) > -1)
+			if(I('is_enable', -1) > -1)
 			{
-				$where['gender'] = intval(I('gender', 0));
+				$where['is_enable'] = intval(I('is_enable', 1));
 			}
-			if(I('state', -1) > -1)
+			if(I('article_class_id', -1) > -1)
 			{
-				$where['state'] = intval(I('state', 0));
+				$where['article_class_id'] = intval(I('article_class_id'));
 			}
 
 			// 表达式
 			if(!empty($_REQUEST['time_start']))
 			{
-				$where['birthday'][] = array('gt', strtotime(I('time_start')));
+				$where['add_time'][] = array('gt', strtotime(I('time_start')));
 			}
 			if(!empty($_REQUEST['time_end']))
 			{
-				$where['birthday'][] = array('lt', strtotime(I('time_end')));
+				$where['add_time'][] = array('lt', strtotime(I('time_end')));
 			}
 		}
 		return $where;
@@ -197,14 +186,24 @@ class ArticleController extends CommonController
 	public function SaveInfo()
 	{
 		// 文章信息
-		$data = empty($_REQUEST['id']) ? array() : M('Article')->find(I('id'));
+		if(empty($_REQUEST['id']))
+		{
+			$data = array();
+		} else {
+			$data = M('Article')->find(I('id'));
+			if(!empty($data['content']))
+			{
+				// url处理
+				//$data['content'] = str_replace('/Public/Upload', __URL__.'Public/Upload', $data['content']);
+			}
+		}
 		$this->assign('data', $data);
 
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 
 		// 科目列表
-		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());		
+		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
 
 		$this->display('SaveInfo');
 	}
@@ -250,51 +249,14 @@ class ArticleController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 1))
 		{
-			// 文章科目参数
-			if(empty($_POST['subject_id']) || !is_array($_POST['subject_id']))
-			{
-				$this->ajaxReturn(L('article_subject_format'), -2);
-			}
-
 			// 额外数据处理
 			$m->add_time	=	time();
-			$m->birthday	=	strtotime($m->birthday);
-
-			// 开启事务
-			$m->startTrans();
 			
-			// 文章写入数据库
-			$article_id = $m->add();
-
-			// 添加文章科目关联数据
-			$ts_state = true;
-			$ts = M('TeacherSubject');
-			foreach($_POST['subject_id'] as $subject_id)
+			// 数据添加
+			if($m->add())
 			{
-				if(!empty($subject_id))
-				{
-					$temp_data = array(
-							'article_id'	=>	$article_id,
-							'subject_id'	=>	$subject_id,
-							'add_time'		=>	time(),
-						);
-					if(!$ts->add($temp_data))
-					{
-						$ts_state = false;
-						break;
-					}
-				}
-			}
-			if($article_id && $ts_state)
-			{
-				// 提交事务
-				$m->commit();
-
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
-				// 回滚事务
-				$m->rollback();
-
 				$this->ajaxReturn(L('common_operation_add_error'), -100);
 			}
 		} else {
@@ -317,62 +279,14 @@ class ArticleController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
-			// 文章科目参数
-			if(empty($_POST['subject_id']) || !is_array($_POST['subject_id']))
+			// url处理
+			$m->content = str_replace(__URL__.'Public/Upload', '/Public/Upload', $m->content);
+
+			// 数据更新
+			if($m->where(array('id'=>I('id')))->save())
 			{
-				$this->ajaxReturn(L('article_subject_format'), -2);
-			}
-
-			// 额外数据处理
-			if(!empty($m->birthday))
-			{
-				$m->birthday	=	strtotime($m->birthday);
-			}
-
-			// 移除不能更新的数据
-			unset($m->id_card);
-
-			// 开启事务
-			$m->startTrans();
-
-			// 文章id
-			$article_id = I('id');
-
-			// 更新文章
-			$t_state = $m->where(array('id'=>$article_id, 'id_card'=>I('id_card')))->save();
-
-			// 删除文章科目关联数据
-			$ts = M('TeacherSubject');
-			$ts_state_del = $ts->where(array('article_id'=>$article_id))->delete();
-
-			// 添加文章科目关联数据
-			$ts_state = true;
-			foreach($_POST['subject_id'] as $subject_id)
-			{
-				if(!empty($subject_id))
-				{
-					$temp_data = array(
-							'article_id'	=>	$article_id,
-							'subject_id'	=>	$subject_id,
-							'add_time'		=>	time(),
-						);
-					if(!$ts->add($temp_data))
-					{
-						$ts_state = false;
-						break;
-					}
-				}
-			}
-			if($t_state !== false && $ts_state_del !== false && $ts_state !== false)
-			{
-				// 提交事务
-				$m->commit();
-
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {
-				// 回滚事务
-				$m->rollback();
-
 				$this->ajaxReturn(L('common_operation_edit_error'), -100);
 			}
 		} else {
@@ -395,43 +309,42 @@ class ArticleController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		// 参数处理
-		list($id, $id_card) = (stripos(I('id'), '-') === false) ? array() : explode('-', I('id'));
-
 		// 删除数据
-		if($id != null && $id_card != null)
+		if(!empty($_POST['id']))
 		{
-			// 文章模型
-			$s = M('Article');
-
-			// 文章是否存在
-			$teacher = $s->where(array('id'=>$id, 'id_card'=>$id_card))->getField('id');
-			if(empty($teacher))
+			// 更新
+			if(M('Article')->delete(I('id')))
 			{
-				$this->ajaxReturn(L('article_no_exist_error'), -2);
-			}
-
-			// 开启事务
-			$s->startTrans();
-
-			// 删除文章
-			$t_state = $s->where(array('id'=>$id, 'id_card'=>$id_card))->delete();
-
-			// 删除课程
-			$c_state = M('Course')->where(array('article_id'=>$id))->delete();
-			if($t_state !== false && $c_state !== false)
-			{
-				// 提交事务
-				$s->commit();
-
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {
-				// 回滚事务
-				$s->rollback();
 				$this->ajaxReturn(L('common_operation_delete_error'), -100);
 			}
 		} else {
 			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+	}
+
+	/**
+	 * [StateUpdate 状态更新]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-12T22:23:06+0800
+	 */
+	public function StateUpdate()
+	{
+		// 参数
+		if(empty($_POST['id']) || !isset($_POST['state']))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 数据更新
+		if(M('Article')->where(array('id'=>I('id')))->save(array('is_enable'=>I('state'))))
+		{
+			$this->ajaxReturn(L('common_operation_edit_success'));
+		} else {
+			$this->ajaxReturn(L('common_operation_edit_error'), -100);
 		}
 	}
 }

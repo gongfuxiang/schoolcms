@@ -24,8 +24,8 @@ return array(
 	'common_mobile_name'				=>	'手机号码',
 	'common_mobile_format_error'		=>	'手机号码格式错误',
 	'common_id_card_name'				=>	'身份证',
-	'common_id_url_name'				=>	'url地址',
-	'common_id_ip_name'					=>	'ip地址',
+	'common_url_name'					=>	'url地址',
+	'common_ip_name'					=>	'ip地址',
 	'common_admin_name'					=>	'管理员',
 	'common_not_login_name'				=>	'未登录',
 	'common_not_data_tips'				=>	'没有数据',
@@ -88,6 +88,7 @@ return array(
 	'common_student_state_tips'			=>	'学生状态值范围不正确',
 	'common_tuition_state_tips'			=>	'缴费状态值范围不正确',
 	'common_data_is_exist_error'		=>	'数据已存在',
+	'common_color_format'				=>	'颜色值格式有误',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -253,6 +254,9 @@ return array(
 	'common_regex_page_number'			=>	'^[1-9]{1}[0-9]{0,2}$',
 
 	// 时段格式 10:00-10:45
-	'common_regex_interval'			=>	'^\d{2}\:\d{2}\-\d{2}\:\d{2}$',
+	'common_regex_interval'				=>	'^\d{2}\:\d{2}\-\d{2}\:\d{2}$',
+
+	// 颜色
+	'common_regex_color'				=>	'^(#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))?$',
 );
 ?>

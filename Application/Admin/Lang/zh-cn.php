@@ -60,5 +60,14 @@ return array(
 			'state_text'	=>	'状态',
 			'add_time'		=>	'添加时间',
 		),
+
+	// 文章excel导出标题列表
+	'excel_article_title_list'		=>	array(
+			'title'						=>	'标题',
+			'article_class_name'		=>	'文章分类',
+			'is_enable_text'			=>	'是否启用',
+			'content'					=>	'内容',
+			'add_time'					=>	'添加时间',
+		),
 );
 ?>

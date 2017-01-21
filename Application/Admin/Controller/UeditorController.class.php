@@ -94,6 +94,7 @@ class UeditorController extends CommonController
 		} else {
 			echo $this->current_result;
 		}
+		exit();
 	}
 
 	/**

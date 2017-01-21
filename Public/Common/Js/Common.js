@@ -67,7 +67,7 @@ function GetFormVal(element)
 	var object = {};
 
 	// input 常用类型
-	$(element).find('input[type="hidden"], input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="radio"]:checked, textarea').each(function(key, tmp)
+	$(element).find('input[type="hidden"], input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="url"], input[type="radio"]:checked, textarea').each(function(key, tmp)
 	{
 		object[tmp.name] = tmp.value;
 	});

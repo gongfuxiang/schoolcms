@@ -19,7 +19,15 @@
 			</legend>
 			<div class="am-form-group">
 				<label>{{:L('article_title_text')}}</label>
-				<input type="text" name="title" placeholder="{{:L('article_title_text')}}" minlength="3" maxlength="30" data-validation-message="{{:L('article_title_format')}}" class="am-radius" <notempty name="data"> value="{{$data.title}}"</notempty> required />
+				<div class="am-input-group am-input-group-sm">
+					<input type="hidden" name="title_color" value="" />
+					<input type="text" name="title" placeholder="{{:L('article_title_text')}}" minlength="3" maxlength="30" data-validation-message="{{:L('article_title_format')}}" class="am-form-field am-radius" <notempty name="data"> value="{{$data.title}}" </notempty> <if condition="!empty($data['title_color'])"> style="color:{{$data.title_color}};" </if> required />
+					<span class="am-input-group-btn">
+						<button class="am-btn am-btn-default colorpicker-submit" type="button">
+							<img src="__PUBLIC__/Common/Images/colorpicker.png" />
+						</button>
+					</span>
+				</div>
 			</div>
 			<div class="am-form-group">
 				<label>{{:L('article_class_text')}}</label>
@@ -37,7 +45,7 @@
 			<include file="Lib/Enable" />
 			<div class="am-form-group">
 				<label>{{:L('article_content_text')}}</label>
-				<textarea class="am-radius am-validate" name="content" rows="5" minlength="50" <if condition="!IsMobile()">id="editor-tag" data-url="{{:U('Admin/Ueditor/Index')}}" placeholder="{{:L('article_content_format')}}" <else /> placeholder="{{:L('article_content_format_mobile')}}" </if> data-validation-message="{{:L('article_content_format')}}" required></textarea>
+				<textarea class="am-radius am-validate" name="content" rows="5" minlength="50" maxlength="105000" <if condition="!IsMobile()">id="editor-tag" data-url="{{:U('Admin/Ueditor/Index')}}" placeholder="{{:L('article_content_format')}}" <else /> placeholder="{{:L('article_content_format_mobile')}}" </if> data-validation-message="{{:L('article_content_format')}}" required><notempty name="data">{{$data.content}}</notempty></textarea>
 			</div>
 			<div class="am-form-group">
 				<input type="hidden" name="id" <notempty name="data"> value="{{$data.id}}"</notempty>" />

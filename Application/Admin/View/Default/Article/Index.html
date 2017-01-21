@@ -8,7 +8,7 @@
 		<!-- form start -->
 		<form class="am-form view-list" action="{{:U('Admin/Article/Index')}}" method="POST">
 			<div class="am-g">
-				<input type="text" class="am-radius form-keyword" placeholder="{{:L('teacher_so_keyword_tips')}}" name="keyword" <present name="param['keyword']"> value="{{$param.keyword}}"</present> />
+				<input type="text" class="am-radius form-keyword" placeholder="{{:L('article_so_keyword_tips')}}" name="keyword" <present name="param['keyword']"> value="{{$param.keyword}}"</present> />
 				<button type="submit" class="am-btn am-btn-secondary am-btn-sm am-radius form-submit">{{:L('common_operation_query')}}</button>
 				<label class="fs-12 m-l-5 c-p fw-100 more-submit">
 					{{:L('common_more_screening')}}
@@ -17,22 +17,22 @@
 				</label>
 
 				<div class="more-where <if condition="!isset($param['is_more']) or $param['is_more'] neq 1">none</if>">
-					<select name="state" class="am-radius c-p m-t-10 m-l-5 param-where">
-						<option value="-1">{{:L('common_view_teacher_state_name')}}</option>
-						<foreach name="common_teacher_state_list" item="v">
-							<option value="{{$v.id}}" <if condition="isset($param['state']) and $param['state'] eq $v['id']">selected</if>>{{$v.name}}</option>
+					<select  class="am-radius c-p m-t-10 param-where" name="article_class_id">
+						<option value="-1">{{:L('article_class_text')}}</option>
+						<foreach name="article_class_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($param['article_class_id']) and $param['article_class_id'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
-					<select name="gender" class="am-radius c-p m-t-10 m-l-5 param-where">
-						<option value="-1">{{:L('common_view_gender_name')}}</option>
-						<foreach name="common_gender_list" item="v">
-							<option value="{{$v.id}}" <if condition="isset($param['gender']) and $param['gender'] eq $v['id']">selected</if>>{{$v.name}}</option>
+					<select name="is_enable" class="am-radius c-p m-t-10 m-l-5 param-where">
+						<option value="-1">{{:L('common_view_enable_title')}}</option>
+						<foreach name="common_is_enable_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($param['is_enable']) and $param['is_enable'] eq $v['id']">selected</if>>{{$v.name}}</option>
 						</foreach>
 					</select>
 					<div class="param-date param-where m-l-5">
-						<input type="text" name="time_start" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('teacher_time_start_text')}}" id="time_start" <if condition="isset($param['time_start'])">value="{{$param.time_start}}"</if>/>
+						<input type="text" name="time_start" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('article_time_start_text')}}" id="time_start" <if condition="isset($param['time_start'])">value="{{$param.time_start}}"</if>/>
 						<span>~</span>
-						<input type="text" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('teacher_time_end_text')}}" name="time_end" id="time_end" <if condition="isset($param['time_end'])">value="{{$param.time_end}}"</if>/>
+						<input type="text" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('article_time_end_text')}}" name="time_end" id="time_end" <if condition="isset($param['time_end'])">value="{{$param.time_end}}"</if>/>
 					</div>
 				</div>
 			</div>
@@ -52,11 +52,10 @@
 		<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10">
 			<thead>
 				<tr>
-					<th>{{:L('teacher_username_name')}}</th>
-					<th class="am-hide-sm-only">{{:L('common_view_id_card_text')}}</th>
-					<th class="am-hide-sm-only">{{:L('common_view_gender_name')}}</th>
-					<th class="am-hide-sm-only">{{:L('common_view_tel_name')}}</th>
-					<th class="am-hide-sm-only">{{:L('common_view_teacher_state_name')}}</th>
+					<th>{{:L('article_title_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('article_class_text')}}</th>
+					<th>{{:L('common_view_state_title')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_create_time_name')}}</th>
 					<th>{{:L('common_more_name')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
 				</tr>
@@ -64,12 +63,15 @@
 			<tbody>
 				<if condition="!empty($list)">
 					<foreach name="list" item="v">
-						<tr id="data-list-{{$v.id}}-{{$v.id_card}}">
-							<td>{{$v.username}}</td>
-							<td class="am-hide-sm-only">{{$v.id_card}}</td>
-							<td class="am-hide-sm-only">{{$v.gender}}</td>
-							<td class="am-hide-sm-only">{{$v.tel}}</td>
-							<td class="am-hide-sm-only">{{$v.state}}</td>
+						<tr id="data-list-{{$v.id}}" <if condition="$v['is_enable'] eq 0">class="am-active"</if>>
+							<td  class="td-title">
+								<a href="<if condition="empty($v['jump_url'])">{{:U('Home/Article/Index', array('id'=>$v['id']))}}<else />{{$v.jump_url}}</if>" target="_blank" title="{{$v.title}}" <if condition="!empty($v['title_color'])"> style="color:{{$v.title_color}};" </if> >{{$v.title}}</a>
+							</td>
+							<td class="am-hide-sm-only">{{$v.article_class_name}}</td>
+							<td>
+								<a href="javascript:;" class="am-icon-btn am-icon-check submit-state <if condition="$v['is_enable'] eq 1">am-success<else />am-default</if>" data-url="{{:U('Admin/Article/StateUpdate')}}" data-id="{{$v.id}}" data-state="{{$v['is_enable']}}"></a>
+							</td>
+							<td class="am-hide-sm-only">{{$v.add_time}}</td>
 							<td>
 								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
 								<div class="am-popup am-radius" id="my-popup{{$v.id}}">
@@ -81,29 +83,14 @@
 										</div>
 										<div class="am-popup-bd">
 											<dl class="dl-content">
-												<dt>{{:L('teacher_username_name')}}</dt>
-												<dd>{{$v.username}}</dd>
+												<dt>{{:L('article_title_text')}}</dt>
+												<dd>{{$v.title}}</dd>
 
-												<dt>{{:L('common_view_id_card_text')}}</dt>
-												<dd>{{$v.id_card}}</dd>
+												<dt>{{:L('article_class_text')}}</dt>
+												<dd>{{$v.article_class_name}}</dd>
 
-												<dt>{{:L('common_view_gender_name')}}</dt>
-												<dd>{{$v.gender}}</dd>
-
-												<dt>{{:L('common_view_teacher_state_name')}}</dt>
-												<dd>{{$v.state}}</dd>
-
-												<dt>{{:L('common_address_text')}}</dt>
-												<dd>{{$v.address}}</dd>
-
-												<dt>{{:L('common_view_tel_name')}}</dt>
-												<dd>{{$v.tel}}</dd>
-
-												<dt>{{:L('teacher_birthday_text')}}</dt>
-												<dd>{{$v.birthday}}</dd>
-
-												<dt>{{:L('teacher_subject_text')}}</dt>
-												<dd>{{$v.subject_list}}</dd>
+												<dt>{{:L('common_view_enable_title')}}</dt>
+												<dd>{{$v.is_enable_text}}</dd>
 
 												<dt>{{:L('common_create_time_name')}}</dt>
 												<dd>{{$v.add_time}}</dd>
@@ -113,13 +100,10 @@
 								</div>
 							</td>
 							<td class="view-operation">
-								<a href="{{:U('Admin/Course/SaveInfo', array('teacher_id'=>$v['id']))}}">
-									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-list-alt" data-am-popover="{content: '{{:L('teacher_operation_course')}}', trigger: 'hover focus'}"></button>
-								</a>
 								<a href="{{:U('Admin/Article/SaveInfo', array('id'=>$v['id']))}}">
 									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
 								</a>
-								<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Article/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}-{{$v.id_card}}"></button>
+								<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/Article/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
 							</td>
 						</tr>
 					</foreach>
@@ -141,4 +125,4 @@
 		
 <!-- footer start -->
 <include file="Public/Footer" />
-<!-- footer end
+<!-- footer end -->

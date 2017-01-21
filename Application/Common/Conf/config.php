@@ -8,6 +8,9 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
+	// 显示页面Trace信息
+	'SHOW_PAGE_TRACE'		=>	true, 
+
 	// 允许访问的模块列表
 	'MODULE_ALLOW_LIST'		=>	array('Home', 'Admin'),
 
