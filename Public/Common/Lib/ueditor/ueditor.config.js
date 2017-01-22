@@ -361,8 +361,8 @@
 
 		// xss 过滤是否开启,inserthtml等操作
 		,xssFilterRules: true
-		//input xss过滤
-		,inputXssFilter: true
+		//input xss过滤（这里false是防止编辑内容时视频src地址被清除）
+		,inputXssFilter: false
 		//output xss过滤
 		,outputXssFilter: true
 		// xss过滤白名单 名单来源: https://raw.githubusercontent.com/leizongmin/js-xss/master/lib/default.js
@@ -429,7 +429,8 @@
 			tt:     [],
 			u:      [],
 			ul:     ['class', 'style'],
-			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style']
+			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style'],
+            embed:  ['type', 'src', 'alt', 'title', 'width', 'height', 'id', 'loadingclass', 'class', 'data-latex', 'pluginspage', 'wmode', 'play', 'loop', 'menu', 'allowscriptaccess', 'allowfullscreen']
 		}
     };
 

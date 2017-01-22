@@ -12,21 +12,21 @@
 // 公共应用入口文件
 
 // HTTP类型
-define('__HTTP__', empty($_SERVER['HTTPS']) ? 'http' : 'https');
+define('__MY_HTTP__', empty($_SERVER['HTTPS']) ? 'http' : 'https');
 
 // 根目录
-$temp_root = empty($_SERVER['SCRIPT_NAME']) ? '' : substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/')+1);
+define('__MY_ROOT__', empty($_SERVER['SCRIPT_NAME']) ? '' : substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/')+1));
 
 // 当前项目HOST
-define('__HOST__', empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST']);
+define('__MY_HOST__', empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST']);
 
 // 完整URL地址
-define('__URL__',  empty($_SERVER['HTTP_HOST']) ? '' : __HTTP__.'://'.__HOST__.$temp_root);
+define('__MY_URL__',  empty($_SERVER['HTTP_HOST']) ? '' : __MY_HTTP__.'://'.__MY_HOST__.__MY_ROOT__);
 
 // 检测是否是新安装
 if(is_dir("./Install") && !file_exists("./Install/install.lock"))
 {
-	$url = __URL__.'Install/index.php';
+	$url = __MY_URL__.'Install/index.php';
     exit(header('location:http://'.$url));
 }
 

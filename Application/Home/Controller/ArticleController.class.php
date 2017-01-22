@@ -37,8 +37,8 @@ class ArticleController extends Controller
 		$data = M('Article')->find(I('id'));
 		if(!empty($data['content']))
 		{
-			// url处理
-			$data['content'] = str_replace('/Public/Upload', __URL__.'Public/Upload', $data['content']);
+			// 静态资源地址处理
+			$data['content'] = ContentStaticReplace($data['content'], 'get');
 		}
 			
 		$this->assign('data', $data);

@@ -193,8 +193,8 @@ class ArticleController extends CommonController
 			$data = M('Article')->find(I('id'));
 			if(!empty($data['content']))
 			{
-				// url处理
-				//$data['content'] = str_replace('/Public/Upload', __URL__.'Public/Upload', $data['content']);
+				// 静态资源地址处理
+				$data['content'] = ContentStaticReplace($data['content'], 'get');
 			}
 		}
 		$this->assign('data', $data);
@@ -252,6 +252,9 @@ class ArticleController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			
+			// 静态资源地址处理
+			$m->content = ContentStaticReplace($m->content, 'add');
+			
 			// 数据添加
 			if($m->add())
 			{
@@ -279,8 +282,8 @@ class ArticleController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
-			// url处理
-			$m->content = str_replace(__URL__.'Public/Upload', '/Public/Upload', $m->content);
+			// 静态资源地址处理
+			$m->content = ContentStaticReplace($m->content, 'add');
 
 			// 数据更新
 			if($m->where(array('id'=>I('id')))->save())

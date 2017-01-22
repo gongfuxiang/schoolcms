@@ -9,6 +9,32 @@
  */
 
 /**
+ * [ContentStaticReplace 编辑器中内容的静态资源替换]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-01-22T16:07:58+0800
+ * @param    [string]    $content [在这个字符串中查找进行替换]
+ * @param    [string]    $type    [操作类型[get读取额你让, add写入内容](编辑/展示传入get,数据写入数据库传入add)]
+ * @return   [string]             [正确返回替换后的内容, 则返回原内容]
+ */
+function ContentStaticReplace($content, $type = 'get')
+{
+    switch($type)
+    {
+        // 读取内容
+        case 'get':
+            return str_replace('/Public/', __MY_URL__.'Public/', $content);
+            break;
+
+        // 内容写入
+        case 'add':
+            return str_replace(array(__MY_URL__.'Public/', __MY_ROOT__.'Public/'), '/Public/', $content);
+    }
+    return $content;
+}
+
+/**
  * [DelDirFile 删除指定目录下的所有文件]
  * @author   Devil
  * @blog     http://gong.gg/
