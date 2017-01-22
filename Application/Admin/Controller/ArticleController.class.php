@@ -253,7 +253,12 @@ class ArticleController extends CommonController
 			$m->add_time	=	time();
 			
 			// 静态资源地址处理
-			$m->content = ContentStaticReplace($m->content, 'add');
+			$m->content 	=	ContentStaticReplace($m->content, 'add');
+
+			// 正则匹配文章图片
+			$temp_image		=	$this->MatchContentImage($m->content);
+			$m->image 		=	serialize($temp_image);
+			$m->image_count	=	count($temp_image);
 			
 			// 数据添加
 			if($m->add())
@@ -283,7 +288,12 @@ class ArticleController extends CommonController
 		if($m->create($_POST, 2))
 		{
 			// 静态资源地址处理
-			$m->content = ContentStaticReplace($m->content, 'add');
+			$m->content 	=	ContentStaticReplace($m->content, 'add');
+
+			// 正则匹配文章图片
+			$temp_image		=	$this->MatchContentImage($m->content);
+			$m->image 		=	serialize($temp_image);
+			$m->image_count	=	count($temp_image);
 
 			// 数据更新
 			if($m->where(array('id'=>I('id')))->save())
@@ -295,6 +305,26 @@ class ArticleController extends CommonController
 		} else {
 			$this->ajaxReturn($m->getError(), -1);
 		}
+	}
+
+	/**
+	 * [MatchContentImage 正则匹配文章图片]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-22T18:06:53+0800
+	 * @param    [string]         $content [文章内容]
+	 * @return   [array]    			   [文章图片数组（一维）]
+	 */
+	private function MatchContentImage($content)
+	{
+		if(!empty($content))
+		{
+			$pattern = '/<img.*?src=[\'|\"](\/Public\/Upload\/Article\/image\/.*?[\.gif|\.jpg|\.jpeg|\.png|\.bmp])[\'|\"].*?[\/]?>/';
+			preg_match_all($pattern, $content, $match);
+			return empty($match[1]) ? array() : $match[1];
+		}
+		return array();
 	}
 
 	/**
