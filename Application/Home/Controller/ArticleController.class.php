@@ -34,11 +34,13 @@ class ArticleController extends Controller
      */
 	public function Index()
 	{
-		$data = M('Article')->find(I('id'));
+		$data = M('Article')->where(array('id'=>I('id'), 'is_enable'=>1))->find();
 		if(!empty($data['content']))
 		{
 			// 静态资源地址处理
 			$data['content'] = ContentStaticReplace($data['content'], 'get');
+		} else {
+			exit('文章不存在或已删除');
 		}
 			
 		$this->assign('data', $data);
