@@ -1284,6 +1284,7 @@ ul {
     position: static;
     background: none;
     width: 180px;
+    z-index: 1;
   }
 
   .admin-offcanvas-bar {

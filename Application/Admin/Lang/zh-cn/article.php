@@ -18,7 +18,7 @@ return array(
 	'article_title_format'				=>	'标题长度 3~30 个字符',
 	'article_jump_url_format'			=>	'跳转url地址格式有误',
 	'article_content_format'			=>	'内容长度最少 50~105000 个字符',
-	'article_content_format_mobile'		=>	'内容长度最少 50~105000 个字符，更多编辑功能请使用电脑访问',
+	'article_content_format_mobile'		=>	'更多编辑功能请使用电脑访问',
 	'article_class_format'				=>	'请选择文章分类',
 	'article_article_class_id_error'	=>	'文章分类id不存在',
 	'article_time_start_text'			=>	'出生开始',

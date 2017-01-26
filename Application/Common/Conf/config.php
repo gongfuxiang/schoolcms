@@ -9,7 +9,7 @@
  */
 return array(
 	// 显示页面Trace信息
-	'SHOW_PAGE_TRACE'		=>	true, 
+	'SHOW_PAGE_TRACE'		=>	false, 
 
 	// 允许访问的模块列表
 	'MODULE_ALLOW_LIST'		=>	array('Home', 'Admin'),
