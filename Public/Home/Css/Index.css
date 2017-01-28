@@ -1,0 +1,24 @@
+.am-list-news-default { margin: 0px; }
+.am-list-news-default .am-list-news-hd { padding-top: 0rem; }
+.am-list-news-default .am-list .am-list-item-desced > a { height: 30px; word-wrap: normal; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.am-gallery-default .b-b-solid { padding-bottom: 0.5rem; }
+.home-hot-list { overflow: hidden; }
+/**
+ * PC
+ */
+@media only screen and (min-width: 641px) {
+	.home-hot-list { height: 435px; }
+	.home-banner { width: 65%; float: left; }
+	.home-hot-list { width: 34%; float: right;  }
+	.home-banner, .home-banner li { height: 435px; overflow: hidden; }
+	.home-banner li img { height: 100%; }
+	.am-gallery-default .b-b-solid img { height: 162px !important; }
+}
+
+/**
+ * 手机
+ */
+@media only screen and (max-width: 641px) {
+	.home-hot-list { height: 400px; margin-top: 2rem; }
+	.am-gallery-default .b-b-solid { margin-bottom: 1.5rem; }
+}

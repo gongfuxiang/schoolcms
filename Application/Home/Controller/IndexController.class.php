@@ -1,7 +1,6 @@
 <?php
 
 namespace Home\Controller;
-use Think\Controller;
 
 /**
  * 首页
@@ -10,7 +9,7 @@ use Think\Controller;
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
-class IndexController extends Controller
+class IndexController extends CommonController
 {
 	public function Index()
 	{

@@ -15,7 +15,7 @@ return array(
 	'MODULE_ALLOW_LIST'		=>	array('Home', 'Admin'),
 
 	// 默认模块,暂时默认后端
-	'DEFAULT_MODULE'     	=>	'Admin',
+	'DEFAULT_MODULE'     	=>	'Home',
 
 	// 默认控制器名称
 	'DEFAULT_CONTROLLER'	=>	'Index',
@@ -92,4 +92,11 @@ return array(
 	// 子目录缓存级别
 	'DATA_PATH_LEVEL'		=>	1,
 	// ------ 缓存 end ------ //
+	
+
+	//公共系统配置信息key
+	'common_my_config_key'	=>	'common_my_config_data',
+
+	// 前台菜单列表，后端菜单更新则删除缓存
+	'common_home_menu_key'	=>	'common_home_menu_data',
 );

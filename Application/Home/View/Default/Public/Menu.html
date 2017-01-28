@@ -1,0 +1,58 @@
+<header class="am-topbar am-topbar-inverse">
+	<!-- logo start -->
+	<h1 class="am-topbar-brand">
+		<a href="{{:U('Home/Index/Index')}}">SchoolCMS</a>
+	</h1>
+	<!-- logo end -->
+
+	<!-- mobile menu button start -->
+	<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">{{:L('nav_switch_text')}}</span> <span class="am-icon-bars"></span></button>
+	<!-- mobile menu button end -->
+
+	<div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+		<!-- menu start -->
+		<ul class="am-nav am-nav-pills am-topbar-nav">
+			<li class="am-active"><a href="#">{{:L('common_home_text')}}</a></li>
+			<li><a href="#">项目</a></li>
+			<li class="am-dropdown" data-am-dropdown>
+				<a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+				下拉 <span class="am-icon-caret-down"></span>
+				</a>
+				<ul class="am-dropdown-content">
+					<li><a href="#">1. 去月球</a></li>
+					<li class="am-active"><a href="#">2. 去火星</a></li>
+					<li><a href="#">3. 还是回地球</a></li>
+					<li><a href="#">5. 桥头一回首</a></li>
+				</ul>
+			</li>
+		</ul>
+		<!-- menu end -->
+
+		<!-- search start -->
+		<!-- <form class="am-topbar-form am-topbar-left am-form-inline" role="search" method="get" action="">
+			<div class="am-input-group am-input-group-sm ml-search">
+				<input type="text" name="keyword" value="" class="am-form-field am-radius" placeholder="{{:L('common_so_tips')}}" id="map_suggestId">
+				<span class="am-input-group-btn">
+					<button class="am-btn am-btn-default am-radius" type="submit"><span class="am-icon-search"></span> {{:L('common_so_text')}}</button>
+				</span>
+			</div>
+		</form> -->
+		<!-- search end -->
+
+		<!-- user start -->
+		<!-- <div class="am-topbar-right">
+			<button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-radius"><span class="am-icon-user"></span> {{:L('common_login_text')}}</button>
+			<button class="am-btn am-btn-success am-topbar-btn am-btn-sm am-radius"><span class="am-icon-pencil"></span> {{:L('common_reg_text')}}</button>
+			<div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+				<button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle am-radius" data-am-dropdown-toggle>{{:L('common_user_home_text')}} <span class="am-icon-caret-down"></span></button>
+				<ul class="am-dropdown-content user-header-menu am-radius">
+					<li><a href="#">我的学习</a></li>
+					<li><a href="#">我的成绩</a></li>
+					<li class="am-active"><a href="#">333333</a></li>
+					<li><a href="#">666</a></li>
+				</ul>
+			</div>
+		</div> -->
+		<!-- user end -->
+	</div>
+</header>

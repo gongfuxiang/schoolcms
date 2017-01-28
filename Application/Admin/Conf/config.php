@@ -13,13 +13,10 @@ return array(
 	'URL_MODEL'          		=>	'0',
 
 	// 权限缓存存储key
-	'common_power_key'			=>	'common_power_',
+	'admin_power_key'			=>	'admin_power_',
 
 	// 菜单列表
-	'common_left_menu_key'		=>	'common_left_menu_data',
-	
-	// 系统配置信息key
-	'common_my_config_key'		=>	'common_my_config_data',
+	'admin_left_menu_key'		=>	'admin_left_menu_data',
 
 	// 百度编辑器配置信息 ueditor
 	'ueditor_config'			=>	array(

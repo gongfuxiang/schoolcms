@@ -106,6 +106,12 @@ return array(
 	'nav_fulltext_open'					=>	'开启全屏',
 	'nav_fulltext_exit'					=>	'退出全屏',
 	'nav_switch_text'					=>	'导航切换',
+	'common_home_text'					=>	'首页',
+	'common_so_text'					=>	'搜索',
+	'common_login_text'					=>	'登录',
+	'common_reg_text'					=>	'注册',
+	'common_user_home_text'				=>	'用户中心',
+	'common_so_tips'					=>	'其实搜索很简单 ^_^!',
 
 	// 性别
 	'common_gender_list'				=>	array(

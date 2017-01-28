@@ -1,0 +1,59 @@
+/**
+ * 公共
+ */
+.p-0 { padding: 0px !important; }
+.p-20 { padding: 20px !important; }
+.p-30 { padding: 30px !important; }
+.p-l-0 { padding-left: 0px !important; }
+.p-r-0 { padding-right: 0px !important; }
+.p-t-0 { padding-top: 0px !important; }
+.p-b-0 { padding-bottom: 0px !important; }
+.p-t-10 { padding-top: 10px !important; }
+.p-b-10 { padding-bottom: 10px !important; }
+.p-l-r-10 { padding-left: 10px; padding-right: 10px; }
+.m-0 { margin: 0px !important; }
+.m-r-5 { margin-right: 5px !important; }
+.m-r-10 { margin-right: 10px !important; }
+.m-r-15 { margin-right: 15px !important; }
+.m-r-20 { margin-right: 15px !important; }
+.m-l-5 { margin-left: 5px !important; }
+.m-l-10 { margin-left: 10px !important; }
+.m-l-15 { margin-left: 15px !important; }
+.m-l-20 { margin-left: 20px !important; }
+.m-t-5 { margin-top: 5px !important; }
+.m-t-0 { margin-top: 0px !important; }
+.m-t-10 { margin-top: 10px !important; }
+.m-t-15 { margin-top: 15px !important; }
+.m-t-20 { margin-top: 20px !important; }
+.m-t-30 { margin-top: 30px !important; }
+.m-t-40 { margin-top: 40px !important; }
+.m-b-0 { margin-bottom: 0px !important; }
+.m-b-5 { margin-bottom: 5px !important; }
+.m-b-10 { margin-bottom: 10px !important; }
+.m-b-15 { margin-bottom: 15px !important; }
+.m-b-20 { margin-bottom: 20px !important; }
+.m-b-25 { margin-bottom: 25px !important; }
+.m-b-30 { margin-bottom: 30px !important; }
+.b-b-solid { border-bottom: 1px solid #dedede; }
+
+/**
+ * 导航
+ */
+header .am-topbar-right .am-topbar-btn { margin-top: 0.8rem; }
+header .am-dropdown-content { border-radius: 2px; }
+header.am-topbar { margin-bottom: 1rem; }
+.my-content {  padding: 0rem 1rem; }
+
+/**
+ * PC
+ */
+@media only screen and (min-width: 641px) {
+	.user-header-menu { margin-top: 1.4rem; }
+}
+
+/**
+ * 手机
+ */
+@media only screen and (max-width: 641px) {
+	header .am-dropdown { width: 100%; }
+}

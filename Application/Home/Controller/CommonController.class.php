@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller;
+namespace Home\Controller;
 use Think\Controller;
 
 /**
@@ -15,11 +15,8 @@ class CommonController extends Controller
 	// 用户
 	protected $user;
 
-	// 权限
-	protected $power;
-
-	// 左边权限菜单
-	protected $left_menu;
+	// 菜单
+	protected $menu_list;
 
 	/**
 	 * [__construt 构造方法]
@@ -33,8 +30,8 @@ class CommonController extends Controller
 	 */
 	protected function _initialize()
 	{
-		// 权限
-		$this->PowerInit();
+		// 菜单
+		//$this->MenuInit();
 
 		// 视图初始化
 		$this->ViewInit();
@@ -89,12 +86,12 @@ class CommonController extends Controller
 	 */
 	protected function Is_Login()
 	{
-		if(empty($_SESSION['admin']))
+		if(empty($_SESSION['user']))
 		{
-			$this->error(L('common_login_invalid'), U('Admin/Admin/LoginInfo'));
+			$this->error(L('common_login_invalid'), U('Home/User/LoginInfo'));
 		} else {
 			// 用户
-			$this->admin = I('session.admin');
+			$this->user = I('session.user');
 		}
 	}
 
@@ -114,31 +111,26 @@ class CommonController extends Controller
 		$this->assign('module_js', file_exists(ROOT_PATH.'Public'.DS.$module_js) ? $module_js : '');
 
 		// 权限菜单
-		$this->assign('left_menu', $this->left_menu);
+		$this->assign('menu_list', $this->menu_list);
 
 		// 用户
-		$this->assign('admin', $this->admin);
+		$this->assign('user', $this->user);
 	}
 
 	/**
-	 * [PowerInit 权限初始化]
+	 * [MenuInit 菜单初始化]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-19T22:41:20+0800
 	 */
-	private function PowerInit()
+	private function MenuInit()
 	{
-		// 基础参数
-		$admin_id = isset($_SESSION['admin']['id']) ? intval($_SESSION['admin']['id']) : 0;
-		$role_id = isset($_SESSION['admin']['role_id']) ? intval($_SESSION['admin']['role_id']) : 0;
-
 		// 读取缓存数据
-		$this->left_menu = S(C('admin_left_menu_key'));
-		$this->power = S(C('admin_power_key').$admin_id);
+		$this->menu_list = S(C('common_home_menu_key'));
 
 		// 缓存没数据则从数据库重新读取
-		if(($role_id > 0 || $admin_id == 1) && empty($this->left_menu))
+		if(empty($this->menu_list))
 		{
 			// 获取一级数据
 			$p = M('Power');
@@ -193,8 +185,8 @@ class CommonController extends Controller
 					}
 				}
 			}
-			S(C('admin_left_menu_key'), $this->left_menu);
-			S(C('admin_power_key').$admin_id, $this->power);
+			S(C('common_left_menu_key'), $this->left_menu);
+			S(C('common_power_key').$admin_id, $this->power);
 		}
 	}
 
