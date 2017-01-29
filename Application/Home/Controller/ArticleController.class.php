@@ -1,7 +1,6 @@
 <?php
 
 namespace Home\Controller;
-use Think\Controller;
 
 /**
  * 文章
@@ -10,7 +9,7 @@ use Think\Controller;
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
-class ArticleController extends Controller
+class ArticleController extends CommonController
 {
 	/**
 	 * [_initialize 前置操作-继承公共前置方法]
