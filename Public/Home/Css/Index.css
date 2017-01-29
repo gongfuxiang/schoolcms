@@ -13,12 +13,14 @@
 	.home-banner, .home-banner li { height: 435px; overflow: hidden; }
 	.home-banner li img { height: 100%; }
 	.am-gallery-default .b-b-solid img { height: 162px !important; }
+	.home-image-list { margin: 1rem 0 0.5rem 0; }
 }
 
 /**
  * 手机
  */
 @media only screen and (max-width: 641px) {
-	.home-hot-list { height: 400px; margin-top: 2rem; }
+	.home-hot-list { margin-top: 2rem; }
 	.am-gallery-default .b-b-solid { margin-bottom: 1.5rem; }
+	.home-image-list { margin-bottom: 1rem; }
 }
