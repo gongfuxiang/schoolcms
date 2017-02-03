@@ -1,18 +1,19 @@
 <!-- header start -->
 <include file="Public/Header" />
 <!-- header end -->
+
 <!-- menu start -->
 <include file="Public/Menu" />
 <!-- menu end -->
+
 <!-- content start -->
 <div class="am-g">
-    <!-- content start -->
-    <div class="am-u-md-8 article-right">
+    <!-- left start -->
+    <div class="am-u-md-8">
         <article class="article-main">
-            <h3 class="am-article-title article-title">{{$data.title}}</h3>
             <div class="article-content">
-                <!-- slider start -->
-                <div data-am-widget="slider" class="am-slider am-slider-c1" data-am-slider='{&quot;directionNav&quot;:false}'>
+                <!-- slider left start -->
+                <div data-am-widget="slider" class="am-slider am-slider-c1 channel-banner" data-am-slider='{&quot;directionNav&quot;:false}'>
                     <ul class="am-slides">
                         <li>
                             <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg">
@@ -32,9 +33,9 @@
                         </li>
                     </ul>
                 </div>
-                <!-- slider end -->
+                <!-- slider left end -->
                 <!-- list start -->
-                <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                <div data-am-widget="list_news" class="am-list-news am-list-news-default channel-list">
                     <div class="am-list-news-bd">
                         <ul class="am-list">
                             <li class="am-g am-list-item-desced">
@@ -80,16 +81,16 @@
                     </div>
                     <!--更多在底部-->
                     <div class="am-list-news-ft">
-                        <a class="am-list-news-more am-btn am-btn-default " href="###">查看更多 &raquo;</a>
+                        <a class="am-list-news-more am-btn am-btn-default am-radius" href="javascript:;">查看更多 &raquo;</a>
                     </div>
                 </div>
                 <!-- list end -->
             </div>
         </article>
     </div>
-    <!-- content end -->
-    <!-- left start -->
-    <div class="am-u-md-4 article-left">
+    <!-- left end -->
+    <!-- right start -->
+    <div class="am-u-md-4">
         <!-- article hot start -->
         <div class="am-list-news am-list-news-default article-hot-list">
             <div class="am-list-news-hd am-cf">
@@ -129,7 +130,7 @@
         </div>
         <!-- article hot end -->
         <!-- image list start  -->
-        <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-1 am-avg-lg-2 am-gallery-overlay small-banner left-image-list" data-am-gallery="{}">
+        <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-1 am-avg-lg-2 am-gallery-overlay small-banner right-image-list" data-am-gallery="{}">
             <div class="am-list-news-hd am-cf">
                 <h2>热点新闻</h2>
                 <a href="#">
@@ -226,11 +227,10 @@
         </div>
         <!-- image desc end -->
     </div>
+    <!-- right end -->
 </div>
-<div class="amz-toolbar list-top" id="amz-toolbar" style="right: 165px;">
-    <a href="#top" title="回到顶部" class="am-icon-btn am-icon-arrow-up am-active" id="amz-go-top"></a>
-</div>
-<!-- <button data-am-smooth-scroll class="am-btn am-btn-success">滚动到顶部</button> -->
+<!-- content end -->
+
 <!-- footer start -->
 <include file="Public/Footer" />
 <!-- footer end

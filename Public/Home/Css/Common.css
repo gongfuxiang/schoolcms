@@ -43,6 +43,12 @@ header .am-topbar-right .am-topbar-btn { margin-top: 0.8rem; }
 header .am-dropdown-content { border-radius: 2px; }
 header.am-topbar { margin-bottom: 1rem; }
 .my-content {  padding: 0rem 1rem; }
+.my-radius { border-radius: 2px !important; }
+
+/**
+ * 回顶部
+ */
+#my-go-top { position: fixed; right: 50px; bottom: 100px; }
 
 /**
  * PC

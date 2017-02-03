@@ -8,8 +8,8 @@
 
 <!-- content start -->
 <div class="am-g">
-	<!-- content start -->
-	<div class="am-u-md-8 article-right">
+	<!-- left start -->
+	<div class="am-u-md-8 article-left">
 		<article class="article-main">
 			<h3 class="am-article-title article-title">{{$data.title}}</h3>
 			<h4 class="am-article-meta article-meta">
@@ -22,14 +22,14 @@
 		</article>
 		<hr />
 		<ul class="am-pagination article-pagination">
-			<li class="am-pagination-prev"><a href="">&laquo; 上一篇</a></li>
-			<li class="am-pagination-next"><a href="">下一篇 &raquo;</a></li>
+			<li class="am-pagination-prev"><a href="" class="my-radius">&laquo; 上一篇</a></li>
+			<li class="am-pagination-next"><a href="" class="my-radius">下一篇 &raquo;</a></li>
 		</ul>
 	</div>
-	<!-- content end -->
+	<!-- left end -->
 
-	<!-- left start -->
-	<div class="am-u-md-4 article-left">
+	<!-- right start -->
+	<div class="am-u-md-4 article-right">
 		<!-- article hot start -->
 		<div class="am-list-news am-list-news-default article-hot-list">
 			<div class="am-list-news-hd am-cf">
@@ -70,7 +70,7 @@
 		<!-- article hot end -->
 
 		<!-- image list start  -->
-		<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-1 am-avg-lg-2 am-gallery-overlay small-banner left-image-list" data-am-gallery="{}" >
+		<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-1 am-avg-lg-2 am-gallery-overlay small-banner right-image-list" data-am-gallery="{}" >
 			<div class="am-list-news-hd am-cf">
 				<h2>热点新闻</h2>
 				<a href="#">
@@ -168,7 +168,9 @@
 		</div>
 		<!-- image desc end -->
 	</div>
+	<!-- right end -->
 </div>
+<!-- content end -->
 
 <!-- footer start -->
 <include file="Public/Footer" />
