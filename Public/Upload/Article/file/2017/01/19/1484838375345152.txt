@@ -1,0 +1,28 @@
+Linux上查看IO使用过高的进程
+一：iotop 命令
+CentOS7以下使用yum安装
+	yum -y install iotop
+	iotop
+CentOS7由于yum源没有包
+	git clone git://repo.or.cz/iotop.git
+		cd iotop
+		python iotop.py
+
+
+二：iostat 命令
+iostat -x 1 10
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           5.48    0.00    1.24   10.22    4.28   78.78
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+xvda              0.37     3.00   27.30    5.47   722.00   173.14    54.64     0.78   23.81    9.61   94.70   1.40   4.58
+xvdb              0.00     0.00    0.32    0.00     2.19     0.00    13.75     0.00    5.39    5.30   31.00   2.73   0.09
+xvdc              1.29    21.12  130.74   13.60  3575.35   175.45    51.97     2.97   20.55   21.01   16.15   4.78  69.03
+
+%idle小于70% IO压力就较大了，一般读取速度有较多的%wait.
+如果 %util 接近 100%，说明产生的I/O请求太多，I/O系统已经满负荷，该磁盘可能存在瓶颈。
+
+三：dstat 命令
+dstat --top-io -d --top-bio -l
+dstat -t --top-io-adv -d -l

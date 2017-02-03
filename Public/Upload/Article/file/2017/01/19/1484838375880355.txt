@@ -1,0 +1,130 @@
+一、准备
+Inotify 是一种强大的、细粒度的、异步的文件系统事件监控机制，Linux内核从2.6.13起，加入了Inotify支持，通过Inotify可以监控文件系统中添加、删除，修改、移动等各种细微事件，利用这个内核接口，第三方软件就可以监控文件系统下文件的各种变化情况，而Inotify-tools就是这样的一个第三方软件。
+
+1、服务器
+操作系统		CentOS-6.5-x86_64 6.5
+Linux内核	2.6.32
+
+master		192.168.0.200	客户端（数据服务器）
+slave1		192.168.0.110	数据同步服务器（备份服务器1）
+slave2		192.168.0.111	数据同步服务器（备份服务器2）
+
+2、基础命令安装（所有服务器都需要安装，已经安装可跳过）
+yum install -y gcc gcc-c++ make wget
+
+二、服务端配置
+1、检查是否已安装rsync
+rpm -qa | grep rsync
+
+2.1、安装rsync和xinetd超级守护进程
+yum -y install xinetd rsync
+
+3、创建rsync用户及模块目录并更改其用户组（用户运行rsync的用户，不建议使用root）
+useradd rsync -s /sbin/nologin  -M
+grep rsync /etc/passwd
+mkdir -p /data/www
+chown -R rsync:rsync /data
+
+4、配置rsync认证文件 /etc/rsync.password（格式 用户:密码）
+echo "rsync:rsync" > /etc/rsync.password
+
+4.1、为密码文件提权，增加安全性，文件权限修改成600
+chmod 600 /etc/rsync.password
+
+5、为rsync服务提供配置文件，vim  /etc/rsyncd.conf 文件默认不存在，手动创建即可
+test
+
+6、配置rsync操作脚本
+A、启动脚本
+echo "rsync --daemon --config=/etc/rsyncd.conf" > /etc/init.d/rsync-start
+chmod +x /etc/init.d/rsync-start
+
+B、停止脚本
+echo "killall -9 rsync > /dev/null 2>&1; rm -rf /var/run/rsyncd.pid" > /etc/init.d/rsync-stop
+chmod +x /etc/init.d/rsync-stop
+
+C、重启脚本
+echo "/etc/init.d/rsync-stop; /etc/init.d/rsync-start" > /etc/init.d/rsync-restart
+chmod +x /etc/init.d/rsync-restart
+
+
+6.1、以后服务器启动后，手动启动rsync脚本即可
+/etc/init.d/rsync-start 		启动
+/etc/init.d/rsync-stop 			停止
+/etc/init.d/rsync-restart 		重启
+
+7、启动xinetd超级守护进程服务
+service xinetd start
+
+8、配置防火墙允许873端口通信  vim /etc/sysconfig/iptables
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 873 -j ACCEPT
+
+9、查看rsync服务是否成功开启
+ps -ef | grep rsync
+
+10、检查873端口是否成功监听
+netstat -ntlp | grep 873
+
+
+三、客户端配置
+1、检查是否已安装rsync
+rpm -qa | grep rsync
+
+1.1、安装rsync服务
+yum -y install rsync
+
+2、创建本地监控的目录
+mkdir -p /data/www
+
+3、配置rsync认证文件 /etc/rsync.password（这里只要写密码即可，切记）
+echo "rsync" > /etc/rsync.password
+
+3.1、为密码文件提权，增加安全性，文件权限修改成600
+chmod 600 /etc/rsync.password
+
+4、测试一下，进入 /data/www
+cd /data/www
+touch test.txt
+rsync -avz test.txt rsync@服务器ip::rsync --password-file=/etc/rsync.password
+
+5、inotify-tools实现实时同步
+mkdir /data/soft
+cd /data/soft
+wget http://github.com/downloads/rvoicilas/inotify-tools/inotify-tools-3.14.tar.gz
+tar -zxvf inotify-tools-3.14.tar.gz
+cd inotify-tools-3.14
+./configure --prefix=/usr/local/inotify
+make && make install
+
+6、编写rsync脚本，添加一下内容  vim /etc/rsync.sh
+test
+
+6.1、给rsync.sh执行权限
+chmod +x /etc/rsync.sh
+
+6.1、配置操作rsync脚本文件，添加以下内容  vim /etc/init.d/rsync
+test
+chmod +x /etc/init.d/rsync
+
+7、以后每次只需运行rsync脚本即可，停止启动合并
+/etc/init.d/rsync
+
+8、进入监控目录操作文件试试看效果
+cd /data/www
+touch test.txt
+echo "hello" > test.txt
+touch world.txt
+
+9、查看备份服务器 192.168.0.100
+cd /data/www
+ls
+文件都同步过来了
+
+
+
+
+
+
+
+
+

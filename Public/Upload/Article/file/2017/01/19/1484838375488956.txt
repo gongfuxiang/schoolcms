@@ -1,0 +1,164 @@
+1、环境
+CentOS 6.5
+keepalived 1.2.23
+haproxy 1.5.4
+
+2、准备4台服务器
+VIP				192.168.0.200
+Master			192.168.0.110
+Backup			192.168.0.111
+Server1			192.168.0.120
+Server2			192.168.0.121
+
+3、安装gcc编译器，openssl，wget，如果已经安装则跳过
+yum -y install openssl-devel ncurses-devel gcc gcc-c++ make rpm-build wget
+
+4、创建软件存放目录
+mkdir /soft
+
+5、安装keepalived
+cd /soft
+wget http://www.keepalived.org/software/keepalived-1.2.23.tar.gz
+tar -zxvf keepalived-1.2.23.tar.gz
+cd keepalived-1.2.23
+./configure --prefix=/usr/local/keepalived
+make
+make install
+
+6、将keepalived做成启动脚务
+cp /usr/local/keepalived/etc/rc.d/init.d/keepalived /etc/init.d/
+cp /usr/local/keepalived/sbin/keepalived /usr/sbin/
+cp /usr/local/keepalived/etc/sysconfig/keepalived /etc/sysconfig/
+mkdir /etc/keepalived
+cp /usr/local/keepalived/etc/keepalived/keepalived.conf /etc/keepalived/
+chmod +x /etc/init.d/keepalived
+
+
+7、配置文件修改
+vim /etc/keepalived/keepalived.conf
+
+8、启动keepalived服务
+service keepalived start
+
+8.1、查看服务器多了一个虚拟IP，keepalived配置成功
+ip a
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 00:0c:29:d9:a8:bd brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.110/24 brd 192.168.0.255 scope global eth0
+    inet 192.168.0.200/32 scope global eth0
+    inet6 fe80::20c:29ff:fed9:a8bd/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+9、yum方式安装haproxy
+yum install -y haproxy
+rpm -qi haproxy
+
+10、查看haproxy版本号
+haproxy -version
+
+HA-Proxy version 1.5.4 2014/09/02
+Copyright 2000-2014 Willy Tarreau <w@1wt.eu>
+
+
+11、添加独立日志
+vim /etc/rsyslog.conf
+# haproxy
+# Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514  # 启动udp，启动端口后将作为服务器工作    
+# # Provides TCP syslog reception
+$ModLoad imtcp
+$InputTCPServerRun 514  # 启动tcp监听端口    
+local2.* /var/log/haproxy.log
+
+11.1、重启日志服务
+service rsyslog restart
+
+11.2、vim haproxy.cfg 在global端中需要添加此行
+log 127.0.0.1 local2
+
+14、配置防火墙，允许80，1080端口访问，添加以下两行
+vim /etc/sysconfig/iptables
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 1080 -j ACCEPT
+
+14.1、重启防火墙
+service iptables restart
+
+15、编辑配置文件
+vim /etc/haproxy/haproxy.cfg
+
+15.1、启动haproxy服务
+service haproxy start
+
+16、查看统计页面
+http://192.168.0.200:1080/haproxyadmin?stats
+用户名和密码 admin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9、Haproxy安装
+wget http://fossies.org/linux/misc/haproxy-1.6.8.tar.gz
+tar -zxvf haproxy-1.6.8.tar.gz
+cd haproxy-1.6.8
+make TARGET=linux26
+make install PREFIX=/usr/local/haproxy
+
+
+10、安装完毕后，创建配置文件和启动文件。（改为yum安装）
+mkdir /etc/haproxy
+cp examples/haproxy.cfg /etc/haproxy/haproxy.cfg（新版examples/auth.cfg）
+cp examples/haproxy.init /etc/init.d/haproxy
+chmod +x /etc/init.d/haproxy
+ln -s /usr/local/sbin/haproxy /usr/sbin/
+mkdir /usr/share/haproxy
+
+
+
