@@ -21,8 +21,8 @@ return array(
 	'article_content_format_mobile'		=>	'更多编辑功能请使用电脑访问',
 	'article_class_format'				=>	'请选择文章分类',
 	'article_article_class_id_error'	=>	'文章分类id不存在',
-	'article_time_start_text'			=>	'出生开始',
-	'article_time_end_text'				=>	'出生结束',
+	'article_time_start_text'			=>	'开始时间',
+	'article_time_end_text'				=>	'结束时间',
 	'article_so_keyword_tips'			=>	'标题关键字',
 );
 ?>

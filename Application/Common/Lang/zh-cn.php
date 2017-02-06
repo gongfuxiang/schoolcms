@@ -82,6 +82,8 @@ return array(
 	'common_gender_tips'				=>	'性别值范围不正确',
 	'common_enable_tips'				=>	'启用值范围不正确',
 	'common_show_tips'					=>	'显示值范围不正确',
+	'common_is_header_tips'				=>	'是否含头部值范围不正确',
+	'common_is_footer_tips'				=>	'是否含尾部值范围不正确',
 	'common_new_window_open_tips'		=>	'新窗口打开值范围不正确',
 	'common_view_pay_cost_tips'			=>	'缴费状态值范围不正确',
 	'common_view_tel_error'				=>	'联系方式格式有误',
@@ -106,6 +108,8 @@ return array(
 	'common_view_tel_name'				=>	'联系方式',
 	'common_view_id_card_text'			=>	'身份证号码',
 	'common_view_teacher_state_name'	=>	'教师状态',
+	'common_view_is_header_text'		=>	'是否含头部',
+	'common_view_is_footer_text'		=>	'是否含尾部',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -166,6 +170,18 @@ return array(
 	'common_tuition_state_list'			=>	array(
 			0 => array('id' => 0, 'name' => '待缴费', 'checked' => true),
 			1 => array('id' => 1, 'name' => '已缴费'),
+		),
+
+	// 是否含头部
+	'common_is_header_list'			=>	array(
+			0 => array('id' => 0, 'name' => '否'),
+			1 => array('id' => 1, 'name' => '是', 'checked' => true),
+		),
+
+	// 是否含尾部
+	'common_is_footer_list'			=>	array(
+			0 => array('id' => 0, 'name' => '否'),
+			1 => array('id' => 1, 'name' => '是', 'checked' => true),
 		),
 
 	// 导航数据类型

@@ -3,13 +3,13 @@
 namespace Admin\Controller;
 
 /**
- * 文章管理
+ * 自定义页面管理
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
-class ArticleController extends CommonController
+class CustomViewController extends CommonController
 {
 	/**
 	 * [_initialize 前置操作-继承公共前置方法]
@@ -43,7 +43,7 @@ class ArticleController extends CommonController
 		$param = array_merge($_POST, $_GET);
 
 		// 模型对象
-		$m = M('Article');
+		$m = M('CustomView');
 
 		// 条件
 		$where = $this->GetIndexWhere();
@@ -54,7 +54,7 @@ class ArticleController extends CommonController
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
 				'where'		=>	$param,
-				'url'		=>	U('Admin/Article/Index'),
+				'url'		=>	U('Admin/CustomView/Index'),
 			);
 		$page = new \My\Page($page_param);
 
@@ -64,8 +64,11 @@ class ArticleController extends CommonController
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 
-		// 文章分类
-		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
+		// 是否包含头部
+		$this->assign('common_is_header_list', L('common_is_header_list'));
+
+		// 是否包含尾部
+		$this->assign('common_is_footer_list', L('common_is_footer_list'));
 
 		// 参数
 		$this->assign('param', $param);
@@ -76,30 +79,7 @@ class ArticleController extends CommonController
 		// 数据列表
 		$this->assign('list', $list);
 
-		// Excel地址
-		$this->assign('excel_url', U('Admin/Article/ExcelExport', $param));
-
 		$this->display('Index');
-	}
-
-	/**
-	 * [ExcelExport excel文件导出]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-01-10T15:46:00+0800
-	 */
-	public function ExcelExport()
-	{
-		// 条件
-		$where = $this->GetIndexWhere();
-
-		// 读取数据
-		$data = $this->SetDataHandle(M('Article')->where($where)->select());
-
-		// Excel驱动导出数据
-		$excel = new \My\Excel(array('filename'=>'article', 'title'=>L('excel_article_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
-		$excel->Export();
 	}
 
 	/**
@@ -115,7 +95,6 @@ class ArticleController extends CommonController
 	{
 		if(!empty($data))
 		{
-			$ac = M('ArticleClass');
 			foreach($data as $k=>$v)
 			{
 				// 创建时间
@@ -123,9 +102,6 @@ class ArticleController extends CommonController
 
 				// 是否启用
 				$data[$k]['is_enable_text'] = L('common_is_enable_list')[$v['is_enable']]['name'];
-
-				// 文章分类
-				$data[$k]['article_class_name'] = $ac->where(array('id'=>$v['article_class_id']))->getField('name');
 			}
 		}
 		return $data;
@@ -158,9 +134,13 @@ class ArticleController extends CommonController
 			{
 				$where['is_enable'] = intval(I('is_enable', 1));
 			}
-			if(I('article_class_id', -1) > -1)
+			if(I('is_header', -1) > -1)
 			{
-				$where['article_class_id'] = intval(I('article_class_id'));
+				$where['is_header'] = intval(I('is_header'));
+			}
+			if(I('is_footer', -1) > -1)
+			{
+				$where['is_footer'] = intval(I('is_footer'));
 			}
 
 			// 表达式
@@ -177,7 +157,7 @@ class ArticleController extends CommonController
 	}
 
 	/**
-	 * [SaveInfo 文章添加/编辑页面]
+	 * [SaveInfo 添加/编辑页面]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -185,12 +165,12 @@ class ArticleController extends CommonController
 	 */
 	public function SaveInfo()
 	{
-		// 文章信息
+		// 数据
 		if(empty($_REQUEST['id']))
 		{
 			$data = array();
 		} else {
-			$data = M('Article')->find(I('id'));
+			$data = M('CustomView')->find(I('id'));
 			if(!empty($data['content']))
 			{
 				// 静态资源地址处理
@@ -202,14 +182,17 @@ class ArticleController extends CommonController
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
 
-		// 文章分类
-		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
+		// 是否包含头部
+		$this->assign('common_is_header_list', L('common_is_header_list'));
+
+		// 是否包含尾部
+		$this->assign('common_is_footer_list', L('common_is_footer_list'));
 
 		$this->display('SaveInfo');
 	}
 
 	/**
-	 * [Save 文章添加/编辑]
+	 * [Save 添加/编辑]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -235,7 +218,7 @@ class ArticleController extends CommonController
 	}
 
 	/**
-	 * [Add 文章添加]
+	 * [Add 添加]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -243,8 +226,8 @@ class ArticleController extends CommonController
 	 */
 	private function Add()
 	{
-		// 文章模型
-		$m = D('Article');
+		// 模型
+		$m = D('CustomView');
 
 		// 数据自动校验
 		if($m->create($_POST, 1))
@@ -273,7 +256,7 @@ class ArticleController extends CommonController
 	}
 
 	/**
-	 * [Edit 文章编辑]
+	 * [Edit 编辑]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -281,8 +264,8 @@ class ArticleController extends CommonController
 	 */
 	private function Edit()
 	{
-		// 文章模型
-		$m = D('Article');
+		// 模型
+		$m = D('CustomView');
 
 		// 数据自动校验
 		if($m->create($_POST, 2))
@@ -328,7 +311,7 @@ class ArticleController extends CommonController
 	}
 
 	/**
-	 * [Delete 文章删除]
+	 * [Delete 删除]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -346,7 +329,7 @@ class ArticleController extends CommonController
 		if(!empty($_POST['id']))
 		{
 			// 更新
-			if(M('Article')->delete(I('id')))
+			if(M('CustomView')->delete(I('id')))
 			{
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {
@@ -373,7 +356,7 @@ class ArticleController extends CommonController
 		}
 
 		// 数据更新
-		if(M('Article')->where(array('id'=>I('id')))->save(array('is_enable'=>I('state'))))
+		if(M('CustomView')->where(array('id'=>I('id')))->save(array('is_enable'=>I('state'))))
 		{
 			$this->ajaxReturn(L('common_operation_edit_success'));
 		} else {
