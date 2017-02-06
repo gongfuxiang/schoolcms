@@ -58,9 +58,6 @@ class AdminController extends CommonController
 			);
 		$page = new \My\Page($page_param);
 
-		// 登录校验
-		$this->Is_Login();
-
 		// 获取管理员列表
 		$list = $m->field(array('id', 'username', 'mobile', 'gender', 'login_total', 'login_time', 'add_time'))->where($where)->limit($page->GetPageStarNumber(), $number)->select();
 		

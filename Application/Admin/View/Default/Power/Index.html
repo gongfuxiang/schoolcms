@@ -5,13 +5,14 @@
 <!-- right content start  -->
 <div class="content-right">
 	<div class="content">
-        <!-- operation start -->
-        <div class="am-g">
-            <button class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus submit-add" data-am-modal="{target: '#power-save-win'}"> {{:L('common_operation_add')}}</button>
-        </div>
-        <!-- operation end -->
+		<!-- operation start -->
+		<div class="am-g">
+			<button class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus submit-add" data-am-modal="{target: '#power-save-win'}"> {{:L('common_operation_add')}}</button>
+		</div>
+		<!-- operation end -->
 
-        <div class="am-popup am-radius" id="power-save-win">
+		<!-- save win start -->
+		<div class="am-popup am-radius" id="power-save-win">
 			<div class="am-popup-inner">
 				<div class="am-popup-hd">
 					<h4 class="am-popup-title" data-add-title="{{:L('power_add_name')}}" data-edit-title="{{:L('power_edit_name')}}">{{:L('power_add_name')}}</h4>
@@ -56,6 +57,8 @@
 				</div>
 			</div>
 		</div>
+		<!-- save win end -->
+
         <!-- content start -->
 		<ul class="tree-list p-0 m-t-15">
 			<foreach name="list" item="v">

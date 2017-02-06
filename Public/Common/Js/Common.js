@@ -133,149 +133,159 @@ function IsExitsFunction(fun_name)
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-10T14:22:39+0800
+ * @param    {[string] [form_name] 		[标题class或id]}
  * @param    {[string] [action] 		[请求地址]}
  * @param    {[string] [method] 		[请求类型 POST, GET]}
  * @param    {[string] [request-type] 	[回调类型 ajax-url, ajax-fun, ajax-reload]}
  * @param    {[string] [request-value] 	[回调值 ajax-url地址 或 ajax-fun方法]}
  */
-var form_name = 'form.form-validation';
-var editor_tag_name = 'editor-tag';
-var $form = $(form_name);
-var $editor_tag = $('[id='+editor_tag_name+']');
-var editor_count = $editor_tag.length;
-if(editor_count > 0)
-{
-	// 编辑器初始化
-	var editor = UE.getEditor(editor_tag_name);
 
-	// 编辑器内容变化时同步到 textarea
-	editor.addListener('contentChange', function()
-	{
-		editor.sync();
-
-		// 触发验证
-		$editor_tag.trigger('change');
-	});
-}
-$form.validator(
+function FromInit(form_name)
 {
-	onInValid: function(validity)
+	if(form_name == undefined)
 	{
-		// 错误信息
-		var $field = $(validity.field);
-		var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
-		Prompt(msg);
-	},
-	submit: function()
+		form_name = 'form.form-validation';
+	}
+	var editor_tag_name = 'editor-tag';
+	var $form = $(form_name);
+	var $editor_tag = $form.find('[id='+editor_tag_name+']');
+	var editor_count = $editor_tag.length;
+	if(editor_count > 0)
 	{
-		if(editor_count > 0)
+		// 编辑器初始化
+		var editor = UE.getEditor(editor_tag_name);
+
+		// 编辑器内容变化时同步到 textarea
+		editor.addListener('contentChange', function()
 		{
-			// 同步编辑器数据
 			editor.sync();
 
-			// 表单验证未成功，而且未成功的第一个元素为 UEEditor 时，focus 编辑器
-			if (!this.isFormValid() && $form.find('.' + this.options.inValidClass).eq(0).is($editor_tag))
-			{
-				// 编辑器获取焦点
-				editor.focus();
-
-				// 错误信息
-				var msg = $editor_tag.data('validationMessage') || $editor_tag.getValidationMessage(validity);
-				Prompt(msg);
-			}
-		}
-
-		// 通过验证
-		if(this.isFormValid())
-		{
-			// button加载
-			var $button = $form.find('button[type="submit"]');
-			$button.button('loading');
-
-			// 开启进度条
-			$.AMUI.progress.start();
-
-			// 获取表单数据
-			var action = $form.attr('action');
-			var method = $form.attr('method');
-			var request_type = $form.attr('request-type');
-			var request_value = $form.attr('request-value');
-			var ajax_all = ['ajax-reload', 'ajax-url', 'ajax-fun'];
-
-			// 参数校验
-			if(ajax_all.indexOf(request_type) == -1 || action == undefined || action == '' || method == undefined || method == '')
-			{
-				$.AMUI.progress.done();
-            	$button.button('reset');
-            	Prompt('表单参数配置有误');
-            	return false;
-			}
-
-			// 类型不等于刷新的时候，类型值必须填写
-			if(request_type != 'ajax-reload' && (request_value == undefined || request_value == ''))
-			{
-				$.AMUI.progress.done();
-        		$button.button('reset');
-				Prompt('表单[类型值]参数配置有误');
-				return false;
-			}
-
-			// ajax请求
-			$.ajax({
-				url:action,
-				type:method,
-                dataType:"json",
-                timeout:10000,
-                data:GetFormVal(form_name),
-                success:function(result)
-                {
-                	// 调用自定义回调方法
-                	if(request_type == 'ajax-fun')
-                	{
-                		if(IsExitsFunction(request_value))
-                		{
-                			window[request_value](result);
-                		} else {
-                			$.AMUI.progress.done();
-	            			$button.button('reset');
-                			Prompt('表单定义的方法未定义');
-                		}
-                	} else if(request_type == 'ajax-url' || request_type == 'ajax-reload')
-                	{
-                		$.AMUI.progress.done();
-	            		if(result.code == 0)
-	            		{
-	            			// url跳转
-	            			if(request_type == 'ajax-url')
-	            			{
-	            				window.location.href = request_value;
-
-	            			// 页面刷新
-	            			} else if(request_type == 'ajax-reload')
-	            			{
-	            				Prompt(result.msg, 'success');
-	            				setTimeout(function()
-								{
-									window.location.reload();
-								}, 1500);
-								}
-							} else {
-								Prompt(result.msg);
-								$button.button('reset');
-							}
-					}
-				},
-				error:function(xhr, type)
-	            {
-	            	$.AMUI.progress.done();
-	            	$button.button('reset');
-	            	Prompt('请求出错');
-	            }
-            });
-		}
-		return false;
+			// 触发验证
+			$editor_tag.trigger('change');
+		});
 	}
-});
+	$form.validator(
+	{
+		onInValid: function(validity)
+		{
+			// 错误信息
+			var $field = $(validity.field);
+			var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+			Prompt(msg);
+		},
+		submit: function(e)
+		{
+			if(editor_count > 0)
+			{
+				// 同步编辑器数据
+				editor.sync();
+
+				// 表单验证未成功，而且未成功的第一个元素为 UEEditor 时，focus 编辑器
+				if (!this.isFormValid() && $form.find('.' + this.options.inValidClass).eq(0).is($editor_tag))
+				{
+					// 编辑器获取焦点
+					editor.focus();
+
+					// 错误信息
+					var msg = $editor_tag.data('validationMessage') || $editor_tag.getValidationMessage(validity);
+					Prompt(msg);
+				}
+			}
+
+			// 通过验证
+			if(this.isFormValid())
+			{
+				// button加载
+				var $button = $form.find('button[type="submit"]');
+				$button.button('loading');
+
+				// 开启进度条
+				$.AMUI.progress.start();
+
+				// 获取表单数据
+				var action = $form.attr('action');
+				var method = $form.attr('method');
+				var request_type = $form.attr('request-type');
+				var request_value = $form.attr('request-value');
+				var ajax_all = ['ajax-reload', 'ajax-url', 'ajax-fun'];
+
+				// 参数校验
+				if(ajax_all.indexOf(request_type) == -1 || action == undefined || action == '' || method == undefined || method == '')
+				{
+					$.AMUI.progress.done();
+	            	$button.button('reset');
+	            	Prompt('表单参数配置有误');
+	            	return false;
+				}
+
+				// 类型不等于刷新的时候，类型值必须填写
+				if(request_type != 'ajax-reload' && (request_value == undefined || request_value == ''))
+				{
+					$.AMUI.progress.done();
+	        		$button.button('reset');
+					Prompt('表单[类型值]参数配置有误');
+					return false;
+				}
+
+				// ajax请求
+				$.ajax({
+					url:action,
+					type:method,
+	                dataType:"json",
+	                timeout:10000,
+	                data:GetFormVal(form_name),
+	                success:function(result)
+	                {
+	                	// 调用自定义回调方法
+	                	if(request_type == 'ajax-fun')
+	                	{
+	                		if(IsExitsFunction(request_value))
+	                		{
+	                			window[request_value](result);
+	                		} else {
+	                			$.AMUI.progress.done();
+		            			$button.button('reset');
+	                			Prompt('表单定义的方法未定义');
+	                		}
+	                	} else if(request_type == 'ajax-url' || request_type == 'ajax-reload')
+	                	{
+	                		$.AMUI.progress.done();
+		            		if(result.code == 0)
+		            		{
+		            			// url跳转
+		            			if(request_type == 'ajax-url')
+		            			{
+		            				window.location.href = request_value;
+
+		            			// 页面刷新
+		            			} else if(request_type == 'ajax-reload')
+		            			{
+		            				Prompt(result.msg, 'success');
+		            				setTimeout(function()
+									{
+										window.location.reload();
+									}, 1500);
+									}
+								} else {
+									Prompt(result.msg);
+									$button.button('reset');
+								}
+						}
+					},
+					error:function(xhr, type)
+		            {
+		            	$.AMUI.progress.done();
+		            	$button.button('reset');
+		            	Prompt('请求出错');
+		            }
+	            });
+			}
+			return false;
+		}
+	});
+}
+// 默认初始化一次,默认标签[form.form-validation]
+FromInit('form.form-validation');
 
 /**
  * [FormDataFill 表单数据填充]
@@ -284,20 +294,25 @@ $form.validator(
  * @version  0.0.1
  * @datetime 2016-12-14T14:46:47+0800
  * @param    {[json]}    json [json数据对象]
+ * @param    {[string]}  tag  [tag标签]
  */
-function FormDataFill(json)
+function FormDataFill(json, tag)
 {
 	if(json != undefined)
 	{
-		$form = $('form.form-validation');
+		if(tag == undefined)
+		{
+			tag = 'form.form-validation';
+		}
+		$form = $(tag);
 		for(var i in json)
 		{
-			$form.find('input[type="hidden"][name="'+i+'"], input[type="text"][name="'+i+'"], input[type="password"][name="'+i+'"], input[type="email"][name="'+i+'"], input[type="number"][name="'+i+'"], input[type="date"][name="'+i+'"], textarea[name="'+i+'"], select[name="'+i+'"]').val(json[i]);
+			$form.find('input[type="hidden"][name="'+i+'"], input[type="text"][name="'+i+'"], input[type="password"][name="'+i+'"], input[type="email"][name="'+i+'"], input[type="number"][name="'+i+'"], input[type="date"][name="'+i+'"], textarea[name="'+i+'"], select[name="'+i+'"], input[type="url"][name="'+i+'"]').val(json[i]);
 
 			// input radio
-			$form.find('input[type="radio"][name="'+i+'"]').each(function(value, tag)
+			$form.find('input[type="radio"][name="'+i+'"]').each(function(temp_value, temp_tag)
 			{
-				var state = (json[i] == value);
+				var state = (json[i] == temp_value);
 				this.checked = state;
 			});
 		}
@@ -518,14 +533,18 @@ $(function()
 	 */
 	$(document).on('click', '.submit-edit', function()
 	{
+		// 窗口标签
+		var tag = $(this).data('tag') || 'data-save-win';
+
 		// 更改窗口名称
-		if($('#data-save-win').length > 0)
+		if($('#'+tag).length > 0)
 		{
-			$title = $('#data-save-win').find('.am-popup-title');
+			$title = $('#'+tag).find('.am-popup-title');
 			$title.text($title.data('edit-title'));
 		}
 		
-		FormDataFill($(this).data('json'));
+		// 填充数据
+		FormDataFill($(this).data('json'), '#'+tag);
 	});
 
 	/**

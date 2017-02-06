@@ -9,7 +9,7 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'SchoolCMS',
+	'common_site_name'					=>	'青枣科技有限公司',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 
 	// 应用信息
@@ -40,6 +40,7 @@ return array(
 	'common_see_more_name'				=>	'查看更多',
 	'common_detail_content'				=>	'详情内容',
 	'common_operation_excel_name'		=>	'导出Excel',
+	'common_nav_type_name'				=>	'导航数据类型',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -49,6 +50,7 @@ return array(
 	'common_username_already_exist'		=>	'帐号已经存在',
 	'common_there_is_no_power'			=>	'无权限',
 	'common_select_can_choose'			=>	'可选择...',
+	'common_please_select_choose'		=>	'请选择...',
 	'common_select_level_one_choice'	=>	'一级栏目...',
 	'common_sort_error'					=>	'顺序只能为数字（不能超过3位）',
 	'common_is_exist_son_error'			=>	'该节点下还存在子级数据',
@@ -79,6 +81,8 @@ return array(
 	'common_value_not_change'			=>	'数据未改变',
 	'common_gender_tips'				=>	'性别值范围不正确',
 	'common_enable_tips'				=>	'启用值范围不正确',
+	'common_show_tips'					=>	'显示值范围不正确',
+	'common_new_window_open_tips'		=>	'新窗口打开值范围不正确',
 	'common_view_pay_cost_tips'			=>	'缴费状态值范围不正确',
 	'common_view_tel_error'				=>	'联系方式格式有误',
 	'common_view_tel_tips'				=>	'座机或手机号码',
@@ -95,6 +99,7 @@ return array(
 	'common_view_name_title'			=>	'名称',
 	'common_view_state_title'			=>	'状态',
 	'common_view_is_show_title'			=>	'是否显示',
+	'common_view_is_new_window_open_title'	=>	'是否新窗口打开',
 	'common_view_sort_title'			=>	'顺序',
 	'common_view_student_state_name'	=>	'学生状态',
 	'common_view_pay_cost_name'			=>	'缴费状态',
@@ -136,6 +141,12 @@ return array(
 			1 => array('id' => 1, 'name' => '显示', 'checked' => true),
 		),
 
+	// 是否新窗口打开
+	'common_is_new_window_open_list'	=>	array(
+			0 => array('id' => 0, 'name' => '否', 'checked' => true),
+			1 => array('id' => 1, 'name' => '是'),
+		),
+
 	// 状态
 	'common_state_list'				=>	array(
 			0 => array('id' => 0, 'name' => '不可用'),
@@ -155,6 +166,13 @@ return array(
 	'common_tuition_state_list'			=>	array(
 			0 => array('id' => 0, 'name' => '待缴费', 'checked' => true),
 			1 => array('id' => 1, 'name' => '已缴费'),
+		),
+
+	// 导航数据类型
+	'common_nav_type_list'				=>	array(
+			'custom'		=>	'自定义',
+			'article_class'	=>	'文章分类',
+			'customview'	=>	'自定义页面',
 		),
 
 	// 学生成绩等级
