@@ -110,6 +110,7 @@ return array(
 	'common_view_teacher_state_name'	=>	'教师状态',
 	'common_view_is_header_text'		=>	'是否含头部',
 	'common_view_is_footer_text'		=>	'是否含尾部',
+	'common_view_access_count_text'		=>	'访问次数',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',

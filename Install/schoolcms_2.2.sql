@@ -9,7 +9,7 @@
  Target Server Version : 50716
  File Encoding         : utf-8
 
- Date: 02/06/2017 23:27:07 PM
+ Date: 02/07/2017 10:13:30 AM
 */
 
 SET NAMES utf8;
@@ -109,7 +109,9 @@ CREATE TABLE `sc_class` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `pid` (`pid`)
+  KEY `pid` (`pid`),
+  KEY `is_enable` (`is_enable`),
+  KEY `sort` (`sort`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='班级类别';
 
 -- ----------------------------
@@ -269,7 +271,9 @@ CREATE TABLE `sc_link` (
   `is_enable` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否启用（0否，1是）',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `sort` (`sort`),
+  KEY `is_enable` (`is_enable`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='友情链接';
 
 -- ----------------------------
@@ -296,7 +300,11 @@ CREATE TABLE `sc_navigation` (
   `is_new_window_open` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否新窗口打开（0否，1是）',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `is_show` (`is_show`),
+  KEY `sort` (`sort`),
+  KEY `nav_type` (`nav_type`),
+  KEY `pid` (`pid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='导航';
 
 -- ----------------------------
@@ -342,7 +350,9 @@ CREATE TABLE `sc_region` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `pid` (`pid`)
+  KEY `pid` (`pid`),
+  KEY `is_enable` (`is_enable`),
+  KEY `sort` (`sort`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='地区';
 
 -- ----------------------------
@@ -406,7 +416,9 @@ CREATE TABLE `sc_room` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `pid` (`pid`)
+  KEY `pid` (`pid`),
+  KEY `is_enable` (`is_enable`),
+  KEY `sort` (`sort`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教室类别';
 
 -- ----------------------------

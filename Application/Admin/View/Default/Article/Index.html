@@ -54,6 +54,7 @@
 				<tr>
 					<th>{{:L('article_title_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('article_class_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_view_access_count_text')}}</th>
 					<th>{{:L('common_view_state_title')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_create_time_name')}}</th>
 					<th>{{:L('common_more_name')}}</th>
@@ -68,6 +69,7 @@
 								<a href="<if condition="empty($v['jump_url'])">{{:U('Home/Article/Index', array('id'=>$v['id']))}}<else />{{$v.jump_url}}</if>" target="_blank" title="{{$v.title}}" <if condition="!empty($v['title_color'])"> style="color:{{$v.title_color}};" </if> >{{$v.title}}</a>
 							</td>
 							<td class="am-hide-sm-only">{{$v.article_class_name}}</td>
+							<td class="am-hide-sm-only">{{$v.access_count}}</td>
 							<td>
 								<a href="javascript:;" class="am-icon-btn am-icon-check submit-state <if condition="$v['is_enable'] eq 1">am-success<else />am-default</if>" data-url="{{:U('Admin/Article/StateUpdate')}}" data-id="{{$v.id}}" data-state="{{$v['is_enable']}}"></a>
 							</td>
@@ -88,6 +90,9 @@
 
 												<dt>{{:L('article_class_text')}}</dt>
 												<dd>{{$v.article_class_name}}</dd>
+
+												<dt>{{:L('common_view_access_count_text')}}</dt>
+												<dd>{{$v.access_count}}</dd>
 
 												<dt>{{:L('common_view_enable_title')}}</dt>
 												<dd>{{$v.is_enable_text}}</dd>

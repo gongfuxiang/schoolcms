@@ -59,6 +59,7 @@
 					<th>{{:L('common_view_state_title')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_is_header_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_view_is_footer_text')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_view_access_count_text')}}</th>
 					<th class="am-hide-sm-only">{{:L('common_create_time_name')}}</th>
 					<th>{{:L('common_more_name')}}</th>
 					<th>{{:L('common_operation_name')}}</th>
@@ -76,6 +77,7 @@
 							</td>
 							<td class="am-hide-sm-only">{{:L('common_is_header_list')[$v['is_header']]['name']}}</td>
 							<td class="am-hide-sm-only">{{:L('common_is_footer_list')[$v['is_footer']]['name']}}</td>
+							<td class="am-hide-sm-only">{{$v.access_count}}</td>
 							<td class="am-hide-sm-only">{{$v.add_time}}</td>
 							<td>
 								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
