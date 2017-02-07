@@ -4,7 +4,7 @@ namespace Home\Controller;
 use Think\Controller;
 
 /**
- * 管理员
+ * 前台
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
@@ -12,11 +12,11 @@ use Think\Controller;
  */
 class CommonController extends Controller
 {
-	// 用户
-	protected $user;
+	// 顶部导航
+	protected $nav_header;
 
-	// 菜单
-	protected $menu_list;
+	// 底部导航
+	protected $nav_footer;
 
 	/**
 	 * [__construt 构造方法]
@@ -31,7 +31,7 @@ class CommonController extends Controller
 	protected function _initialize()
 	{
 		// 菜单
-		//$this->MenuInit();
+		$this->NavInit();
 
 		// 视图初始化
 		$this->ViewInit();
@@ -78,24 +78,6 @@ class CommonController extends Controller
 	}
 
 	/**
-	 * [Is_Login 登录校验]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-03T12:42:35+0800
-	 */
-	protected function Is_Login()
-	{
-		if(empty($_SESSION['user']))
-		{
-			$this->error(L('common_login_invalid'), U('Home/User/LoginInfo'));
-		} else {
-			// 用户
-			$this->user = I('session.user');
-		}
-	}
-
-	/**
 	 * [ViewInit 视图初始化]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -110,104 +92,71 @@ class CommonController extends Controller
 		$module_js = MODULE_NAME.DS.'Js'.DS.CONTROLLER_NAME.'.js';
 		$this->assign('module_js', file_exists(ROOT_PATH.'Public'.DS.$module_js) ? $module_js : '');
 
-		// 权限菜单
-		$this->assign('menu_list', $this->menu_list);
+		// 导航
+		$this->assign('nav_header', $this->nav_header);
+		$this->assign('nav_footer', $this->nav_footer);
 
-		// 用户
-		$this->assign('user', $this->user);
+		// 当前页面选择导航状态
+		$nav_pid	=	0;
+		$nav_id 	=	0;
+		foreach($this->nav_header as $v)
+		{
+			if(I('viewid') == $v['id'])
+			{
+				$nav_id = $v['id'];
+			}
+			if(!empty($v['item']))
+			{
+				foreach($v['item'] as $vs)
+				{
+					if(I('viewid') == $vs['id'])
+					{
+						$nav_pid = $v['id'];
+						$nav_id = $vs['id'];
+					}
+				}
+			}
+		}
+		$this->assign('nav_pid', $nav_pid);
+		$this->assign('nav_id', $nav_id);
 	}
 
 	/**
-	 * [MenuInit 菜单初始化]
+	 * [NavInit 导航初始化]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-19T22:41:20+0800
 	 */
-	private function MenuInit()
+	private function NavInit()
 	{
 		// 读取缓存数据
-		$this->menu_list = S(C('common_home_menu_key'));
+		$this->nav_header = S(C('common_home_nav_header_key'));
+		$this->nav_footer = S(C('common_home_nav_footer_key'));
 
-		// 缓存没数据则从数据库重新读取
-		if(empty($this->menu_list))
+		// 导航模型
+		$m = M('Navigation');
+		$field = array('id', 'pid', 'name', 'url', 'value', 'data_type', 'is_new_window_open');
+
+		// 缓存没数据则从数据库重新读取,顶部菜单
+		if(empty($this->nav_header))
 		{
-			// 获取一级数据
-			$p = M('Power');
-			if($admin_id == 1)
+			$this->nav_header = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'pid'=>0))->order('sort')->select());
+			if(!empty($this->nav_header))
 			{
-				$field = array('id', 'name', 'control', 'action', 'is_show');
-				$this->left_menu = $p->where(array('pid' => 0))->field($field)->order('sort')->select();
-			} else {
-				$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_show');
-				$this->left_menu = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id' => $role_id, 'p.pid' => 0))->field($field)->order('p.sort')->select();
-			}
-			
-			// 有数据，则处理子级数据
-			if(!empty($this->left_menu))
-			{
-				foreach($this->left_menu as $k=>$v)
+				foreach($this->nav_header as $k=>$v)
 				{
-					// 权限
-					$this->power[$v['id']] = strtolower($v['control'].'_'.$v['action']);
-
-					// 获取子权限
-					if($admin_id == 1)
-					{
-						$item = $p->where(array('pid' => $v['id']))->field($field)->order('sort')->select();
-					} else {
-						$item = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id' => $role_id, 'p.pid' => $v['id']))->field($field)->order('p.sort')->select();
-					}
-
-					// 权限列表
-					if(!empty($item))
-					{
-						foreach($item as $ks=>$vs)
-						{
-							// 权限
-							$this->power[$vs['id']] = strtolower($vs['control'].'_'.$vs['action']);
-
-							// 是否显示视图
-							if($vs['is_show'] == 0)
-							{
-								unset($item[$ks]);
-							}
-						}
-					}
-
-					// 是否显示视图
-					if($v['is_show'] == 1)
-					{
-						// 子级
-						$this->left_menu[$k]['item'] = $item;
-					} else {
-						unset($this->left_menu[$k]);
-					}
+					$this->nav_header[$k]['item'] = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'pid'=>$v['id']))->order('sort')->select());
 				}
 			}
-			S(C('common_left_menu_key'), $this->left_menu);
-			S(C('common_power_key').$admin_id, $this->power);
+			S(C('common_home_nav_header_key'), $this->nav_header);
 		}
-	}
 
-	/**
-	 * [Is_Power 是否有权限]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2016-12-20T19:18:29+0800
-	 */
-	protected function Is_Power()
-	{
-		// 不需要校验权限的方法
-		$unwanted_power = array('getnodeson');
-		if(!in_array(strtolower(ACTION_NAME), $unwanted_power))
+		// 底部导航
+		if(empty($this->nav_footer))
 		{
-			// 角色组权限列表校验
-			if(!in_array(strtolower(CONTROLLER_NAME.'_'.ACTION_NAME), $this->power))
-			{
-				$this->error(L('common_there_is_no_power'));
-			}
+			$this->nav_footer = NavDataDealWith($m->field($field)->where(array('nav_type'=>'footer'))->order('sort')->select());
+			S(C('common_home_nav_footer_key'), $this->nav_footer);
 		}
 	}
 

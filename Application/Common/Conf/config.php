@@ -97,6 +97,9 @@ return array(
 	//公共系统配置信息key
 	'common_my_config_key'	=>	'common_my_config_data',
 
-	// 前台菜单列表，后端菜单更新则删除缓存
-	'common_home_menu_key'	=>	'common_home_menu_data',
+	// 前台顶部导航，后端菜单更新则删除缓存
+	'common_home_nav_header_key'	=>	'common_home_nav_header_data',
+
+	// 前台顶部导航
+	'common_home_nav_footer_key'	=>	'common_home_nav_footer_data',
 );

@@ -23,6 +23,10 @@ define('__MY_HOST__', empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST'])
 // 完整URL地址
 define('__MY_URL__',  empty($_SERVER['HTTP_HOST']) ? '' : __MY_HTTP__.'://'.__MY_HOST__.__MY_ROOT__);
 
+// 当前页面url地址
+$request_url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+define('__MY_VIEW_URL__', substr(__MY_URL__, 0, -1).$request_url);
+
 // 检测是否是新安装
 if(is_dir("./Install") && !file_exists("./Install/install.lock"))
 {

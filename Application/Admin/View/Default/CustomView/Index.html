@@ -70,7 +70,7 @@
 					<foreach name="list" item="v">
 						<tr id="data-list-{{$v.id}}" <if condition="$v['is_enable'] eq 0">class="am-active"</if>>
 							<td  class="td-title">
-								<a href="{{:U('Home/CustomView/Index', array('id'=>$v['id']))}}" target="_blank" title="{{$v.title}}">{{$v.title}}</a>
+								<a href="{{:str_replace('admin.php', 'index.php', U('Home/CustomView/Index', array('id'=>$v['id'])))}}" target="_blank" title="{{$v.title}}">{{$v.title}}</a>
 							</td>
 							<td>
 								<a href="javascript:;" class="am-icon-btn am-icon-check submit-state <if condition="$v['is_enable'] eq 1">am-success<else />am-default</if>" data-url="{{:U('Admin/CustomView/StateUpdate')}}" data-id="{{$v.id}}" data-state="{{$v['is_enable']}}"></a>

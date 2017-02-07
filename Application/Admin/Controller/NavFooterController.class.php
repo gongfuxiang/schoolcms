@@ -68,41 +68,7 @@ class NavFooterController extends CommonController
 	{
 		$m = M('Navigation');
 		$field = array('id', 'name', 'url', 'value', 'data_type', 'sort', 'is_show', 'is_new_window_open');
-		return $this->DataDealWith($m->field($field)->where(array('nav_type'=>'footer'))->order('sort')->select());
-	}
-
-	/**
-	 * [DataDealWith 数据处理]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-05T21:36:46+0800
-	 * @param    [array]      $data [需要处理的数据]
-	 * @return   [array]            [处理好的数据]
-	 */
-	private function DataDealWith($data)
-	{
-		if(!empty($data))
-		{
-			foreach($data as $k=>$v)
-			{
-				// url处理
-				switch($v['data_type'])
-				{
-					// 文章分类
-					case 'article_class':
-						$v['url'] = str_replace('/admin.php', 'index.php', __MY_URL__.U('Home/Channel/Index', array('id'=>$v['value'])));
-						break;
-
-					// 自定义页面
-					case 'customview':
-						$v['url'] = str_replace('/admin.php', 'index.php', __MY_URL__.U('Home/CustomView/Index', array('id'=>$v['value'])));
-						break;
-				}
-				$data[$k] = $v;
-			}
-		}
-		return $data;
+		return NavDataDealWith($m->field($field)->where(array('nav_type'=>'footer'))->order('sort')->select());
 	}
 
 	/**
@@ -175,6 +141,10 @@ class NavFooterController extends CommonController
 				$m->name = mb_substr($temp_name, 0, 16, 'UTF-8');
 			}
 
+			// 清除缓存
+			S(C('common_home_nav_header_key'), null);
+			S(C('common_home_nav_footer_key'), null);
+
 			// id为空则表示是新增
 			if(empty($_POST['id']))
 			{
@@ -222,6 +192,10 @@ class NavFooterController extends CommonController
 		{
 			if($m->delete($id))
 			{
+				// 清除缓存
+				S(C('common_home_nav_header_key'), null);
+				S(C('common_home_nav_footer_key'), null);
+				
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {
 				$this->ajaxReturn(L('common_operation_delete_error'), -100);
@@ -249,6 +223,10 @@ class NavFooterController extends CommonController
 		// 数据更新
 		if(M('Navigation')->where(array('id'=>I('id')))->save(array('is_show'=>I('state'))))
 		{
+			// 清除缓存
+			S(C('common_home_nav_header_key'), null);
+			S(C('common_home_nav_footer_key'), null);
+
 			$this->ajaxReturn(L('common_operation_edit_success'));
 		} else {
 			$this->ajaxReturn(L('common_operation_edit_error'), -100);

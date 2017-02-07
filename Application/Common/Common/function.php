@@ -9,6 +9,41 @@
  */
 
 /**
+ * [NavDataDealWith 导航数据处理]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-05T21:36:46+0800
+ * @param    [array]      $data [需要处理的数据]
+ * @return   [array]            [处理好的数据]
+ */
+function NavDataDealWith($data)
+{
+    if(!empty($data) && is_array($data))
+    {
+       $temp_host = substr(__MY_URL__, 0, -1);
+        foreach($data as $k=>$v)
+        {
+            // url处理
+            switch($v['data_type'])
+            {
+                // 文章分类
+                case 'article_class':
+                    $v['url'] = str_replace('admin.php', 'index.php', $temp_host.U('/Home/Channel/Index', array('id'=>$v['value'], 'viewid'=>$v['id'])));
+                    break;
+
+                // 自定义页面
+                case 'customview':
+                    $v['url'] = str_replace('admin.php', 'index.php', $temp_host.U('Home/CustomView/Index', array('id'=>$v['value'], 'viewid'=>$v['id'])));
+                    break;
+            }
+            $data[$k] = $v;
+        }
+    }
+    return $data;
+}
+
+/**
  * [ContentStaticReplace 编辑器中内容的静态资源替换]
  * @author   Devil
  * @blog     http://gong.gg/
