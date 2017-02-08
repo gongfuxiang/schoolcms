@@ -50,7 +50,10 @@ header .am-dropdown-content { border-radius: 2px; }
 header.am-topbar { margin-bottom: 1rem; }
 .my-content {  padding: 0rem 1rem; }
 .my-radius { border-radius: 2px !important; }
-.my-active { background-color: #0d82bd; }
+.nav-active { background-color: #0d82bd; }
+.am-topbar-nav > li > a:after { display: none; }
+.am-footer { font-size: 1.4rem; }
+.footer-nav-list a:hover { color: #095f8a; }
 
 /**
  * 回顶部
@@ -61,12 +64,12 @@ header.am-topbar { margin-bottom: 1rem; }
  * PC
  */
 @media only screen and (min-width: 641px) {
-	.user-header-menu { margin-top: 1.4rem; }
+	.user-header-nav ul { margin-top: 1.4rem; }
 }
 
 /**
  * 手机
  */
 @media only screen and (max-width: 641px) {
-	header .am-dropdown { width: 100%; }
+	.user-header-nav { width: 100%; }
 }

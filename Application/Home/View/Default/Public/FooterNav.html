@@ -1,0 +1,15 @@
+<footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{}">
+	<div class="footer-nav-list">
+		<foreach name="nav_footer" key="k" item="v">
+			<a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if>>{{$v.name}}</a>
+			<if condition="$k elt count(nav_footer)">
+				<span class="am-footer-divider">| </span>
+			</if>
+		</foreach>
+	</div>
+	<div class="am-footer-miscs">
+		<p>由 <a href="http://schoolcms.org/" title="SchoolCMS" target="_blank" class="">SchoolCMS</a> 提供技术支持</p>
+		<p>CopyRight©2014-{{:date('Y')}} SchoolCMS Inc.</p>
+		<p>京ICP备13033158</p>
+	</div>
+</footer>

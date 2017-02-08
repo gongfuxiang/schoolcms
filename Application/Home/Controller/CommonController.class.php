@@ -141,12 +141,12 @@ class CommonController extends Controller
 		// 缓存没数据则从数据库重新读取,顶部菜单
 		if(empty($this->nav_header))
 		{
-			$this->nav_header = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'pid'=>0))->order('sort')->select());
+			$this->nav_header = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'is_show'=>1, 'pid'=>0))->order('sort')->select());
 			if(!empty($this->nav_header))
 			{
 				foreach($this->nav_header as $k=>$v)
 				{
-					$this->nav_header[$k]['item'] = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'pid'=>$v['id']))->order('sort')->select());
+					$this->nav_header[$k]['item'] = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'is_show'=>1, 'pid'=>$v['id']))->order('sort')->select());
 				}
 			}
 			S(C('common_home_nav_header_key'), $this->nav_header);
@@ -155,7 +155,7 @@ class CommonController extends Controller
 		// 底部导航
 		if(empty($this->nav_footer))
 		{
-			$this->nav_footer = NavDataDealWith($m->field($field)->where(array('nav_type'=>'footer'))->order('sort')->select());
+			$this->nav_footer = NavDataDealWith($m->field($field)->where(array('nav_type'=>'footer', 'is_show'=>1))->order('sort')->select());
 			S(C('common_home_nav_footer_key'), $this->nav_footer);
 		}
 	}

@@ -1,64 +1,14 @@
-  <footer data-am-widget="footer"
-          class="am-footer am-footer-default"
-           data-am-footer="{  }">
-    <div class="am-footer-switch">
-    <span class="am-footer-ysp" data-rel="mobile"
-          data-am-modal="{target: '#am-switch-mode'}">
-          云适配版
-    </span>
-      <span class="am-footer-divider"> | </span>
-      <a id="godesktop" data-rel="desktop" class="am-footer-desktop" href="javascript:">
-          电脑版
-      </a>
-    </div>
-    <div class="am-footer-miscs ">
-
-          <p>由 <a href="http://www.yunshipei.com/" title="诺亚方舟"
-                                                target="_blank" class="">诺亚方舟</a>
-            提供技术支持</p>
-        <p>CopyRight©2014  AllMobilize Inc.</p>
-        <p>京ICP备13033158</p>
-    </div>
-  </footer>
-
-  <div id="am-footer-modal"
-       class="am-modal am-modal-no-btn am-switch-mode-m am-switch-mode-m-default">
-    <div class="am-modal-dialog">
-      <div class="am-modal-hd am-modal-footer-hd">
-        <a href="javascript:void(0)" data-dismiss="modal" class="am-close am-close-spin " data-am-modal-close>&times;</a>
-      </div>
-      <div class="am-modal-bd">
-          您正在浏览的是
-
-        <span class="am-switch-mode-owner">
-            云适配
-        </span>
-
-        <span class="am-switch-mode-slogan">
-              为您当前手机订制的移动网站。
-        </span>
-      </div>
-    </div>
-  </div>
-
+<!-- footer start -->
+<include file="Public/FooterNav" />
+<!-- footer end -->
 
 <!-- go-top start -->
-<div data-am-smooth-scroll>
-  <a href="javascript:;" title="回到顶部" class="am-icon-btn am-icon-arrow-up" id="my-go-top"></a>
-</div>
+<include file="Public/GoTop" />
 <!-- go-top end -->
 
-<!-- commom delete html start -->
-<div class="am-modal am-modal-confirm" tabindex="-1" id="common-confirm-delete">
-	<div class="am-modal-dialog am-radius">
-		<div class="am-modal-bd">{{:L('common_delete_tips')}}</div>
-		<div class="am-modal-footer">
-			<span class="am-modal-btn" data-am-modal-cancel>{{:L('common_operation_cancel')}}</span>
-			<span class="am-modal-btn" data-am-modal-confirm>{{:L('common_operation_confirm')}}</span>
-		</div>
-	</div>
-</div>
-<!-- commom delete html end -->
+<!-- commom html start -->
+<include file="Public/Common" />
+<!-- commom html end -->
 </body>
 </html>
 

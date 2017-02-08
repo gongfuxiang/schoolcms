@@ -122,6 +122,7 @@ return array(
 	'common_reg_text'					=>	'注册',
 	'common_user_home_text'				=>	'用户中心',
 	'common_so_tips'					=>	'其实搜索很简单 ^_^!',
+	'common_go_top_text'				=>	'回到顶部',
 
 	// 性别
 	'common_gender_list'				=>	array(
