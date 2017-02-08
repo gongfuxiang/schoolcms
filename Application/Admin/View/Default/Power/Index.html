@@ -63,7 +63,7 @@
 			<foreach name="list" item="v">
 				<li id="data-list-{{$v.id}}" <if condition="$v['is_show'] eq 0">class="bk-cr-ffd"</if>>
 					<if condition="!empty($v['item'])">
-						<i class="am-icon-minus-square c-p m-r-5"></i>
+						<i class="am-icon-plus c-p m-r-5"></i>
 						<label class="c-p">
 					<else />
 						<label class="c-p m-l-20">
@@ -71,21 +71,21 @@
 						<span>{{$v.name}}</span>
 					</label>
 					<div class="fr m-r-20 list-submit">
-						<span class="am-icon-edit am-icon-md c-p submit-edit <if condition="!empty($v['item'])">m-r-5</if>" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}" data-am-modal="{target: '#power-save-win'}" data-json='{{:json_encode($v)}}' data-item="<if condition="!empty($v['item'])">ok<else />no</if>"></span>
+						<span class="am-icon-edit am-icon-md c-p submit-edit <if condition="!empty($v['item'])">m-r-5</if>" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}" data-am-modal="{target: '#power-save-win'}" data-json='{{:json_encode($v)}}' data-tag="power-save-win" data-item="<if condition="!empty($v['item'])">ok<else />no</if>"></span>
 						<if condition="empty($v['item'])">
 							<span class="am-icon-trash-o am-icon-md c-p m-l-20 m-r-15 submit-delete" data-url="{{:U('Admin/Power/PowerDelete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></span>
 						</if>
 					</div>
 				</li>
 				<if condition="!empty($v['item'])">
-					<ul class="list-find p-0 m-t-5">
+					<ul class="list-find p-0 m-t-5" style="display:none;">
 						<foreach name="v.item" item="vs">
 							<li id="data-list-{{$vs.id}}" <if condition="$vs['is_show'] eq 0">class="bk-cr-ffd"</if>>
 								<label class="c-p">
 									<span>{{$vs.name}}</span>
 								</label>
 								<div class="fr m-r-20 find-submit">
-									<span class="am-icon-edit am-icon-md c-p submit-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}" data-am-modal="{target: '#power-save-win'}" data-json='{{:json_encode($vs)}}' data-item="no"></span>
+									<span class="am-icon-edit am-icon-md c-p submit-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}" data-am-modal="{target: '#power-save-win'}" data-json='{{:json_encode($vs)}}' data-tag="power-save-win" data-item="no"></span>
 									<span class="am-icon-trash-o am-icon-md c-p m-l-20 m-r-15 submit-delete" data-url="{{:U('Admin/Power/PowerDelete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$vs.id}}"></span>
 								</div>
 							</li>

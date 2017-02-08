@@ -49,7 +49,7 @@ class CourseController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 分页
-		$number = MyC('page_number');
+		$number = MyC('admin_page_number');
 		$total = $m->alias('AS c')->join(' INNER JOIN __TEACHER__ AS t ON c.teacher_id = t.id INNER JOIN __CLASS__ AS cs ON c.class_id = cs.id INNER JOIN __SUBJECT__ AS s ON c.subject_id = s.id INNER JOIN __WEEK__ AS w ON c.week_id = w.id INNER JOIN __INTERVAL__ AS i ON c.interval_id = i.id')->where($where)->count();
 		$page_param = array(
 				'number'	=>	$number,
@@ -173,7 +173,7 @@ class CourseController extends CommonController
 		$where = array();
 
 		// 学期id
-		$where['c.semester_id'] = MyC('semester_id');
+		$where['c.semester_id'] = MyC('admin_semester_id');
 
 		// 模糊
 		if(!empty($_REQUEST['keyword']))
@@ -301,7 +301,7 @@ class CourseController extends CommonController
 
 			// 额外数据处理
 			$m->add_time	=	time();
-			$m->semester_id	=	MyC('semester_id');
+			$m->semester_id	=	MyC('admin_semester_id');
 			
 			// 写入数据库
 			if($m->add())
@@ -366,7 +366,7 @@ class CourseController extends CommonController
 				'week_id'		=>	I('week_id'),
 				'interval_id'	=>	I('interval_id'),
 				'room_id'		=>	I('room_id'),
-				'semester_id'	=>	MyC('semester_id'),
+				'semester_id'	=>	MyC('admin_semester_id'),
 			);
 		$temp = $m->where($where)->getField('id');
 		if(!empty($temp))
@@ -379,7 +379,7 @@ class CourseController extends CommonController
 				'week_id'		=>	I('week_id'),
 				'interval_id'	=>	I('interval_id'),
 				'room_id'		=>	I('room_id'),
-				'semester_id'	=>	MyC('semester_id'),
+				'semester_id'	=>	MyC('admin_semester_id'),
 			);
 		$temp = $m->where($where)->getField('id');
 		if(!empty($temp))

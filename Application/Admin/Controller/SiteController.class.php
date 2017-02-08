@@ -3,13 +3,13 @@
 namespace Admin\Controller;
 
 /**
- * 配置设置
+ * 站点设置
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
-class ConfigController extends CommonController
+class SiteController extends CommonController
 {
 	/**
 	 * [_initialize 前置操作-继承公共前置方法]
@@ -47,7 +47,7 @@ class ConfigController extends CommonController
 		$this->assign('common_excel_charset_list', L('common_excel_charset_list'));
 
 		// 配置信息
-		$data = M('Config')->where(array('type'=>'admin'))->getField('only_tag,name,describe,value,error_tips');
+		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);
 		
 		$this->display('Index');

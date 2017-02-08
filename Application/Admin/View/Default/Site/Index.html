@@ -1,0 +1,50 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+
+<!-- right content start  -->
+<div class="content-right">
+	<div class="content">
+		<!-- form start -->
+		<form class="am-form form-validation view-save" action="{{:U('Admin/Config/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Config/Index')}}">
+			<div class="am-form-group">
+				<label>{{$data.semester_id.name}}<span class="fs-12 fw-100 cr-999">（{{$data.semester_id.describe}}）</span></label>
+				<select name="{{$data.semester_id.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.semester_id.error_tips}}" required>
+					<option value="">{{:L('common_select_can_choose')}}</option>
+					<foreach name="semester_list" item="v">
+						<option value="{{$v.id}}" <if condition="isset($data['semester_id']['value']) and $data['semester_id']['value'] eq $v['id']">selected</if>>{{$v.name}}</option>
+					</foreach>
+				</select>
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.excel_charset.name}}<span class="fs-12 fw-100 cr-999">（{{$data.excel_charset.describe}}）</span></label>
+				<select name="{{$data.excel_charset.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.excel_charset.error_tips}}" required>
+					<foreach name="common_excel_charset_list" item="v">
+						<option value="{{$v.id}}" <if condition="isset($data['excel_charset']['value']) and $data['excel_charset']['value'] eq $v['id']">selected</if>>{{$v.name}}</option>
+					</foreach>
+				</select>
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.page_number.name}}<span class="fs-12 fw-100 cr-999">（{{$data.page_number.describe}}）</span></label>
+				<input type="number" name="{{$data.page_number.only_tag}}" placeholder="{{$data.page_number.describe}}" pattern="{{:L('common_regex_page_number')}}" data-validation-message="{{$data.page_number.error_tips}}" class="am-radius" <present name="data"> value="{{$data.page_number.value}}"</present> required />
+			</div>
+			<div class="am-form-group form-fraction-list">
+				<label class="block">{{$data.fraction_weak.name}}<span class="fs-12 fw-100 cr-999">（{{$data.fraction_weak.error_tips}}）</span></label>
+				<input type="number" name="{{$data.fraction_weak.only_tag}}" placeholder="{{$data.fraction_weak.describe}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{$data.fraction_weak.error_tips}}" class="am-radius" <present name="data"> value="{{$data.fraction_weak.value}}"</present> required />
+				<input type="number" name="{{$data.fraction_poor.only_tag}}" placeholder="{{$data.fraction_poor.describe}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{$data.fraction_poor.error_tips}}" class="am-radius" <present name="data"> value="{{$data.fraction_poor.value}}"</present> required />
+				<input type="number" name="{{$data.fraction_commonly.only_tag}}" placeholder="{{$data.fraction_commonly.describe}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{$data.fraction_commonly.error_tips}}" class="am-radius" <present name="data"> value="{{$data.fraction_commonly.value}}"</present> required />
+				<input type="number" name="{{$data.fraction_good.only_tag}}" placeholder="{{$data.fraction_good.describe}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{$data.fraction_good.error_tips}}" class="am-radius" <present name="data"> value="{{$data.fraction_good.value}}"</present> required />
+				<input type="number" name="{{$data.fraction_excellent.only_tag}}" placeholder="{{$data.fraction_excellent.describe}}" pattern="{{:L('common_regex_score')}}" data-validation-message="{{$data.fraction_excellent.error_tips}}" class="am-radius" <present name="data"> value="{{$data.fraction_excellent.value}}"</present> required />
+			</div>
+			<div class="am-form-group">
+				<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
+			</div>
+		</form>
+        <!-- form end -->
+	</div>
+</div>
+<!-- right content end  -->
+		
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end -->

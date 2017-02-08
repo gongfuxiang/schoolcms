@@ -49,7 +49,7 @@ class StudentController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 分页
-		$number = MyC('page_number');
+		$number = MyC('admin_page_number');
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
@@ -173,7 +173,7 @@ class StudentController extends CommonController
 		$where = array();
 
 		// 学期id
-		$where['semester_id'] = MyC('semester_id');
+		$where['semester_id'] = MyC('admin_semester_id');
 
 		// 模糊
 		if(!empty($_REQUEST['keyword']))
@@ -304,7 +304,7 @@ class StudentController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
-			$m->semester_id	=	MyC('semester_id');
+			$m->semester_id	=	MyC('admin_semester_id');
 			
 			// 写入数据库
 			if($m->add())
@@ -340,7 +340,7 @@ class StudentController extends CommonController
 			}
 
 			// 学期id
-			$m->semester_id		=	MyC('semester_id');
+			$m->semester_id		=	MyC('admin_semester_id');
 
 			// 移除不能更新的数据
 			unset($m->id_card);

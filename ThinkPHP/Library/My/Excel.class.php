@@ -88,7 +88,7 @@ class Excel
 			}
 		}
 		// 获取配置编码类型
-		$excel_charset = MyC('excel_charset', 0);
+		$excel_charset = MyC('admin_excel_charset', 0);
 
 		// 输出内容
 		// 头部

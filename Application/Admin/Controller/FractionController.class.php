@@ -49,7 +49,7 @@ class FractionController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 分页
-		$number = MyC('page_number');
+		$number = MyC('admin_page_number');
 		$total = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->count();
 		$page_param = array(
 				'number'	=>	$number,
@@ -123,7 +123,7 @@ class FractionController extends CommonController
 		$where = array();
 
 		// 学期id
-		$where['f.semester_id'] = MyC('semester_id');
+		$where['f.semester_id'] = MyC('admin_semester_id');
 
 		// 模糊
 		if(!empty($_REQUEST['keyword']))
@@ -299,7 +299,7 @@ class FractionController extends CommonController
 			$m->comment 	=	I('comment');
 
 			// 学期id
-			$m->semester_id	=	MyC('semester_id');
+			$m->semester_id	=	MyC('admin_semester_id');
 			
 			// 写入数据库
 			if($m->add())
@@ -336,7 +336,7 @@ class FractionController extends CommonController
 	{
 		// 数据是否已存在
 		$where = array(
-				'semester_id'	=>	MyC('semester_id'),
+				'semester_id'	=>	MyC('admin_semester_id'),
 				'student_id'	=>	I('student_id'),
 				'subject_id'	=>	I('subject_id'),
 				'score_id'		=>	I('score_id'),

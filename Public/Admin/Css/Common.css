@@ -1386,8 +1386,9 @@ ul {
 /**
  * 公共分类样式
  */
-input[type="text"][readonly] { background: #fff !important; }
+input[type="text"][readonly] { background: #fff !important; cursor: pointer !important; }
 .submit-state { font-size: 16px; width: 25px; height: 25px; line-height: 25px; }
+input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px; outline:none; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; resize:none; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
 
 /**
  * PC

@@ -199,31 +199,31 @@ return array(
 					'id'	=>	0,
 					'name'	=>	'差',
 					'min'	=>	0,
-					'max'	=>	intval(MyC('fraction_weak', 20))-1
+					'max'	=>	intval(MyC('admin_fraction_weak', 20))-1
 				),
 			1 => array(
 					'id'	=>	1,
 					'name'	=>	'较差',
-					'min'	=>	MyC('fraction_weak', 20),
-					'max'	=>	intval(MyC('fraction_poor', 40))-1
+					'min'	=>	MyC('admin_fraction_weak', 20),
+					'max'	=>	intval(MyC('admin_fraction_poor', 40))-1
 				),
 			2 => array(
 					'id'	=>	2,
 					'name'	=>	'中',
-					'min'	=>	MyC('fraction_poor', 40),
-					'max'	=>	intval(MyC('fraction_commonly', 60))-1
+					'min'	=>	MyC('admin_fraction_poor', 40),
+					'max'	=>	intval(MyC('admin_fraction_commonly', 60))-1
 			),
 			3 => array(
 					'id'	=>	3,
 					'name'	=>	'良',
-					'min'	=>	MyC('fraction_commonly', 60),
-					'max'	=>	intval(MyC('fraction_good', 80))-1
+					'min'	=>	MyC('admin_fraction_commonly', 60),
+					'max'	=>	intval(MyC('admin_fraction_good', 80))-1
 				),
 			4 => array(
 					'id'	=>	4,
 					'name'	=>	'优',
-					'min'	=>	MyC('fraction_good', 80),
-					'max'	=>	MyC('fraction_excellent', 100)
+					'min'	=>	MyC('admin_fraction_good', 80),
+					'max'	=>	MyC('admin_fraction_excellent', 100)
 				),
 		),
 

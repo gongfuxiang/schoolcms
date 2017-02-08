@@ -49,7 +49,7 @@ class TeacherController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 分页
-		$number = MyC('page_number');
+		$number = MyC('admin_page_number');
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
