@@ -2,7 +2,7 @@
 	<div class="footer-nav-list">
 		<foreach name="nav_footer" key="k" item="v">
 			<a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if>>{{$v.name}}</a>
-			<if condition="$k elt count(nav_footer)">
+			<if condition="$k lt count($nav_footer)-1">
 				<span class="am-footer-divider">| </span>
 			</if>
 		</foreach>
