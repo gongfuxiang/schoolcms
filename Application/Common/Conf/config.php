@@ -44,6 +44,9 @@ return array(
 	// 默认参数过滤方法 用于I函数
 	'DEFAULT_FILTER'		=>	'htmlspecialchars',
 
+	// 时区
+	'DEFAULT_TIMEZONE'		=>	'Asia/Shanghai',
+
 
 	// ------ 模板 start ------ //
 	// 设置默认的模板主题

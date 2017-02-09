@@ -30,6 +30,11 @@ class CommonController extends Controller
 	 */
 	protected function _initialize()
 	{
+		/*date_default_timezone_set('America/Indiana/Indianapolis');
+		echo date('Y-m-d H:i:s');
+		echo '<br />';
+		echo date('Y-m-d H:i:s', time()+3600*13);
+		die();*/
 		// 菜单
 		$this->NavInit();
 
