@@ -56,49 +56,43 @@
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">文章分类</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_all_class_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="article_class" multiple="multiple" class="am-radius" minchecked="1" data-validation-message="至少选择一个分类" required>
-										<option value="0" selected>全部分类</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
+									<select name="article_class_id" multiple="multiple" class="am-radius" minchecked="1" data-validation-message="{{:L('view_class_format')}}" required>
+										<option value="0" selected>{{:L('view_all_class_text')}}</option>
+										<foreach name="article_class_list" item="v">
+											<option value="{{$v.id}}">{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">排序方式</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_sort_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="sort" class="am-radius" required>
-										<option value="new_desc" selected>最新发布降序排序</option>
-										<option value="upd_desc">最新更新降序排序</option>
-										<option value="browse_desc">浏览降序排序</option>
+										<foreach name="view_sort_list" item="v">
+											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">发布时间</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_add_time_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="add_time" class="am-radius" required>
-										<option value="0" selected>不限制</option>
-										<option value="1">1小时内</option>
-										<option value="24">24小时内</option>
-										<option value="168">7天内</option>
-										<option value="720">1个月内</option>
+										<foreach name="view_time_list" item="v">
+											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">更新时间</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_upd_time_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="upd_time" class="am-radius" required>
-										<option value="0" selected>不限制</option>
-										<option value="1">1小时内</option>
-										<option value="24">24小时内</option>
-										<option value="168">7天内</option>
-										<option value="720">1个月内</option>
+										<foreach name="view_time_list" item="v">
+											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>

@@ -39,6 +39,15 @@ class ViewController extends CommonController
      */
 	public function Index()
 	{
+		// 文章分类
+		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
+
+		// 排序
+		$this->assign('view_sort_list', L('view_sort_list'));
+
+		// 时间
+		$this->assign('view_time_list', L('view_time_list'));
+
 		$this->display('Index');
 	}
 
