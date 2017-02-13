@@ -10,11 +10,8 @@
  */
 function Prompt(msg, type, time)
 {
-	if(msg != undefined && msg != '')
+	if(msg != undefined && msg != '' && $('#common-prompt').length == 0)
 	{
-		// 先移除已有的提示信息
-		$('#common-prompt').remove();
-
 		if(type == undefined || type == '') type = 'danger';
 		var html = '<div id="common-prompt" class="am-alert am-alert-'+type+' am-animation-shake" data-am-alert><button type="button" class="am-close am-close-spin">&times;</button><p>'+msg+'</p></div>';
 		$('body').append(html);
@@ -121,7 +118,8 @@ function GetFormVal(element)
  */
 function IsExitsFunction(fun_name)
 {
-    try {
+    try
+    {
         if(typeof(eval(fun_name)) == "function") return true;
     } catch(e) {}
     return false;
@@ -245,7 +243,7 @@ function FromInit(form_name)
 	                		} else {
 	                			$.AMUI.progress.done();
 		            			$button.button('reset');
-	                			Prompt('表单定义的方法未定义');
+	                			Prompt('['+request_value+']表单定义的方法未定义');
 	                		}
 	                	} else if(request_type == 'ajax-url' || request_type == 'ajax-reload')
 	                	{

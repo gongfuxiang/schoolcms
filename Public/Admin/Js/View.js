@@ -17,7 +17,7 @@ $(function()
 	// 布局-编辑
 	$(document).on('click', '.layout-submit-edit', function()
 	{
-		$layout_module.attr('data-tag', $(this).data('tag'));
+		//$layout_module.attr('data-tag', $(this).data('tag'));
 	});
 
 	// 布局-移除
