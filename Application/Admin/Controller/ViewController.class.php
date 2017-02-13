@@ -41,5 +41,17 @@ class ViewController extends CommonController
 	{
 		$this->display('Index');
 	}
+
+	/**
+	 * [GetLayoutModuleData 获取模块数据]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-11T21:18:00+0800
+	 */
+	public function GetLayoutModuleData()
+	{
+		$this->ajaxReturn('hello');
+	}
 }
 ?>

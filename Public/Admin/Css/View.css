@@ -3,3 +3,21 @@
 .layout-content-submit { text-align: right; padding: 5px; background: #f7f7f7; }
 .layout-view ul .layout-item { border: 1px dashed #eee; }
 .layout-view-drag { background-color:white !important; border:3px dashed #639BF6 !important; }
+#layout-module-win .am-popup-hd { border-bottom: 0px; }
+#layout-module-win .am-popup-hd, #layout-module-win .am-popup-hd .am-popup-title { height: 35px; }
+#layout-module-win .am-popup-hd { background-color: #eee; }
+#layout-module-win .am-popup-hd .am-popup-title { line-height: 35px; }
+#layout-module-win .am-popup-inner { padding-top: 35px; }
+#layout-module-win .am-popup-bd { padding: 0px; }
+.layout-module-win-content { margin: 0px; }
+.layout-module-win-content .am-tabs-bd { border: 0px; }
+.layout-module-win-content select[multiple="multiple"] { min-height: 100px; max-height: 150px; }
+.help { color: #b6bfe4 !important; }
+.layout-module-win-content label[class*="am-u-"] { padding-left: 0rem;  padding-right: 0rem; }
+
+@media only screen and (max-width: 641px) {
+
+}
+@media only screen and (min-width: 641px) {
+	
+}

@@ -2,6 +2,173 @@
 <include file="Public/Header" />
 <!-- header end -->
 
+<!-- module start -->
+<div class="am-popup am-radius" id="layout-module-win" data-tag="">
+	<div class="am-popup-inner">
+		<div class="am-popup-hd">
+			<h4 class="am-popup-title">模块编辑</h4>
+			<span data-am-modal-close class="am-close">&times;</span>
+		</div>
+		<div class="am-popup-bd">
+			<div data-am-widget="tabs" class="am-tabs am-tabs-d2 layout-module-win-content">
+				<ul class="am-tabs-nav am-cf">
+					<li class="am-active"><a href="[data-tab-panel-0]">文章</a></li>
+					<li class=""><a href="[data-tab-panel-1]">内置</a></li>
+					<li class=""><a href="[data-tab-panel-2]">静态</a></li>
+				</ul>
+				<div class="am-tabs-bd">
+					<div data-tab-panel-0 class="am-tab-panel am-active">
+						<form class="am-form am-form-horizontal form-validation article-form" action="{{:U('Admin/View/GetLayoutModuleData')}}" method="POST" request-type="ajax-fun" request-value="LayoutModuleView">
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">模块名称</label>
+								<div class="am-u-sm-10">
+									<input type="text" name="name" minlength="1" maxlength="30" class="am-form-field am-radius" placeholder="模块名称" data-validation-message="格式 1~30 个字符之间" required />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">指定主题
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'半角逗号隔开（以数字开头结尾）<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 1,2,3', trigger:'hover focus'}"></i>
+								</label>
+								<div class="am-u-sm-10">
+									<input type="text" name="article_id" class="am-form-field am-radius" placeholder="指定文章id" pattern="^\d(\d|,?)*\d$" data-validation-message="半角逗号隔开（以数字开头结尾）格式如 1,2,3" />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">关键字
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'并且条件使用[ - ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix<br />或条件使用[ | ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win|unix<br />最大80个字符', trigger:'hover focus'}"></i>
+								</label>
+								<div class="am-u-sm-10">
+									<input type="text" name="title_keyword" class="am-form-field am-radius" maxlength="80" placeholder="标题包含的关键字" />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">显示条数</label>
+								<div class="am-u-sm-10">
+									<input type="number" name="show_number" value="10" class="am-form-field am-radius" placeholder="显示条数" min="1" max="1000" data-validation-message="条数 1~1000 数值之间" required />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">摘要字数
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'摘要文字数，默认80', trigger:'hover focus'}"></i>
+								</label>
+								<div class="am-u-sm-10">
+									<input type="number" name="abstract_number" value="80" class="am-form-field am-radius" placeholder="摘要字数" min="5" max="500" data-validation-message="字数 5~500 数值之间" required />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">文章分类</label>
+								<div class="am-u-sm-10">
+									<select name="article_class" multiple="multiple" class="am-radius" minchecked="1" data-validation-message="至少选择一个分类" required>
+										<option value="0" selected>全部分类</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">排序方式</label>
+								<div class="am-u-sm-10">
+									<select name="sort" class="am-radius" required>
+										<option value="new_desc" selected>最新发布降序排序</option>
+										<option value="upd_desc">最新更新降序排序</option>
+										<option value="browse_desc">浏览降序排序</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">发布时间</label>
+								<div class="am-u-sm-10">
+									<select name="add_time" class="am-radius" required>
+										<option value="0" selected>不限制</option>
+										<option value="1">1小时内</option>
+										<option value="24">24小时内</option>
+										<option value="168">7天内</option>
+										<option value="720">1个月内</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">更新时间</label>
+								<div class="am-u-sm-10">
+									<select name="upd_time" class="am-radius" required>
+										<option value="0" selected>不限制</option>
+										<option value="1">1小时内</option>
+										<option value="24">24小时内</option>
+										<option value="168">7天内</option>
+										<option value="720">1个月内</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">显示样式</label>
+								<div class="am-u-sm-10">
+									<select name="show_style" class="am-radius" required>
+										<option value="1">[内置]文章标题</option>
+										<option value="2">[内置]文章标题+浏览数</option>
+										<option value="3">[内置]文章标题+发布时间</option>
+										<option value="4">[内置]文章标题+摘要</option>
+										<option value="5">[内置]焦点模式</option>
+										<option value="6">[内置]文章标题（第一条带摘要）</option>
+										<option value="7">[内置]文章图文展示</option>
+										<option value="8">[内置]一简介+两列标题</option>
+										<option value="9">[内置]文章图片幻灯片</option>
+										<option value="10">[内置]文章图片列表</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">打开方式</label>
+								<div class="am-u-sm-10">
+									<select name="link_open_way" class="am-radius" required>
+										<option value="blank" selected>新窗口打开</option>
+										<option value="self">本页面打开</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">日期格式</label>
+								<div class="am-u-sm-10">
+									<select name="dateformat" class="am-radius" required>
+										<option value="Y-m-d">2017-02-10</option>
+										<option value="m-d">02-10</option>
+										<option value="H:i">23:45</option>
+										<option value="Y-m-d H:i">2017-02-10 23:45</option>
+									</select>
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">数据缓存
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'数据缓存时间，单位（分钟）<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认60分钟，0不缓存数据', trigger:'hover focus'}"></i>
+								</label>
+								<div class="am-u-sm-10">
+									<input type="number" name="data_cache_time" value="60" class="am-form-field am-radius" placeholder="数据缓存有效时间" required />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">自定义</label>
+								<div class="am-u-sm-10">
+									<textarea name="summary" rows="3" maxlength="255" class="am-radius" placeholder="自定义内容"></textarea>
+								</div>
+							</div>
+							<button class="am-btn am-btn-secondary am-btn-sm am-radius am-btn-block" type="submit">保存</button>
+						</form>
+					</div>
+					<div data-tab-panel-1 class="am-tab-panel ">
+					【彩虹】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+					</div>
+					<div data-tab-panel-2 class="am-tab-panel ">
+					【歌唱】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- module end -->
+
 <!-- right content start  -->
 <div class="content-right">
 	<div class="content">
@@ -21,20 +188,6 @@
 		</div>
 		<!-- layout module end -->
 
-		<!-- module start -->
-		<div class="am-popup am-radius" id="layout-module-win" data-tag="">
-			<div class="am-popup-inner">
-				<div class="am-popup-hd">
-					<h4 class="am-popup-title">...</h4>
-					<span data-am-modal-close class="am-close">&times;</span>
-				</div>
-				<div class="am-popup-bd">
-					content
-				</div>
-			</div>
-		</div>
-		<!-- module end -->
-
 		<!-- layuot start -->
 		<div class="layout-content">
 			<!-- 100% start -->
@@ -43,18 +196,6 @@
 					<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button>
 				</div>
 				<div class="layout-100-content">1</div>
-			</div>
-			<div class="layout-view layout-100" data-id="2" data-tag="layout-100">
-				<div class="layout-content-submit drag-submit">
-					<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button>
-				</div>
-				<div class="layout-100-content">2</div>
-			</div>
-			<div class="layout-view layout-100" data-id="3" data-tag="layout-100">
-				<div class="layout-content-submit drag-submit">
-					<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button>
-				</div>
-				<div class="layout-100-content">3</div>
 			</div>
 			<!-- 100% end -->
 
@@ -372,3 +513,18 @@
 <!-- footer start -->
 <include file="Public/Footer" />
 <!-- footer end -->
+
+<script>
+	/**
+	 * [LayoutModuleView 模型编辑（公共表单方法校验需要放在这里，不能校验其它文件的方法）]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-11T21:46:50+0800
+	 * @param    {[object]}    data [模型数据]
+	 */
+	function LayoutModuleView(data)
+	{
+		console.log(data);
+	}
+</script>

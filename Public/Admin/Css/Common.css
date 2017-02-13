@@ -8,7 +8,7 @@ html, body {
   position: relative;
   background: #fff;
   height: 100%;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 
 h1,
@@ -1388,7 +1388,7 @@ ul {
  */
 input[type="text"][readonly] { background: #fff !important; cursor: pointer !important; }
 .submit-state { font-size: 16px; width: 25px; height: 25px; line-height: 25px; }
-input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px; outline:none; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; resize:none; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
+input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
 
 /**
  * PC
@@ -1406,7 +1406,9 @@ input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px
  * 手机
  */
 @media only screen and (max-width: 641px) {
-
+  html, body {
+    overflow-x: hidden;
+  }
 }
 
 /* 公共dl样式 */
