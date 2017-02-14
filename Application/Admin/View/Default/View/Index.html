@@ -70,7 +70,7 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_sort_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="sort" class="am-radius" required>
-										<foreach name="view_sort_list" item="v">
+										<foreach name="common_view_sort_list" item="v">
 											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
 									</select>
@@ -80,7 +80,7 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_add_time_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="add_time" class="am-radius" required>
-										<foreach name="view_time_list" item="v">
+										<foreach name="common_view_time_list" item="v">
 											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
 									</select>
@@ -90,7 +90,7 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_upd_time_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="upd_time" class="am-radius" required>
-										<foreach name="view_time_list" item="v">
+										<foreach name="common_view_time_list" item="v">
 											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
 									</select>

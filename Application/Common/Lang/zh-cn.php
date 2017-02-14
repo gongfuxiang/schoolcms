@@ -193,6 +193,22 @@ return array(
 			'customview'	=>	'自定义页面',
 		),
 
+	// 页面设置排序
+	'common_view_sort_list'				=>	array(
+			0 => array('value' => 'new_desc', 'name' => '最新发布降序', 'checked' => true),
+			1 => array('value' => 'upd_desc', 'name' => '最新更新降序'),
+			2 => array('value' => 'browse_desc', 'name' => '浏览降序'),
+		),
+
+	// 页面设置有效时间
+	'common_view_time_list'				=>	array(
+			0 => array('value' => 0, 'name' => '不限制', 'checked' => true),
+			1 => array('value' => 1, 'name' => '1小时内'),
+			2 => array('value' => 24, 'name' => '24小时内'),
+			3 => array('value' => 168, 'name' => '7天内'),
+			4 => array('value' => 720, 'name' => '1个月内'),
+		),
+
 	// 学生成绩等级
 	'common_fraction_level_list'		=>	array(
 			0 => array(
