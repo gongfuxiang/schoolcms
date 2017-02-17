@@ -149,7 +149,7 @@ class NavHeaderController extends CommonController
 						break;
 				}
 				// 只截取16个字符
-				$m->name = mb_substr($temp_name, 0, 16, 'UTF-8');
+				$m->name = mb_substr($temp_name, 0, 16, C('DEFAULT_CHARSET'));
 			}
 
 			// 清除缓存

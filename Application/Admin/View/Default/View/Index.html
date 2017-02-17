@@ -10,24 +10,32 @@
 			<span data-am-modal-close class="am-close">&times;</span>
 		</div>
 		<div class="am-popup-bd">
-			<div data-am-widget="tabs" class="am-tabs am-tabs-d2 layout-module-win-content">
-				<ul class="am-tabs-nav am-cf">
-					<li class="am-active"><a href="[data-tab-panel-0]">文章</a></li>
-					<li class=""><a href="[data-tab-panel-1]">内置</a></li>
-					<li class=""><a href="[data-tab-panel-2]">静态</a></li>
-				</ul>
-				<div class="am-tabs-bd">
-					<div data-tab-panel-0 class="am-tab-panel am-active">
-						<form class="am-form am-form-horizontal form-validation article-form" action="{{:U('Admin/View/GetLayoutModuleData')}}" method="POST" request-type="ajax-fun" request-value="LayoutModuleView">
+			<form class="am-form am-form-horizontal form-validation article-form" action="{{:U('Admin/View/GetLayoutModuleData')}}" method="POST" request-type="ajax-fun" request-value="LayoutModuleView">
+				<div data-am-widget="tabs" class="am-tabs am-tabs-d2 layout-module-win-content">
+					<!-- <ul class="am-tabs-nav am-cf">
+						<li class="am-active"><a href="[data-tab-panel-0]">数据</a></li>
+						<li class=""><a href="[data-tab-panel-1]">标题</a></li>
+						<li class=""><a href="[data-tab-panel-2]">样式</a></li>
+					</ul> -->
+					<div class="am-tabs-bd">
+						<div data-tab-panel-0 class="am-tab-panel am-active">
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">模块名称</label>
 								<div class="am-u-sm-10">
-									<input type="text" name="name" minlength="1" maxlength="30" class="am-form-field am-radius" placeholder="模块名称" data-validation-message="格式 1~30 个字符之间" required />
+									<input type="text" name="name" maxlength="30" class="am-form-field am-radius" placeholder="模块名称" data-validation-message="格式 0~30 个字符之间" />
+								</div>
+							</div>
+							<div class="am-form-group am-form-group-sm">
+								<label class="am-u-sm-2 am-form-label">右标题
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'标题与链接使用[ ; ]符号隔开<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 右标题;http://schoolcms.org/', trigger:'hover focus'}"></i>
+								</label>
+								<div class="am-u-sm-10">
+									<input type="text" name="right_title" maxlength="255" class="am-form-field am-radius" placeholder="右标题" data-validation-message="格式 0~255 个字符之间" />
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">指定主题
-									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'半角逗号隔开（以数字开头结尾）<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 1,2,3', trigger:'hover focus'}"></i>
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'半角逗号隔开（以数字开头结尾）<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 1,2,3<br />指定主题后，其它条件将失效', trigger:'hover focus'}"></i>
 								</label>
 								<div class="am-u-sm-10">
 									<input type="text" name="article_id" class="am-form-field am-radius" placeholder="指定文章id" pattern="^\d(\d|,?)*\d$" data-validation-message="半角逗号隔开（以数字开头结尾）格式如 1,2,3" />
@@ -35,10 +43,10 @@
 							</div>
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">关键字
-									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'并且条件使用[ - ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix<br />或条件使用[ | ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win|unix<br />最大80个字符', trigger:'hover focus'}"></i>
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'并且条件使用[ - ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix<br />或条件使用[ | ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win|unix<br />并且+或使用[ ; ]符号隔开<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix;win|unix<br />最大80个字符', trigger:'hover focus'}"></i>
 								</label>
 								<div class="am-u-sm-10">
-									<input type="text" name="title_keyword" class="am-form-field am-radius" maxlength="80" placeholder="标题包含的关键字" />
+									<input type="text" name="keyword" class="am-form-field am-radius" maxlength="80" placeholder="标题包含的关键字" />
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
@@ -70,8 +78,8 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_sort_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="sort" class="am-radius" required>
-										<foreach name="common_view_sort_list" item="v">
-											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										<foreach name="common_view_sort_list" key="k" item="v">
+											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
 									</select>
 								</div>
@@ -80,8 +88,8 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_add_time_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="add_time" class="am-radius" required>
-										<foreach name="common_view_time_list" item="v">
-											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										<foreach name="common_view_time_list" key="k" item="v">
+											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
 									</select>
 								</div>
@@ -90,46 +98,39 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_upd_time_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="upd_time" class="am-radius" required>
-										<foreach name="common_view_time_list" item="v">
-											<option value="{{$v.value}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										<foreach name="common_view_time_list" key="k" item="v">
+											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
 									</select>
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">显示样式</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_title_style_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="show_style" class="am-radius" required>
-										<option value="1">[内置]文章标题</option>
-										<option value="2">[内置]文章标题+浏览数</option>
-										<option value="3">[内置]文章标题+发布时间</option>
-										<option value="4">[内置]文章标题+摘要</option>
-										<option value="5">[内置]焦点模式</option>
-										<option value="6">[内置]文章标题（第一条带摘要）</option>
-										<option value="7">[内置]文章图文展示</option>
-										<option value="8">[内置]一简介+两列标题</option>
-										<option value="9">[内置]文章图片幻灯片</option>
-										<option value="10">[内置]文章图片列表</option>
+									<select name="title_style" class="am-radius" required>
+										<foreach name="common_view_title_style_list" key="k" item="v">
+											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">打开方式</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_link_open_way_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="link_open_way" class="am-radius" required>
-										<option value="blank" selected>新窗口打开</option>
-										<option value="self">本页面打开</option>
+										<foreach name="common_view_link_open_way_list" key="k" item="v">
+											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">日期格式</label>
+								<label class="am-u-sm-2 am-form-label">{{:L('view_date_format_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="dateformat" class="am-radius" required>
-										<option value="Y-m-d">2017-02-10</option>
-										<option value="m-d">02-10</option>
-										<option value="H:i">23:45</option>
-										<option value="Y-m-d H:i">2017-02-10 23:45</option>
+									<select name="date_format" class="am-radius" required>
+										<foreach name="common_view_date_format_list" key="k" item="v">
+											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										</foreach>
 									</select>
 								</div>
 							</div>
@@ -142,22 +143,24 @@
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
-								<label class="am-u-sm-2 am-form-label">自定义</label>
+								<label class="am-u-sm-2 am-form-label">自定义
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'自定义内容后，以上筛选规则将失效', trigger:'hover focus'}"></i>
+								</label>
 								<div class="am-u-sm-10">
 									<textarea name="summary" rows="3" maxlength="255" class="am-radius" placeholder="自定义内容"></textarea>
 								</div>
 							</div>
 							<button class="am-btn am-btn-secondary am-btn-sm am-radius am-btn-block" type="submit">保存</button>
-						</form>
-					</div>
-					<div data-tab-panel-1 class="am-tab-panel ">
-					【彩虹】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
-					</div>
-					<div data-tab-panel-2 class="am-tab-panel ">
-					【歌唱】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+						</div>
+						<div data-tab-panel-1 class="am-tab-panel ">
+						【彩虹】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+						</div>
+						<div data-tab-panel-2 class="am-tab-panel ">
+						【歌唱】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -203,7 +206,7 @@
 							<div class="layout-content-submit">
 								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
 							</div>
-							<div class="am-list-news am-list-news-default">
+							<div class="am-list-news am-list-news-default" id="hahahahahaha">
 								<div class="am-list-news-hd am-cf">
 									<h2>热点新闻</h2>
 									<a href="#">
@@ -519,6 +522,20 @@
 	 */
 	function LayoutModuleView(data)
 	{
-		console.log(data);
+		if(data.code == 0)
+		{
+			if(IsExitsFunction(data.data.fun))
+			{
+				window[data.data.fun](data.data);
+				Prompt(data.msg, 'success');
+			} else {
+				Prompt('['+data.data.fun+']标题样式的方法未定义');
+			}
+		} else {
+			Prompt(data.msg);
+		}
+		$.AMUI.progress.done();
+		$('.form-validation').find('button[type="submit"]').button('reset');
+		$('#layout-module-win').modal('close');
 	}
 </script>

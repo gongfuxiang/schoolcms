@@ -193,20 +193,48 @@ return array(
 			'customview'	=>	'自定义页面',
 		),
 
-	// 页面设置排序
+	// 页面设置-排序
 	'common_view_sort_list'				=>	array(
-			0 => array('value' => 'new_desc', 'name' => '最新发布降序', 'checked' => true),
-			1 => array('value' => 'upd_desc', 'name' => '最新更新降序'),
-			2 => array('value' => 'browse_desc', 'name' => '浏览降序'),
+			0 => array('value' => 'add_time-desc', 'name' => '最新发布降序', 'checked' => true),
+			1 => array('value' => 'upd_time-desc', 'name' => '最新更新降序'),
+			2 => array('value' => 'access_count-desc', 'name' => '浏览降序'),
 		),
 
-	// 页面设置有效时间
+	// 页面设置-有效时间
 	'common_view_time_list'				=>	array(
 			0 => array('value' => 0, 'name' => '不限制', 'checked' => true),
 			1 => array('value' => 1, 'name' => '1小时内'),
 			2 => array('value' => 24, 'name' => '24小时内'),
 			3 => array('value' => 168, 'name' => '7天内'),
 			4 => array('value' => 720, 'name' => '1个月内'),
+		),
+
+	// 页面设置-有效时间
+	'common_view_title_style_list'		=>	array(
+			0 => array('value' => 0, 'fun' => 'View_Article_Title', 'name' => '[内置]文章标题', 'checked' => true),
+			1 => array('value' => 1, 'fun' => 'View_Article_Title_Access', 'name' => '[内置]文章标题+访问数'),
+			2 => array('value' => 2, 'fun' => 'View_Article_Create_Title_Time', 'name' => '[内置]文章标题+发布时间'),
+			3 => array('value' => 3, 'fun' => 'View_Article_Title_Abstract', 'name' => '[内置]文章标题+摘要'),
+			4 => array('value' => 4, 'fun' => 'View_Article_Focus', 'name' => '[内置]焦点模式'),
+			5 => array('value' => 5, 'fun' => 'View_Article_Title_Abstract_One', 'name' => '[内置]文章标题（第一条带摘要）'),
+			6 => array('value' => 6, 'fun' => 'View_Article_Images_Content', 'name' => '[内置]文章图文展示'),
+			7 => array('value' => 7, 'fun' => 'View_Article_One_Introduction_Two_Title', 'name' => '[内置]一简介+两列标题'),
+			8 => array('value' => 8, 'fun' => 'View_Article_Images_Slide', 'name' => '[内置]文章图片幻灯片'),
+			9 => array('value' => 9, 'fun' => 'View_Article_Images_List', 'name' => '[内置]文章图片列表'),
+		),
+
+	// 页面设置-打开方式
+	'common_view_link_open_way_list'		=>	array(
+			0 => array('value' => 'blank', 'name' => '新窗口打开', 'checked' => true),
+			1 => array('value' => 'self', 'name' => '本页面打开'),
+		),
+
+	// 页面设置-日期格式
+	'common_view_date_format_list'		=>	array(
+			0 => array('value' => 'Y-m-d', 'name' => date('Y-m-d'), 'checked' => true),
+			1 => array('value' => 'm-d', 'name' => date('m-d')),
+			2 => array('value' => 'H:i', 'name' => date('H:i')),
+			3 => array('value' => 'Y-m-d H:i', 'name' => date('Y-m-d H:i')),
 		),
 
 	// 学生成绩等级

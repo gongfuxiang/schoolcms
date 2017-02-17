@@ -15,5 +15,8 @@ return array(
 	'view_sort_text'				=>	'排序方式',
 	'view_add_time_text'			=>	'发布时间',
 	'view_upd_time_text'			=>	'更新时间',
+	'view_title_style_text'			=>	'显示样式',
+	'view_link_open_way_text'		=>	'打开方式',
+	'view_date_format_text'			=>	'日期格式',
 );
 ?>

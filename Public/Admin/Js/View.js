@@ -43,3 +43,58 @@ $(function()
 	});
 
 });
+
+
+/**
+ * [View_Article_Title 视图-标题]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-16T19:20:22+0800
+ * @param    {[object]}     data [数据列表对象]
+ */
+function View_Article_Title(data)
+{
+	// 初始化
+	var html = '';
+
+	// 标题
+	if(data.name.length > 0 || data.right_title.length > 0)
+	{
+		html += '<div class="am-list-news-hd am-cf">';
+		if(data.name.length > 0)
+		{
+			html += '<h2>'+data.name+'</h2>';
+		}
+		if(data.right_title.length > 0)
+		{
+			if(data.right_title[0] != undefined)
+			{
+				if(data.right_title[1] == undefined)
+				{
+					html += '<span class="am-list-news-more am-fr">'+data.right_title[0]+'</span>';
+				} else {
+					html += '<a href="'+data.right_title[1]+'" target="_blank"><span class="am-list-news-more am-fr">'+data.right_title[0]+'</span></a>';
+				}
+			}
+		}
+		html += '</div>';
+	}
+
+	// 列表
+	html += '<div class="am-list-news-bd"><ul class="am-list">';
+	for(var i in data.data)
+	{
+		// 打开方式
+		var blank = (data.link_open_way == 'blank') ? 'target="_blank"' : '';
+
+		// 标题颜色
+		var title_color = (data.data[i]['title_color'].length > 0) ? 'style="color:'+data.data[i]['title_color']+';"' : '';
+
+		// 内容
+		html += '<li><a href="'+data.data[i]['url']+'" '+blank+' title="'+data.data[i]['title']+'" class="am-text-truncate" '+title_color+'>'+data.data[i]['title']+'</a></li>';
+	}
+	html += '</ul></div>';
+	$('#hahahahahaha').html(html);
+	console.log(html);
+}
