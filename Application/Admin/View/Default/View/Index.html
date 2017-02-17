@@ -43,10 +43,10 @@
 							</div>
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">关键字
-									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'并且条件使用[ - ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix<br />或条件使用[ | ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win|unix<br />并且+或使用[ ; ]符号隔开<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix;win|unix<br />最大80个字符', trigger:'hover focus'}"></i>
+									<i class="am-icon-question help fs-12 c-p" data-am-popover="{theme: 'default sm', content:'并且条件使用[ - ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix<br />或条件使用[ | ]符号<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win|unix<br />并且+或使用[ ; ]符号隔开<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式如 win-unix;win|unix<br />最大255个字符', trigger:'hover focus'}"></i>
 								</label>
 								<div class="am-u-sm-10">
-									<input type="text" name="keyword" class="am-form-field am-radius" maxlength="80" placeholder="标题包含的关键字" />
+									<input type="text" name="keyword" class="am-form-field am-radius" maxlength="255" placeholder="标题包含的关键字" />
 								</div>
 							</div>
 							<div class="am-form-group am-form-group-sm">
@@ -77,7 +77,7 @@
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">{{:L('view_sort_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="sort" class="am-radius" required>
+									<select name="sort_type" class="am-radius" required>
 										<foreach name="common_view_sort_list" key="k" item="v">
 											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
@@ -87,7 +87,7 @@
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">{{:L('view_add_time_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="add_time" class="am-radius" required>
+									<select name="add_time_interval" class="am-radius" required>
 										<foreach name="common_view_time_list" key="k" item="v">
 											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
@@ -97,7 +97,7 @@
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">{{:L('view_upd_time_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="upd_time" class="am-radius" required>
+									<select name="upd_time_interval" class="am-radius" required>
 										<foreach name="common_view_time_list" key="k" item="v">
 											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
 										</foreach>
@@ -150,6 +150,8 @@
 									<textarea name="summary" rows="3" maxlength="255" class="am-radius" placeholder="自定义内容"></textarea>
 								</div>
 							</div>
+							<input type="hidden" name="id" value="" />
+							<input type="hidden" name="layout_value" value="" />
 							<button class="am-btn am-btn-secondary am-btn-sm am-radius am-btn-block" type="submit">保存</button>
 						</div>
 						<div data-tab-panel-1 class="am-tab-panel ">
@@ -172,8 +174,12 @@
 		<!-- layout module list -->
 		<div class="am-panel am-panel-default am-radius">
 			<div class="am-panel-bd layout-list">
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-html='<div class="layout-view layout-100" data-id="1" data-tag="layout-100"><div class="layout-content-submit drag-submit"><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button></div><div class="layout-100-content">1</div></div>'>100%</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">sm[1]-md[2]-lg[3]</button>
+				<!-- 100全屏 -->
+				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="100" data-html='<div class="layout-view" layout-id="{layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-id}" data-value="{data-value}" data-tag="{content-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-id}">移除</button></div><div class="layout-100" id="{content-id}"></div></div>'>100%</button>
+
+				<!-- 自适应sm[1]-md[2]-lg[3] -->
+				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="123" data-html='<div class="layout-view" layout-id="{layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{data-id}" data-value="{data-value}" data-tag="{content-id}" {data-html-item}>添加</button> <button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-id}">移除</button></div><ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-avg-md-2 am-avg-lg-3 am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-123" data-am-gallery="{}" id="{content-id}"></ul></div>' data-html-item='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-id}" data-value="{data-value}" data-tag="{content-id}">编辑</button> <button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-id}">移除</button></div><div class="layout-100-123-item" id="{content-id}"></div></li>'>sm[1]-md[2]-lg[3]</button>
+
 				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">sm[1]-md[2]-lg[4]</button>
 				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">sm[2]-md[3]-lg[6]</button>
 				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">3:1</button>
@@ -186,14 +192,15 @@
 		<!-- layout module end -->
 
 		<!-- layuot start -->
-		<div class="layout-content">
+		<div class="layout-content" data-layout-url="{{:U('Admin/View/LayoutSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-type="home">
 			<!-- 100% start -->
-			<div class="layout-view layout-100" data-id="1" data-tag="layout-100">
+			<!-- <div class="layout-view layout-100" data-id="1" data-tag="layout-100">
 				<div class="layout-content-submit drag-submit">
+					<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
 					<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button>
 				</div>
 				<div class="layout-100-content">1</div>
-			</div>
+			</div> -->
 			<!-- 100% end -->
 
 			<div class="layout-view layout-100" data-id="4" data-tag="layout-100-123">

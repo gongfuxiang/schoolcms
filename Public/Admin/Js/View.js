@@ -1,35 +1,122 @@
+// 模块窗口
+$layout_module = $('#layout-module-win');
 $(function()
 {
-	// 模块窗口
-	//$layout_module = $('#layout-module-win');
-
 	// 布局-拖拽-初始化
 	$(".layout-content").dragsort({
 		dragSelector: ".drag-submit",
 		dragEnd: function()
 		{
-			var data = $(".layout-content .drag-submit").map(function() { return $(this).parent().data('id')+'|'+$(this).parent().data('tag'); }).get();
+			var data = $(".layout-content .drag-submit").map(function() { return $(this).parents('.layout-view').attr('layout-id'); }).get();
 			$("input[name=layout_sort]").val(data.join(";"));
 		},
 		placeHolderTemplate: "<div class='layout-view-drag'></div>"
 	});
 
-	// 布局-编辑
+	// 模块-添加
+	$(document).on('click', '.layout-submit-add', function()
+	{
+		var url = $('.layout-content').data('module-add-url');
+		var tag = $(this).data('tag');
+		var id = $(this).data('id');
+		var value = $(this).data('value');
+		var html = $(this).data('html');
+		if(url != undefined && tag != undefined && value != undefined && id != undefined && html != undefined)
+		{
+			// ajax请求
+			$.ajax({
+				url:url,
+				type:'POST',
+				dataType:"json",
+				timeout:10000,
+				data:{"id":id},
+				success:function(result)
+				{
+					if(result.code == 0)
+					{
+						// 数据替换-添加
+						html = html.replace(/{data-id}/g, result.data);
+						html = html.replace(/{data-value}/g, value);
+						html = html.replace(/{content-id}/g, 'layout-content-'+value+'-'+id+'-'+result.data);
+						html = html.replace(/{layout-module-win}/g, "'#layout-module-win'");
+						$('#'+tag).append(html);
+					} else {
+						Prompt(result.msg);
+					}
+				}
+			});
+		} else {
+			Prompt('模块配置参数有误');
+		}
+	});
+
+	// 模块-编辑
 	$(document).on('click', '.layout-submit-edit', function()
 	{
-		//$layout_module.attr('data-tag', $(this).data('tag'));
+		$layout_module.attr('data-tag', $(this).data('tag'));
+		$layout_module.find('input[name="id"]').val($(this).data('id'));
+		$layout_module.find('input[name="layout_value"]').val($(this).data('value'));
 	});
 
 	// 布局-移除
 	$(document).on('click', '.layout-submit-remove', function()
 	{
-		$(this).parents('.layout-view').remove();
+		// ajax数据库删除
+		console.log($(this).data('id'));
+
+		// 移除元素
+		$(this).parent().parent().remove();
 	});
 
-	// 布局添加
+	// 布局-添加
 	$('.layout-list').on('click', 'button', function()
 	{
+		var url = $('.layout-content').data('layout-url');
+		var type = $('.layout-content').data('type');
+		var value = $(this).data('value');
 		var html = $(this).data('html');
+		var html_item = $(this).data('html-item');
+		if(url != undefined && type != undefined && value != undefined && html != undefined)
+		{
+			// ajax请求
+			$.ajax({
+				url:url,
+				type:'POST',
+				dataType:"json",
+				timeout:10000,
+				data:{"type":type, "value":value},
+				success:function(result)
+				{
+					if(result.code == 0)
+					{
+						// 数据替换-添加
+						html = html.replace(/{layout-id}/g, result.data.layout_id)
+						html = html.replace(/{data-id}/g, result.data.module_id);
+						html = html.replace(/{data-value}/g, value);
+						html = html.replace(/{content-id}/g, 'layout-content-'+value+'-'+result.data.module_id);
+						html = html.replace(/{layout-module-win}/g, "'#layout-module-win'");
+						if(html_item != undefined)
+						{
+							html = html.replace('{data-html-item}', "data-html='"+html_item+"'");
+						}
+						$('.layout-content').prepend(html);
+
+						// 动画处理
+						setTimeout(function()
+						{
+							var $first_child = $(".layout-content").children("div:first-child");
+							$first_child.css('opacity', 0);
+							$first_child.animate({opacity:1}, 500);
+						}, 1);
+					} else {
+						Prompt(result.msg);
+					}
+				}
+			});
+		} else {
+			Prompt('布局配置参数有误');
+		}
+		/*var html = $(this).data('html');
 		if(html != undefined)
 		{
 			$('.layout-content').prepend(html);
@@ -39,7 +126,7 @@ $(function()
 				$first_child.css('opacity', 0);
 				$first_child.animate({opacity:1}, 500);
 			}, 1);
-		}
+		}*/
 	});
 
 });
@@ -95,6 +182,5 @@ function View_Article_Title(data)
 		html += '<li><a href="'+data.data[i]['url']+'" '+blank+' title="'+data.data[i]['title']+'" class="am-text-truncate" '+title_color+'>'+data.data[i]['title']+'</a></li>';
 	}
 	html += '</ul></div>';
-	$('#hahahahahaha').html(html);
-	console.log(html);
+	$('#'+$layout_module.attr('data-tag')).html(html);
 }

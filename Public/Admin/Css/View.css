@@ -1,5 +1,4 @@
-.layout-view { border:3px dashed #ccc; }
-.layout-100 { margin: 10px 0px; }
+.layout-view { border:3px dashed #ccc; margin: 10px 0px; }
 .layout-content-submit { text-align: right; padding: 5px; background: #f7f7f7; }
 .layout-view ul .layout-item { border: 1px dashed #eee; }
 .layout-view-drag { background-color:white !important; border:3px dashed #639BF6 !important; }

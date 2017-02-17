@@ -8,7 +8,6 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
-	// 添加/编辑
 	'view_class_text'				=>	'文章分类',
 	'view_class_format'				=>	'至少选择一个分类',
 	'view_all_class_text'			=>	'全部分类',
@@ -18,5 +17,8 @@ return array(
 	'view_title_style_text'			=>	'显示样式',
 	'view_link_open_way_text'		=>	'打开方式',
 	'view_date_format_text'			=>	'日期格式',
+
+	'view_layout_param_save_tips'	=>	'布局参数有误',
+	'view_module_param_save_tips'	=>	'模块参数有误',
 );
 ?>

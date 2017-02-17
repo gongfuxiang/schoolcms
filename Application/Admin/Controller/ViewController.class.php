@@ -142,15 +142,15 @@ class ViewController extends CommonController
 			}
 
 			// 发布时间
-			if(!empty($_POST['add_time']))
+			if(!empty($_POST['add_time_interval']))
 			{
-				$where['add_time'] = array('gt', time()-L('common_view_time_list')[I('add_time')]['value']);
+				$where['add_time_interval'] = array('gt', time()-(L('common_view_time_list')[I('add_time_interval')]['value'])*60);
 			}
 
 			// 更新时间
-			if(!empty($_POST['upd_time']))
+			if(!empty($_POST['upd_time_interval']))
 			{
-				$where['upd_time'] = array('gt', time()-L('common_view_time_list')[I('upd_time')]['value']);
+				$where['upd_time_interval'] = array('gt', time()-(L('common_view_time_list')[I('upd_time_interval')]['value'])*60);
 			}
 
 			// 关键字
@@ -173,7 +173,7 @@ class ViewController extends CommonController
 		}
 
 		// 排序方式
-		$sort = empty($_POST['sort']) ? '' : str_replace('-', ' ', L('common_view_sort_list')[I('sort')]['value']);
+		$sort = empty($_POST['sort_type']) ? '' : str_replace('-', ' ', L('common_view_sort_list')[I('sort_type')]['value']);
 
 		// 读取条数
 		$n = max(1, isset($_POST['show_number']) ? intval($_POST['show_number']) : 10);
@@ -208,6 +208,82 @@ class ViewController extends CommonController
 				$temp_all[$k] = '%'.$temp_keyword.'%';
 			}
 			return array('like', $temp_all, $join);
+		}
+	}
+
+	/**
+	 * [ModuleAdd 模块添加]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-17T16:49:58+0800
+	 */
+	public function ModuleAdd()
+	{
+		// 布局类型
+		if(empty($_POST['id']))
+		{
+			$this->ajaxReturn(L('view_module_param_save_tips'), -1);
+		}
+
+		// 数据添加
+		$data = array(
+				'layout_id'		=>	I('id'),
+				'add_time'		=>	time(),
+				'upd_time'		=>	time(),
+			);
+		$id = M('LayoutModule')->add($data);
+		if($id > 0)
+		{
+			$this->ajaxReturn(L('common_operation_add_success'), 0, $id);
+		} else {
+			$this->ajaxReturn(L('common_operation_add_error'), -100);
+		}
+	}
+
+	/**
+	 * [LayoutSave 布局保存]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-17T16:49:58+0800
+	 */
+	public function LayoutSave()
+	{
+		// 布局类型
+		if(empty($_POST['type']) || empty($_POST['value']))
+		{
+			$this->ajaxReturn(L('view_layout_param_save_tips'), -1);
+		}
+
+		// 布局数据添加
+		$data = array(
+				'type'		=>	I('type'),
+				'value'		=>	I('value'),
+				'upd_time'	=>	time(),
+			);
+		$id = M('Layout')->add($data);
+		if($id > 0)
+		{
+			if($data['value'] == '100')
+			{
+				// 模块数据添加
+				$temp_module = array(
+						'layout_id'		=>	$id,
+						'add_time'		=>	time(),
+						'upd_time'		=>	time(),
+					);
+				$layout_id = M('LayoutModule')->add($temp_module);
+			} else {
+				$layout_id = $id;
+			}
+			$result = array(
+				'layout_id'		=>	$layout_id,
+				'module_id'		=>	$id,
+			);
+			$this->ajaxReturn(L('common_operation_add_success'), 0, $result);
+		} else {
+			$this->ajaxReturn(L('common_operation_add_error'), -100);
 		}
 	}
 }
