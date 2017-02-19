@@ -262,25 +262,30 @@ class ViewController extends CommonController
 				'value'		=>	I('value'),
 				'upd_time'	=>	time(),
 			);
-		$id = M('Layout')->add($data);
-		if($id > 0)
+		$layout_id = M('Layout')->add($data);
+		if($layout_id > 0)
 		{
-			if($data['value'] == '100')
+			$result = array('layout_id' => $layout_id);
+			$module = array('100' => 1, '31' => 2, '13' => 2, '211' => 3, '121' => 3, '112' => 3);
+			if(array_key_exists($data['value'], $module))
 			{
-				// 模块数据添加
-				$temp_module = array(
-						'layout_id'		=>	$id,
-						'add_time'		=>	time(),
-						'upd_time'		=>	time(),
-					);
-				$layout_id = M('LayoutModule')->add($temp_module);
+				$count = $module[$data['value']];
+				for($i=1; $i<=$count; $i++)
+				{
+					// 模块数据添加
+					$temp_field = 'module'.$i.'_id';
+					$temp_module = array(
+							'layout_id'		=>	$layout_id,
+							'add_time'		=>	time(),
+							'upd_time'		=>	time(),
+						);
+					$result[$temp_field] = M('LayoutModule')->add($temp_module);
+				}
+				$module_count = $count;
 			} else {
-				$layout_id = $id;
+				$module_count = 0;
 			}
-			$result = array(
-				'layout_id'		=>	$layout_id,
-				'module_id'		=>	$id,
-			);
+			$result['module_count']	=	$module_count;
 			$this->ajaxReturn(L('common_operation_add_success'), 0, $result);
 		} else {
 			$this->ajaxReturn(L('common_operation_add_error'), -100);

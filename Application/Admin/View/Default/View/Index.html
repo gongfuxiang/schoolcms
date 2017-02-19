@@ -172,340 +172,51 @@
 <div class="content-right">
 	<div class="content">
 		<!-- layout module list -->
-		<div class="am-panel am-panel-default am-radius">
-			<div class="am-panel-bd layout-list">
-				<!-- 100全屏 -->
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="100" data-html='<div class="layout-view" layout-id="{layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-id}" data-value="{data-value}" data-tag="{content-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-id}">移除</button></div><div class="layout-100" id="{content-id}"></div></div>'>100%</button>
+		<div class="am-panel am-panel-default am-radius layout-list">
+			<!-- 100全屏 -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="100" data-html='<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module1-id}" data-value="{data-value}" data-tag="{content-module1-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100" id="{content-module1-id}"></div></div>'>100%</button>
 
-				<!-- 自适应sm[1]-md[2]-lg[3] -->
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="123" data-html='<div class="layout-view" layout-id="{layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{data-id}" data-value="{data-value}" data-tag="{content-id}" {data-html-item}>添加</button> <button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-id}">移除</button></div><ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-avg-md-2 am-avg-lg-3 am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-123" data-am-gallery="{}" id="{content-id}"></ul></div>' data-html-item='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-id}" data-value="{data-value}" data-tag="{content-id}">编辑</button> <button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-id}">移除</button></div><div class="layout-100-123-item" id="{content-id}"></div></li>'>sm[1]-md[2]-lg[3]</button>
+			<!-- 自适应sm[1]-md[2]-lg[2] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="122" data-html='<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}" {data-html-item}>添加</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="layout">移除</button></div><ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-avg-md-2 am-avg-lg-2 am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-122" data-am-gallery="{}" id="{content-module-id}"></ul></div>' data-html-item='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="module">移除</button></div><div class="layout-100-122-item" id="{content-module-id}"></div></li>'>sm[1]-md[2]-lg[2]</button>
 
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">sm[1]-md[2]-lg[4]</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">sm[2]-md[3]-lg[6]</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">3:1</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">1:3</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">2:1:1</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">1:2:1</button>
-				<button type="button" class="am-btn am-btn-default am-radius am-btn-xs">1:1:2</button>
-			</div>
+			<!-- 自适应sm[1]-md[2]-lg[3] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="123" data-html='<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}" {data-html-item}>添加</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="layout">移除</button></div><ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-avg-md-2 am-avg-lg-3 am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-123" data-am-gallery="{}" id="{content-module-id}"></ul></div>' data-html-item='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="module">移除</button></div><div class="layout-100-123-item" id="{content-module-id}"></div></li>'>sm[1]-md[2]-lg[3]</button>
+
+			<!-- 自适应sm[1]-md[2]-lg[4] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="124" data-html='<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}" {data-html-item}>添加</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="layout">移除</button></div><ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-avg-md-2 am-avg-lg-4 am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-124" data-am-gallery="{}" id="{content-module-id}"></ul></div>' data-html-item='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="module">移除</button></div><div class="layout-100-124-item" id="{content-module-id}"></div></li>'>sm[1]-md[2]-lg[4]</button>
+
+			<!-- 自适应sm[2]-md[3]-lg[6] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="236" data-html='<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}" {data-html-item}>添加</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="layout">移除</button></div><ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-6 am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-236" data-am-gallery="{}" id="{content-module-id}"></ul></div>' data-html-item='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-module-id}" data-type="module">移除</button></div><div class="layout-100-236-item" id="{content-module-id}"></div></li>'>sm[2]-md[3]-lg[6]</button>
+
+			<!-- 自适应sm[1]-md[3:1]-lg[3:1] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="31" data-html='<div class="layout-view"data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove"data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100-31 o-h"><div class="am-u-md-8"><div class="layout-content-submit"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module1-id}"data-value="{data-value}"data-tag="{content-module1-id}">编辑</button></div><div id="{content-module1-id}"></div></div><div class="am-u-md-4"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module2-id}"data-value="{data-value}"data-tag="{content-module2-id}">编辑</button></div><div id="{content-module2-id}"></div></div></div></div>'>sm[1]-md[3:1]-lg[3:1]</button>
+
+			<!-- 自适应sm[1]-md[1:3]-lg[1:3] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="13" data-html='<div class="layout-view"data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove"data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100-13 o-h"><div class="am-u-md-4"><div class="layout-content-submit"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module1-id}"data-value="{data-value}"data-tag="{content-module1-id}">编辑</button></div><div id="{content-module1-id}"></div></div><div class="am-u-md-8"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module2-id}"data-value="{data-value}"data-tag="{content-module2-id}">编辑</button></div><div id="{content-module2-id}"></div></div></div></div>'>sm[1]-md[1:3]-lg[1:3]</button>
+
+			<!-- 自适应sm[1]-md[2:1:1]-lg[2:1:1] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="211" data-html='<div class="layout-view"data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove"data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100-211 o-h"><div class="am-u-md-6"><div class="layout-content-submit"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module1-id}"data-value="{data-value}"data-tag="{content-module1-id}">编辑</button></div><div id="{content-module1-id}"></div></div><div class="am-u-md-3"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module2-id}"data-value="{data-value}"data-tag="{content-module2-id}">编辑</button></div><div id="{content-module2-id}"></div></div><div class="am-u-md-3"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module3-id}"data-value="{data-value}"data-tag="{content-module3-id}">编辑</button></div><div id="{content-module3-id}"></div></div></div></div>'>sm[1]-md[2:1:1]-lg[2:1:1]</button>
+
+			<!-- 自适应sm[1]-md[1:2:1]-lg[1:2:1] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="121" data-html='<div class="layout-view"data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove"data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100-121 o-h"><div class="am-u-md-3"><div class="layout-content-submit"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module1-id}"data-value="{data-value}"data-tag="{content-module1-id}">编辑</button></div><div id="{content-module1-id}"></div></div><div class="am-u-md-6"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module2-id}"data-value="{data-value}"data-tag="{content-module2-id}">编辑</button></div><div id="{content-module2-id}"></div></div><div class="am-u-md-3"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module3-id}"data-value="{data-value}"data-tag="{content-module3-id}">编辑</button></div><div id="{content-module3-id}"></div></div></div></div>'>sm[1]-md[1:2:1]-lg[1:2:1]</button>
+
+			<!-- 自适应sm[1]-md[1:1:2]-lg[1:1:2] -->
+			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="112" data-html='<div class="layout-view"data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove"data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100-112 o-h"><div class="am-u-md-3"><div class="layout-content-submit"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module1-id}"data-value="{data-value}"data-tag="{content-module1-id}">编辑</button></div><div id="{content-module1-id}"></div></div><div class="am-u-md-3"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module2-id}"data-value="{data-value}"data-tag="{content-module2-id}">编辑</button></div><div id="{content-module2-id}"></div></div><div class="am-u-md-6"><div class="layout-content-submit b-e"><button type="button"class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs"data-am-modal="{target: {layout-module-win}}"data-id="{data-module3-id}"data-value="{data-value}"data-tag="{content-module3-id}">编辑</button></div><div id="{content-module3-id}"></div></div></div></div>'>sm[1]-md[1:1:2]-lg[1:1:2]</button>
 		</div>
 		<!-- layout module end -->
 
+
+
+
+
+
+
+
 		<!-- layuot start -->
 		<div class="layout-content" data-layout-url="{{:U('Admin/View/LayoutSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-type="home">
-			<!-- 100% start -->
-			<!-- <div class="layout-view layout-100" data-id="1" data-tag="layout-100">
-				<div class="layout-content-submit drag-submit">
-					<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-					<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button>
-				</div>
-				<div class="layout-100-content">1</div>
-			</div> -->
-			<!-- 100% end -->
-
-			<div class="layout-view layout-100" data-id="4" data-tag="layout-100-123">
-				<div class="layout-content-submit drag-submit">
-					<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove m-r-5">移除</button>
-				</div>
-				<div class="layout-100-content-123">
-					<ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-avg-md-2 am-avg-lg-3 am-gallery-overlay small-banner am-no-layout m-b-5" data-am-gallery="{}">
-						<li class="layout-item">
-							<div class="layout-content-submit">
-								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-							</div>
-							<div class="am-list-news am-list-news-default" id="hahahahahaha">
-								<div class="am-list-news-hd am-cf">
-									<h2>热点新闻</h2>
-									<a href="#">
-										<span class="am-list-news-more am-fr">更多 »</span>
-									</a>
-								</div>
-								<div class="am-list-news-bd">
-									<ul class="am-list">
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="layout-item">
-							<div class="layout-content-submit">
-								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-							</div>
-							<div class="am-list-news am-list-news-default">
-								<div class="am-list-news-hd am-cf">
-									<h2>热点新闻</h2>
-									<a href="#">
-										<span class="am-list-news-more am-fr">更多 »</span>
-									</a>
-								</div>
-								<div class="am-list-news-bd">
-									<ul class="am-list">
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="layout-item">
-							<div class="layout-content-submit">
-								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-							</div>
-							<div class="am-list-news am-list-news-default">
-								<div class="am-list-news-hd am-cf">
-									<h2>热点新闻</h2>
-									<a href="#">
-										<span class="am-list-news-more am-fr">更多 »</span>
-									</a>
-								</div>
-								<div class="am-list-news-bd">
-									<ul class="am-list">
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="layout-item">
-							<div class="layout-content-submit">
-								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-							</div>
-							<div class="am-list-news am-list-news-default">
-								<div class="am-list-news-hd am-cf">
-									<h2>热点新闻</h2>
-									<a href="#">
-										<span class="am-list-news-more am-fr">更多 »</span>
-									</a>
-								</div>
-								<div class="am-list-news-bd">
-									<ul class="am-list">
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="layout-item">
-							<div class="layout-content-submit">
-								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-							</div>
-							<div class="am-list-news am-list-news-default">
-								<div class="am-list-news-hd am-cf">
-									<h2>热点新闻</h2>
-									<a href="#">
-										<span class="am-list-news-more am-fr">更多 »</span>
-									</a>
-								</div>
-								<div class="am-list-news-bd">
-									<ul class="am-list">
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="layout-item">
-							<div class="layout-content-submit">
-								<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-tag=".layout-100-content">编辑</button>
-							</div>
-							<div class="am-list-news am-list-news-default">
-								<div class="am-list-news-hd am-cf">
-									<h2>热点新闻</h2>
-									<a href="#">
-										<span class="am-list-news-more am-fr">更多 »</span>
-									</a>
-								</div>
-								<div class="am-list-news-bd">
-									<ul class="am-list">
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-											<span class="am-list-date">2013-09-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-											<span class="am-list-date">2013-10-14</span>
-										</li>
-										<li class="am-g am-list-item-dated">
-											<a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-											<span class="am-list-date">2013-11-18</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
+			<!-- link start -->
+			<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module1-id}" data-value="{data-value}" data-tag="{content-module1-id}">编辑</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-remove" data-id="{data-layout-id}" data-type="layout">移除</button></div><div class="layout-100" id="{content-module1-id}"></div>友情链接</div>
+			<!-- link end -->
 		</div>
 		<!-- layuot end -->
 

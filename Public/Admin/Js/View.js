@@ -7,7 +7,7 @@ $(function()
 		dragSelector: ".drag-submit",
 		dragEnd: function()
 		{
-			var data = $(".layout-content .drag-submit").map(function() { return $(this).parents('.layout-view').attr('layout-id'); }).get();
+			var data = $(".layout-content .drag-submit").map(function() { return $(this).parents('.layout-view').data('layout-id'); }).get();
 			$("input[name=layout_sort]").val(data.join(";"));
 		},
 		placeHolderTemplate: "<div class='layout-view-drag'></div>"
@@ -35,9 +35,9 @@ $(function()
 					if(result.code == 0)
 					{
 						// 数据替换-添加
-						html = html.replace(/{data-id}/g, result.data);
+						html = html.replace(/{data-module-id}/g, result.data);
 						html = html.replace(/{data-value}/g, value);
-						html = html.replace(/{content-id}/g, 'layout-content-'+value+'-'+id+'-'+result.data);
+						html = html.replace(/{content-module-id}/g, 'layout-content-'+value+'-'+result.data);
 						html = html.replace(/{layout-module-win}/g, "'#layout-module-win'");
 						$('#'+tag).append(html);
 					} else {
@@ -62,7 +62,9 @@ $(function()
 	$(document).on('click', '.layout-submit-remove', function()
 	{
 		// ajax数据库删除
-		console.log($(this).data('id'));
+		var id = $(this).data('id');
+		var type = $(this).data('type');
+		console.log('id:'+id+', type:'+type);
 
 		// 移除元素
 		$(this).parent().parent().remove();
@@ -90,11 +92,28 @@ $(function()
 					if(result.code == 0)
 					{
 						// 数据替换-添加
-						html = html.replace(/{layout-id}/g, result.data.layout_id)
-						html = html.replace(/{data-id}/g, result.data.module_id);
+						html = html.replace(/{data-layout-id}/g, result.data.layout_id)
 						html = html.replace(/{data-value}/g, value);
-						html = html.replace(/{content-id}/g, 'layout-content-'+value+'-'+result.data.module_id);
 						html = html.replace(/{layout-module-win}/g, "'#layout-module-win'");
+						
+						// 布局是否带模块
+						if(result.data.module_count > 0)
+						{
+							for(var i=1; i<=result.data.module_count; i++)
+							{
+								var temp_field = 'module'+i+'_id';
+								console.log(temp_field);
+								if(result.data[temp_field] != undefined)
+								{
+									html = html.replace(new RegExp('{data-module'+i+'-id}','g'), result.data[temp_field]);
+									html = html.replace(new RegExp('{content-module'+i+'-id}','g'), 'layout-content-'+value+'-'+result.data[temp_field]);
+								}
+							}
+						} else {
+							html = html.replace(/{data-module-id}/g, result.data.layout_id);
+							html = html.replace(/{content-module-id}/g, 'layout-content-'+value+'-'+result.data.layout_id);
+						}
+
 						if(html_item != undefined)
 						{
 							html = html.replace('{data-html-item}', "data-html='"+html_item+"'");
@@ -116,19 +135,7 @@ $(function()
 		} else {
 			Prompt('布局配置参数有误');
 		}
-		/*var html = $(this).data('html');
-		if(html != undefined)
-		{
-			$('.layout-content').prepend(html);
-			setTimeout(function()
-			{
-				var $first_child = $(".layout-content").children("div:first-child");
-				$first_child.css('opacity', 0);
-				$first_child.animate({opacity:1}, 500);
-			}, 1);
-		}*/
 	});
-
 });
 
 
@@ -143,7 +150,7 @@ $(function()
 function View_Article_Title(data)
 {
 	// 初始化
-	var html = '';
+	var html = '<div class="am-list-news am-list-news-default">';
 
 	// 标题
 	if(data.name.length > 0 || data.right_title.length > 0)
@@ -181,6 +188,6 @@ function View_Article_Title(data)
 		// 内容
 		html += '<li><a href="'+data.data[i]['url']+'" '+blank+' title="'+data.data[i]['title']+'" class="am-text-truncate" '+title_color+'>'+data.data[i]['title']+'</a></li>';
 	}
-	html += '</ul></div>';
+	html += '</ul></div></div>';
 	$('#'+$layout_module.attr('data-tag')).html(html);
 }
