@@ -306,7 +306,7 @@ return array(
 	'common_regex_username'				=>	'^[A-Za-z0-9_]{5,18}$',
 
 	// 用户名
-	'common_regex_pwd'					=>	'^.{5,18}$',
+	'common_regex_pwd'					=>	'^.{6,18}$',
 
 	// 手机号码
 	'common_regex_mobile'				=>	'^1((3|5|8|7){1}\d{1})\d{8}$',

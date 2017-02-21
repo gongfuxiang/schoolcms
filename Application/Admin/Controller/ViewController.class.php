@@ -39,6 +39,48 @@ class ViewController extends CommonController
      */
 	public function Index()
 	{
+		// 布局列表
+		$data = M('Layout')->field(array('id', 'value', 'is_enable'))->where(array('type'=>'home'))->order('sort asc, id desc')->select();
+		if(!empty($data))
+		{
+			// 布局模块处理驱动
+			$lay = \My\LayoutModule::SetInstance();
+
+			// 开始处理布局数据
+			foreach($data as $k=>$v)
+			{
+				// 模块
+				$item = M('LayoutModule')->where(array('layout_id'=>$v['id']))->select();
+				if(!empty($item))
+				{
+					foreach($item as $ik=>$iv)
+					{
+						// 基础数据处理
+						if(!empty($iv['article_class_id']))
+						{
+							$iv['article_class_id'] = unserialize($iv['article_class_id']);
+						}
+
+						// 参数条件json
+						$iv['json'] = json_encode($iv);
+
+						// 获取文章数据
+						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
+
+						// 模块数据生成
+						$fun = L('common_view_title_style_list')[$iv['title_style']]['fun'];
+						$iv['html'] = $lay->$fun($article, $iv);
+
+						// 重新赋值
+						$item[$ik] = $iv;						
+					}
+				}
+				$data[$k]['item'] = $item;
+			}
+		}
+		$this->assign('data', $data);
+		//print_r($data);
+
 		// 文章分类
 		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
 
@@ -69,8 +111,8 @@ class ViewController extends CommonController
 	 */
 	public function GetLayoutModuleData()
 	{
-		// 条件处理
-		$where = $this->GetLayoutMouleWhere();
+		// 布局模块处理驱动
+		$lay = \My\LayoutModule::SetInstance();
 
 		// 模块模型
 		$m = D('LayoutModule');
@@ -80,20 +122,22 @@ class ViewController extends CommonController
 		{
 			// 额外数据
 			$m->upd_time	=	time();
-			$m->where 		=	serialize($where);
 			$m->right_title	=	str_replace('；', ';', I('right_title'));
 			$m->keyword 	=	str_replace(array('；', '—'), array(';', '-'), I('keyword'));
+			if(!empty($_POST['article_class_id']))
+			{
+				$m->article_class_id = serialize(I('article_class_id'));
+			}
 
 			// 更新数据库
 			if($m->where(array('id'=>I('id')))->save())
 			{
-				// 数据保存
-				$data = $this->DataHandle(M('Article')->where($where['where'])->order($where['sort'])->limit($where['n'])->select());
+				// 获取文章数据
+				$article = $this->GetArticleList($lay->GetLayoutMouleWhere($_POST));
 
 				// 模块数据生成
 				$fun = L('common_view_title_style_list')[I('title_style')]['fun'];
-				$lay = \My\LayoutModule::SetInstance();
-				$html = $lay->$fun($data, $_POST);
+				$html = $lay->$fun($article, $_POST);
 				$this->ajaxReturn(L('common_operation_edit_success'), 0, $html);
 			} else {
 				$this->ajaxReturn(L('common_operation_edit_error'), -100);
@@ -101,6 +145,20 @@ class ViewController extends CommonController
 		} else {
 			$this->ajaxReturn($m->getError(), -1);
 		}
+	}
+
+	/**
+	 * [GetArticleList 获取新闻数据列表]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-21T14:39:04+0800
+	 * @param    [array]    $where [条件列表]
+	 * @return   [array]           [新闻数据列表]
+	 */
+	private function GetArticleList($where)
+	{
+		return $this->DataHandle(M('Article')->where($where['where'])->order($where['sort'])->limit($where['n'])->select());
 	}
 
 	/**
@@ -136,100 +194,6 @@ class ViewController extends CommonController
 			}
 		}
 		return $data;
-	}
-
-	/**
-	 * [GetLayoutMouleWhere 获取布局模块条件]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-14T22:08:22+0800
-	 */
-	private function GetLayoutMouleWhere()
-	{
-		// 条件初始化
-		$where = array();
-
-		// 是否启用
-		$where['is_enable'] = 1;
-
-		// 是否指定文章id
-		if(empty($_POST['article_id']))
-		{
-			// 文章分类
-			if(!empty($_POST['article_class_id']) && $_POST['article_class_id'][0] != 0)
-			{
-				$where['article_class_id'] = array('in', implode(',', I('article_class_id')));
-			}
-
-			// 发布时间
-			if(!empty($_POST['add_time_interval']))
-			{
-				$where['add_time_interval'] = array('gt', time()-(L('common_view_time_list')[I('add_time_interval')]['value'])*60);
-			}
-
-			// 更新时间
-			if(!empty($_POST['upd_time_interval']))
-			{
-				$where['upd_time_interval'] = array('gt', time()-(L('common_view_time_list')[I('upd_time_interval')]['value'])*60);
-			}
-
-			// 关键字
-			if(!empty($_POST['keyword']))
-			{
-				$keyword = str_replace(array('；', '—'), array(';', '-'), I('keyword'));
-				if(strpos($keyword, ';') === false)
-				{
-					$where['title'][] = $this->TitleWhereJoin($keyword);
-				} else {
-					$keyword_all = explode(';', $keyword);
-					foreach($keyword_all as $temp_keyword)
-					{
-						$where['title'][] = $this->TitleWhereJoin($temp_keyword);
-					}
-				}
-			}
-		} else {
-			$where['id'] = array('in', str_replace('，', ',', I('article_id')));
-		}
-
-		// 排序方式
-		$sort = empty($_POST['sort_type']) ? '' : str_replace('-', ' ', L('common_view_sort_list')[I('sort_type')]['value']);
-
-		// 读取条数
-		$n = max(1, isset($_POST['show_number']) ? intval($_POST['show_number']) : 10);
-
-		// 返回数据
-		return array('where' => $where, 'sort' => $sort, 'n' => $n);
-	}
-
-	/**
-	 * [TitleWhereJoin 关键字检索条件拼接]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-15T14:07:48+0800
-	 * @param    [string]      $keyword [需要解析的关键字]
-	 * @return   [array] 				[拼接完成的关键字]
-	 */
-	private function TitleWhereJoin($keyword)
-	{
-		// 标记判断, 并且-, 或|
-		$tag = (strpos($keyword, '-') !== false) ? '-' : ((strpos($keyword, '|') !== false) ? '|' : '');
-
-		// 数据处理
-		if(empty($tag))
-		{
-			return array('eq', $keyword);
-		} else {
-			$join = ($tag == '-') ? 'AND' : (($tag == '|') ? 'OR' : '');
-			$temp_all = explode($tag, $keyword);
-			foreach($temp_all as $k=>$temp_keyword)
-			{
-				$temp_all[$k] = '%'.$temp_keyword.'%';
-			}
-			return array('like', $temp_all, $join);
-		}
 	}
 
 	/**

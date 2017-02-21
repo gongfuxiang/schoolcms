@@ -175,34 +175,7 @@ $(function()
 						$layout_content.prepend(html);
 
 						// 布局开关操作初始化
-						$layout_content.find('[name="switch-checkbox"]').bootstrapSwitch(
-						{
-							onSwitchChange: function(event, state)
-							{
-								var state_text = (state == true) ? $(this).data('on-text') : $(this).data('off-text');
-								state = (state == true) ? 1 : 0;
-								$.ajax({
-									url:$layout_content.data('layout-state-url'),
-									type:'POST',
-									dataType:"json",
-									timeout:10000,
-									data:{"id":$(this).data('id'), "state":state},
-									success:function(result)
-									{
-										if(result.code == 0)
-										{
-											Prompt('[ '+state_text+' ] '+result.msg, 'success');
-										} else {
-											Prompt('[ '+state_text+' ] '+result.msg);
-										}
-									},
-									error:function()
-									{
-										Prompt('网络异常错误');
-									}
-								});
-							}
-						});
+						LayoutSwitchInit();
 
 						// 动画处理
 						setTimeout(function()
@@ -225,3 +198,44 @@ $(function()
 		}
 	});
 });
+
+
+/**
+ * [LayoutSwitchInit 布局开关插件初始化]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-21T15:25:12+0800
+ */
+function LayoutSwitchInit()
+{
+	$layout_content.find('[name="switch-checkbox"]').bootstrapSwitch(
+	{
+		onSwitchChange: function(event, state)
+		{
+			var state_text = (state == true) ? $(this).data('on-text') : $(this).data('off-text');
+			state = (state == true) ? 1 : 0;
+			$.ajax({
+				url:$layout_content.data('layout-state-url'),
+				type:'POST',
+				dataType:"json",
+				timeout:10000,
+				data:{"id":$(this).data('id'), "state":state},
+				success:function(result)
+				{
+					if(result.code == 0)
+					{
+						Prompt('[ '+state_text+' ] '+result.msg, 'success');
+					} else {
+						Prompt('[ '+state_text+' ] '+result.msg);
+					}
+				},
+				error:function()
+				{
+					Prompt('网络异常错误');
+				}
+			});
+		}
+	});
+}
+LayoutSwitchInit();

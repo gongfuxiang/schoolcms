@@ -202,8 +202,65 @@
 		<!-- layout module end -->
 
 		<!-- layuot start -->
-		<div class="layout-content" data-layout-save-url="{{:U('Admin/View/LayoutSave')}}" data-layout-delete-url="{{:U('Admin/View/LayoutDelete')}}" data-layout-state-url="{{:U('Admin/View/StateUpdate')}}" data-layout-sort-save-url="{{:U('Admin/View/LayoutSortSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-module-delete-url="{{:U('Admin/View/ModuleDelete')}}" data-type="home">
-			<div class="drag-submit none">init</div>
+		<div class="layout-content" data-layout-save-url="{{:U('Admin/View/LayoutSave')}}" data-layout-delete-url="{{:U('Admin/View/LayoutDelete')}}" data-layout-state-url="{{:U('Admin/View/StateUpdate')}}" data-layout-sort-save-url="{{:U('Admin/View/LayoutSortSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-module-delete-url="{{:U('Admin/View/ModuleDelete')}}" data-type="home"><div class="drag-submit none">init</div>
+			<if condition="!empty($data)">
+				<foreach name="data" item="v">
+					<switch name="v.value">
+						<case value="100">
+							<div class="layout-view" data-layout-id="{{$v.id}}">
+								<div class="layout-content-submit drag-submit">
+									<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$v.id}}" <if condition="$v['is_enable'] eq 1">checked="true"</if> />
+									<if condition="!empty($v['item'][0])">
+										<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-id="{{$v['item'][0]['id']}}" data-value="{data-value}" data-tag="layout-content-{{$v['item'][0]['id']}}">{{:L("common_operation_edit")}}</button>
+										<button type="button" class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{{$v.id}}" data-type="layout">{{:L("common_operation_remove")}}</button>
+									</if>
+								</div>
+								<if condition="!empty($v['item'][0])">
+									<div class="layout-{{$v.value}}" id="layout-content-{{$v['item'][0]['id']}}">{{$v['item'][0]['html']}}</div>
+								</if>
+							</div>
+						</case>
+						<case value="122|123|124|236">
+							<php>list($t1, $t2, $t3) = str_split($v['value']);</php>
+							<div class="layout-view" data-layout-id="{{$v.id}}">
+								<div class="layout-content-submit drag-submit">
+									<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$v.id}}" <if condition="$v['is_enable'] eq 1">checked="true"</if> />
+									<button type="button" class="am-btn am-btn-success am-radius layout-submit-add am-btn-xs m-r-5" data-id="{{$v.id}}" data-value="{{$v.value}}" data-tag="layout-content-{{$v.value}}-{{$v.id}}" data-html='<li class="layout-item"><div class="layout-content-submit"><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module-id}" data-value="{data-value}" data-tag="{content-module-id}">{{:L("common_operation_edit")}}</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{data-module-id}" data-type="module">{{:L("common_operation_remove")}}</button></div><div class="layout-100-{{$v.value}}-item" id="{content-module-id}"></div></li>'>{{:L("common_operation_add2")}}</button>
+									<button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{{$v.id}}" data-type="layout">{{:L("common_operation_remove")}}</button>
+								</div>
+								<ul data-am-widget="gallery" class="am-gallery am-avg-sm-{{$t1}} am-avg-md-{{$t2}} am-avg-lg-{{$t3}} am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-{{$v.value}}" data-am-gallery="{}" id="layout-content-{{$v.value}}-{{$v.id}}">
+									<if condition="!empty($v['item'])">
+										<foreach name="v.item" item="vs">
+											<li class="layout-item">
+												<div class="layout-content-submit">
+													<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{data-value}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}">{{:L("common_operation_edit")}}</button>
+													<button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{{$vs.id}}" data-type="module">{{:L("common_operation_remove")}}</button>
+												</div>
+												<div class="layout-100-122-item" id="layout-content-{{$v.value}}-{{$vs.id}}">{{$vs.html}}</div>
+											</li>
+										</foreach>
+									</if>
+								</ul>
+							</div>
+						</case>
+						<case value="31">
+							31
+						</case>
+						<case value="13">
+							13
+						</case>
+						<case value="211">
+							211
+						</case>
+						<case value="121">
+							121
+						</case>
+						<case value="112">
+							112
+						</case>
+					</switch>
+				</foreach>
+			</if>
 		</div>
 		<!-- layuot end -->
 	</div>
