@@ -39,7 +39,7 @@ class ViewController extends CommonController
      */
 	public function Index()
 	{
-		// 布局列表
+		// 布局+模块列表
 		$data = M('Layout')->field(array('id', 'value', 'is_enable'))->where(array('type'=>'home'))->order('sort asc, id desc')->select();
 		if(!empty($data))
 		{
@@ -69,17 +69,16 @@ class ViewController extends CommonController
 
 						// 模块数据生成
 						$fun = L('common_view_title_style_list')[$iv['title_style']]['fun'];
-						$iv['html'] = $lay->$fun($article, $iv);
+						$iv['html'] = method_exists($lay, $fun) ? $lay->$fun($article, $iv) : '';
 
 						// 重新赋值
-						$item[$ik] = $iv;						
+						$item[$ik] = $iv;
 					}
 				}
 				$data[$k]['item'] = $item;
 			}
 		}
 		$this->assign('data', $data);
-		//print_r($data);
 
 		// 文章分类
 		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
@@ -137,8 +136,14 @@ class ViewController extends CommonController
 
 				// 模块数据生成
 				$fun = L('common_view_title_style_list')[I('title_style')]['fun'];
-				$html = $lay->$fun($article, $_POST);
-				$this->ajaxReturn(L('common_operation_edit_success'), 0, $html);
+				if(method_exists($lay, $fun))
+				{
+					$html = $lay->$fun($article, $_POST);
+					$result = array('html' => $html, 'json' => json_encode($_POST));
+					$this->ajaxReturn(L('common_operation_edit_success'), 0, $result);
+				} else {
+					$this->ajaxReturn(str_replace('{$1}', $fun, L('common_method_exists_error')), -101);
+				}
 			} else {
 				$this->ajaxReturn(L('common_operation_edit_error'), -100);
 			}
@@ -251,7 +256,7 @@ class ViewController extends CommonController
 		if($layout_id > 0)
 		{
 			$result = array('layout_id' => $layout_id);
-			$module = array('100' => 1, '31' => 2, '13' => 2, '211' => 3, '121' => 3, '112' => 3);
+			$module = array('100' => 1, '84' => 2, '48' => 2, '633' => 3, '363' => 3, '336' => 3);
 			if(array_key_exists($data['value'], $module))
 			{
 				$count = $module[$data['value']];

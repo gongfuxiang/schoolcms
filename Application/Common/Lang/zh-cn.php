@@ -100,6 +100,7 @@ return array(
 	'common_success_failure_format'		=>	'成功[{$1}]项, 失败[{$2}]项',
 	'common_operation_off_text'			=>	'关',
 	'common_operation_on_text'			=>	'开',
+	'common_method_exists_error'		=>	'[{$1}]成员方法未定义',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',

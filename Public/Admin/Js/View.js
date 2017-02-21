@@ -82,6 +82,7 @@ $(function()
 		$layout_module.attr('data-tag', $(this).data('tag'));
 		$layout_module.find('input[name="id"]').val($(this).data('id'));
 		$layout_module.find('input[name="layout_value"]').val($(this).data('value'));
+		FormDataFill(eval('('+$(this).attr('data-json')+')'), '#layout-module-win');
 	});
 
 	// [布局-模块]-删除
@@ -213,6 +214,7 @@ function LayoutSwitchInit()
 	{
 		onSwitchChange: function(event, state)
 		{
+			var $this = $(this);
 			var state_text = (state == true) ? $(this).data('on-text') : $(this).data('off-text');
 			state = (state == true) ? 1 : 0;
 			$.ajax({
@@ -225,6 +227,12 @@ function LayoutSwitchInit()
 				{
 					if(result.code == 0)
 					{
+						if(state == 1)
+						{
+							$this.parents('.layout-view').removeClass('layout-view-hidden');
+						} else {
+							$this.parents('.layout-view').addClass('layout-view-hidden');
+						}
 						Prompt('[ '+state_text+' ] '+result.msg, 'success');
 					} else {
 						Prompt('[ '+state_text+' ] '+result.msg);

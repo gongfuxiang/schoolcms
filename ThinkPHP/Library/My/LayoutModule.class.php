@@ -100,7 +100,7 @@ class LayoutModule
 				}
 			}
 		} else {
-			$where['id'] = array('in', str_replace('，', ',', I('article_id')));
+			$where['id'] = array('in', str_replace('，', ',', $data['article_id']));
 		}
 
 		// 排序方式
