@@ -8,17 +8,26 @@
  * @param {[string]} 	type [类型（失败：danger, 成功success）]
  * @param {[int]} 		time [自动关闭时间（秒）, 默认3秒]
  */
+var temp_time_out;
 function Prompt(msg, type, time)
 {
-	if(msg != undefined && msg != '' && $('#common-prompt').length == 0)
+	if(msg != undefined && msg != '')
 	{
+		// 是否已存在提示条
+		if($('#common-prompt').length > 0)
+		{
+			clearTimeout(temp_time_out);
+		}
+
+		// 提示信息添加
+		$('#common-prompt').remove();
 		if(type == undefined || type == '') type = 'danger';
 		var html = '<div id="common-prompt" class="am-alert am-alert-'+type+' am-animation-shake" data-am-alert><button type="button" class="am-close am-close-spin">&times;</button><p>'+msg+'</p></div>';
 		$('body').append(html);
 
-		// 关闭提示
+		// 自动关闭提示
 		if(time == undefined || time == '') time = 3;
-		setTimeout(function()
+		temp_time_out = setTimeout(function()
 		{
 			$('#common-prompt').remove();
 		}, time*1000);
@@ -274,7 +283,7 @@ function FromInit(form_name)
 		            {
 		            	$.AMUI.progress.done();
 		            	$button.button('reset');
-		            	Prompt('请求出错');
+		            	Prompt('网络异常错误');
 		            }
 	            });
 			}
@@ -394,7 +403,7 @@ function Tree(id, url, level)
 		},
 		error:function(xhr, type)
 		{
-			$('#tree').find('p').text('异常出错');
+			$('#tree').find('p').text('网络异常出错');
 			$('#tree').find('img').remove();
 		}
 	});
@@ -449,7 +458,7 @@ $(function()
 					},
 					error:function(xhr, type)
 					{
-						Prompt('异常出错');
+						Prompt('网络异常出错');
 					}
 				});
 			},
@@ -517,7 +526,7 @@ $(function()
 			},
 			error:function(xhr, type)
 			{
-				Prompt('异常出错');
+				Prompt('网络异常出错');
 			}
 		});
 	});

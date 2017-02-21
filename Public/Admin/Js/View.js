@@ -1,14 +1,36 @@
 // 模块窗口
 $layout_module = $('#layout-module-win');
+$layout_content = $('.layout-content');
 $(function()
 {
 	// 布局-拖拽-初始化
-	$(".layout-content").dragsort({
+	$(".layout-content").dragsort(
+	{
 		dragSelector: ".drag-submit",
 		dragEnd: function()
 		{
 			var data = $(".layout-content .drag-submit").map(function() { return $(this).parents('.layout-view').data('layout-id'); }).get();
-			$("input[name=layout_sort]").val(data.join(";"));
+			// ajax请求
+			$.ajax({
+				url:$layout_content.data('layout-sort-save-url'),
+				type:'POST',
+				dataType:"json",
+				timeout:10000,
+				data:{"data":data},
+				success:function(result)
+				{
+					if(result.code == 0)
+					{
+						Prompt(result.msg, 'success');
+					} else {
+						Prompt(result.msg);
+					}
+				},
+				error:function()
+				{
+					Prompt('网络异常错误');
+				}
+			});
 		},
 		placeHolderTemplate: "<div class='layout-view-drag'></div>"
 	});
@@ -16,7 +38,7 @@ $(function()
 	// 模块-添加
 	$(document).on('click', '.layout-submit-add', function()
 	{
-		var url = $('.layout-content').data('module-add-url');
+		var url = $layout_content.data('module-add-url');
 		var tag = $(this).data('tag');
 		var id = $(this).data('id');
 		var value = $(this).data('value');
@@ -43,6 +65,10 @@ $(function()
 					} else {
 						Prompt(result.msg);
 					}
+				},
+				error:function()
+				{
+					Prompt('网络异常错误');
 				}
 			});
 		} else {
@@ -58,23 +84,49 @@ $(function()
 		$layout_module.find('input[name="layout_value"]').val($(this).data('value'));
 	});
 
-	// 布局-移除
-	$(document).on('click', '.layout-submit-remove', function()
+	// [布局-模块]-删除
+	$(document).on('click', '.layout-submit-delete', function()
 	{
 		// ajax数据库删除
 		var id = $(this).data('id');
 		var type = $(this).data('type');
-		console.log('id:'+id+', type:'+type);
 
-		// 移除元素
-		$(this).parent().parent().remove();
+		if(id != undefined && type != undefined)
+		{
+			var $this = $(this);
+			$.ajax({
+				url:$layout_content.data(type+'-delete-url'),
+				type:'POST',
+				dataType:"json",
+				timeout:10000,
+				data:{"id":id},
+				success:function(result)
+				{
+					if(result.code == 0)
+					{
+						// 移除元素
+						$this.parent().parent().remove();
+
+						Prompt(result.msg, 'success');
+					} else {
+						Prompt(result.msg);
+					}
+				},
+				error:function()
+				{
+					Prompt('网络异常错误');
+				}
+			});
+		} else {
+			Prompt('布局配置参数有误');
+		}
 	});
 
 	// 布局-添加
 	$('.layout-list').on('click', 'button', function()
 	{
-		var url = $('.layout-content').data('layout-url');
-		var type = $('.layout-content').data('type');
+		var url = $layout_content.data('layout-save-url');
+		var type = $layout_content.data('type');
 		var value = $(this).data('value');
 		var html = $(this).data('html');
 		var html_item = $(this).data('html-item');
@@ -102,7 +154,6 @@ $(function()
 							for(var i=1; i<=result.data.module_count; i++)
 							{
 								var temp_field = 'module'+i+'_id';
-								console.log(temp_field);
 								if(result.data[temp_field] != undefined)
 								{
 									html = html.replace(new RegExp('{data-module'+i+'-id}','g'), result.data[temp_field]);
@@ -114,11 +165,44 @@ $(function()
 							html = html.replace(/{content-module-id}/g, 'layout-content-'+value+'-'+result.data.layout_id);
 						}
 
+						// 是否存在子html
 						if(html_item != undefined)
 						{
 							html = html.replace('{data-html-item}', "data-html='"+html_item+"'");
 						}
-						$('.layout-content').prepend(html);
+
+						// 添加到页面中
+						$layout_content.prepend(html);
+
+						// 布局开关操作初始化
+						$layout_content.find('[name="switch-checkbox"]').bootstrapSwitch(
+						{
+							onSwitchChange: function(event, state)
+							{
+								var state_text = (state == true) ? $(this).data('on-text') : $(this).data('off-text');
+								state = (state == true) ? 1 : 0;
+								$.ajax({
+									url:$layout_content.data('layout-state-url'),
+									type:'POST',
+									dataType:"json",
+									timeout:10000,
+									data:{"id":$(this).data('id'), "state":state},
+									success:function(result)
+									{
+										if(result.code == 0)
+										{
+											Prompt('[ '+state_text+' ] '+result.msg, 'success');
+										} else {
+											Prompt('[ '+state_text+' ] '+result.msg);
+										}
+									},
+									error:function()
+									{
+										Prompt('网络异常错误');
+									}
+								});
+							}
+						});
 
 						// 动画处理
 						setTimeout(function()
@@ -130,6 +214,10 @@ $(function()
 					} else {
 						Prompt(result.msg);
 					}
+				},
+				error:function()
+				{
+					Prompt('网络异常错误');
 				}
 			});
 		} else {
@@ -137,57 +225,3 @@ $(function()
 		}
 	});
 });
-
-
-/**
- * [View_Article_Title 视图-标题]
- * @author   Devil
- * @blog     http://gong.gg/
- * @version  0.0.1
- * @datetime 2017-02-16T19:20:22+0800
- * @param    {[object]}     data [数据列表对象]
- */
-function View_Article_Title(data)
-{
-	// 初始化
-	var html = '<div class="am-list-news am-list-news-default">';
-
-	// 标题
-	if(data.name.length > 0 || data.right_title.length > 0)
-	{
-		html += '<div class="am-list-news-hd am-cf">';
-		if(data.name.length > 0)
-		{
-			html += '<h2>'+data.name+'</h2>';
-		}
-		if(data.right_title.length > 0)
-		{
-			if(data.right_title[0] != undefined)
-			{
-				if(data.right_title[1] == undefined)
-				{
-					html += '<span class="am-list-news-more am-fr">'+data.right_title[0]+'</span>';
-				} else {
-					html += '<a href="'+data.right_title[1]+'" target="_blank"><span class="am-list-news-more am-fr">'+data.right_title[0]+'</span></a>';
-				}
-			}
-		}
-		html += '</div>';
-	}
-
-	// 列表
-	html += '<div class="am-list-news-bd"><ul class="am-list">';
-	for(var i in data.data)
-	{
-		// 打开方式
-		var blank = (data.link_open_way == 'blank') ? 'target="_blank"' : '';
-
-		// 标题颜色
-		var title_color = (data.data[i]['title_color'].length > 0) ? 'style="color:'+data.data[i]['title_color']+';"' : '';
-
-		// 内容
-		html += '<li><a href="'+data.data[i]['url']+'" '+blank+' title="'+data.data[i]['title']+'" class="am-text-truncate" '+title_color+'>'+data.data[i]['title']+'</a></li>';
-	}
-	html += '</ul></div></div>';
-	$('#'+$layout_module.attr('data-tag')).html(html);
-}

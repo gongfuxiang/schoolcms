@@ -327,7 +327,7 @@ class StudentController extends CommonController
 	 */
 	private function Edit()
 	{
-		// 学生对象
+		// 学生模型
 		$m = D('Student');
 
 		// 数据自动校验

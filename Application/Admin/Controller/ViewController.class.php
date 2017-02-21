@@ -61,7 +61,7 @@ class ViewController extends CommonController
 	}
 
 	/**
-	 * [GetLayoutModuleData 获取模块数据]
+	 * [GetLayoutModuleData 获取模块数据-及保存模块数据]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -69,17 +69,38 @@ class ViewController extends CommonController
 	 */
 	public function GetLayoutModuleData()
 	{
-		$result = $this->GetLayoutMouleWhere();
-		$data = $this->DataHandle(M('Article')->where($result['where'])->order($result['sort'])->limit($result['n'])->select());
+		// 条件处理
+		$where = $this->GetLayoutMouleWhere();
 
-		$result = array(
-			'data'				=>	$data,
-			'fun'				=>	L('common_view_title_style_list')[I('title_style')]['fun'],
-			'link_open_way'		=>	L('common_view_link_open_way_list')[I('link_open_way')]['value'],
-			'name'				=>	I('name'),
-			'right_title'		=>	empty($_POST['right_title']) ? array() : explode(';', I('right_title')),
-		);
-		$this->ajaxReturn('操作成功', 0, $result);
+		// 模块模型
+		$m = D('LayoutModule');
+
+		// 数据自动校验
+		if($m->create($_POST, 2))
+		{
+			// 额外数据
+			$m->upd_time	=	time();
+			$m->where 		=	serialize($where);
+			$m->right_title	=	str_replace('；', ';', I('right_title'));
+			$m->keyword 	=	str_replace(array('；', '—'), array(';', '-'), I('keyword'));
+
+			// 更新数据库
+			if($m->where(array('id'=>I('id')))->save())
+			{
+				// 数据保存
+				$data = $this->DataHandle(M('Article')->where($where['where'])->order($where['sort'])->limit($where['n'])->select());
+
+				// 模块数据生成
+				$fun = L('common_view_title_style_list')[I('title_style')]['fun'];
+				$lay = \My\LayoutModule::SetInstance();
+				$html = $lay->$fun($data, $_POST);
+				$this->ajaxReturn(L('common_operation_edit_success'), 0, $html);
+			} else {
+				$this->ajaxReturn(L('common_operation_edit_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn($m->getError(), -1);
+		}
 	}
 
 	/**
@@ -289,6 +310,122 @@ class ViewController extends CommonController
 			$this->ajaxReturn(L('common_operation_add_success'), 0, $result);
 		} else {
 			$this->ajaxReturn(L('common_operation_add_error'), -100);
+		}
+	}
+
+	/**
+	 * [StateUpdate 状态更新]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-12T22:23:06+0800
+	 */
+	public function StateUpdate()
+	{
+		// 参数
+		if(empty($_POST['id']) || !isset($_POST['state']))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 数据更新
+		if(M('Layout')->where(array('id'=>I('id')))->save(array('is_enable'=>I('state'))))
+		{
+			$this->ajaxReturn(L('common_operation_edit_success'));
+		} else {
+			$this->ajaxReturn(L('common_operation_edit_error'), -100);
+		}
+	}
+
+	/**
+	 * [LayoutDelete 布局删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T13:30:50+0800
+	 */
+	public function LayoutDelete()
+	{
+		// 参数
+		if(empty($_POST['id']))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 布局模型
+		$m = M('Layout');
+
+		// 开启事务
+		$m->startTrans();
+
+		// 删除数据
+		if($m->delete(I('id')) !== false && M('LayoutModule')->where(array('layout_id'=>I('id')))->delete() !== false)
+		{
+			// 提交事务
+			$m->commit();
+			$this->ajaxReturn(L('common_operation_delete_success'));
+		} else {
+			// 回滚事务
+			$m->rollback();
+			$this->ajaxReturn(L('common_operation_delete_error'), -100);
+		}
+	}
+
+	/**
+	 * [ModuleDelete 模块删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T13:30:50+0800
+	 */
+	public function ModuleDelete()
+	{
+		// 参数
+		if(empty($_POST['id']))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		if(M('LayoutModule')->delete(I('id')) !== false)
+		{
+			$this->ajaxReturn(L('common_operation_delete_success'));
+		} else {
+			$this->ajaxReturn(L('common_operation_delete_error'), -100);
+		}
+	}
+
+	/**
+	 * [LayoutSortSave 布局排序保存]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T16:02:56+0800
+	 */
+	public function LayoutSortSave()
+	{
+		// 参数
+		if(empty($_POST['data']) || !is_array($_POST['data']))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		$success = 0;
+		$failure = 0;
+		$m = M('Layout');
+		foreach($_POST['data'] as $k=>$v)
+		{
+			if($m->where(array('id'=>intval($v)))->save(array('sort'=>$k)))
+			{
+				$success++;
+			} else {
+				$failure++;
+			}
+		}
+		if($success > 0)
+		{
+			$this->ajaxReturn(L('common_operation_success'));
+		} else {
+			$this->ajaxReturn(L('common_operation_error'), -100);
 		}
 	}
 }

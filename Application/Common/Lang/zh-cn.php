@@ -62,8 +62,10 @@ return array(
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',
+	'common_operation_add2'				=>	'添加',
 	'common_operation_edit'				=>	'编辑',
 	'common_operation_delete'			=>	'删除',
+	'common_operation_remove'			=>	'移除',
 	'common_operation_back'				=>	'返回',
 	'common_operation_save'				=>	'保存',
 	'common_operation_query'			=>	'查询',
@@ -95,6 +97,9 @@ return array(
 	'common_tuition_state_tips'			=>	'缴费状态值范围不正确',
 	'common_data_is_exist_error'		=>	'数据已存在',
 	'common_color_format'				=>	'颜色值格式有误',
+	'common_success_failure_format'		=>	'成功[{$1}]项, 失败[{$2}]项',
+	'common_operation_off_text'			=>	'关',
+	'common_operation_on_text'			=>	'开',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -211,8 +216,8 @@ return array(
 
 	// 页面设置-有效时间
 	'common_view_title_style_list'		=>	array(
-			0 => array('value' => 0, 'fun' => 'View_Article_Title', 'name' => '[内置]文章标题', 'checked' => true),
-			1 => array('value' => 1, 'fun' => 'View_Article_Title_Access', 'name' => '[内置]文章标题+访问数'),
+			0 => array('value' => 0, 'fun' => 'ViewTitle', 'name' => '[内置]文章标题', 'checked' => true),
+			1 => array('value' => 1, 'fun' => 'ViewTitleAccess', 'name' => '[内置]文章标题+访问数'),
 			2 => array('value' => 2, 'fun' => 'View_Article_Create_Title_Time', 'name' => '[内置]文章标题+发布时间'),
 			3 => array('value' => 3, 'fun' => 'View_Article_Title_Abstract', 'name' => '[内置]文章标题+摘要'),
 			4 => array('value' => 4, 'fun' => 'View_Article_Focus', 'name' => '[内置]焦点模式'),
@@ -344,5 +349,8 @@ return array(
 
 	// 颜色
 	'common_regex_color'				=>	'^(#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))?$',
+
+	// id逗号隔开
+	'common_regex_id_comma_split'		=>	'^\d(\d|,?)*\d$',
 );
 ?>

@@ -16,62 +16,25 @@
 .layout-module-win-content select[multiple="multiple"] { min-height: 100px; max-height: 150px; }
 .help { color: #b6bfe4 !important; }
 .layout-module-win-content label[class*="am-u-"] { padding-left: 0rem;  padding-right: 0rem; }
-.drag-submit { background: #eee !important; cursor: move !important; }
+.drag-submit { background: #e6e6e6 !important; cursor: move !important; }
 .layout-list button { margin: 5px; }
+.am-switch { border-radius: 3px; margin-right: 5px; height: 29px; }
 
 /**
  * 布局
  */
+.layout-100-31, .layout-100-13, .layout-100-211, .layout-100-121, .layout-100-112, .layout-100 { padding: 10px; }
+
 /**
  * H5
  */
 @media only screen and (max-width: 641px) {
-	.layout-100-31>div,
-	.layout-100-13>div,
-	.layout-100-211>div,
-	.layout-100-121>div,
-	.layout-100-112>div
-	{ padding: 0px !important; }
+	.layout-100-31>div, .layout-100-13>div, .layout-100-211>div, .layout-100-121>div, .layout-100-112>div { padding: 0px; }
 }
 /**
  * PC
  */
 @media only screen and (min-width: 641px) {
-	/*.layout-100-211>div:last-child,
-	.layout-100-121>div:last-child,
-	.layout-100-112>div:last-child
-	{ padding-left: 0px; }
-
-	.layout-100-31>div:first-child,
-	.layout-100-31>div:last-child,
-	.layout-100-13>div:first-child,
-	.layout-100-13>div:last-child,
-	.layout-100-211>div:first-child,
-	.layout-100-211>div:nth-child(2),
-	.layout-100-121>div:first-child,
-	.layout-100-121>div:nth-child(2),
-	.layout-100-112>div:first-child,
-	.layout-100-112>div:nth-child(2)
-	{ padding-left: 10px; }
-
-	.layout-100-31>div:first-child,
-	.layout-100-31>div:last-child,
-	.layout-100-13>div:first-child,
-	.layout-100-13>div:last-child,
-	.layout-100-211>div:first-child,
-	.layout-100-211>div:last-child,
-	.layout-100-121>div:first-child,
-	.layout-100-121>div:last-child,
-	.layout-100-112>div:first-child,
-	.layout-100-112>div:last-child
-	{ padding-right: 0rem; }
-
-	.layout-100-211>div:nth-child(2),
-	.layout-100-121>div:nth-child(2),
-	.layout-100-112>div:nth-child(2)
-	{ padding-right: 10px; }*/
-
-	.layout-100-31, .layout-100-13, .layout-100-211, .layout-100-121, .layout-100-112 { padding: 10px; }
 	.layout-100-31>div, .layout-100-13>div, .layout-100-211>div, .layout-100-121>div, .layout-100-112>div { padding: 0px; }
 	.layout-100-31>div:last-child, .layout-100-13>div:last-child, .layout-100-211>div:nth-child(2), .layout-100-121>div:nth-child(2), .layout-100-112>div:nth-child(2) { padding-left: 10px !important;  }
 	.layout-100-211>div:nth-child(2), .layout-100-121>div:nth-child(2), .layout-100-112>div:nth-child(2) { padding-right: 10px !important; }
