@@ -20,12 +20,18 @@
 .layout-list button { margin: 5px; }
 .am-switch { border-radius: 3px; margin-right: 5px; height: 29px; }
 .layout-view-hidden { border: 3px dashed #f79797 !important; }
-.layout-view-hidden .drag-submit { background: #fdeeee !important; }
+.layout-view-hidden>div:first-child { background: #fdeeee !important; }
+.layout-nav { margin-bottom: -1px; }
+.layout-nav li a { border-top-left-radius: 2px; border-top-right-radius: 2px; }
 
 /**
  * 布局
  */
 .layout-100-84, .layout-100-48, .layout-100-633, .layout-100-363, .layout-100-336, .layout-100 { padding: 10px; }
+.my-link { overflow: hidden; }
+.my-link legend { color: #797979; font-size: 1.6rem; font-weight: 600; font-family: 'Karla',sans-serif; padding-bottom: 0.6rem !important; margin-bottom: 0rem; }
+.my-link ul { margin: 0px; padding: 0px; }
+.my-link ul li { float: left; list-style-type: none; margin: 10px; }
 
 /**
  * H5

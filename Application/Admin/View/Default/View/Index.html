@@ -167,6 +167,20 @@
 <!-- right content start  -->
 <div class="content-right">
 	<div class="content">
+		<!-- layout nav start -->
+		<ul class="am-nav am-nav-pills layout-nav">
+			<li <if condition="$layout_type eq 'home'">class="am-active"</if>>
+				<a href="{{:U('Admin/View/Index', ['type'=>'home'])}}">{{:L('view_nav_home')}}</a>
+			</li>
+			<li <if condition="$layout_type eq 'channel'">class="am-active"</if>>
+				<a href="{{:U('Admin/View/Index', ['type'=>'channel'])}}">{{:L('view_nav_channel')}}</a>
+			</li>
+			<li <if condition="$layout_type eq 'detail'">class="am-active"</if>>
+				<a href="{{:U('Admin/View/Index', ['type'=>'detail'])}}">{{:L('view_nav_detail')}}</a>
+			</li>
+		</ul>
+		<!-- layout nav end -->
+
 		<!-- layout module list -->
 		<div class="am-panel am-panel-default am-radius layout-list">
 			<!-- 100全屏 value:100 -->
@@ -202,7 +216,12 @@
 		<!-- layout module end -->
 
 		<!-- layuot start -->
-		<div class="layout-content" data-layout-save-url="{{:U('Admin/View/LayoutSave')}}" data-layout-delete-url="{{:U('Admin/View/LayoutDelete')}}" data-layout-state-url="{{:U('Admin/View/StateUpdate')}}" data-layout-sort-save-url="{{:U('Admin/View/LayoutSortSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-module-delete-url="{{:U('Admin/View/ModuleDelete')}}" data-type="home"><div class="drag-submit none">init</div>
+		<div class="layout-content" data-layout-save-url="{{:U('Admin/View/LayoutSave')}}" data-layout-delete-url="{{:U('Admin/View/LayoutDelete')}}" data-layout-state-url="{{:U('Admin/View/StateUpdate')}}" data-layout-sort-save-url="{{:U('Admin/View/LayoutSortSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-module-delete-url="{{:U('Admin/View/ModuleDelete')}}" data-type="{{$layout_type}}">
+			<!-- layout init start -->
+			<div class="drag-submit none">init</div>
+			<!-- layout init end -->
+
+			<!-- layout module start -->
 			<if condition="!empty($data)">
 				<foreach name="data" item="v">
 					<switch name="v.value">
@@ -267,6 +286,29 @@
 					</switch>
 				</foreach>
 			</if>
+			<!-- layout module end -->
+
+			<!-- link start -->
+			<if condition="!empty($link['layout'])">
+				<div class="layout-view <if condition="$link['layout']['is_enable'] eq 0">layout-view-hidden</if>">
+					<div class="layout-content-submit">
+						<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$link.layout.id}}" <if condition="$link['layout']['is_enable'] eq 1">checked="true"</if> />
+					</div>
+					<div class="layout-100">
+						<div class="my-link">
+							<legend>{{:L('common_view_link_name')}}</legend>
+							<if condition="!empty($link['data'])">
+								<ul>
+									<foreach name="link.data" item="v">
+										<li><a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if>>{{$v.name}}</a></li>
+									</foreach>
+								</ul>
+							</if>
+						</div>
+					</div>
+				</div>
+			</if>
+			<!-- link end -->
 		</div>
 		<!-- layuot end -->
 	</div>

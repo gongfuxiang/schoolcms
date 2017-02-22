@@ -50,5 +50,9 @@ return array(
 	'view_layout_param_save_tips'			=>	'布局参数有误',
 	'view_module_param_save_tips'			=>	'模块参数有误',
 	'view_module_edit_title'				=>	'模块编辑',
+
+	'view_nav_home'							=>	'首页',
+	'view_nav_channel'						=>	'频道',
+	'view_nav_detail'						=>	'详情',
 );
 ?>

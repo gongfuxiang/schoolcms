@@ -40,8 +40,11 @@ class LinkController extends CommonController
 	public function Index()
 	{
 		// 获取导航列表
-		$list = M('Link')->field(array('id', 'name', 'url', 'describe', 'sort', 'is_enable'))->order('sort')->select();
+		$list = M('Link')->field(array('id', 'name', 'url', 'describe', 'sort', 'is_enable', 'is_new_window_open'))->order('sort')->select();
 		$this->assign('list', $list);
+
+		// 是否新窗口打开
+		$this->assign('common_is_new_window_open_list', L('common_is_new_window_open_list'));
 
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));

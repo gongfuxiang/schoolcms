@@ -185,6 +185,7 @@ $(function()
 							$first_child.css('opacity', 0);
 							$first_child.animate({opacity:1}, 500);
 						}, 1);
+						Prompt(result.msg, 'success');
 					} else {
 						Prompt(result.msg);
 					}

@@ -39,8 +39,67 @@ class ViewController extends CommonController
      */
 	public function Index()
 	{
+		// 布局页面类型
+		$this->assign('layout_type', I('type', 'home'));
+
 		// 布局+模块列表
-		$data = M('Layout')->field(array('id', 'value', 'is_enable'))->where(array('type'=>'home'))->order('sort asc, id desc')->select();
+		$this->assign('data', $this->GetLayoutList());
+
+		// 友情链接
+		$this->assign('link', $this->GetLayoutLink());
+
+		// 文章分类
+		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
+
+		// 排序
+		$this->assign('common_view_sort_list', L('common_view_sort_list'));
+
+		// 时间
+		$this->assign('common_view_time_list', L('common_view_time_list'));
+
+		// 标题显示样式
+		$this->assign('common_view_title_style_list', L('common_view_title_style_list'));
+
+		// 打开方式
+		$this->assign('common_view_link_open_way_list', L('common_view_link_open_way_list'));
+
+		// 日期格式
+		$this->assign('common_view_date_format_list', L('common_view_date_format_list'));
+
+		$this->display('Index');
+	}
+
+	/**
+	 * [GetLayoutLink 获取布局-友情链接]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-22T10:17:14+0800
+	 */
+	private function GetLayoutLink()
+	{
+		// 友情链接
+		$layout = M('Layout')->field(array('id', 'is_enable'))->where(array('type'=>I('type', 'home').'_link'))->find();
+		if(!empty($layout))
+		{
+			$data = M('Link')->field(array('id', 'name', 'url', 'is_new_window_open', 'describe'))->where(array('is_enable'=>1))->order('sort asc')->select();
+		} else {
+			$data = array();
+		}
+		return array('layout'=>$layout, 'data'=>$data);
+	}
+
+	/**
+	 * [GetLayoutList 获取布局-模块列表]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-22T10:15:40+0800
+	 */
+	private function GetLayoutList()
+	{
+		// 布局+模块列表
+		$data = M('Layout')->field(array('id', 'value', 'is_enable'))->where(array('type'=>I('type', 'home')))->order('sort asc, id desc')->select();
 		if(!empty($data))
 		{
 			// 布局模块处理驱动
@@ -78,27 +137,7 @@ class ViewController extends CommonController
 				$data[$k]['item'] = $item;
 			}
 		}
-		$this->assign('data', $data);
-
-		// 文章分类
-		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
-
-		// 排序
-		$this->assign('common_view_sort_list', L('common_view_sort_list'));
-
-		// 时间
-		$this->assign('common_view_time_list', L('common_view_time_list'));
-
-		// 标题显示样式
-		$this->assign('common_view_title_style_list', L('common_view_title_style_list'));
-
-		// 打开方式
-		$this->assign('common_view_link_open_way_list', L('common_view_link_open_way_list'));
-
-		// 日期格式
-		$this->assign('common_view_date_format_list', L('common_view_date_format_list'));
-
-		$this->display('Index');
+		return $data;
 	}
 
 	/**

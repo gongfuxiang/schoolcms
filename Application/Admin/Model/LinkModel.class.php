@@ -18,6 +18,7 @@ class LinkModel extends CommonModel
 		array('name', 'CheckName', '{%link_name_format}', 1, 'callback', 3),
 		array('describe', 'CheckDescribe', '{%link_describe_format}', 2, 'callback', 3),
 		array('url', 'CheckUrl', '{%link_url_format}', 1, 'callback', 3),
+		array('is_new_window_open', array(0,1), '{%common_new_window_open_tips}', 1, 'in', 3),
 		array('is_enable', array(0,1), '{%common_enable_tips}', 1, 'in', 3),
 	);
 

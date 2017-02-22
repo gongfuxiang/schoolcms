@@ -41,6 +41,7 @@ return array(
 	'common_detail_content'				=>	'详情内容',
 	'common_operation_excel_name'		=>	'导出Excel',
 	'common_nav_type_name'				=>	'导航数据类型',
+	'common_view_link_name'				=>	'友情链接',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
