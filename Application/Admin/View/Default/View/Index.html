@@ -183,6 +183,13 @@
 
 		<!-- layout module list -->
 		<div class="am-panel am-panel-default am-radius layout-list">
+			<!-- layout module tips start -->
+			<div class="am-alert am-alert-secondary am-radius" data-am-alert>
+				<span class="am-close am-close-spin">&times;</span>
+				{{:L('view_layout_module_tips')}}
+			</div>
+			<!-- layout module tips end -->
+
 			<!-- 100全屏 value:100 -->
 			<button type="button" class="am-btn am-btn-default am-radius am-btn-xs" data-value="100" data-html='<div class="layout-view" data-layout-id="{data-layout-id}"><div class="layout-content-submit drag-submit"><input type="checkbox" name="switch-checkbox" checked="true" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{data-layout-id}" /><button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: {layout-module-win}}" data-id="{data-module1-id}" data-value="{data-value}" data-tag="{content-module1-id}">{{:L("common_operation_edit")}}</button><button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{data-layout-id}" data-type="layout">{{:L("common_operation_remove")}}</button></div><div class="layout-100" id="{content-module1-id}"></div></div>'>100%</button>
 
