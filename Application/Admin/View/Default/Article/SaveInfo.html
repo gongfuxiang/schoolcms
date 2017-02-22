@@ -20,7 +20,7 @@
 			<div class="am-form-group">
 				<label>{{:L('article_title_text')}}</label>
 				<div class="am-input-group am-input-group-sm">
-					<input type="hidden" name="title_color" value="" />
+					<input type="hidden" name="title_color" value="<if condition="!empty($data['title_color'])">{{$data.title_color}}</if>" />
 					<input type="text" name="title" placeholder="{{:L('article_title_text')}}" minlength="3" maxlength="30" data-validation-message="{{:L('article_title_format')}}" class="am-form-field am-radius" <notempty name="data"> value="{{$data.title}}" </notempty> <if condition="!empty($data['title_color'])"> style="color:{{$data.title_color}};" </if> required />
 					<span class="am-input-group-btn">
 						<button class="am-btn am-btn-default colorpicker-submit" type="button">

@@ -55,5 +55,6 @@ return array(
 	'view_nav_channel'						=>	'频道',
 	'view_nav_detail'						=>	'详情',
 	'view_layout_module_tips'				=>	'浏览器宽度<br />&nbsp;&nbsp;&nbsp;sm：小于641 px<br />&nbsp;&nbsp;&nbsp;md：小于1025 px<br />&nbsp;&nbsp;&nbsp;lg：大于等于1025 px<br /><br />比例布局<br />&nbsp;&nbsp;&nbsp;宽度分割成12块，3块一个小布局<br /><br />[ x ] 代表当前布局所展示模块的数量，可能是一个数值，也有可能是一个布局形式',
+	'view_no_edit_area'						=>	'基础内容区域，不可编辑',
 );
 ?>

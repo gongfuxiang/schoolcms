@@ -313,8 +313,6 @@ legend {padding-bottom:0.2rem !important;}
 select {height:32px !important;}
 .bk-cr-gray {background:#f3f3f3 !important;}
 .bk-cr-ffd {background:#ffd !important;}
-.t-c {text-align:center;}
-.o-h { overflow: hidden; }
 /* fixed-layout 固定头部和边栏布局*/
 @media only screen and (max-width:641px) {.am-dropdown-content {border:0px;}
   header .tpl-header-list-user-nick {color:#fff;}

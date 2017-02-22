@@ -219,19 +219,11 @@ class ViewController extends CommonController
 		{
 			foreach($data as $k=>$v)
 			{
-				// 摘要字数
-				$abstract_number = isset($_POST['abstract_number']) ? intval($_POST['abstract_number']) : 80;
-				$data[$k]['content'] = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
-
 				// 图片
 				if(!empty($v['image']))
 				{
 					$data[$k]['image'] = unserialize($v['image']);
 				}
-
-				// 日期格式
-				$date_format = empty($_POST['date_format']) ? 'Y-m-d' : L('common_view_date_format_list')[I('date_format')]['value'];
-				$data[$k]['add_time'] = date($date_format, $v['add_time']);
 
 				// url地址
 				$data[$k]['url'] = empty($v['jump_url']) ? str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id']))) : $v['jump_url'];

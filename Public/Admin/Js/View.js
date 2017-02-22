@@ -211,7 +211,7 @@ $(function()
  */
 function LayoutSwitchInit()
 {
-	$layout_content.find('[name="switch-checkbox"]').bootstrapSwitch(
+	$('[name="switch-checkbox"]').bootstrapSwitch(
 	{
 		onSwitchChange: function(event, state)
 		{

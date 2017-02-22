@@ -102,6 +102,7 @@ return array(
 	'common_operation_off_text'			=>	'关',
 	'common_operation_on_text'			=>	'开',
 	'common_method_exists_error'		=>	'[{$1}]成员方法未定义',
+	'common_template_access_count'		=>	'浏览 {$1} 次',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -130,6 +131,7 @@ return array(
 	'common_user_home_text'				=>	'用户中心',
 	'common_so_tips'					=>	'其实搜索很简单 ^_^!',
 	'common_go_top_text'				=>	'回到顶部',
+	'common_toview_home_text'			=>	'查看首页',
 
 	// 性别
 	'common_gender_list'				=>	array(
@@ -220,12 +222,12 @@ return array(
 	'common_view_title_style_list'		=>	array(
 			0 => array('value' => 0, 'fun' => 'ViewTitle', 'name' => '[内置]文章标题', 'checked' => true),
 			1 => array('value' => 1, 'fun' => 'ViewTitleAccess', 'name' => '[内置]文章标题+访问数'),
-			2 => array('value' => 2, 'fun' => 'View_Article_Create_Title_Time', 'name' => '[内置]文章标题+发布时间'),
-			3 => array('value' => 3, 'fun' => 'View_Article_Title_Abstract', 'name' => '[内置]文章标题+摘要'),
+			2 => array('value' => 2, 'fun' => 'ViewTitleCreateTime', 'name' => '[内置]文章标题+发布时间'),
+			3 => array('value' => 3, 'fun' => 'ViewTitleAbstract', 'name' => '[内置]文章标题+摘要'),
 			4 => array('value' => 4, 'fun' => 'View_Article_Focus', 'name' => '[内置]焦点模式'),
-			5 => array('value' => 5, 'fun' => 'View_Article_Title_Abstract_One', 'name' => '[内置]文章标题（第一条带摘要）'),
-			6 => array('value' => 6, 'fun' => 'View_Article_Images_Content', 'name' => '[内置]文章图文展示'),
-			7 => array('value' => 7, 'fun' => 'View_Article_One_Introduction_Two_Title', 'name' => '[内置]一简介+两列标题'),
+			5 => array('value' => 5, 'fun' => 'ViewTitleAbstractOne', 'name' => '[内置]文章标题（第一条带摘要）'),
+			6 => array('value' => 6, 'fun' => 'ViewImagesContent', 'name' => '[内置]文章图文展示'),
+			7 => array('value' => 7, 'fun' => 'ViewOneIntroductionTwoTitle', 'name' => '[内置]一简介+两列标题'),
 			8 => array('value' => 8, 'fun' => 'View_Article_Images_Slide', 'name' => '[内置]文章图片幻灯片'),
 			9 => array('value' => 9, 'fun' => 'View_Article_Images_List', 'name' => '[内置]文章图片列表'),
 		),

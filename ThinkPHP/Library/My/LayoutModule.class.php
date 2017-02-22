@@ -63,6 +63,12 @@ class LayoutModule
 		// 是否启用
 		$where['is_enable'] = 1;
 
+		// 是否强制带图片
+		if(isset($data['title_style']) && in_array($data['title_style'], array(6, 8, 9)))
+		{
+			$where['image_count'] = array('egt', 1);
+		}
+
 		// 是否指定文章id
 		if(empty($data['article_id']))
 		{
@@ -163,25 +169,20 @@ class LayoutModule
 
 		// 打开方式
 		$this->blank = (isset($this->rules['link_open_way']) && L('common_view_link_open_way_list')[$this->rules['link_open_way']]['value'] == 'blank') ? 'target="_blank"' : '';
+
+		// 内容前面处理
+		$this->ContentFirst();
 	}
 
 	/**
-	 * [ViewTitle 纯标题格式]
+	 * [ContentFirst 内容前面处理]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
-	 * @datetime 2017-02-20T18:06:08+0800
-	 * @param    [array]    $data 	[数据列表]
-	 * @param    [array]    $rules 	[参数规则]
+	 * @datetime 2017-02-22T18:12:12+0800
 	 */
-	public function ViewTitle($data, $rules)
+	private function ContentFirst()
 	{
-		// 数据是否为空
-		if(empty($data)) return '';
-
-		// 数据初始化
-		$this->DataInit($data, $rules);
-
 		// 开始处理数据
 		$this->html = '<div class="am-list-news am-list-news-default">';
 
@@ -199,26 +200,340 @@ class LayoutModule
 				{
 					if(isset($this->rules['right_title'][1]))
 					{
-						$this->html .= '<span class="am-list-news-more am-fr">'.$this->rules['right_title'][0].'</span>';
-					} else {
 						$this->html .= '<a href="'.$this->rules['right_title'][1].'" target="_blank"><span class="am-list-news-more am-fr">'.$this->rules['right_title'][0].'</span></a>';
+					} else {
+						$this->html .= '<span class="am-list-news-more am-fr">'.$this->rules['right_title'][0].'</span>';
 					}
 				}
 			}
 			$this->html .= '</div>';
 		}
 
-		// 列表
-		$this->html .= '<div class="am-list-news-bd"><ul class="am-list">';
-		foreach($data as $k=>$v)
-		{
-			// 标题颜色
-			$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
 
-			// 内容
-			$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a></li>';
+		// 是否自定义内容
+		if(!empty($this->rules['summary']))
+		{
+			$this->html .= $this->rules['summary'];
 		}
-		$this->html .= '</ul></div></div>';
+	}
+
+	/**
+	 * [ContentLast 内容收尾处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-22T18:13:58+0800
+	 */
+	private function ContentLast()
+	{
+		$this->html .= '</div></div>';
+	}
+
+	/**
+	 * [ViewTitle 纯标题]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewTitle($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a></li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewTitleAccess 标题+访问量]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewTitleAccess($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 内容
+				$this->html .= '<li class="am-g am-list-item-dated">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-list-item-hd" '.$title_color.'>'.$v['title'].'</a>';
+				$this->html .= '<span class="am-list-date">'.str_replace('{$1}', $v['access_count'], L('common_template_access_count')).'</span>';
+
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewTitleCreateTime 标题+发布时间]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewTitleCreateTime($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 内容
+				$this->html .= '<li class="am-g am-list-item-dated">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-list-item-hd" '.$title_color.'>'.$v['title'].'</a>';
+
+				// 日期
+				$temp_date = date(L('common_view_date_format_list')[$this->rules['date_format']]['value'], $v['add_time']);
+				$this->html .= '<span class="am-list-date">'.$temp_date.'</span>';
+
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewTitleAbstract 标题+摘要]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewTitleAbstract($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 内容
+				$this->html .= '<li class="am-g am-list-item-desced">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a>';
+
+				// 摘要字数
+				$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
+				$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
+				$this->html .= '<div class="am-list-item-text">'.$temp_content.'</div>';
+
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewTitleAbstractOne 标题+第一条摘要]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewTitleAbstractOne($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 内容
+				$this->html .= '<li class="am-g am-list-item-desced">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a>';
+
+				// 第一条带摘要
+				if($k == 0)
+				{
+					$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
+					$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
+					$this->html .= '<div class="am-list-item-text">'.$temp_content.'</div>';
+				}
+
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesContent 图文]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesContent($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 摘要
+				$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
+				$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
+
+				// 内容
+				if(empty($v['image'][0]))
+				{
+					$this->html .= '<li class="am-g am-list-item-desced">';
+					$this->html .= '<div class="am-list-main">';
+				} else {
+					$this->html .= '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">';
+					$this->html .= '<div class="am-u-sm-4 am-list-thumb"><a href="'.$v['url'].'"><img src="'.$v['image'][0].'" alt="'.$v['title'].'"/></a></div>';
+
+					$this->html .= '<div class="am-u-sm-8 am-list-main">';
+				}
+				$this->html .= '<h3 class="am-list-item-hd"><a href="'.$v['url'].'">'.$v['title'].'</a></h3><div class="am-list-item-text">'.$temp_content.'</div></div>';
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewOneIntroductionTwoTitle 一简介+两列标题]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewOneIntroductionTwoTitle($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul class="am-list">';
+			foreach($data as $k=>$v)
+			{
+				// 标题颜色
+				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
+
+				// 内容
+				$this->html .= '<li class="am-g am-list-item-desced">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a>';
+
+				// 第一条带摘要
+				if($k%3 == 0)
+				{
+					$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
+					$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
+					$this->html .= '<div class="am-list-item-text">'.$temp_content.'</div>';
+				}
+
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		}
+
+		// 内容收尾处理
+		$this->ContentLast();
 
 		// 数据返回
 		return $this->html;
