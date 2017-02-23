@@ -12,6 +12,13 @@
 .p-l-25 { padding-left: 25px !important; }
 .p-l-30 { padding-left: 30px !important; }
 .p-r-0 { padding-right: 0px !important; }
+.p-r-5 { padding-right: 5px !important; }
+.p-r-10 { padding-right: 10px !important; }
+.p-r-15 { padding-right: 15px !important; }
+.p-r-20 { padding-right: 20px !important; }
+.p-r-25 { padding-right: 25px !important; }
+.p-r-30 { padding-right: 30px !important; }
+.p-r-0 { padding-right: 0px !important; }
 .p-t-0 { padding-top: 0px !important; }
 .p-b-0 { padding-bottom: 0px !important; }
 .p-t-10 { padding-top: 10px !important; }
@@ -47,13 +54,13 @@
  */
 header .am-topbar-right .am-topbar-btn { margin-top: 0.8rem; }
 header .am-dropdown-content { border-radius: 2px; }
-header.am-topbar { margin-bottom: 1rem; }
-.my-content {  padding: 0rem 1rem; }
+header.am-topbar { margin-bottom: 0rem; }
 .my-radius { border-radius: 2px !important; }
 .nav-active { background-color: #0d82bd; }
 .am-topbar-nav > li > a:after { display: none; }
 .am-footer { font-size: 1.4rem; }
 .footer-nav-list a:hover { color: #095f8a; }
+.am-footer { padding: 0.5rem 0 1em 0; }
 
 /**
  * 回顶部

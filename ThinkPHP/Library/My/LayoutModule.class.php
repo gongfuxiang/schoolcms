@@ -64,7 +64,7 @@ class LayoutModule
 		$where['is_enable'] = 1;
 
 		// 是否强制带图片
-		if(isset($data['title_style']) && in_array($data['title_style'], array(6, 8, 9)))
+		if(isset($data['title_style']) && in_array($data['title_style'], array(6, 8, 9, 10, 11, 12, 13, 14, 15)))
 		{
 			$where['image_count'] = array('egt', 1);
 		}
@@ -169,24 +169,17 @@ class LayoutModule
 
 		// 打开方式
 		$this->blank = (isset($this->rules['link_open_way']) && L('common_view_link_open_way_list')[$this->rules['link_open_way']]['value'] == 'blank') ? 'target="_blank"' : '';
-
-		// 内容前面处理
-		$this->ContentFirst();
 	}
 
 	/**
-	 * [ContentFirst 内容前面处理]
+	 * [GetTitleContent 获取标题内容]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-02-22T18:12:12+0800
 	 */
-	private function ContentFirst()
+	private function GetTitleContent()
 	{
-		// 开始处理数据
-		$this->html = '<div class="am-list-news am-list-news-default">';
-
-		// 标题
 		if(!empty($this->rules['name']) || !empty($this->rules['right_title']))
 		{
 			$this->html .= '<div class="am-list-news-hd am-cf">';
@@ -208,27 +201,6 @@ class LayoutModule
 			}
 			$this->html .= '</div>';
 		}
-
-		// 数据列表
-		$this->html .= '<div class="am-list-news-bd">';
-
-		// 是否自定义内容
-		if(!empty($this->rules['summary']))
-		{
-			$this->html .= $this->rules['summary'];
-		}
-	}
-
-	/**
-	 * [ContentLast 内容收尾处理]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-22T18:13:58+0800
-	 */
-	private function ContentLast()
-	{
-		$this->html .= '</div></div>';
 	}
 
 	/**
@@ -245,6 +217,15 @@ class LayoutModule
 		// 数据初始化
 		$this->DataInit($data, $rules);
 
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
 		{
@@ -258,10 +239,13 @@ class LayoutModule
 				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a></li>';
 			}
 			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;
@@ -281,6 +265,15 @@ class LayoutModule
 		// 数据初始化
 		$this->DataInit($data, $rules);
 
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
 		{
@@ -297,11 +290,13 @@ class LayoutModule
 
 				$this->html .= '</li>';
 			}
-			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;
@@ -320,6 +315,15 @@ class LayoutModule
 	{
 		// 数据初始化
 		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
 
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
@@ -341,10 +345,13 @@ class LayoutModule
 				$this->html .= '</li>';
 			}
 			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;
@@ -363,6 +370,15 @@ class LayoutModule
 	{
 		// 数据初始化
 		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
 
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
@@ -385,10 +401,13 @@ class LayoutModule
 				$this->html .= '</li>';
 			}
 			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;
@@ -407,6 +426,15 @@ class LayoutModule
 	{
 		// 数据初始化
 		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
 
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
@@ -432,10 +460,13 @@ class LayoutModule
 				$this->html .= '</li>';
 			}
 			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;
@@ -454,6 +485,15 @@ class LayoutModule
 	{
 		// 数据初始化
 		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
 
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
@@ -475,18 +515,21 @@ class LayoutModule
 					$this->html .= '<div class="am-list-main">';
 				} else {
 					$this->html .= '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">';
-					$this->html .= '<div class="am-u-sm-4 am-list-thumb"><a href="'.$v['url'].'"><img src="'.$v['image'][0].'" alt="'.$v['title'].'"/></a></div>';
+					$this->html .= '<div class="am-u-sm-4 am-list-thumb"><a href="'.$v['url'].'" '.$this->blank.'><img src="'.$v['image'][0].'" alt="'.$v['title'].'"/></a></div>';
 
 					$this->html .= '<div class="am-u-sm-8 am-list-main">';
 				}
-				$this->html .= '<h3 class="am-list-item-hd"><a href="'.$v['url'].'">'.$v['title'].'</a></h3><div class="am-list-item-text">'.$temp_content.'</div></div>';
+				$this->html .= '<h3 class="am-list-item-hd"><a href="'.$v['url'].'" '.$this->blank.'>'.$v['title'].'</a></h3><div class="am-list-item-text">'.$temp_content.'</div></div>';
 				$this->html .= '</li>';
 			}
 			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;
@@ -505,6 +548,15 @@ class LayoutModule
 	{
 		// 数据初始化
 		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
 
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
@@ -530,10 +582,207 @@ class LayoutModule
 				$this->html .= '</li>';
 			}
 			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->ContentLast();
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlide 文章图片幻灯片]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlide($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-c3" data-am-slider=\'{"controlNav":false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li style="height:;">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'"><img src="'.$v['image'][0].'" alt="'.$v['title'].'" /></a>';
+				$this->html .= '<div class="am-slider-desc"><div class="am-slider-counter"><span class="am-active">'.($k+1).'</span>/'.$count.'</div>'.$v['title'].'</div>';
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesList112 文章图片列表-112]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList112($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 1, 1, 2);
+	}
+
+	/**
+	 * [ViewImagesList122 文章图片列表-122]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList122($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 1, 2, 2);
+	}
+
+	/**
+	 * [ViewImagesList123 文章图片列表-123]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList123($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 1, 2, 3);
+	}
+
+	/**
+	 * [ViewImagesList222 文章图片列表-222]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList222($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 2, 2, 2);
+	}
+
+	/**
+	 * [ViewImagesList223 文章图片列表-223]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList223($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 2, 2, 3);
+	}
+
+	/**
+	 * [ViewImagesList234 文章图片列表-234]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList234($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 2, 3, 4);
+	}
+
+	/**
+	 * [ViewImagesList236 文章图片列表-236]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesList236($data, $rules)
+	{
+		return $this->ViewImagesList($data, $rules, 2, 3, 6);
+	}
+
+	/**
+	 * [ViewImagesList 文章图片列表]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	private function ViewImagesList($data, $rules, $sm, $md, $lg)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news layout-images-list">';
+
+		// 标题
+		$this->GetTitleContent();
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<ul data-am-widget="gallery" class="am-gallery am-avg-sm-'.$sm.' am-avg-md-'.$md.' am-avg-lg-'.$lg.' am-gallery-overlay layout-gallery-overlay-'.$sm.$md.$lg.'" data-am-gallery="{}">';
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><div class="am-gallery-item o-h">';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.'><img src="'.$v['image'][0].'"  alt="'.$v['title'].'"/><h3 class="am-gallery-title">'.$v['title'].'</h3></a>';
+				$this->html .= '</div></li>';
+			}
+			$this->html .= '</ul>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;

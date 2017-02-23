@@ -17,11 +17,11 @@
 			</li>
 			<foreach name="nav_header" key="k" item="v">
 				<if condition="empty($v['item'])">
-					<li class="<if condition="$nav_pid eq $v['id'] or $nav_id eq $v['id']">am-active</if> <if condition="$k gt 2">am-hide-md-only</if>">
+					<li class="<if condition="$nav_pid eq $v['id'] or $nav_id eq $v['id']">am-active</if>">
 						<a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if>>{{$v.name}}</a>
 					</li>
 				<else />
-					<li class="am-dropdown <if condition="$nav_pid eq $v['id'] or $nav_id eq $v['id']">nav-active</if> <if condition="$k gt 2">am-hide-md-only</if>" data-am-dropdown>
+					<li class="am-dropdown <if condition="$nav_pid eq $v['id'] or $nav_id eq $v['id']">nav-active</if>" data-am-dropdown>
 						<a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
 							{{$v.name}}
 							<span class="am-icon-caret-down"></span>
@@ -38,7 +38,7 @@
 		<!-- nav end -->
 
 		<!-- search start -->
-		<include file="Public/NavSearch" />
+		<!-- <include file="Public/NavSearch" /> -->
 		<!-- search end -->
 
 		<!-- user start -->

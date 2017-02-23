@@ -18,11 +18,11 @@ class ArticleController extends CommonController
 	 * @version  0.0.1
 	 * @datetime 2016-12-03T12:39:08+0800
 	 */
-	/*public function _initialize()
+	public function _initialize()
 	{
 		// 调用父类前置方法
 		parent::_initialize();
-	}*/
+	}
 
 	/**
      * [Index 文章列表]
@@ -33,16 +33,25 @@ class ArticleController extends CommonController
      */
 	public function Index()
 	{
-		$data = M('Article')->where(array('id'=>I('id'), 'is_enable'=>1))->find();
-		if(!empty($data['content']))
+		$article = M('Article')->where(array('id'=>I('id'), 'is_enable'=>1))->find();
+		if(!empty($article['content']))
 		{
 			// 静态资源地址处理
-			$data['content'] = ContentStaticReplace($data['content'], 'get');
+			$article['content'] = ContentStaticReplace($article['content'], 'get');
+
+			// 时间
+			$article['add_time'] = date('Y/m/d', $article['add_time']);
 		} else {
-			exit('文章不存在或已删除');
+			exit(L('article_on_exist_error'));
 		}
-			
-		$this->assign('data', $data);
+		$this->assign('article', $article);
+
+		// 布局+模块列表
+		$this->assign('data', $this->GetLayoutList('detail'));
+
+		// 友情链接
+		$this->assign('link', $this->GetLayoutLink('detail'));
+
 		$this->display('Index');
 	}
 }

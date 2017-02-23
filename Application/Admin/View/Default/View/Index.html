@@ -304,23 +304,27 @@
 
 		<!-- layuot site-oneself start -->
 		<div class="site-oneself">
-			<div class="layout-view <if condition="$link['layout']['is_enable'] eq 0">layout-view-hidden</if>">
-				<div class="layout-content-submit">
-					<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$link.layout.id}}" <if condition="$link['layout']['is_enable'] eq 1">checked="true"</if> />
-				</div>
-				<div class="layout-100">
-					<div class="my-link o-h">
-						<legend>{{:L('common_view_link_name')}}</legend>
-						<if condition="!empty($link['data'])">
-							<ul>
-								<foreach name="link.data" item="v">
-									<li><a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if>>{{$v.name}}</a></li>
-								</foreach>
-							</ul>
-						</if>
+			<!-- link start -->
+			<if condition="!empty($link['layout'])">
+				<div class="layout-view <if condition="$link['layout']['is_enable'] eq 0">layout-view-hidden</if>">
+					<div class="layout-content-submit">
+						<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$link.layout.id}}" <if condition="$link['layout']['is_enable'] eq 1">checked="true"</if> />
+					</div>
+					<div class="layout-100">
+						<div class="my-link o-h">
+							<legend>{{:L('common_view_link_name')}}</legend>
+							<if condition="!empty($link['data'])">
+								<ul>
+									<foreach name="link.data" item="v">
+										<li><a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if> title="{{$v.describe}}">{{$v.name}}</a></li>
+									</foreach>
+								</ul>
+							</if>
+						</div>
 					</div>
 				</div>
-			</div>
+			</if>
+			<!-- link end -->
 		</div>
 		<!-- layuot site-oneself end -->
 	</div>

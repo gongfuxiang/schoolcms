@@ -11,23 +11,29 @@
 
 /* 文章列表 */
 .am-list { margin-bottom: 0rem; }
-.am-list-news-hd { background: #eee; padding: 0.5rem; color: #666; }
+.am-list-news-hd, .my-link legend { background: #eee; padding: 0.5rem; color: #666; }
 
 /* 友情链接 */
-.my-link legend { color: #797979; font-size: 1.6rem; font-weight: 600; font-family: 'Karla',sans-serif; padding-bottom: 0.6rem !important; margin-bottom: 0rem; }
+.my-link { margin: 10px; }
+.my-link legend { color: #797979; font-size: 1.6rem; font-weight: 600; font-family: 'Karla',sans-serif; margin-bottom: 0rem; }
 .my-link ul { margin: 0px; padding: 0px; }
 .my-link ul li { float: left; list-style-type: none; margin: 10px; }
+
+/* 图片列表 */
+.layout-images-list .am-list-news-hd { margin: 10px 10px 0px 10px; }
 
 /**
  * H5
  */
 @media only screen and (max-width: 641px) {
+	/* 布局 */
 	.layout-100-84>div, .layout-100-48>div, .layout-100-633>div, .layout-100-363>div, .layout-100-336>div { padding: 0px; }
 }
 /**
  * PC
  */
 @media only screen and (min-width: 641px) {
+	/* 布局 */
 	.layout-100-84>div, .layout-100-48>div, .layout-100-633>div, .layout-100-363>div, .layout-100-336>div { padding: 0px; }
 	.layout-100-84>div:last-child, .layout-100-48>div:last-child, .layout-100-633>div:nth-child(2), .layout-100-363>div:nth-child(2), .layout-100-336>div:nth-child(2) { padding-left: 10px !important;  }
 	.layout-100-633>div:nth-child(2), .layout-100-363>div:nth-child(2), .layout-100-336>div:nth-child(2) { padding-right: 10px !important; }

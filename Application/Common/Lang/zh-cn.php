@@ -228,8 +228,14 @@ return array(
 			5 => array('value' => 5, 'fun' => 'ViewTitleAbstractOne', 'name' => '[内置]文章标题（第一条带摘要）'),
 			6 => array('value' => 6, 'fun' => 'ViewImagesContent', 'name' => '[内置]文章图文展示'),
 			7 => array('value' => 7, 'fun' => 'ViewOneIntroductionTwoTitle', 'name' => '[内置]一简介+两列标题'),
-			8 => array('value' => 8, 'fun' => 'View_Article_Images_Slide', 'name' => '[内置]文章图片幻灯片'),
-			9 => array('value' => 9, 'fun' => 'View_Article_Images_List', 'name' => '[内置]文章图片列表'),
+			8 => array('value' => 8, 'fun' => 'ViewImagesSlide', 'name' => '[内置]文章图片幻灯片'),
+			9 => array('value' => 9, 'fun' => 'ViewImagesList112', 'name' => '[内置]文章图片列表 sm[1]md[1]lg[2]'),
+			10 => array('value' => 10, 'fun' => 'ViewImagesList122', 'name' => '[内置]文章图片列表 sm[1]md[2]lg[2]'),
+			11 => array('value' => 11, 'fun' => 'ViewImagesList123', 'name' => '[内置]文章图片列表 sm[1]md[2]lg[3]'),
+			12 => array('value' => 12, 'fun' => 'ViewImagesList222', 'name' => '[内置]文章图片列表 sm[2]md[2]lg[2]'),
+			13 => array('value' => 13, 'fun' => 'ViewImagesList223', 'name' => '[内置]文章图片列表 sm[2]md[2]lg[3]'),
+			14 => array('value' => 14, 'fun' => 'ViewImagesList234', 'name' => '[内置]文章图片列表 sm[2]md[3]lg[4]'),
+			15 => array('value' => 15, 'fun' => 'ViewImagesList236', 'name' => '[内置]文章图片列表 sm[2]md[3]lg[6]'),
 		),
 
 	// 页面设置-打开方式
