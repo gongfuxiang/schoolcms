@@ -33,7 +33,7 @@ class ArticleModel extends CommonModel
 	public function CheckTitle()
 	{
 		$len = Utf8Strlen(I('title'));
-		return ($len >= 3 && $len <= 30);
+		return ($len >= 3 && $len <= 60);
 	}
 
 	/**

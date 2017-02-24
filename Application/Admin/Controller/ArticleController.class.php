@@ -59,7 +59,7 @@ class ArticleController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
+		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->order('id desc')->select());
 
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));

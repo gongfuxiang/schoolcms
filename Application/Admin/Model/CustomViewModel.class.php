@@ -19,6 +19,7 @@ class CustomViewModel extends CommonModel
 		array('is_enable', array(0,1), '{%common_enable_tips}', 1, 'in', 3),
 		array('is_header', array(0,1), '{%common_is_header_tips}', 1, 'in', 3),
 		array('is_footer', array(0,1), '{%common_is_footer_tips}', 1, 'in', 3),
+		array('is_full_screen', array(0,1), '{%common_is_full_screen_tips}', 1, 'in', 3),
 		array('content', 'CheckContent', '{%article_content_format_mobile}', 1, 'callback', 3),
 	);
 
@@ -32,7 +33,7 @@ class CustomViewModel extends CommonModel
 	public function CheckTitle()
 	{
 		$len = Utf8Strlen(I('title'));
-		return ($len >= 3 && $len <= 30);
+		return ($len >= 3 && $len <= 60);
 	}
 
 	/**

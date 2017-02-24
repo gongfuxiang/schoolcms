@@ -7,229 +7,92 @@
 <!-- header nav end -->
 
 <!-- content start -->
-<div class="am-g">
+<div class="am-g my-content">
     <!-- left start -->
-    <div class="am-u-md-8">
-        <article class="article-main">
-            <div class="article-content">
-                <!-- slider left start -->
-                <div data-am-widget="slider" class="am-slider am-slider-c1 channel-banner" data-am-slider='{&quot;directionNav&quot;:false}'>
-                    <ul class="am-slides">
-                        <li>
-                            <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg">
-                            <div class="am-slider-desc">远方 有一个地方 那里种有我们的梦想</div>
-                        </li>
-                        <li>
-                            <img src="http://s.amazeui.org/media/i/demos/bing-2.jpg">
-                            <div class="am-slider-desc">某天 也许会相遇 相遇在这个好地方</div>
-                        </li>
-                        <li>
-                            <img src="http://s.amazeui.org/media/i/demos/bing-3.jpg">
-                            <div class="am-slider-desc">不要太担心 只因为我相信 终会走过这条遥远的道路</div>
-                        </li>
-                        <li>
-                            <img src="http://s.amazeui.org/media/i/demos/bing-4.jpg">
-                            <div class="am-slider-desc">OH PARA PARADISE 是否那么重要 你是否那么地遥远</div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- slider left end -->
-                <!-- list start -->
-                <div data-am-widget="list_news" class="am-list-news am-list-news-default channel-list">
-                    <div class="am-list-news-bd">
-                        <ul class="am-list">
+    <div class="am-u-md-8 m-t-10 channel-left">
+        <!-- list start -->
+        <div data-am-widget="list_news" class="am-list-news am-list-news-default channel-list">
+            <div class="am-list-news-bd">
+                <ul class="am-list">
+                    <foreach name="list" item="v">
+                        <if condition="empty($v['image'][0])">
                             <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11614662/" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-                                <div class="am-list-item-text">囧人囧事囧照，人在囧途，越囧越萌。标记《带你出发，陪我回家》http://book.douban.com/subject/25711202/为“想读”“在读”或“读过”，有机会获得此书本活动进行3个月，每月送出三本书。会有不定期bonus！</div>
+                                <div class=" am-list-main">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="{{$v.url}}" target="_blank">{{$v.title}}</a>
+                                    </h3>
+                                    <div class="am-list-item-text">{{:mb_substr(strip_tags($v['content']), 0, 80, C('DEFAULT_CHARSET'))}}</div>
+                                </div>
                             </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
+                          <else />
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                <div class="am-u-sm-4 am-list-thumb">
+                                  <a href="{{$v.url}}" target="_blank">
+                                    <img src="{{$v['image'][0]}}" alt="{{$v.title}}"/>
+                                  </a>
+                                </div>
+
+                                <div class=" am-u-sm-8 am-list-main">
+                                    <h3 class="am-list-item-hd">
+                                        <a href="{{$v.url}}" target="_blank">{{$v.title}}</a>
+                                    </h3>
+                                    <div class="am-list-item-text">{{:mb_substr(strip_tags($v['content']), 0, 80, C('DEFAULT_CHARSET'))}}</div>
+                                </div>
                             </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g am-list-item-desced">
-                                <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd ">我最喜欢的一张画</a>
-                                <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                            </li>
-                            <li class="am-g">
-                                <a href="http://www.douban.com/online/11645411/" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--更多在底部-->
-                    <div class="am-list-news-ft">
-                        <a class="am-list-news-more am-btn am-btn-default am-radius" href="javascript:;">查看更多 &raquo;</a>
-                    </div>
-                </div>
-                <!-- list end -->
+                        </if>
+                    </foreach>
+                </ul>
             </div>
-        </article>
+        </div>
+        <!-- list end -->
+        {{$page_html}}
     </div>
     <!-- left end -->
     <!-- right start -->
-    <div class="am-u-md-4">
-        <!-- article hot start -->
-        <div class="am-list-news am-list-news-default article-hot-list">
-            <div class="am-list-news-hd am-cf">
-                <h2>热点新闻</h2>
-                <a href="#">
-                    <span class="am-list-news-more am-fr">更多 &raquo;</span>
-                </a>
-            </div>
-            <div class="am-list-news-bd">
-                <ul class="am-list">
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">我很囧你保重....晒晒旅行中的那些囧！</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">“你的旅行是什么颜色？” 晒照片换北欧梦幻极光之旅！</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">我很囧，你保重....晒晒旅行中的那些囧！</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片换北欧梦幻极光之旅！</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">我最喜欢的一张画</a>
-                    </li>
-                    <li class="am-g am-list-item-dated">
-                        <a href="##" class="am-list-item-hd ">“你的旅行，是什么颜色？” 晒照片换北欧梦幻极光之旅！</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- article hot end -->
-        <!-- image list start  -->
-        <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-1 am-avg-lg-2 am-gallery-overlay small-banner right-image-list" data-am-gallery="{}">
-            <div class="am-list-news-hd am-cf">
-                <h2>热点新闻</h2>
-                <a href="#">
-                    <span class="am-list-news-more am-fr">更多 &raquo;</span>
-                </a>
-            </div>
-            <hr />
-            <li>
-                <div class="am-gallery-item">
-                    <a href="http://s.amazeui.org/media/i/demos/bing-1.jpg" class="">
-                        <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="远方 有一个地方 那里种有我们的梦想" />
-                        <h3 class="am-gallery-title">远方 有一个地方 那里种有我们的梦想</h3>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="http://s.amazeui.org/media/i/demos/bing-2.jpg" class="">
-                        <img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" alt="某天 也许会相遇 相遇在这个好地方" />
-                        <h3 class="am-gallery-title">某天 也许会相遇 相遇在这个好地方</h3>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="http://s.amazeui.org/media/i/demos/bing-3.jpg" class="">
-                        <img src="http://s.amazeui.org/media/i/demos/bing-3.jpg" alt="不要太担心 只因为我相信" />
-                        <h3 class="am-gallery-title">不要太担心 只因为我相信</h3>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="http://s.amazeui.org/media/i/demos/bing-4.jpg" class="">
-                        <img src="http://s.amazeui.org/media/i/demos/bing-4.jpg" alt="终会走过这条遥远的道路" />
-                        <h3 class="am-gallery-title">终会走过这条遥远的道路</h3>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="http://s.amazeui.org/media/i/demos/bing-4.jpg" class="">
-                        <img src="http://s.amazeui.org/media/i/demos/bing-4.jpg" alt="终会走过这条遥远的道路" />
-                        <h3 class="am-gallery-title">终会走过这条遥远的道路</h3
-					</a>
-				</div>
-			</li>
-			<li>
-				<div class="am-gallery-item">
-					<a href="http://s.amazeui.org/media/i/demos/bing-4.jpg" class="">
-						<img src="http://s.amazeui.org/media/i/demos/bing-4.jpg"  alt="终会走过这条遥远的道路"/>
-						<h3 class="am-gallery-title">终会走过这条遥远的道路</h3>
-                    </a>
-                </div>
-            </li>
-        </ul>
-        <!-- image list end  -->
-        <!-- image desc start -->
-        <div data-am-widget="list_news" class="am-list-news am-list-news-default">
-            <div class="am-list-news-hd am-cf">
-                <h2>栏目标题</h2>
-                <a href="###" class="">
-                    <span class="am-list-news-more am-fr">更多 &raquo;</span>
-                </a>
-            </div>
-            <div class="am-list-news-bd">
-                <ul class="am-list">
-                    <li class="am-g am-list-item-desced">
-                        <a href="http://www.douban.com/online/11614662/" class="am-list-item-hd">我很囧，你保重....晒晒旅行中的那些囧，大范甘迪发给。晒晒旅行中的那些囧，大范甘迪发给。</a>
-                        <div class="am-list-item-text">囧人囧事囧照，人在囧途，越囧越萌。标记《带你出发，陪我回家》http://book.douban.com/subject/25711202/为“想读”“在读”或“读过”，有机会获得此书本活动进行3个月，每月送出三本书。会有不定期bonus！</div>
-                    </li>
-                    <li class="am-g am-list-item-desced">
-                        <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd">我最喜欢的一张画</a>
-                        <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                    </li>
-                    <li class="am-g am-list-item-desced">
-                        <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd">我最喜欢的一张画</a>
-                        <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                    </li>
-                    <li class="am-g am-list-item-desced">
-                        <a href="http://www.douban.com/online/11614662/" class="am-list-item-hd">我很囧，你保重....晒晒旅行中的那些囧，大范甘迪发给。晒晒旅行中的那些囧，大范甘迪发给。</a>
-                        <div class="am-list-item-text">囧人囧事囧照，人在囧途，越囧越萌。标记《带你出发，陪我回家》http://book.douban.com/subject/25711202/为“想读”“在读”或“读过”，有机会获得此书本活动进行3个月，每月送出三本书。会有不定期bonus！</div>
-                    </li>
-                    <li class="am-g am-list-item-desced">
-                        <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd">我最喜欢的一张画</a>
-                        <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                    </li>
-                    <li class="am-g am-list-item-desced">
-                        <a href="http://www.douban.com/online/11624755/" class="am-list-item-hd">我最喜欢的一张画</a>
-                        <div class="am-list-item-text">你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片美我最喜欢的画群296795413进群发画，少说多发图，</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- image desc end -->
+    <div class="am-u-md-4 channel-right">
+        <!-- layout module start -->
+        <if condition="!empty($data)">
+            <foreach name="data" item="v">
+                <switch name="v.value">
+                    <case value="100">
+                        <if condition="!empty($v['item'][0])">
+                            <div class="layout-{{$v.value}}">{{$v['item'][0]}}</div>
+                        </if>
+                    </case>
+                    <case value="122|123|124|236">
+                        <php>list($t1, $t2, $t3) = str_split($v['value']);</php>
+                        <ul data-am-widget="gallery" class="am-gallery am-avg-sm-{{$t1}} am-avg-md-{{$t2}} am-avg-lg-{{$t3}} am-gallery-overlay small-banner am-no-layout m-b-5 layout-100-{{$v.value}}" data-am-gallery="{}">
+                            <if condition="!empty($v['item'])">
+                                <foreach name="v.item" item="vs">
+                                    <li class="layout-item">
+                                        <div class="layout-100-{{$v.value}}-item">{{$vs}}</div>
+                                    </li>
+                                </foreach>
+                            </if>
+                        </ul>
+                    </case>
+                    <case value="84|48|633|363|336">
+                        <php>$t_all = str_split($v['value']);</php>
+                        <div class="layout-100-{{$v.value}} o-h">
+                            <if condition="!empty($v['item'])">
+                                <foreach name="v.item" key="ks" item="vs">
+                                    <div class="am-u-md-{{$t_all[$ks]}}">{{$vs}}</div>
+                                </foreach>
+                            </if>
+                        </div>
+                    </case>
+                </switch>
+            </foreach>
+        </if>
+        <!-- layout module end -->
     </div>
     <!-- right end -->
 </div>
 <!-- content end -->
+
+<!-- layuot common module start -->
+<include file="Public/CommonModule" />
+<!-- layuot common module end -->
 
 <!-- footer start -->
 <include file="Public/Footer" />

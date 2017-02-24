@@ -43,7 +43,8 @@ class Uploader
         "ERROR_HTTP_LINK" => "链接不是http链接",
         "ERROR_HTTP_CONTENTTYPE" => "链接contentType不正确",
         "INVALID_URL" => "非法 URL",
-        "INVALID_IP" => "非法 IP"
+        "INVALID_IP" => "非法 IP",
+        "ERROR_IMAGES_HIGHT_PROPORTION" => "高度比例有误",
     );
 
     /**
@@ -88,6 +89,17 @@ class Uploader
         } else if (!is_uploaded_file($file['tmp_name'])) {
             $this->stateInfo = $this->getStateInfo("ERROR_TMPFILE");
             return;
+        }
+        // 尺寸比例校验,高度差距上下5个像数
+        if(I('get.path_type', 'Other') == 'Article' && I('get.action') == 'uploadimage')
+        {
+            $info = getimagesize($file['tmp_name']);
+            $temp_height = 56.23/100*$info[0];
+            if(($info[1] > $temp_height+5 || $info[1] < $temp_height-5))
+            {
+                $this->stateInfo = $this->getStateInfo("ERROR_IMAGES_HIGHT_PROPORTION");
+                return;
+            }
         }
 
         $this->oriName = $file['name'];

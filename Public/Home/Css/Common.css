@@ -48,6 +48,15 @@
 .m-b-25 { margin-bottom: 25px !important; }
 .m-b-30 { margin-bottom: 30px !important; }
 .b-b-solid { border-bottom: 1px solid #dedede; }
+/**
+ * 公共
+ */
+* { font-size: 14px; }
+
+/**
+ * 图片
+ */
+img { max-width: 100%; }
 
 /**
  * 导航

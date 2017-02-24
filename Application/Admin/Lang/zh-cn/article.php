@@ -15,7 +15,7 @@ return array(
 	'article_jump_url_text'				=>	'跳转url地址',
 	'article_content_text'				=>	'内容',
 	'article_class_text'				=>	'文章分类',
-	'article_title_format'				=>	'标题长度 3~30 个字符',
+	'article_title_format'				=>	'标题长度 3~60 个字符',
 	'article_jump_url_format'			=>	'跳转url地址格式有误',
 	'article_content_format'			=>	'内容长度最少 50~105000 个字符',
 	'article_content_format_mobile'		=>	'更多编辑功能请使用电脑访问',
@@ -24,5 +24,6 @@ return array(
 	'article_time_start_text'			=>	'开始时间',
 	'article_time_end_text'				=>	'结束时间',
 	'article_so_keyword_tips'			=>	'标题关键字',
+	'article_images_upload_format'		=>	'图片尺寸比例：宽度的%56.22 [计算规则 56.22除以100再乘以宽度] 得到高度',
 );
 ?>

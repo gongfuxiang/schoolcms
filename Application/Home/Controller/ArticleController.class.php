@@ -3,7 +3,7 @@
 namespace Home\Controller;
 
 /**
- * 文章
+ * 文章详情
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
@@ -25,7 +25,7 @@ class ArticleController extends CommonController
 	}
 
 	/**
-     * [Index 文章列表]
+     * [Index 文章详情]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -33,9 +33,19 @@ class ArticleController extends CommonController
      */
 	public function Index()
 	{
-		$article = M('Article')->where(array('id'=>I('id'), 'is_enable'=>1))->find();
+		$m = M('Article');
+		$article = $m->where(array('id'=>I('id'), 'is_enable'=>1))->find();
 		if(!empty($article['content']))
 		{
+			// 访问统计
+			$m->where(array('id'=>I('id')))->setInc('access_count');
+
+			// 是否外部链接
+			if(!empty($article['jump_url']))
+			{
+				redirect($article['jump_url']);
+			}
+
 			// 静态资源地址处理
 			$article['content'] = ContentStaticReplace($article['content'], 'get');
 

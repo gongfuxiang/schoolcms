@@ -266,7 +266,7 @@ class CommonController extends Controller
 				}
 
 				// url地址
-				$data[$k]['url'] = empty($v['jump_url']) ? str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id']))) : $v['jump_url'];
+				$data[$k]['url'] = str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id'])));
 			}
 		}
 		return $data;

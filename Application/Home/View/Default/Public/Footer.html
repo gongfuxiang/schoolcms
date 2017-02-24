@@ -1,5 +1,7 @@
 <!-- footer start -->
-<include file="Public/FooterNav" />
+<if condition="!isset($is_footer) or $is_footer eq 1">
+	<include file="Public/FooterNav" />
+</if>
 <!-- footer end -->
 
 <!-- go-top start -->

@@ -59,7 +59,7 @@ class CustomViewController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
+		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->order('id desc')->select());
 
 		// 是否启用
 		$this->assign('common_is_enable_list', L('common_is_enable_list'));
@@ -69,6 +69,9 @@ class CustomViewController extends CommonController
 
 		// 是否包含尾部
 		$this->assign('common_is_footer_list', L('common_is_footer_list'));
+
+		// 是否满屏
+		$this->assign('common_is_full_screen_list', L('common_is_full_screen_list'));
 
 		// 参数
 		$this->assign('param', $param);
@@ -187,6 +190,9 @@ class CustomViewController extends CommonController
 
 		// 是否包含尾部
 		$this->assign('common_is_footer_list', L('common_is_footer_list'));
+
+		// 是否满屏
+		$this->assign('common_is_full_screen_list', L('common_is_full_screen_list'));
 
 		$this->display('SaveInfo');
 	}

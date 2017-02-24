@@ -13,7 +13,7 @@ return array(
 	'customview_edit_name'					=>	'自定义页面编辑',
 	'customview_title_text'					=>	'标题',
 	'customview_content_text'				=>	'内容',
-	'customview_title_format'				=>	'标题长度 3~30 个字符',
+	'customview_title_format'				=>	'标题长度 3~60 个字符',
 	'customview_content_format'				=>	'内容长度最少 50~105000 个字符',
 	'customview_content_format_mobile'		=>	'更多编辑功能请使用电脑访问',
 	'customview_time_start_text'			=>	'开始时间',

@@ -87,6 +87,7 @@ return array(
 	'common_show_tips'					=>	'显示值范围不正确',
 	'common_is_header_tips'				=>	'是否含头部值范围不正确',
 	'common_is_footer_tips'				=>	'是否含尾部值范围不正确',
+	'common_is_full_screen_tips'		=>	'是否满屏值范围不正确',
 	'common_new_window_open_tips'		=>	'新窗口打开值范围不正确',
 	'common_view_pay_cost_tips'			=>	'缴费状态值范围不正确',
 	'common_view_tel_error'				=>	'联系方式格式有误',
@@ -118,6 +119,7 @@ return array(
 	'common_view_teacher_state_name'	=>	'教师状态',
 	'common_view_is_header_text'		=>	'是否含头部',
 	'common_view_is_footer_text'		=>	'是否含尾部',
+	'common_view_is_full_screen_text'	=>	'是否满屏',
 	'common_view_access_count_text'		=>	'访问次数',
 
 	'common_unauthorized_access'		=>	'非法访问',
@@ -193,6 +195,12 @@ return array(
 	'common_is_footer_list'			=>	array(
 			0 => array('id' => 0, 'name' => '否'),
 			1 => array('id' => 1, 'name' => '是', 'checked' => true),
+		),
+
+	// 是否满屏
+	'common_is_full_screen_list'	=>	array(
+			0 => array('id' => 0, 'name' => '否', 'checked' => true),
+			1 => array('id' => 1, 'name' => '是'),
 		),
 
 	// 导航数据类型
