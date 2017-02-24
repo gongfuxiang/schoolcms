@@ -233,8 +233,15 @@ class CommonController extends Controller
 		$data = S($key);
 		if($state == 1 || empty($data))
 		{
+			// 所有配置
 			$data = M('Config')->getField('only_tag,value');
 			S($key, $data);
+
+			// 时区
+			if(isset($data['common_timezone']))
+			{
+				S('common_timezone', $data['common_timezone']);
+			}
 		}
 	}
 
@@ -280,6 +287,48 @@ class CommonController extends Controller
 			}
 		}
 		return $data;
+	}
+
+	/**
+	 * [MyConfigSave 配置数据保存]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-02T23:08:19+0800
+	 */
+	protected function MyConfigSave()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 参数校验
+		if(empty($_POST))
+		{
+			$this->error(L('common_param_error'));
+		}
+
+		// 循环保存数据
+		$success = 0;
+		$c = M('Config');
+		foreach($_POST as $k=>$v)
+		{
+			if($c->where(array('only_tag'=>$k))->save(array('value'=>$v, 'upd_time'=>time())))
+			{
+				$success++;
+			}
+		}
+		if($success > 0)
+		{
+			// 配置信息更新
+			$this->MyConfigInit(1);
+
+			$this->ajaxReturn(L('common_operation_edit_success').'['.$success.']');
+		} else {
+			$this->ajaxReturn(L('common_operation_edit_error'), -100);
+		}
 	}
 }
 ?>

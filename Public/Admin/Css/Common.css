@@ -361,6 +361,12 @@ input[type="text"][readonly] { background: #fff !important; cursor: pointer !imp
 input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
 
 /**
+ * 表单光标
+ */
+.am-form-group:hover>label { color: #333 !important; }
+.am-form-group:hover>label>span { color: #7ed0f9 !important; }
+
+/**
  * PC
  */
 @media only screen and (min-width: 641px) {

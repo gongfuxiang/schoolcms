@@ -39,12 +39,11 @@ class SiteController extends CommonController
      */
 	public function Index()
 	{
-		// 学期
-		$semester_list = M('Semester')->field(array('id', 'name'))->where(array('is_enable'=>1))->order('id desc')->select();
-		$this->assign('semester_list', $semester_list);
+		// 时区
+		$this->assign('site_timezone_list', L('site_timezone_list'));
 
-		// csv
-		$this->assign('common_excel_charset_list', L('common_excel_charset_list'));
+		// 站点状态
+		$this->assign('site_site_state_list', L('site_site_state_list'));
 
 		// 配置信息
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
@@ -54,7 +53,7 @@ class SiteController extends CommonController
 	}
 
 	/**
-	 * [Save 数据保存]
+	 * [Save 配置数据保存]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -62,37 +61,7 @@ class SiteController extends CommonController
 	 */
 	public function Save()
 	{
-		// 是否ajax请求
-		if(!IS_AJAX)
-		{
-			$this->error(L('common_unauthorized_access'));
-		}
-
-		// 参数校验
-		if(empty($_POST))
-		{
-			$this->error(L('common_param_error'));
-		}
-
-		// 循环保存数据
-		$success = 0;
-		$c = M('Config');
-		foreach($_POST as $k=>$v)
-		{
-			if($c->where(array('only_tag'=>$k))->save(array('value'=>$v)))
-			{
-				$success++;
-			}
-		}
-		if($success > 0)
-		{
-			// 配置信息更新
-			$this->MyConfigInit(1);
-
-			$this->ajaxReturn(L('common_operation_edit_success').'['.$success.']');
-		} else {
-			$this->ajaxReturn(L('common_operation_edit_error'), -100);
-		}
+		$this->MyConfigSave();
 	}
 }
 ?>

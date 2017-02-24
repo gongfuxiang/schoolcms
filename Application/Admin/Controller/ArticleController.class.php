@@ -118,7 +118,7 @@ class ArticleController extends CommonController
 			$ac = M('ArticleClass');
 			foreach($data as $k=>$v)
 			{
-				// 创建时间
+				// 时间
 				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 				$data[$k]['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
 

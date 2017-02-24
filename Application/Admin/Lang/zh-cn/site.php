@@ -8,8 +8,14 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
+	// 站点关闭状态列表
+	'site_site_state_list'			=>	array(
+			0 => array('value' => 0, 'name' => '关闭', 'checked' => true),
+			1 => array('value' => 1, 'name' => '开启'),
+		),
+
 	// 时区
-	'common_timezone_list' => array(
+	'site_timezone_list' => array(
 		'Europe/Andorra' => '欧洲/安道尔（标准时+1）',
 		'Asia/Dubai' => '亚洲/杜拜（标准时+4）',
 		'Asia/Kabul' => '亚洲/喀布尔（标准时+4）',

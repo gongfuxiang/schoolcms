@@ -100,8 +100,9 @@ class CustomViewController extends CommonController
 		{
 			foreach($data as $k=>$v)
 			{
-				// 创建时间
+				// 时间
 				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+				$data[$k]['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
 
 				// 是否启用
 				$data[$k]['is_enable_text'] = L('common_is_enable_list')[$v['is_enable']]['name'];
@@ -240,6 +241,7 @@ class CustomViewController extends CommonController
 		{
 			// 额外数据处理
 			$m->add_time	=	time();
+			$m->upd_time	=	time();
 			
 			// 静态资源地址处理
 			$m->content 	=	ContentStaticReplace($m->content, 'add');
@@ -283,6 +285,7 @@ class CustomViewController extends CommonController
 			$temp_image		=	$this->MatchContentImage($m->content);
 			$m->image 		=	serialize($temp_image);
 			$m->image_count	=	count($temp_image);
+			$m->upd_time	=	time();
 
 			// 数据更新
 			if($m->where(array('id'=>I('id')))->save())

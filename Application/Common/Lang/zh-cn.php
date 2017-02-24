@@ -30,6 +30,7 @@ return array(
 	'common_not_login_name'				=>	'未登录',
 	'common_not_data_tips'				=>	'没有数据',
 	'common_create_time_name'			=>	'创建时间',
+	'common_upd_time_name'				=>	'更新时间',
 	'common_delete_tips'				=>	'你，确定要删除这条记录吗？',
 	'common_do_not_operate'				=>	'不可操作',
 	'common_name_text'					=>	'名称',

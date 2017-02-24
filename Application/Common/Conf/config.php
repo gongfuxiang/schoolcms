@@ -7,6 +7,8 @@
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
+
+$timezone = S('common_timezone');
 return array(
 	// 显示页面Trace信息
 	'SHOW_PAGE_TRACE'		=>	false, 
@@ -24,7 +26,7 @@ return array(
 	'DEFAULT_ACTION'		=>	'Index',
 
 	// URL模式
-	'URL_MODEL'          	=>	'2',
+	'URL_MODEL'          	=>	'0',
 
 	// 默认语言
 	'DEFAULT_LANG'          =>	'zh-cn',
@@ -45,7 +47,7 @@ return array(
 	'DEFAULT_FILTER'		=>	'htmlspecialchars',
 
 	// 时区
-	'DEFAULT_TIMEZONE'		=>	'Asia/Shanghai',
+	'DEFAULT_TIMEZONE'		=>	empty($timezone) ? 'Asia/Shanghai' : $timezone,
 
 
 	// ------ 模板 start ------ //
@@ -87,7 +89,7 @@ return array(
 	'DATA_CACHE_TYPE'		=>	'File',
 
 	// 缓存路径设置 (仅对File方式缓存有效)
-	'DATA_CACHE_PATH'		=>	RUNTIME_PATH.'My'.DS,
+	//'DATA_CACHE_PATH'		=>	RUNTIME_PATH.'My'.DS,
 
 	// 使用子目录缓存 (自动根据缓存标识的哈希创建子目录)
 	'DATA_CACHE_SUBDIR'		=>	false,

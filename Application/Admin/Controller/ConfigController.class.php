@@ -54,7 +54,7 @@ class ConfigController extends CommonController
 	}
 
 	/**
-	 * [Save 数据保存]
+	 * [Save 配置数据保存]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -62,37 +62,7 @@ class ConfigController extends CommonController
 	 */
 	public function Save()
 	{
-		// 是否ajax请求
-		if(!IS_AJAX)
-		{
-			$this->error(L('common_unauthorized_access'));
-		}
-
-		// 参数校验
-		if(empty($_POST))
-		{
-			$this->error(L('common_param_error'));
-		}
-
-		// 循环保存数据
-		$success = 0;
-		$c = M('Config');
-		foreach($_POST as $k=>$v)
-		{
-			if($c->where(array('only_tag'=>$k))->save(array('value'=>$v)))
-			{
-				$success++;
-			}
-		}
-		if($success > 0)
-		{
-			// 配置信息更新
-			$this->MyConfigInit(1);
-
-			$this->ajaxReturn(L('common_operation_edit_success').'['.$success.']');
-		} else {
-			$this->ajaxReturn(L('common_operation_edit_error'), -100);
-		}
+		$this->MyConfigSave();
 	}
 }
 ?>
