@@ -64,7 +64,31 @@ class ChannelController extends CommonController
 		// 友情链接
 		$this->assign('link', $this->GetLayoutLink('channel'));
 
+		// 频道数据
+		$channel = $this->GetChannelData();
+
+		// 浏览器标题
+		$title = isset($channel[I('id')]) ? $channel[I('id')] : '';
+		$this->assign('home_seo_site_title', $this->GetBrowserSeoTitle($title, MyC('home_seo_channel_browser')));
+
 		$this->display();
+	}
+
+	/**
+	 * [GetChannelData 获取频道数据]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-25T14:38:33+0800
+	 */
+	private function GetChannelData()
+	{
+		$data = S(C('cache_home_channel_key'));
+		if(empty($data))
+		{
+			$data = M('ArticleClass')->getField('id,name');
+		}
+		return $data;
 	}
 
 	/**

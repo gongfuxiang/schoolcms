@@ -33,14 +33,14 @@ class CommonController extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 配置信息初始化
+		$this->MyConfigInit();
+		
 		// 权限
 		$this->PowerInit();
 
 		// 视图初始化
 		$this->ViewInit();
-
-		// 配置信息初始化
-		$this->MyConfigInit();
 	}
 
 	/**

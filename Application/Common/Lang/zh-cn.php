@@ -371,5 +371,8 @@ return array(
 
 	// id逗号隔开
 	'common_regex_id_comma_split'		=>	'^\d(\d|,?)*\d$',
+
+	// url伪静态后缀
+	'common_regex_url_html_suffix'		=>	'^[a-z]{0,8}$',
 );
 ?>

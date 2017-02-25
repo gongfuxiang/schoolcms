@@ -23,6 +23,9 @@ class LayoutModule
 	// 打开方式
 	private $blank;
 
+	// 图片host
+	private $image_host;
+
 	/**
 	 * [__construct 私有构造方法]
 	 * @author   Devil
@@ -30,7 +33,11 @@ class LayoutModule
 	 * @version  0.0.1
 	 * @datetime 2017-02-20T17:59:50+0800
 	 */
-	private function __construct(){}
+	private function __construct()
+	{
+		// 图片host
+		$this->image_host = C('IMAGE_HOST');
+	}
 
 	/**
 	 * [SetInstance 类静态方法入口]
@@ -515,7 +522,7 @@ class LayoutModule
 					$this->html .= '<div class="am-list-main">';
 				} else {
 					$this->html .= '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">';
-					$this->html .= '<div class="am-u-sm-4 am-list-thumb"><a href="'.$v['url'].'" '.$this->blank.'><img src="'.$v['image'][0].'" alt="'.$v['title'].'"/></a></div>';
+					$this->html .= '<div class="am-u-sm-4 am-list-thumb"><a href="'.$v['url'].'" '.$this->blank.'><img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'"/></a></div>';
 
 					$this->html .= '<div class="am-u-sm-8 am-list-main">';
 				}
@@ -626,7 +633,7 @@ class LayoutModule
 			{
 				// 内容
 				$this->html .= '<li style="height:;">';
-				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'"><img src="'.$v['image'][0].'" alt="'.$v['title'].'" /></a>';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'"><img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" /></a>';
 				$this->html .= '<div class="am-slider-desc"><div class="am-slider-counter"><span class="am-active">'.($k+1).'</span>/'.$count.'</div>'.$v['title'].'</div>';
 				$this->html .= '</li>';
 			}
@@ -772,7 +779,7 @@ class LayoutModule
 			{
 				// 内容
 				$this->html .= '<li><div class="am-gallery-item o-h">';
-				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.'><img src="'.$v['image'][0].'"  alt="'.$v['title'].'"/><h3 class="am-gallery-title">'.$v['title'].'</h3></a>';
+				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.'><img src="'.$this->image_host.$v['image'][0].'"  alt="'.$v['title'].'"/><h3 class="am-gallery-title">'.$v['title'].'</h3></a>';
 				$this->html .= '</div></li>';
 			}
 			$this->html .= '</ul>';

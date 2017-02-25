@@ -53,7 +53,6 @@ function NavDataDealWith($data)
 {
     if(!empty($data) && is_array($data))
     {
-       $temp_host = substr(__MY_URL__, 0, -1);
         foreach($data as $k=>$v)
         {
             // url处理
@@ -61,12 +60,12 @@ function NavDataDealWith($data)
             {
                 // 文章分类
                 case 'article_class':
-                    $v['url'] = str_replace('admin.php', 'index.php', $temp_host.U('/Home/Channel/Index', array('id'=>$v['value'], 'viewid'=>$v['id'])));
+                    $v['url'] = str_replace('admin.php', 'index.php', U('Home/Channel/Index', array('id'=>$v['value'], 'viewid'=>$v['id'])));
                     break;
 
                 // 自定义页面
                 case 'customview':
-                    $v['url'] = str_replace('admin.php', 'index.php', $temp_host.U('Home/CustomView/Index', array('id'=>$v['value'], 'viewid'=>$v['id'])));
+                    $v['url'] = str_replace('admin.php', 'index.php', U('Home/CustomView/Index', array('id'=>$v['value'], 'viewid'=>$v['id'])));
                     break;
             }
             $data[$k] = $v;

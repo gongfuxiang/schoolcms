@@ -2,9 +2,15 @@
 <html>
 <head>
 	<meta charset="{{:C('DEFAULT_CHARSET')}}" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<title>{{$home_seo_site_title}}</title>
+	<meta name="keywords" content="{{:MyC('home_seo_site_keywords')}}" />
+	<meta name="description" content="{{:MyC('home_seo_site_description')}}" />
+	<meta name="generator" content="{{:__MY_URL__}}" />
+	<meta name="application-name" content="{{$home_seo_site_title}}" />
+	<meta name="msapplication-tooltip" content="{{$home_seo_site_title}}" />
+	<meta name="msapplication-starturl" content="{{:__MY_URL__}}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{{:__MY_URL__}}favicon.ico" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1">
-	<title>{{:L('common_site_title')}}</title>
 	<css href="__PUBLIC__/Common/Lib/assets/css/amazeui.css" />
 	<css href="__PUBLIC__/Common/Css/Common.css" />
 	<css href="__PUBLIC__/Home/Css/Common.css" />

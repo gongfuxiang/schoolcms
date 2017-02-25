@@ -30,14 +30,17 @@ class CommonController extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 配置信息初始化
+		$this->MyConfigInit();
+
 		// 菜单
 		$this->NavInit();
 
 		// 视图初始化
 		$this->ViewInit();
 
-		// 配置信息初始化
-		$this->MyConfigInit();
+		// 站点状态校验
+		$this->SiteStateCheck();
 	}
 
 	/**
@@ -119,6 +122,12 @@ class CommonController extends Controller
 		}
 		$this->assign('nav_pid', $nav_pid);
 		$this->assign('nav_id', $nav_id);
+
+		// 图片host地址
+		$this->assign('image_host', C('IMAGE_HOST'));
+
+		// 标题
+		$this->assign('home_seo_site_title', MyC('home_seo_site_title'));
 	}
 
 	/**
@@ -334,6 +343,66 @@ class CommonController extends Controller
 			}
 		}
 		return $data;
+	}
+
+	/**
+	 * [GetBrowserSeoTitle 获取浏览器seo标题]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-25T14:21:21+0800
+	 * @param    [string]     $title [标题]
+	 * @param    [int]     	  $type  [页面类型 0, 1, 2]
+	 * @return   [string]            [浏览器seo标题]
+	 */
+	protected function GetBrowserSeoTitle($title, $type)
+	{
+		switch($type)
+		{
+			case 0:
+				break;
+
+			case 1:
+				$site_name = MyC('home_site_name');
+				break;
+
+			default:
+				$site_name = MyC('home_seo_site_title');
+		}
+		return empty($title) ? $site_name : $title.' - '.$site_name;
+	}
+
+	/**
+	 * [_empty 空方法操作]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-25T15:47:50+0800
+	 * @param    [string]      $name [方法名称]
+	 */
+	protected function _empty($name)
+	{
+		$this->assign('msg', L('common_unauthorized_access'));
+		$this->assign('is_footer', 0);
+		$this->display('/Public/Error');
+	}
+
+	/**
+	 * [SiteStateCheck 站点状态校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-25T21:43:07+0800
+	 */
+	private function SiteStateCheck()
+	{
+		if(MyC('home_site_state') == 0)
+		{
+			$this->assign('msg', MyC('home_site_close_reason'));
+			$this->assign('is_footer', 0);
+			$this->display('/Public/Error');
+			exit;
+		}
 	}
 }
 ?>

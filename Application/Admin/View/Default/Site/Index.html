@@ -8,8 +8,8 @@
 		<!-- form start -->
 		<form class="am-form form-validation view-save" action="{{:U('Admin/Site/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Site/Index')}}">
 			<div class="am-form-group">
-				<label>{{$data.home_site_title.name}}</label>
-				<input type="text" name="{{$data.home_site_title.only_tag}}" minlength="1" placeholder="{{$data.home_site_title.describe}}" data-validation-message="{{$data.home_site_title.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_site_title.value}}"</present> required />
+				<label>{{$data.home_site_name.name}}</label>
+				<input type="text" name="{{$data.home_site_name.only_tag}}" minlength="1" placeholder="{{$data.home_site_name.describe}}" data-validation-message="{{$data.home_site_name.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_site_name.value}}"</present> required />
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.common_timezone.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_timezone.describe}}）</span></label>

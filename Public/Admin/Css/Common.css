@@ -365,6 +365,7 @@ input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px
  */
 .am-form-group:hover>label { color: #333 !important; }
 .am-form-group:hover>label>span { color: #7ed0f9 !important; }
+.am-form-group:hover>input, .am-form-group:hover>select, .am-form-group:hover>textarea { border: 1px solid #999 ; }
 
 /**
  * PC

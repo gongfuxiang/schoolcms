@@ -51,18 +51,24 @@ class ArticleController extends CommonController
 
 			// 时间
 			$article['add_time'] = date('Y/m/d', $article['add_time']);
+
+			$this->assign('article', $article);
+
+			// 布局+模块列表
+			$this->assign('data', $this->GetLayoutList('detail'));
+
+			// 友情链接
+			$this->assign('link', $this->GetLayoutLink('detail'));
+
+			// 浏览器标题
+			$this->assign('home_seo_site_title', $this->GetBrowserSeoTitle($article['title'], MyC('home_seo_article_browser')));
+
+			$this->display('Index');
 		} else {
-			exit(L('article_on_exist_error'));
+			$this->assign('msg', L('article_on_exist_error'));
+			$this->assign('is_footer', 0);
+			$this->display('/Public/Error');
 		}
-		$this->assign('article', $article);
-
-		// 布局+模块列表
-		$this->assign('data', $this->GetLayoutList('detail'));
-
-		// 友情链接
-		$this->assign('link', $this->GetLayoutLink('detail'));
-
-		$this->display('Index');
 	}
 }
 ?>

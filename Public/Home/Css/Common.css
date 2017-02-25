@@ -52,6 +52,8 @@
  * 公共
  */
 * { font-size: 14px; }
+.cr-eee { color: #eee; }
+.cr-999 { color: #999; }
 
 /**
  * 图片
@@ -72,6 +74,11 @@ header.am-topbar { margin-bottom: 0rem; }
 .am-footer { padding: 0.5rem 0 1em 0; }
 
 /**
+ * 错误页面
+ */
+.my-error { margin: 20% 10% 0 10%; }
+
+/**
  * 回顶部
  */
 #my-go-top { position: fixed; right: 50px; bottom: 100px; }
@@ -80,6 +87,9 @@ header.am-topbar { margin-bottom: 0rem; }
  * PC
  */
 @media only screen and (min-width: 641px) {
+	/**
+	 * 用户导航
+	 */
 	.user-header-nav ul { margin-top: 1.4rem; }
 }
 
@@ -87,5 +97,13 @@ header.am-topbar { margin-bottom: 0rem; }
  * 手机
  */
 @media only screen and (max-width: 641px) {
+	/**
+	 * 用户导航
+	 */
 	.user-header-nav { width: 100%; }
+
+	/**
+	 * 错误页面
+	 */
+	.my-error { margin-top: 35%; }
 }
