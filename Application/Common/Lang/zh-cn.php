@@ -9,7 +9,8 @@
  */
 return array(
 	// 站点信息
-	'common_site_name'					=>	'青枣科技有限公司',
+	'common_site_name'					=>	'SchoolCMS',
+	'common_site_vice_name'				=>	'教务管理系统',
 	'common_site_title'					=>	'SchoolCMS后台管理系统',
 
 	// 应用信息

@@ -31,7 +31,7 @@ define('__MY_VIEW_URL__', substr(__MY_URL__, 0, -1).$request_url);
 if(is_dir("./Install") && !file_exists("./Install/install.lock"))
 {
 	$url = __MY_URL__.'Install/index.php';
-    exit(header('location:http://'.$url));
+    exit(header('location:'.$url));
 }
 
 // 检测PHP环境

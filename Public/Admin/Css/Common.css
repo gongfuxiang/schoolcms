@@ -352,6 +352,11 @@ ul {margin-top:0;}
 #ifcontent {border:0px;width:100%;overflow-x:hidden;}
 .am-table > tbody > tr > td {vertical-align:inherit;}
 
+/**
+ * 导航
+ */
+.admin-site-vice-name { font-size: 12px; color: #eaeaea; }
+
 
 /**
  * 公共分类样式
