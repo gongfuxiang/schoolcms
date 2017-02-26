@@ -14,7 +14,7 @@ return array(
 
 	// 应用信息
 	'common_application_name'			=>	'SchoolCMS',
-	'common_application_ver'			=>	'v2.1',
+	'common_application_ver'			=>	'v2.2',
 	'common_application_website'		=>	'http://schoolcms.org/',
 
 	// 公共
