@@ -61,8 +61,6 @@ class SiteController extends CommonController
 	 */
 	public function Save()
 	{
-		print_r($_POST);die();
-		
 		// 站点logo
 		if(!empty($_FILES['home_site_logo_img']['tmp_name']))
 		{

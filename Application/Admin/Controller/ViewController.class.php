@@ -148,7 +148,6 @@ class ViewController extends CommonController
 	 */
 	public function GetLayoutModuleData()
 	{
-		//print_r($_POST);die();
 		// 布局模块处理驱动
 		$lay = \My\LayoutModule::SetInstance();
 
