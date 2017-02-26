@@ -54,6 +54,8 @@
 * { font-size: 14px; }
 .cr-eee { color: #eee; }
 .cr-999 { color: #999; }
+.none { display: none; }
+.block { display: block; }
 
 /**
  * 图片
@@ -72,6 +74,7 @@ header.am-topbar { margin-bottom: 0rem; }
 .am-footer { font-size: 1.4rem; }
 .footer-nav-list a:hover { color: #095f8a; }
 .am-footer { padding: 0.5rem 0 1em 0; }
+#home_site_logo { max-width: 180px; max-height: 38px; }
 
 /**
  * 错误页面

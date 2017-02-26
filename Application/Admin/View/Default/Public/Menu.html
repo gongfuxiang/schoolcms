@@ -13,9 +13,9 @@
 					<li class="admin-parent">
 						<a data-type="menu" class="am-cf" data-am-collapse="{target: '#power-menu-{{$v.id}}'}">
 							{{$v.name}}
-							<i class="am-icon-angle-down am-fr am-margin-right"></i>
+							<i class="am-icon-angle-down am-fr am-margin-right left-menu-more-ico-rotate"></i>
 						</a>
-						<ul class="am-list am-collapse admin-sidebar-sub am-in" id="power-menu-{{$v.id}}">
+						<ul class="am-list am-collapse admin-sidebar-sub" id="power-menu-{{$v.id}}">
 							<foreach name="v.item" item="vs">
 								<li>
 									<a href="javascript:;" data-type="menu" data-url="{{:U('Admin/'.$vs['control'].'/'.$vs['action'])}}">{{$vs.name}}</a>

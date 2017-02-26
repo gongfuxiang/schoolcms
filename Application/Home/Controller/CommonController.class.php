@@ -31,7 +31,7 @@ class CommonController extends Controller
 	protected function _initialize()
 	{
 		// 配置信息初始化
-		$this->MyConfigInit();
+		MyConfigInit();
 
 		// 菜单
 		$this->NavInit();
@@ -166,25 +166,6 @@ class CommonController extends Controller
 		{
 			$this->nav_footer = NavDataDealWith($m->field($field)->where(array('nav_type'=>'footer', 'is_show'=>1))->order('sort')->select());
 			S(C('common_home_nav_footer_key'), $this->nav_footer);
-		}
-	}
-
-	/**
-	 * [MyConfigInit 系统配置信息初始化]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-01-03T21:36:55+0800
-	 * @param    [int] $state [是否更新数据,0否,1是]
-	 */
-	protected function MyConfigInit($state = 0)
-	{
-		$key = C('common_my_config_key');
-		$data = S($key);
-		if($state == 1 || empty($data))
-		{
-			$data = M('Config')->getField('only_tag,value');
-			S($key, $data);
 		}
 	}
 

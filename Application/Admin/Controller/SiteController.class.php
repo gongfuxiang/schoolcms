@@ -61,6 +61,24 @@ class SiteController extends CommonController
 	 */
 	public function Save()
 	{
+		// 站点logo
+		if(!empty($_FILES['home_site_logo_img']['tmp_name']))
+		{
+			list($type, $suffix) = explode('/', $_FILES['home_site_logo_img']['type']);
+			$path = 'Public/Upload/Home/image/';
+			if(!is_dir($path))
+			{
+				mkdir(ROOT_PATH.$path, 0777, true);
+			}
+			$filename = time().'_logo.'.$suffix;
+			$home_site_logo = $path.$filename;
+			if(move_uploaded_file($_FILES['home_site_logo_img']['tmp_name'], ROOT_PATH.$home_site_logo))
+			{
+				$_POST['home_site_logo'] = '/'.$home_site_logo;
+			}
+		}
+
+		// 基础配置
 		$this->MyConfigSave();
 	}
 }

@@ -70,12 +70,17 @@ function ArrayTurnJson(all, object)
  */
 function GetFormVal(element)
 {
-	var object = {};
+	var object = new FormData();
 
 	// input 常用类型
-	$(element).find('input[type="hidden"], input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="url"], input[type="radio"]:checked, textarea').each(function(key, tmp)
+	$(element).find('input[type="hidden"], input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="url"], input[type="radio"]:checked, textarea, input[type="file"]').each(function(key, tmp)
 	{
-		object[tmp.name] = tmp.value;
+		if(tmp.type == 'file')
+		{
+			object.append(tmp.name, $(this).get(0).files[0]);
+		} else {
+			object.append(tmp.name, tmp.value);
+		}
 	});
 
 	// select 单选择和多选择
@@ -87,7 +92,7 @@ function GetFormVal(element)
 		var name = $(this).parents('select').attr('name');
 		if(name != undefined && name != '')
 		{
-			object[name] = tmp.value;
+			object.append(name, tmp.value);
 
 			// 多选择
 			if($(this).parent().attr('multiple') != undefined)
@@ -241,6 +246,8 @@ function FromInit(form_name)
 	                dataType:"json",
 	                timeout:10000,
 	                data:GetFormVal(form_name),
+	                processData:false,
+					contentType:false,
 	                success:function(result)
 	                {
 	                	// 调用自定义回调方法
@@ -613,4 +620,5 @@ $(function()
 			$(this).blur();
 		});
 	});
+
 });

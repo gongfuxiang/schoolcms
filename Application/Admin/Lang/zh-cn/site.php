@@ -8,6 +8,8 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
+	'site_site_logo_text'			=>	'选择网站logo',
+	
 	// 站点关闭状态列表
 	'site_site_state_list'			=>	array(
 			0 => array('value' => 0, 'name' => '关闭', 'checked' => true),

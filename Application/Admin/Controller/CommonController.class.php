@@ -34,7 +34,7 @@ class CommonController extends Controller
 	protected function _initialize()
 	{
 		// 配置信息初始化
-		$this->MyConfigInit();
+		MyConfigInit();
 		
 		// 权限
 		$this->PowerInit();
@@ -118,6 +118,9 @@ class CommonController extends Controller
 
 		// 用户
 		$this->assign('admin', $this->admin);
+
+		// 图片host地址
+		$this->assign('image_host', C('IMAGE_HOST'));
 	}
 
 	/**
@@ -220,32 +223,6 @@ class CommonController extends Controller
 	}
 
 	/**
-	 * [MyConfigInit 系统配置信息初始化]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-01-03T21:36:55+0800
-	 * @param    [int] $state [是否更新数据,0否,1是]
-	 */
-	protected function MyConfigInit($state = 0)
-	{
-		$key = C('common_my_config_key');
-		$data = S($key);
-		if($state == 1 || empty($data))
-		{
-			// 所有配置
-			$data = M('Config')->getField('only_tag,value');
-			S($key, $data);
-
-			// 时区
-			if(isset($data['common_timezone']))
-			{
-				S('common_timezone', $data['common_timezone']);
-			}
-		}
-	}
-
-	/**
 	 * [GetClassList 获取班级列表,二级]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -323,7 +300,7 @@ class CommonController extends Controller
 		if($success > 0)
 		{
 			// 配置信息更新
-			$this->MyConfigInit(1);
+			MyConfigInit(1);
 
 			$this->ajaxReturn(L('common_operation_edit_success').'['.$success.']');
 		} else {

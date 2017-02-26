@@ -107,4 +107,7 @@ return array(
 
 	// 前台顶部导航
 	'common_home_nav_footer_key'	=>	'common_home_nav_footer_data',
+
+	// 图片host, 数据库图片地址以/Public/...开头
+	'IMAGE_HOST'					=>	substr(__MY_URL__, 0, -1),
 );

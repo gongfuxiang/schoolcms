@@ -40,7 +40,7 @@ class ChannelController extends CommonController
 		$where = $this->GetIndexWhere();
 
 		// 分页
-		$number = MyC('admin_page_number');
+		$number = 10;
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->where($where)->count(),
