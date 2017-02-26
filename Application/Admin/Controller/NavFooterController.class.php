@@ -142,8 +142,7 @@ class NavFooterController extends CommonController
 			}
 
 			// 清除缓存
-			S(C('common_home_nav_header_key'), null);
-			S(C('common_home_nav_footer_key'), null);
+			S(C('cache_common_home_nav_footer_key'), null);
 
 			// id为空则表示是新增
 			if(empty($_POST['id']))
@@ -193,8 +192,7 @@ class NavFooterController extends CommonController
 			if($m->delete($id))
 			{
 				// 清除缓存
-				S(C('common_home_nav_header_key'), null);
-				S(C('common_home_nav_footer_key'), null);
+				S(C('cache_common_home_nav_footer_key'), null);
 				
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {
@@ -224,8 +222,7 @@ class NavFooterController extends CommonController
 		if(M('Navigation')->where(array('id'=>I('id')))->save(array('is_show'=>I('state'))))
 		{
 			// 清除缓存
-			S(C('common_home_nav_header_key'), null);
-			S(C('common_home_nav_footer_key'), null);
+			S(C('cache_common_home_nav_footer_key'), null);
 
 			$this->ajaxReturn(L('common_operation_edit_success'));
 		} else {

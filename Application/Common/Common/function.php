@@ -18,7 +18,7 @@
  */
 function MyConfigInit($state = 0)
 {
-    $key = C('common_my_config_key');
+    $key = C('cache_common_my_config_key');
     $data = S($key);
     if($state == 1 || empty($data))
     {
@@ -29,7 +29,7 @@ function MyConfigInit($state = 0)
         // 时区
         if(isset($data['common_timezone']))
         {
-            S('common_timezone', $data['common_timezone']);
+            S('cache_common_timezone_key', $data['common_timezone']);
         }
     }
 }
@@ -212,7 +212,7 @@ function UrlParamJoin($param)
  */
 function MyC($key, $default = null)
 {
-    $data = S(C('common_my_config_key'));
+    $data = S(C('cache_common_my_config_key'));
     return isset($data[$key]) ? $data[$key] : $default;
 }
 

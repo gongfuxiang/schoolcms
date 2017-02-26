@@ -14,7 +14,4 @@ return array(
 
 	// URL模式
 	'URL_MODEL'          			=>	MyC('home_seo_url_model'),
-
-	// 缓存key列表
-	'cache_home_channel_key'		=>	'cache_home_channel_data',
 );

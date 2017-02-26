@@ -137,8 +137,8 @@ class CommonController extends Controller
 		$role_id = isset($_SESSION['admin']['role_id']) ? intval($_SESSION['admin']['role_id']) : 0;
 
 		// 读取缓存数据
-		$this->left_menu = S(C('admin_left_menu_key'));
-		$this->power = S(C('admin_power_key').$admin_id);
+		$this->left_menu = S(C('cache_admin_left_menu_key'));
+		$this->power = S(C('cache_admin_power_key').$admin_id);
 
 		// 缓存没数据则从数据库重新读取
 		if(($role_id > 0 || $admin_id == 1) && empty($this->left_menu))
@@ -196,8 +196,8 @@ class CommonController extends Controller
 					}
 				}
 			}
-			S(C('admin_left_menu_key'), $this->left_menu);
-			S(C('admin_power_key').$admin_id, $this->power);
+			S(C('cache_admin_left_menu_key'), $this->left_menu);
+			S(C('cache_admin_power_key').$admin_id, $this->power);
 		}
 	}
 

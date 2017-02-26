@@ -8,7 +8,7 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 
-$timezone = S('common_timezone');
+$timezone = S('cache_common_timezone_key');
 return array(
 	// 显示页面Trace信息
 	'SHOW_PAGE_TRACE'		=>	false, 
@@ -99,14 +99,22 @@ return array(
 	// ------ 缓存 end ------ //
 	
 
-	//公共系统配置信息key
-	'common_my_config_key'	=>	'common_my_config_data',
+	// 缓存key列表
+	// 公共系统配置信息key
+	'cache_common_my_config_key'			=>	'cache_common_my_config_data',
 
 	// 前台顶部导航，后端菜单更新则删除缓存
-	'common_home_nav_header_key'	=>	'common_home_nav_header_data',
+	'cache_common_home_nav_header_key'		=>	'cache_common_home_nav_header_data',
 
 	// 前台顶部导航
-	'common_home_nav_footer_key'	=>	'common_home_nav_footer_data',
+	'cache_common_home_nav_footer_key'		=>	'cache_common_home_nav_footer_data',
+
+	// 时区
+	'cache_common_timezone_key'				=>	'cache_common_timezone_data',
+
+	// 频道缓存 array(id => name)
+	'cache_home_channel_key'		=>	'cache_home_channel_data',
+
 
 	// 图片host, 数据库图片地址以/Public/...开头
 	'IMAGE_HOST'					=>	substr(__MY_URL__, 0, -1),

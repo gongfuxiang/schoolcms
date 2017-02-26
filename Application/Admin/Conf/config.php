@@ -9,14 +9,16 @@
  */
 
 return array(
+	// 缓存key列表
 	// 权限缓存存储key
-	'admin_power_key'			=>	'admin_power_',
+	'cache_admin_power_key'			=>	'cache_admin_power_',
 
 	// 菜单列表
-	'admin_left_menu_key'		=>	'admin_left_menu_data',
+	'cache_admin_left_menu_key'		=>	'cache_admin_left_menu_data',
+
 
 	// 百度编辑器配置信息 ueditor
-	'ueditor_config'			=>	array(
+	'ueditor_config'				=>	array(
 			// 上传图片配置项
 			// 执行上传图片的action名称
 			'imageActionName'			=>	'uploadimage',

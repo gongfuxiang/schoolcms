@@ -140,8 +140,8 @@ class CommonController extends Controller
 	private function NavInit()
 	{
 		// 读取缓存数据
-		$this->nav_header = S(C('common_home_nav_header_key'));
-		$this->nav_footer = S(C('common_home_nav_footer_key'));
+		$this->nav_header = S(C('cache_common_home_nav_header_key'));
+		$this->nav_footer = S(C('cache_common_home_nav_footer_key'));
 
 		// 导航模型
 		$m = M('Navigation');
@@ -158,14 +158,14 @@ class CommonController extends Controller
 					$this->nav_header[$k]['item'] = NavDataDealWith($m->field($field)->where(array('nav_type'=>'header', 'is_show'=>1, 'pid'=>$v['id']))->order('sort')->select());
 				}
 			}
-			S(C('common_home_nav_header_key'), $this->nav_header);
+			S(C('cache_common_home_nav_header_key'), $this->nav_header);
 		}
 
 		// 底部导航
 		if(empty($this->nav_footer))
 		{
 			$this->nav_footer = NavDataDealWith($m->field($field)->where(array('nav_type'=>'footer', 'is_show'=>1))->order('sort')->select());
-			S(C('common_home_nav_footer_key'), $this->nav_footer);
+			S(C('cache_common_home_nav_footer_key'), $this->nav_footer);
 		}
 	}
 
