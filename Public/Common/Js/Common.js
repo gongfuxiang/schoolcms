@@ -48,13 +48,7 @@ function ArrayTurnJson(all, object)
 {
 	for(var name in all)
 	{
-		var tmp_index = 0;
-		for(var index in all[name])
-		{
-			if(typeof(object[name]) != "object") object[name] = {};
-			object[name][tmp_index] = all[name][index];
-			tmp_index++;
-		}
+		object.append(name, all[name]);
 	}
 	return object;
 }

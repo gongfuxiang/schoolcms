@@ -114,14 +114,13 @@ class ViewController extends CommonController
 				{
 					foreach($item as $ik=>$iv)
 					{
-						// 基础数据处理
-						if(!empty($iv['article_class_id']))
-						{
-							$iv['article_class_id'] = unserialize($iv['article_class_id']);
-						}
-
 						// 参数条件json
-						$iv['json'] = json_encode($iv);
+						$temp_json = $iv;
+						if(!empty($temp_json['article_class_id']))
+						{
+							$temp_json['article_class_id'] = explode(',', $temp_json['article_class_id']);
+						}
+						$iv['json'] = json_encode($temp_json);
 
 						// 获取文章数据
 						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
@@ -149,6 +148,7 @@ class ViewController extends CommonController
 	 */
 	public function GetLayoutModuleData()
 	{
+		//print_r($_POST);die();
 		// 布局模块处理驱动
 		$lay = \My\LayoutModule::SetInstance();
 
@@ -162,10 +162,6 @@ class ViewController extends CommonController
 			$m->upd_time	=	time();
 			$m->right_title	=	str_replace('；', ';', I('right_title'));
 			$m->keyword 	=	str_replace(array('；', '—'), array(';', '-'), I('keyword'));
-			if(!empty($_POST['article_class_id']))
-			{
-				$m->article_class_id = serialize(I('article_class_id'));
-			}
 
 			// 更新数据库
 			if($m->where(array('id'=>I('id')))->save())
@@ -178,6 +174,10 @@ class ViewController extends CommonController
 				if(method_exists($lay, $fun))
 				{
 					$html = $lay->$fun($article, $_POST);
+					if(!empty($_POST['article_class_id']))
+					{
+						$_POST['article_class_id'] = explode(',', $_POST['article_class_id']);
+					}
 					$result = array('html' => $html, 'json' => json_encode($_POST));
 					$this->ajaxReturn(L('common_operation_edit_success'), 0, $result);
 				} else {

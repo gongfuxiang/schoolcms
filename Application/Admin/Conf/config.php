@@ -14,7 +14,7 @@ return array(
 	'cache_admin_power_key'			=>	'cache_admin_power_',
 
 	// 菜单列表
-	'cache_admin_left_menu_key'		=>	'cache_admin_left_menu_data',
+	'cache_admin_left_menu_key'		=>	'cache_admin_left_menu_',
 
 
 	// 百度编辑器配置信息 ueditor

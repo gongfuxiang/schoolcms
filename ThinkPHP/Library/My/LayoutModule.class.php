@@ -80,9 +80,9 @@ class LayoutModule
 		if(empty($data['article_id']))
 		{
 			// 文章分类
-			if(!empty($data['article_class_id']) && $data['article_class_id'][0] != 0)
+			if(!empty($data['article_class_id']))
 			{
-				$where['article_class_id'] = array('in', implode(',', $data['article_class_id']));
+				$where['article_class_id'] = array('in', $data['article_class_id']);
 			}
 
 			// 发布时间

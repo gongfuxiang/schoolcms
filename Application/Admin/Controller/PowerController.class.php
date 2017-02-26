@@ -91,8 +91,8 @@ class PowerController extends CommonController
 				// 写入数据库
 				if($m->add())
 				{
-					// 清空缓存目录下的数据
-					EmptyDir(C('DATA_CACHE_PATH'));
+					// 清除用户权限数据
+					PowerCacheDelete();
 
 					$this->ajaxReturn(L('common_operation_add_success'));
 				} else {
@@ -109,8 +109,8 @@ class PowerController extends CommonController
 				// 更新数据库
 				if($m->where(array('id'=>I('id')))->save())
 				{
-					// 清空缓存目录下的数据
-					EmptyDir(C('DATA_CACHE_PATH'));
+					// 清除用户权限数据
+					PowerCacheDelete();
 
 					$this->ajaxReturn(L('common_operation_edit_success'));
 				} else {
@@ -140,8 +140,8 @@ class PowerController extends CommonController
 		{
 			if($m->delete(I('id')))
 			{
-				// 清空缓存目录下的数据
-				EmptyDir(C('DATA_CACHE_PATH'));
+				// 清除用户权限数据
+				PowerCacheDelete();
 
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {
@@ -313,8 +313,8 @@ class PowerController extends CommonController
 				// 提交事务
 				$r->commit();
 
-				// 清空缓存目录下的数据
-				EmptyDir(C('DATA_CACHE_PATH'));
+				// 清除用户权限数据
+				PowerCacheDelete();
 
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
@@ -363,9 +363,10 @@ class PowerController extends CommonController
 
 			// 权限关联数据添加
 			$rp_state = true;
-			if(!empty($_POST['power_id']) && is_array($_POST['power_id']))
+			if(!empty($_POST['power_id']))
 			{
-				foreach($_POST['power_id'] as $power_id)
+				$power_id_list = explode(',', $_POST['power_id']);
+				foreach($power_id_list as $power_id)
 				{
 					if(!empty($power_id))
 					{
@@ -387,8 +388,8 @@ class PowerController extends CommonController
 				// 提交事务
 				$r->commit();
 
-				// 清空缓存目录下的数据
-				EmptyDir(C('DATA_CACHE_PATH'));
+				// 清除用户权限数据
+				PowerCacheDelete();
 
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {
@@ -436,8 +437,8 @@ class PowerController extends CommonController
 			// 提交事务
 			$r->commit();
 
-			// 清空缓存目录下的数据
-			EmptyDir(C('DATA_CACHE_PATH'));
+			// 清除用户权限数据
+			PowerCacheDelete();
 
 			$this->ajaxReturn(L('common_operation_delete_success'));
 		} else {

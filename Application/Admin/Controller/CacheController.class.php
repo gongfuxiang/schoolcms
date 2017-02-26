@@ -57,8 +57,7 @@ class CacheController extends CommonController
 		S(C('cache_common_timezone_key'), null);
 		S(C('cache_common_home_nav_header_key'), null);
 		S(C('cache_common_home_nav_footer_key'), null);
-		S(C('cache_admin_power_key'), null);
-		S(C('cache_admin_left_menu_key'), null);
+		PowerCacheDelete();
 
 		// 前台
 		S(C('cache_home_channel_key'), null);

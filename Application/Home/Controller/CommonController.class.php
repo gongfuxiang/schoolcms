@@ -303,12 +303,6 @@ class CommonController extends Controller
 				{
 					foreach($item as $ik=>$iv)
 					{
-						// 基础数据处理
-						if(!empty($iv['article_class_id']))
-						{
-							$iv['article_class_id'] = unserialize($iv['article_class_id']);
-						}
-
 						// 获取文章数据
 						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
 

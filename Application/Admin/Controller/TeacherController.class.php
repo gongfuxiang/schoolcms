@@ -234,6 +234,14 @@ class TeacherController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
+		// 贯通科目参数处理
+		if(!empty($_POST['subject_id']))
+		{
+			$_POST['subject_id'] = explode(',', $_POST['subject_id']);
+		} else {
+			$this->ajaxReturn(L('teacher_subject_format'), -2);
+		}
+
 		// 添加
 		if(empty($_POST['id']))
 		{
@@ -260,12 +268,6 @@ class TeacherController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 1))
 		{
-			// 教师科目参数
-			if(empty($_POST['subject_id']) || !is_array($_POST['subject_id']))
-			{
-				$this->ajaxReturn(L('teacher_subject_format'), -2);
-			}
-
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
@@ -327,12 +329,6 @@ class TeacherController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
-			// 教师科目参数
-			if(empty($_POST['subject_id']) || !is_array($_POST['subject_id']))
-			{
-				$this->ajaxReturn(L('teacher_subject_format'), -2);
-			}
-
 			// 额外数据处理
 			if(!empty($m->birthday))
 			{
