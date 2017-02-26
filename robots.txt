@@ -1,2 +1,15 @@
+#
+# robots.txt for SchoolCMS 2.2
+#
+
 User-agent: *
-Disallow: /
+Disallow: /Application/
+Disallow: /Install/
+Disallow: /Public/
+Disallow: /Readme/
+Disallow: /ThinkPHP/
+Disallow: /Upgrade/
+Disallow: /Admin/
+Disallow: /admin.php
+Disallow: /core.php
+Disallow: /composer.json
