@@ -13,7 +13,7 @@
 #layout-module-win .am-popup-bd { padding: 0px; }
 .layout-module-win-content { margin: 0px; }
 .layout-module-win-content .am-tabs-bd { border: 0px; }
-.layout-module-win-content select[multiple="multiple"] { min-height: 100px; max-height: 150px; }
+.layout-module-win-content select[multiple="multiple"] { min-height: 100px; max-height: 200px; }
 .help { color: #b6bfe4 !important; }
 .layout-module-win-content label[class*="am-u-"] { padding-left: 0rem;  padding-right: 0rem; }
 .drag-submit { background: #e6e6e6 !important; cursor: move !important; }
