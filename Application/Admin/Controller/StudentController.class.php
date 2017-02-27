@@ -305,6 +305,8 @@ class StudentController extends CommonController
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
 			$m->semester_id	=	MyC('admin_semester_id');
+			$m->username 	=	I('username');
+			$m->address 	=	I('address');
 			
 			// 写入数据库
 			if($m->add())
@@ -338,6 +340,8 @@ class StudentController extends CommonController
 			{
 				$m->birthday	=	strtotime($m->birthday);
 			}
+			$m->username 	=	I('username');
+			$m->address 	=	I('address');
 
 			// 学期id
 			$m->semester_id		=	MyC('admin_semester_id');
