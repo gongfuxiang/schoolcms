@@ -49,7 +49,7 @@
 .m-b-30 { margin-bottom: 30px !important; }
 .b-b-solid { border-bottom: 1px solid #dedede; }
 /**
- * 公共
+ * 公共class
  */
 * { font-size: 14px; }
 .cr-eee { color: #eee; }
@@ -58,9 +58,9 @@
 .block { display: block; }
 
 /**
- * 图片
+ * 公共
  */
-img { max-width: 100%; }
+img, video, embed { max-width: 100%; }
 
 /**
  * 导航
