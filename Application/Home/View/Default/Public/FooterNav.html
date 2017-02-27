@@ -1,5 +1,5 @@
 <hr data-am-widget="divider" class="am-divider am-divider-default m-0" />
-<footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{}">
+<footer data-am-widget="footer" class="am-footer am-footer-default" data-am-footer="{}" <if condition="!empty($max_width_style)">style="{{$max_width_style}}"</if>>
 	<div class="footer-nav-list">
 		<foreach name="nav_footer" key="k" item="v">
 			<a href="{{$v.url}}" <if condition="$v['is_new_window_open'] eq 1">target="_blank"</if>>{{$v.name}}</a>

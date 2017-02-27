@@ -68,6 +68,7 @@ img { max-width: 100%; }
 header .am-topbar-right .am-topbar-btn { margin-top: 0.8rem; }
 header .am-dropdown-content { border-radius: 2px; }
 header.am-topbar { margin-bottom: 0rem; }
+.nav-header, .am-footer, .site-oneself { margin: auto; }
 .my-radius { border-radius: 2px !important; }
 .nav-active { background-color: #0d82bd; }
 .am-topbar-nav > li > a:after { display: none; }

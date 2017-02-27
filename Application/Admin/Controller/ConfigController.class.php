@@ -47,7 +47,7 @@ class ConfigController extends CommonController
 		$this->assign('common_excel_charset_list', L('common_excel_charset_list'));
 
 		// 配置信息
-		$data = M('Config')->where(array('type'=>'admin'))->getField('only_tag,name,describe,value,error_tips');
+		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);
 		
 		$this->display('Index');

@@ -128,6 +128,11 @@ class CommonController extends Controller
 
 		// 标题
 		$this->assign('home_seo_site_title', MyC('home_seo_site_title'));
+
+		// 页面最大宽度
+		$max_width = MyC('home_content_max_width', 0, true);
+		$max_width_style = ($max_width == 0) ? '' : 'max-width:'.$max_width.'px;';
+		$this->assign('max_width_style', $max_width_style);
 	}
 
 	/**
@@ -373,7 +378,7 @@ class CommonController extends Controller
 	{
 		if(MyC('home_site_state') == 0)
 		{
-			$this->assign('msg', MyC('home_site_close_reason'));
+			$this->assign('msg', MyC('home_site_close_reason', L('common_site_maintenance_tips'), true));
 			$this->assign('is_footer', 0);
 			$this->display('/Public/Error');
 			exit;

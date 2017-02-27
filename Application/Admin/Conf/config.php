@@ -27,7 +27,7 @@ return array(
 			'imageFieldName'			=>	'upfile',
 
 			// 上传大小限制，单位B
-			'imageMaxSize'				=>	MyC('home_max_limit_image', 2048000),
+			'imageMaxSize'				=>	MyC('home_max_limit_image', 2048000, true),
 
 			// 上传图片格式显示
 			'imageAllowFiles'			=>	array('.png', '.jpg', '.jpeg', '.gif', '.bmp'),
@@ -59,7 +59,7 @@ return array(
 			'scrawlPathFormat'		=>	__ROOT__.'/Public/Upload/'.I('get.path_type', 'Other').'/scrawl/{yyyy}/{mm}/{dd}/{time}{rand:6}',
 
 			// 上传大小限制，单位B
-			'scrawlMaxSize'			=>	MyC('home_max_limit_image', 2048000),
+			'scrawlMaxSize'			=>	MyC('home_max_limit_image', 2048000, true),
 
 			// 图片访问路径前缀
 			'scrawlUrlPrefix'		=>	'',
@@ -99,7 +99,7 @@ return array(
 			'catcherUrlPrefix'		=>	'',
 
 			// 上传大小限制，单位B
-			'catcherMaxSize'		=>	MyC('home_max_limit_image', 2048000),
+			'catcherMaxSize'		=>	MyC('home_max_limit_image', 2048000, true),
 
 			// 抓取图片格式显示
 			'catcherAllowFiles'		=>	array('.png', '.jpg', '.jpeg', '.gif', '.bmp'),
@@ -119,7 +119,7 @@ return array(
 			'videoUrlPrefix'		=>	'',
 
 			// 上传大小限制，单位B，默认100MB
-			'videoMaxSize'			=>	MyC('home_max_limit_image', 102400000),
+			'videoMaxSize'			=>	MyC('home_max_limit_image', 102400000, true),
 
 			// 上传视频格式显示
 			'videoAllowFiles'		=>	array('.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg', '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid'), 
@@ -139,7 +139,7 @@ return array(
 			'fileUrlPrefix'			=>	'',
 
 			// 上传大小限制，单位B，默认50MB
-			'fileMaxSize'			=>	MyC('home_max_limit_image', 51200000),
+			'fileMaxSize'			=>	MyC('home_max_limit_image', 51200000, true),
 
 			// 上传文件格式显示
 			'fileAllowFiles'		=>	array('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg', '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid','.rar', '.zip', '.tar', '.gz', '.7z', '.bz2', '.cab', '.iso', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.txt', '.md', '.xml'),

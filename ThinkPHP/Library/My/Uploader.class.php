@@ -94,7 +94,7 @@ class Uploader
         if(I('get.path_type', 'Other') == 'Article' && I('get.action') == 'uploadimage')
         {
             $info = getimagesize($file['tmp_name']);
-            $temp_height = 56.23/100*$info[0];
+            $temp_height = MyC('common_image_proportion', 56.23, true)/100*$info[0];
             if(($info[1] > $temp_height+5 || $info[1] < $temp_height-5))
             {
                 $this->stateInfo = $this->getStateInfo("ERROR_IMAGES_HIGHT_PROPORTION");

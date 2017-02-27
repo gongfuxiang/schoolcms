@@ -17,19 +17,19 @@
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_seo_url_html_suffix.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_seo_url_html_suffix.describe}}）</span></label>
-				<input type="text" name="{{$data.home_seo_url_html_suffix.only_tag}}" pattern="{{:L('common_regex_url_html_suffix')}}" maxlength="8" placeholder="{{$data.home_seo_url_html_suffix.describe}}" data-validation-message="{{$data.home_seo_url_html_suffix.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_seo_url_html_suffix.value}}"</present> />
+				<input type="text" name="{{$data.home_seo_url_html_suffix.only_tag}}" pattern="{{:L('common_regex_url_html_suffix')}}" maxlength="8" placeholder="{{$data.home_seo_url_html_suffix.name}}" data-validation-message="{{$data.home_seo_url_html_suffix.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_seo_url_html_suffix.value}}"</present> />
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_seo_site_title.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_seo_site_title.describe}}）</span></label>
-				<input type="text" name="{{$data.home_seo_site_title.only_tag}}" minlength="1" placeholder="{{$data.home_seo_site_title.describe}}" data-validation-message="{{$data.home_seo_site_title.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_seo_site_title.value}}"</present> required />
+				<input type="text" name="{{$data.home_seo_site_title.only_tag}}" minlength="1" placeholder="{{$data.home_seo_site_title.name}}" data-validation-message="{{$data.home_seo_site_title.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_seo_site_title.value}}"</present> required />
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_seo_site_keywords.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_seo_site_keywords.describe}}）</span></label>
-				<input type="text" name="{{$data.home_seo_site_keywords.only_tag}}" placeholder="{{$data.home_seo_site_keywords.describe}}" data-validation-message="{{$data.home_seo_site_keywords.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_seo_site_keywords.value}}"</present> />
+				<input type="text" name="{{$data.home_seo_site_keywords.only_tag}}" placeholder="{{$data.home_seo_site_keywords.name}}" data-validation-message="{{$data.home_seo_site_keywords.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_seo_site_keywords.value}}"</present> />
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_seo_site_description.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_seo_site_description.describe}}）</span></label>
-				<textarea rows="6" name="{{$data.home_seo_site_description.only_tag}}" class="am-radius" data-validation-message="{{$data.home_seo_site_description.error_tips}}"><present name="data">{{$data.home_seo_site_description.value}}</present></textarea>
+				<textarea rows="6" name="{{$data.home_seo_site_description.only_tag}}" class="am-radius" placeholder="{{$data.home_seo_site_description.name}}" data-validation-message="{{$data.home_seo_site_description.error_tips}}"><present name="data">{{$data.home_seo_site_description.value}}</present></textarea>
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_seo_channel_browser.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_seo_channel_browser.describe}}）</span></label>

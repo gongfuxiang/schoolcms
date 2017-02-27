@@ -44,6 +44,7 @@ return array(
 	'common_operation_excel_name'		=>	'导出Excel',
 	'common_nav_type_name'				=>	'导航数据类型',
 	'common_view_link_name'				=>	'友情链接',
+	'common_site_maintenance_tips'		=>	'网站维护中...',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -378,5 +379,8 @@ return array(
 
 	// url伪静态后缀
 	'common_regex_url_html_suffix'		=>	'^[a-z]{0,8}$',
+
+	// 图片比例值
+	'common_regex_image_proportion'		=>	'^([1-9]{1}[0-9]?|[1-9]{1}[0-9]?\.{1}[0-9]{1,2}|100)?$',
 );
 ?>

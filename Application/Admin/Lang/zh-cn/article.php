@@ -24,6 +24,6 @@ return array(
 	'article_time_start_text'			=>	'开始时间',
 	'article_time_end_text'				=>	'结束时间',
 	'article_so_keyword_tips'			=>	'标题关键字',
-	'article_images_upload_format'		=>	'为了站点自适应结构美观，图片尺寸比例：宽度的%56.22 [计算规则 56.22除以100再乘以宽度] 得到高度',
+	'article_images_upload_format'		=>	'为了站点自适应结构美观，图片尺寸比例：宽度的%'.MyC('common_image_proportion', 56.23, true).' [计算规则 '.MyC('common_image_proportion', 56.23, true).'除以100再乘以宽度] 得到高度',
 );
 ?>
