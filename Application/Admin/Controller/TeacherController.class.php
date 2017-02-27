@@ -271,6 +271,8 @@ class TeacherController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
+			$m->username 	=	I('username');
+			$m->address 	=	I('address');
 
 			// 开启事务
 			$m->startTrans();
@@ -334,6 +336,8 @@ class TeacherController extends CommonController
 			{
 				$m->birthday	=	strtotime($m->birthday);
 			}
+			$m->username 	=	I('username');
+			$m->address 	=	I('address');
 
 			// 移除不能更新的数据
 			unset($m->id_card);
