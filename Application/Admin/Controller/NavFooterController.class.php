@@ -139,6 +139,8 @@ class NavFooterController extends CommonController
 				}
 				// 只截取16个字符
 				$m->name = mb_substr($temp_name, 0, 16, C('DEFAULT_CHARSET'));
+			} else {
+				$m->name 	=	I('name');
 			}
 
 			// 清除缓存
