@@ -607,7 +607,7 @@ function GetNumberCode($length = 6)
  */
 function LoginPwdEncryption($pwd, $salt)
 {
-	return md5($salt.$pwd);
+	return md5($salt.trim($pwd));
 }
 
 /**
@@ -622,7 +622,7 @@ function LoginPwdEncryption($pwd, $salt)
  */
 function PwdPayEncryption($pwd, $salt)
 {
-    return md5(md5($pwd.$salt));
+    return md5(md5(trim($pwd).$salt));
 }
 
 /**
