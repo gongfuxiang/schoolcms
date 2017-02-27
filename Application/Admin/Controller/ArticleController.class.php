@@ -253,6 +253,7 @@ class ArticleController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->upd_time	=	time();
+			$m->title 		=	I('title');
 			
 			// 静态资源地址处理
 			$m->content 	=	ContentStaticReplace($m->content, 'add');
@@ -289,6 +290,10 @@ class ArticleController extends CommonController
 		// 数据自动校验
 		if($m->create($_POST, 2))
 		{
+			// 额外数据处理
+			$m->upd_time	=	time();
+			$m->title 		=	I('title');
+
 			// 静态资源地址处理
 			$m->content 	=	ContentStaticReplace($m->content, 'add');
 
@@ -296,7 +301,6 @@ class ArticleController extends CommonController
 			$temp_image		=	$this->MatchContentImage($m->content);
 			$m->image 		=	serialize($temp_image);
 			$m->image_count	=	count($temp_image);
-			$m->upd_time	=	time();
 
 			// 数据更新
 			if($m->where(array('id'=>I('id')))->save())
