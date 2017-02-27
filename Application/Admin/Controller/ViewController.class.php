@@ -161,6 +161,10 @@ class ViewController extends CommonController
 			$m->upd_time	=	time();
 			$m->right_title	=	str_replace('；', ';', I('right_title'));
 			$m->keyword 	=	str_replace(array('；', '—'), array(';', '-'), I('keyword'));
+			$m->name 		=	I('name');
+			$m->right_title =	I('right_title');
+			$m->article_id 	=	I('article_id');
+			$m->keyword 	=	I('keyword');
 
 			// 更新数据库
 			if($m->where(array('id'=>I('id')))->save())

@@ -122,6 +122,7 @@ class ClassController extends CommonController
 			{
 				// 额外数据处理
 				$m->add_time	=	time();
+				$m->name 		=	I('name');
 				
 				// 写入数据库
 				if($m->add())
@@ -135,6 +136,9 @@ class ClassController extends CommonController
 			// 编辑
 			if($m->create($_POST, 2))
 			{
+				// 额外数据处理
+				$m->name 		=	I('name');
+
 				// 移除 id
 				unset($m->id);
 

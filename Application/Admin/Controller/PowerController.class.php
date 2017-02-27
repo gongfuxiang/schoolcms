@@ -87,6 +87,9 @@ class PowerController extends CommonController
 			{
 				// 额外数据处理
 				$m->add_time	=	time();
+				$m->name 		=	I('name');
+				$m->control 	=	I('control');
+				$m->action 		=	I('action');
 				
 				// 写入数据库
 				if($m->add())
@@ -103,6 +106,11 @@ class PowerController extends CommonController
 			// 编辑
 			if($m->create($_POST, 2))
 			{
+				// 额外数据处理
+				$m->name 		=	I('name');
+				$m->control 	=	I('control');
+				$m->action 		=	I('action');
+
 				// 移除 id
 				unset($m->id);
 

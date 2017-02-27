@@ -81,6 +81,8 @@ class LinkController extends CommonController
 			{
 				// 额外数据处理
 				$m->add_time	=	time();
+				$m->name 		=	I('name');
+				$m->describe 	=	I('describe');
 				
 				// 写入数据库
 				if($m->add())
@@ -94,6 +96,10 @@ class LinkController extends CommonController
 			// 编辑
 			if($m->create($_POST, 2))
 			{
+				// 额外数据处理
+				$m->name 		=	I('name');
+				$m->describe 	=	I('describe');
+
 				// 移除 id
 				unset($m->id);
 
