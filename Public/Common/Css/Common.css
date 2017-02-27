@@ -17,7 +17,7 @@
 .my-link { margin: 10px; }
 .my-link legend { color: #797979; font-size: 1.6rem; font-weight: 600; font-family: 'Karla',sans-serif; margin-bottom: 0rem; }
 .my-link ul { margin: 0px; padding: 0px; }
-.my-link ul li { float: left; list-style-type: none; margin: 10px; }
+.my-link ul li { float: left; list-style-type: none; margin: 3px 10px; }
 
 /* 图片列表 */
 .layout-images-list .am-list-news-hd { margin: 10px 10px 0px 10px; }

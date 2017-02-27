@@ -73,7 +73,7 @@ header.am-topbar { margin-bottom: 0rem; }
 .am-topbar-nav > li > a:after { display: none; }
 .am-footer { font-size: 1.4rem; }
 .footer-nav-list a:hover { color: #095f8a; }
-.am-footer { padding: 0.5rem 0 1em 0; }
+.am-footer { padding: 0.5rem 20px 1em 20px; }
 #home_site_logo { max-width: 180px; max-height: 38px; }
 
 /**

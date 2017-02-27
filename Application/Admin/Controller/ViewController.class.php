@@ -116,7 +116,7 @@ class ViewController extends CommonController
 					{
 						// 参数条件json
 						$temp_json = $iv;
-						if(!empty($temp_json['article_class_id']))
+						if(strlen($temp_json['article_class_id']) > 0)
 						{
 							$temp_json['article_class_id'] = explode(',', $temp_json['article_class_id']);
 						}
@@ -173,7 +173,7 @@ class ViewController extends CommonController
 				if(method_exists($lay, $fun))
 				{
 					$html = $lay->$fun($article, $_POST);
-					if(!empty($_POST['article_class_id']))
+					if(strlen($_POST['article_class_id']) > 0)
 					{
 						$_POST['article_class_id'] = explode(',', $_POST['article_class_id']);
 					}
