@@ -127,6 +127,9 @@ class ArticleController extends CommonController
 
 				// 文章分类
 				$data[$k]['article_class_name'] = $ac->where(array('id'=>$v['article_class_id']))->getField('name');
+
+				// url
+				$data[$k]['url'] = str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id'])));
 			}
 		}
 		return $data;
