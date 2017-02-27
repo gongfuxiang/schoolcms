@@ -290,12 +290,12 @@ class CommonController extends Controller
 		// 循环保存数据
 		$success = 0;
 		$c = M('Config');
-		$no_all = array('home_footer_info');
+		$no_all = array('home_footer_info', 'home_site_close_reason');
 		foreach($_POST as $k=>$v)
 		{
 			if(!in_array($k, $no_all))
 			{
-				$v = I($v);
+				$v = I($k);
 			}
 			if($c->where(array('only_tag'=>$k))->save(array('value'=>$v, 'upd_time'=>time())))
 			{
