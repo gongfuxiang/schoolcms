@@ -242,6 +242,7 @@ class CustomViewController extends CommonController
 			// 额外数据处理
 			$m->add_time	=	time();
 			$m->upd_time	=	time();
+			$m->title 		=	I('title');
 			
 			// 静态资源地址处理
 			$m->content 	=	ContentStaticReplace($m->content, 'add');
@@ -286,6 +287,7 @@ class CustomViewController extends CommonController
 			$m->image 		=	serialize($temp_image);
 			$m->image_count	=	count($temp_image);
 			$m->upd_time	=	time();
+			$m->title 		=	I('title');
 
 			// 数据更新
 			if($m->where(array('id'=>I('id')))->save())
