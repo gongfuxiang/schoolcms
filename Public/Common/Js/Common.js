@@ -73,7 +73,7 @@ function GetFormVal(element)
 		{
 			object.append(tmp.name, $(this).get(0).files[0]);
 		} else {
-			object.append(tmp.name, tmp.value);
+			object.append(tmp.name, tmp.value.replace(/^\s+|\s+$/g,""));
 		}
 	});
 

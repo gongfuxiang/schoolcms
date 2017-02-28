@@ -71,7 +71,7 @@ class ChannelController extends CommonController
 		$title = isset($channel[I('id')]) ? $channel[I('id')] : '';
 		$this->assign('home_seo_site_title', $this->GetBrowserSeoTitle($title, MyC('home_seo_channel_browser')));
 
-		$this->display();
+		$this->display('Index');
 	}
 
 	/**

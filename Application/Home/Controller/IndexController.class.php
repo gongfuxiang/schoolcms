@@ -26,7 +26,7 @@ class IndexController extends CommonController
 		// 友情链接
 		$this->assign('link', $this->GetLayoutLink('home'));
 
-		$this->display();
+		$this->display('Index');
 	}
 }
 ?>

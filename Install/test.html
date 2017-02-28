@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="./static/css/install.css">
 <script>
 function testClick(){
-    if($('.yes').length!=6){
+    if($('.yes').length!=7){
         alert('您的配置或权限不符合要求');
     }else{
         location.href='./index.php?c=create';
@@ -134,6 +134,24 @@ function testClick(){
                     </td>
                     <td class="<?php if(is_writable('../Application/Common/Conf'))echo 'yes'; ?>">
                         <?php if (is_writable('../Application/Common/Conf')): ?>
+                            √
+                        <?php else: ?>
+                            ×
+                        <?php endif ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>./Application/Runtime/Cache</td>
+                    <td>可写</td>
+                    <td>
+                        <?php if (is_writable('../Application/Runtime/Cache')): ?>
+                            可写
+                        <?php else: ?>
+                            不可写
+                        <?php endif ?>
+                    </td>
+                    <td class="<?php if(is_writable('../Application/Runtime/Cache'))echo 'yes'; ?>">
+                        <?php if (is_writable('../Application/Runtime/Cache')): ?>
                             √
                         <?php else: ?>
                             ×
