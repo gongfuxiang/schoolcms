@@ -15,7 +15,7 @@ return array(
 
 	// 应用信息
 	'common_application_name'			=>	'SchoolCMS',
-	'common_application_ver'			=>	'v2.2',
+	'common_application_ver'			=>	'v2.3',
 	'common_application_website'		=>	'http://schoolcms.org/',
 
 	// 公共
@@ -96,8 +96,8 @@ return array(
 	'common_is_full_screen_tips'		=>	'是否满屏值范围不正确',
 	'common_new_window_open_tips'		=>	'新窗口打开值范围不正确',
 	'common_view_pay_cost_tips'			=>	'缴费状态值范围不正确',
-	'common_view_tel_error'				=>	'联系方式格式有误',
-	'common_view_tel_tips'				=>	'座机或手机号码',
+	'common_view_tel_error'				=>	'座机号码格式有误',
+	'common_view_parent_mobile_error'	=>	'家长手机号码格式有误',
 	'common_view_id_card_format'		=>	'身份证号码格式有误',
 	'common_no_exist_id_card_tips'		=>	'身份证号码不存在',
 	'common_is_exist_id_card_tips'		=>	'身份证号码已存在',
@@ -120,13 +120,14 @@ return array(
 	'common_view_sort_title'			=>	'顺序',
 	'common_view_student_state_name'	=>	'学生状态',
 	'common_view_pay_cost_name'			=>	'缴费状态',
-	'common_view_tel_name'				=>	'联系方式',
+	'common_view_tel_name'				=>	'座机号码',
 	'common_view_id_card_text'			=>	'身份证号码',
 	'common_view_teacher_state_name'	=>	'教师状态',
 	'common_view_is_header_text'		=>	'是否含头部',
 	'common_view_is_footer_text'		=>	'是否含尾部',
 	'common_view_is_full_screen_text'	=>	'是否满屏',
 	'common_view_access_count_text'		=>	'访问次数',
+	'common_view_parent_mobile_name'	=>	'家长手机',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -335,8 +336,8 @@ return array(
 	// 手机号码
 	'common_regex_mobile'				=>	'^1((3|5|8|7){1}\d{1})\d{8}$',
 
-	// 联系方式
-	'common_regex_tel'					=>	'^(1((3|5|8|7){1}\d{1})\d{8})|(\d{3,4}-?\d{8})$',
+	// 座机号码
+	'common_regex_tel'					=>	'^\d{3,4}-?\d{8}$',
 
 	// 身份证号码
 	'common_regex_id_card'				=>	'^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$',

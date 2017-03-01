@@ -38,10 +38,10 @@ if(is_dir("./Install") && !file_exists("./Install/install.lock"))
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG', false);
+define('APP_DEBUG', true);
 
 // 分之模式,master,develop,test,debug
-define('APP_STATUS', 'master');
+define('APP_STATUS', 'develop');
 
 /* 定义系统目录分隔符 */
 define('DS', DIRECTORY_SEPARATOR);

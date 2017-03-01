@@ -22,7 +22,9 @@ class StudentModel extends CommonModel
 		array('class_id', 'IsExistClass', '{%student_class_tips}', 1, 'callback', 3),
 		array('region_id', 'IsExistRegion', '{%student_region_tips}', 1, 'callback', 3),
 		array('state', array(0,1,2,3,4), '{%common_student_state_tips}', 1, 'in', 3),
-		array('tel', 'CheckTel', '{%common_view_tel_error}', 1, 'callback', 3),
+		array('tel', 'CheckTel', '{%common_view_tel_error}', 2, 'callback', 3),
+		array('my_mobile', 'CheckMyMobile', '{%student_my_mobile_error}', 2, 'callback', 3),
+		array('parent_mobile', 'CheckParentMobile', '{%common_view_parent_mobile_error}', 2, 'callback', 3),
 		array('tuition_state', array(0,1), '{%common_tuition_state_tips}', 1, 'in', 3),
 
 		// 添加
@@ -135,7 +137,7 @@ class StudentModel extends CommonModel
 	}
 
 	/**
-	 * [CheckTel 联系方式校验]
+	 * [CheckTel 座机号码校验]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -144,6 +146,30 @@ class StudentModel extends CommonModel
 	public function CheckTel()
 	{
 		return (preg_match('/'.L('common_regex_tel').'/', I('tel')) == 1) ? true : false;
+	}
+
+	/**
+	 * [CheckMyMobile 学生手机号码校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T15:12:32+0800
+	 */
+	public function CheckMyMobile()
+	{
+		return (preg_match('/'.L('common_regex_mobile').'/', I('my_mobile')) == 1) ? true : false;
+	}
+
+	/**
+	 * [CheckParentMobile 家长手机号码校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T15:12:32+0800
+	 */
+	public function CheckParentMobile()
+	{
+		return (preg_match('/'.L('common_regex_mobile').'/', I('parent_mobile')) == 1) ? true : false;
 	}
 
 	/**

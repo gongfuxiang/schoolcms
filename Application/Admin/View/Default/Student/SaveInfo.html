@@ -62,7 +62,15 @@
 			</div>
 			<div class="am-form-group">
 				<label>{{:L('common_view_tel_name')}}</label>
-				<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <notempty name="data"> value="{{$data.tel}}"</notempty> required />
+				<input type="text" placeholder="{{:L('common_view_tel_name')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_error')}}" class="am-radius" <notempty name="data"> value="{{$data.tel}}"</notempty> />
+			</div>
+			<div class="am-form-group">
+				<label>{{:L('student_my_mobile_name')}}</label>
+				<input type="text" placeholder="{{:L('student_my_mobile_name')}}" name="my_mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('student_my_mobile_error')}}" class="am-radius" <notempty name="data"> value="{{$data.my_mobile}}"</notempty> />
+			</div>
+			<div class="am-form-group">
+				<label>{{:L('common_view_parent_mobile_name')}}</label>
+				<input type="text" placeholder="{{:L('common_view_parent_mobile_name')}}" name="parent_mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_view_parent_mobile_error')}}" class="am-radius" <notempty name="data"> value="{{$data.parent_mobile}}"</notempty> required />
 			</div>
 			<include file="Lib/StudentState" />
 			<div class="am-form-group">

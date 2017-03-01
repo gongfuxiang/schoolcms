@@ -30,5 +30,7 @@ return array(
 	'common_operation_fraction'			=>	'录成绩',
 	'student_time_start_text'			=>	'出生开始',
 	'student_time_end_text'				=>	'出生结束',
+	'student_my_mobile_name'			=>	'学生手机',
+	'student_my_mobile_error'			=>	'学生手机格式有误',
 );
 ?>
