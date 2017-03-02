@@ -26,7 +26,7 @@ return array(
 	'student_tuition_state_format'		=>	'请选择缴费状态',
 	'student_no_exist_error'			=>	'该学生不存在',
 	'student_sign_up_name'				=>	'报名时间',
-	'student_so_keyword_tips'			=>	'姓名/身份证/电话/地址',
+	'student_so_keyword_tips'			=>	'姓名/编号/身份证/电话/邮箱',
 	'common_operation_fraction'			=>	'录成绩',
 	'student_time_start_text'			=>	'出生开始',
 	'student_time_end_text'				=>	'出生结束',

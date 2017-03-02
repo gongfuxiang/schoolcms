@@ -24,6 +24,8 @@ return array(
 	'common_form_loading_tips'			=>	'处理中...',
 	'common_mobile_name'				=>	'手机号码',
 	'common_mobile_format_error'		=>	'手机号码格式错误',
+	'common_email_name'					=>	'电子邮箱',
+	'common_email_format_error'			=>	'电子邮箱格式错误',
 	'common_id_card_name'				=>	'身份证',
 	'common_url_name'					=>	'url地址',
 	'common_ip_name'					=>	'ip地址',
@@ -110,6 +112,7 @@ return array(
 	'common_operation_on_text'			=>	'开',
 	'common_method_exists_error'		=>	'[{$1}]成员方法未定义',
 	'common_template_access_count'		=>	'浏览 {$1} 次',
+	'common_student_number_tips'		=>	'系统自动生成',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -128,6 +131,7 @@ return array(
 	'common_view_is_full_screen_text'	=>	'是否满屏',
 	'common_view_access_count_text'		=>	'访问次数',
 	'common_view_parent_mobile_name'	=>	'家长手机',
+	'common_view_student_number_text'	=>	'学生编号',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -338,6 +342,9 @@ return array(
 
 	// 座机号码
 	'common_regex_tel'					=>	'^\d{3,4}-?\d{8}$',
+
+	// 电子邮箱
+	'common_regex_email'				=>	'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$',
 
 	// 身份证号码
 	'common_regex_id_card'				=>	'^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$',

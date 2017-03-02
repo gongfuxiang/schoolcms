@@ -59,7 +59,7 @@ class StudentController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->select());
+		$list = $this->SetDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->order('id desc')->select());
 
 		// 性别
 		$this->assign('common_gender_list', L('common_gender_list'));
@@ -148,6 +148,9 @@ class StudentController extends CommonController
 				// 报名时间
 				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 
+				// 更新时间
+				$data[$k]['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
+
 				// 性别
 				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
 
@@ -178,11 +181,16 @@ class StudentController extends CommonController
 		// 模糊
 		if(!empty($_REQUEST['keyword']))
 		{
+			$like_keyword = array('like', '%'.I('keyword').'%');
 			$where[] = array(
-					'username'	=>	array('like', '%'.I('keyword').'%'),
-					'id_card'	=>	array('like', '%'.I('keyword').'%'),
-					'tel'		=>	array('like', '%'.I('keyword').'%'),
-					'_logic'	=>	'or',
+					'username'		=>	$like_keyword,
+					'id_card'		=>	$like_keyword,
+					'number'		=>	$like_keyword,
+					'tel'			=>	$like_keyword,
+					'my_mobile'		=>	$like_keyword,
+					'parent_mobile'	=>	$like_keyword,
+					'email'			=>	$like_keyword,
+					'_logic'		=>	'or',
 				);
 		}
 
@@ -308,11 +316,23 @@ class StudentController extends CommonController
 			$m->username 	=	I('username');
 			$m->address 	=	I('address');
 			
-			// 写入数据库
-			if($m->add())
+			// 开启事务
+			$m->startTrans();
+
+			// 数据写入
+			$student_id = $m->add();
+
+			// 更新学号
+			$number_state = $m->where(array('id'=>$student_id))->save(array('number'=>GenerateStudentNumber($student_id)));
+
+			if($student_id > 0 && $number_state !== false)
 			{
+				// 提交事务
+				$m->commit();
 				$this->ajaxReturn(L('common_operation_add_success'));
 			} else {
+				// 回滚事务
+				$m->rollback();
 				$this->ajaxReturn(L('common_operation_add_error'), -100);
 			}
 		} else {
@@ -342,15 +362,13 @@ class StudentController extends CommonController
 			}
 			$m->username 	=	I('username');
 			$m->address 	=	I('address');
-
-			// 学期id
-			$m->semester_id		=	MyC('admin_semester_id');
+			$m->upd_time	=	time();
 
 			// 移除不能更新的数据
-			unset($m->id_card);
+			unset($m->id_card, $m->number);
 
 			// 更新数据库
-			if($m->where(array('id'=>I('id'), 'id_card'=>I('id_card')))->save())
+			if($m->where(array('id'=>I('id'), 'id_card'=>I('id_card'), 'number'=>I('number')))->save())
 			{
 				$this->ajaxReturn(L('common_operation_edit_success'));
 			} else {

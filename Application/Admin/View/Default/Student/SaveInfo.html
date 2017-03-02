@@ -22,6 +22,10 @@
 				<input type="text" name="username" placeholder="{{:L('student_username_text')}}" minlength="2" maxlength="16" data-validation-message="{{:L('student_username_format')}}" class="am-radius" <notempty name="data"> value="{{$data.username}}"</notempty> required />
 			</div>
 			<div class="am-form-group">
+				<label>{{:L('common_view_student_number_text')}}</label>
+				<input type="text" name="number" placeholder="{{:L('common_student_number_tips')}}" class="am-radius" <notempty name="data"> value="{{$data.number}}"</notempty> disabled />
+			</div>
+			<div class="am-form-group">
 				<label>{{:L('common_view_id_card_text')}}</label>
 				<input type="text" name="id_card" placeholder="{{:L('common_view_id_card_text')}}" pattern="{{:L('common_regex_id_card')}}" data-validation-message="{{:L('common_view_id_card_format')}}" class="am-radius" <notempty name="data"> value="{{$data.id_card}}" disabled</notempty> required />
 			</div>
@@ -71,6 +75,10 @@
 			<div class="am-form-group">
 				<label>{{:L('common_view_parent_mobile_name')}}</label>
 				<input type="text" placeholder="{{:L('common_view_parent_mobile_name')}}" name="parent_mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_view_parent_mobile_error')}}" class="am-radius" <notempty name="data"> value="{{$data.parent_mobile}}"</notempty> required />
+			</div>
+			<div class="am-form-group">
+				<label>{{:L('common_email_name')}}</label>
+				<input type="text" placeholder="{{:L('common_email_name')}}" name="email" pattern="{{:L('common_regex_email')}}" data-validation-message="{{:L('common_email_format_error')}}" maxlength="60" class="am-radius" <notempty name="data"> value="{{$data.email}}"</notempty> />
 			</div>
 			<include file="Lib/StudentState" />
 			<div class="am-form-group">

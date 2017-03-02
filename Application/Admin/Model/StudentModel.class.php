@@ -24,7 +24,8 @@ class StudentModel extends CommonModel
 		array('state', array(0,1,2,3,4), '{%common_student_state_tips}', 1, 'in', 3),
 		array('tel', 'CheckTel', '{%common_view_tel_error}', 2, 'callback', 3),
 		array('my_mobile', 'CheckMyMobile', '{%student_my_mobile_error}', 2, 'callback', 3),
-		array('parent_mobile', 'CheckParentMobile', '{%common_view_parent_mobile_error}', 2, 'callback', 3),
+		array('parent_mobile', 'CheckParentMobile', '{%common_view_parent_mobile_error}', 1, 'callback', 3),
+		array('email', 'CheckEmail', '{%common_email_format_error}', 2, 'callback', 3),
 		array('tuition_state', array(0,1), '{%common_tuition_state_tips}', 1, 'in', 3),
 
 		// 添加
@@ -170,6 +171,18 @@ class StudentModel extends CommonModel
 	public function CheckParentMobile()
 	{
 		return (preg_match('/'.L('common_regex_mobile').'/', I('parent_mobile')) == 1) ? true : false;
+	}
+
+	/**
+	 * [CheckEmail 电子邮箱校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T15:12:32+0800
+	 */
+	public function CheckEmail()
+	{
+		return (preg_match('/'.L('common_regex_email').'/', I('email')) == 1) ? true : false;
 	}
 
 	/**

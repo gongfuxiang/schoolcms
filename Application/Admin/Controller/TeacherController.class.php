@@ -124,6 +124,9 @@ class TeacherController extends CommonController
 				// 创建时间
 				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 
+				// 更新时间
+				$data[$k]['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
+
 				// 性别
 				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
 
@@ -152,11 +155,14 @@ class TeacherController extends CommonController
 		// 模糊
 		if(!empty($_REQUEST['keyword']))
 		{
+			$like_keyword = array('like', '%'.I('keyword').'%');
 			$where[] = array(
-					'username'	=>	array('like', '%'.I('keyword').'%'),
-					'id_card'	=>	array('like', '%'.I('keyword').'%'),
-					'tel'		=>	array('like', '%'.I('keyword').'%'),
-					'address'	=>	array('like', '%'.I('keyword').'%'),
+					'username'	=>	$like_keyword,
+					'id_card'	=>	$like_keyword,
+					'tel'		=>	$like_keyword,
+					'mobile'	=>	$like_keyword,
+					'address'	=>	$like_keyword,
+					'email'		=>	$like_keyword,
 					'_logic'	=>	'or',
 				);
 		}
@@ -270,6 +276,7 @@ class TeacherController extends CommonController
 		{
 			// 额外数据处理
 			$m->add_time	=	time();
+			$m->upd_time	=	time();
 			$m->birthday	=	strtotime($m->birthday);
 			$m->username 	=	I('username');
 			$m->address 	=	I('address');
@@ -338,6 +345,7 @@ class TeacherController extends CommonController
 			}
 			$m->username 	=	I('username');
 			$m->address 	=	I('address');
+			$m->upd_time	=	time();
 
 			// 移除不能更新的数据
 			unset($m->id_card);

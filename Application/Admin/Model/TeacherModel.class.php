@@ -20,7 +20,9 @@ class TeacherModel extends CommonModel
 		array('gender', array(0,1,2), '{%common_gender_tips}', 1, 'in', 3),
 		array('birthday', 'CheckBirthday', '{%teacher_birthday_format}', 2, 'callback', 3),
 		array('state', array(0,1,2,3,4), '{%common_teacher_state_tips}', 1, 'in', 3),
-		array('tel', 'CheckTel', '{%common_view_tel_error}', 1, 'callback', 3),
+		array('mobile', 'CheckMobile', '{%common_mobile_format_error}', 1, 'callback', 3),
+		array('tel', 'CheckTel', '{%common_view_tel_error}', 2, 'callback', 3),
+		array('email', 'CheckEmail', '{%common_email_format_error}', 2, 'callback', 3),
 
 		// 添加
 		array('id_card', 'UniqueIdCard', '{%common_is_exist_id_card_tips}', 1, 'callback', 1),
@@ -81,6 +83,18 @@ class TeacherModel extends CommonModel
 	}
 
 	/**
+	 * [CheckMobile 手机号码校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T15:12:32+0800
+	 */
+	public function CheckMobile()
+	{
+		return (preg_match('/'.L('common_regex_mobile').'/', I('mobile')) == 1) ? true : false;
+	}
+
+	/**
 	 * [CheckTel 联系方式校验]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -90,6 +104,18 @@ class TeacherModel extends CommonModel
 	public function CheckTel()
 	{
 		return (preg_match('/'.L('common_regex_tel').'/', I('tel')) == 1) ? true : false;
+	}
+
+	/**
+	 * [CheckEmail 电子邮箱校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T15:12:32+0800
+	 */
+	public function CheckEmail()
+	{
+		return (preg_match('/'.L('common_regex_email').'/', I('email')) == 1) ? true : false;
 	}
 
 	/**

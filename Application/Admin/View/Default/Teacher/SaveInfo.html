@@ -35,8 +35,16 @@
 				<input type="text" placeholder="{{:L('common_address_text')}}" name="address" data-validation-message="{{:L('common_address_format')}}" class="am-radius" <notempty name="data"> value="{{$data.address}}"</notempty> />
 			</div>
 			<div class="am-form-group">
+				<label>{{:L('common_mobile_name')}}</label>
+				<input type="text" placeholder="{{:L('common_mobile_name')}}" name="mobile" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" class="am-radius" <notempty name="data"> value="{{$data.mobile}}"</notempty> required />
+			</div>
+			<div class="am-form-group">
 				<label>{{:L('common_view_tel_name')}}</label>
-				<input type="text" placeholder="{{:L('common_view_tel_tips')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_tips')}}" class="am-radius" <notempty name="data"> value="{{$data.tel}}"</notempty> required />
+				<input type="text" placeholder="{{:L('common_view_tel_name')}}" name="tel" pattern="{{:L('common_regex_tel')}}" data-validation-message="{{:L('common_view_tel_error')}}" class="am-radius" <notempty name="data"> value="{{$data.tel}}"</notempty> />
+			</div>
+			<div class="am-form-group">
+				<label>{{:L('common_email_name')}}</label>
+				<input type="text" placeholder="{{:L('common_email_name')}}" name="email" pattern="{{:L('common_regex_email')}}" data-validation-message="{{:L('common_email_format_error')}}" maxlength="60" class="am-radius" <notempty name="data"> value="{{$data.email}}"</notempty> />
 			</div>
 			<include file="Lib/TeacherState" />
 			<div class="am-form-group">

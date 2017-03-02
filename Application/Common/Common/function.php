@@ -9,6 +9,25 @@
  */
 
 /**
+ * [GenerateStudentNumber 学生编号生成-年份+自增id(不足以0前置补齐)]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-03-02T12:13:06+0800
+ * @param    [int]    $student_id [学生自增id]
+ * @return   [string]             [学生编号]
+ */
+function GenerateStudentNumber($student_id)
+{
+    $number = date('Y');
+    for($i=0; $i<8-strlen($student_id); $i++)
+    {
+        $number .= '0';
+    }
+    return $number.$student_id;
+}
+
+/**
  * [MyConfigInit 系统配置信息初始化]
  * @author   Devil
  * @blog     http://gong.gg/
