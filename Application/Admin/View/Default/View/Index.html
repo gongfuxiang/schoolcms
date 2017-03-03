@@ -66,7 +66,7 @@
 							<div class="am-form-group am-form-group-sm">
 								<label class="am-u-sm-2 am-form-label">{{:L('view_all_class_text')}}</label>
 								<div class="am-u-sm-10">
-									<select name="article_class_id" multiple="multiple" class="am-radius" minchecked="1" data-validation-message="{{:L('view_class_format')}}" required>
+									<select name="article_class_id" multiple="multiple" class="am-radius chosen-select" minchecked="1" data-placeholder="{{:L('view_all_class_text')}}" data-validation-message="{{:L('view_class_format')}}" required>
 										<option value="0" selected>{{:L('view_all_class_text')}}</option>
 										<foreach name="article_class_list" item="v">
 											<option value="{{$v.id}}">{{$v.name}}</option>

@@ -324,6 +324,12 @@ function FormDataFill(json, tag)
 				this.checked = state;
 			});
 		}
+
+		// 多选插件事件更新
+		if($('.chosen-select').length > 0)
+		{
+			$('.chosen-select').trigger('chosen:updated');
+		}
 	}
 }
 
@@ -372,7 +378,7 @@ function Tree(id, url, level)
 
 					// 操作项 start
 					html += '<div class="fr m-r-20 submit">';
-					html += '<span class="am-icon-edit am-icon-sm c-p submit-edit" data-am-modal="{target: \'#data-save-win\'}" data-json=\''+result.data[i]['json']+'\'></span>';
+					html += '<span class="am-icon-edit am-icon-sm c-p submit-edit" data-am-modal="{target: \'#data-save-win\'}" data-json=\''+result.data[i]['json']+'\' data-is_exist_son="'+result.data[i]['is_son']+'"></span>';
 					if(result.data[i]['is_son'] != 'ok')
 					{
 						html += '<span class="am-icon-trash-o am-icon-sm c-p m-l-20 m-r-15 submit-delete" data-id="'+result.data[i]['id']+'" data-url="'+result.data[i]['delete_url']+'"></span>';
@@ -413,6 +419,12 @@ function Tree(id, url, level)
 // 公共数据操作
 $(function()
 {
+	// 多选插件初始化
+	if($('.chosen-select').length > 0)
+	{
+		$('.chosen-select').chosen();
+	}
+	
 	/**
 	 * [submit-delete 删除数据列表]
 	 * @author   Devil

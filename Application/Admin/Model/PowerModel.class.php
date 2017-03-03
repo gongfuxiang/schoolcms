@@ -19,6 +19,8 @@ class PowerModel extends CommonModel
 		array('control', 'CheckControl', '{%power_control_format}', 1, 'callback', 3),
 		array('action', 'CheckAction', '{%power_action_format}', 1, 'callback', 3),
 		array('pid', 'CheckPid', '{%power_level_format}', 2, 'callback', 3),
+		array('sort', 'CheckSort', '{%common_sort_error}', 1, 'function', 3),
+		array('pid', 'CheckMyPid', '{%common_pid_eq_myid_format}', 1, 'callback', 2),
 
 		// 删除
 		array('id', 'CheckPowerIsExist', '{%power_no_exist_tips}', 1, 'callback', 5),
@@ -78,6 +80,18 @@ class PowerModel extends CommonModel
 			return !empty($id);
 		}
 		return true;
+	}
+
+	/**
+	 * [CheckMyPid pid是否是当前节点校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T19:32:40+0800
+	 */
+	public function CheckMyPid()
+	{
+		return (I('id') != I('pid'));
 	}
 
 	/**

@@ -517,6 +517,21 @@ function CheckUserName($string)
 }
 
 /**
+ * [CheckSort 排序值校验]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [int] $number [排序值]
+ * @return   [boolean]     [成功true, 失败false]
+ */
+function CheckSort($number)
+{
+    $temp = intval($number);
+    return ($temp >= 0 && $temp <= 255);
+}
+
+/**
  * [CheckLoginPwd 密码格式校验]
  * @author   Devil
  * @blog     http://gong.gg/

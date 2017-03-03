@@ -1,0 +1,90 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+
+<!-- header nav start -->
+
+<!-- header nav end -->
+
+<!-- conntent start  -->
+<div class="am-g my-content" <if condition="!empty($max_width_style)">style="{{$max_width_style}}"</if>>
+	<div class="am-u-md-6 am-u-sm-centered">
+		<form class="am-form form-with-tooltip" method="post" action="<{$__ROOT__}>index.php?g=Insert&c=User&f=Reg">
+			<fieldset>
+				<span class="">已有帐号 ^_^? </span>
+				<a href="<{$__ROOT__}>index.php?g=Info&c=User&f=LoginInfo" class="am-btn am-btn-secondary am-btn-xs am-radius">立即登录</a>
+				<hr />
+				<label for="doc-ipt-user-1">手机号码</label>
+				<div class="am-form-group">
+					<input type="text" name="mobile_phone" class="am-radius" id="doc-ipt-mobile_phone" placeholder="手机号码 11位" minlength="11" maxlength="11" pattern="^1((3|5|8){1}\d{1}|70)\d{8}$" data-foolish-msg="输入常用手机号码" required />
+				</div>
+
+				<label for="doc-ipt-ver-1">验证码</label>
+				<div class="am-input-group">
+					<span class='am-form-group'>
+	                	<input type="text" name="verify" class="am-radius" placeholder="短信验证码 6位" minlength="6" maxlength="6" pattern="^\d{6}$" data-foolish-msg="输入手机收到的6位验证码" required />
+	                </span>
+	                <span class="am-input-group-btn">
+	                    <button class="am-btn am-btn-default am-radius btn-loading-example" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'发送中...'}"> 获取验证码</button>
+	                </span>
+	            </div>
+
+				<br />
+				<label>设置登录密码</label>
+				<div class="am-input-group">
+					<span class='am-form-group'>
+						<input type="password" name="password" class="am-radius input-pwd" placeholder="密码6~18位 不能带空格" minlength="6" maxlength="18" data-foolish-msg="登录密码6~18位字符 不能带空格" required />
+					</span>
+					<span class="am-input-group-btn">
+						<button class="am-btn am-btn-default am-radius am-icon-eye ml-cr-grey eye-submit" type="button"></button>
+					</span>
+				</div>
+
+				<br />
+				<label for="doc-ipt-type-1">用户身份</label>
+				<div class="am-form-group">
+					<label class="am-radio-inline">
+						<input class="am-ucheck-radio" type="radio" name="type" value="guests" data-am-ucheck required />顾客
+					</label>
+					<label class="am-radio-inline needsclick">
+						<input class="am-ucheck-radio" type="radio" name="type" value="workers" data-am-ucheck />工作人员或商户
+					</label>
+				</div>
+
+				<p>
+					<input type="submit" class="am-btn am-btn-primary am-radius am-btn-sm" value="注 册" />
+					<a href="<{$__ROOT__}>index.php?g=Info&c=User&f=PwdBackInfo" class="am-btn am-btn-default am-btn-xs am-radius am-fr">忘记密码 ^_^?</a>
+				</p>
+			</fieldset>
+		</form>
+
+		<!-- 图片验证码 -->
+		<button class="am-btn am-btn-primary none" data-am-modal="{target: '#verify-win', closeViaDimmer:0}" id="verify-submit">获取验证码</button>
+		<div class="am-modal am-modal-no-btn" tabindex="-1" id="verify-win">
+			<div class="am-modal-dialog">
+				<div class="am-modal-hd">
+					<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+				</div>
+				<div class="am-modal-bd oh img-verify">
+					<div class="oh">
+						<label class="block">输入图形验证码！</label>
+						<input type="text" placeholder="输入验证码" pattern="^\d{4}$" maxlength="6" id="verify-value" data-foolish-msg="输入右边的验证码" class="ml-mr-t-5 am-form-field am-radius inline" />
+						<img src="<{$__ROOT__}>index.php?g=Info&c=User&f=GetRegVerify" class="am-radius" id="verify-img" onClick='this.src="<{$__ROOT__}>index.php?g=Info&c=User&f=GetRegVerify&"+Math.random()' />
+						<span class="ml-fs-12 ml-cr-blue ml-cp" onclick="document.getElementById('verify-img').src='<{$__ROOT__}>index.php?g=Info&c=User&f=GetRegVerify&'+Math.random()">看不清换一张</span>
+					</div>
+					<button type="button" class="am-btn am-btn-secondary am-radius am-btn-sm ml-mr-t-15 am-fl verify-submit-win">确 认</button>
+					<em class="ml-cr-f00 am-fl ml-mr-t-20 ml-mr-l-10 verify-win-tops"></em>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- conntent end  -->
+
+<!-- layuot common module start -->
+<include file="Public/CommonModule" />
+<!-- layuot common module end -->
+
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end -->

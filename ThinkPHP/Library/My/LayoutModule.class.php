@@ -80,7 +80,7 @@ class LayoutModule
 		if(empty($data['article_id']))
 		{
 			// 文章分类
-			if(!empty($data['article_class_id']))
+			if(!empty($data['article_class_id']) && substr($data['article_class_id'], 0, 1) != 0)
 			{
 				$where['article_class_id'] = array('in', $data['article_class_id']);
 			}

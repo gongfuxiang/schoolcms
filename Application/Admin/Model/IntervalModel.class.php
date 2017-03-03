@@ -17,6 +17,7 @@ class IntervalModel extends CommonModel
 		// 添加,编辑
 		array('name', 'CheckName', '{%interval_name_format}', 1, 'callback', 3),
 		array('is_enable', array(0,1), '{%common_enable_tips}', 1, 'in', 3),
+		array('sort', 'CheckSort', '{%common_sort_error}', 1, 'function', 3),
 	);
 
 	/**

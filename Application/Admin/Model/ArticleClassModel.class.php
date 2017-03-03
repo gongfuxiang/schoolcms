@@ -17,6 +17,7 @@ class ArticleClassModel extends CommonModel
 		// 添加,编辑
 		array('name', 'CheckName', '{%common_name_format}', 1, 'callback', 3),
 		array('is_enable', array(0,1), '{%common_enable_tips}', 1, 'in', 3),
+		array('sort', 'CheckSort', '{%common_sort_error}', 1, 'function', 3),
 
 		// 删除校验是否存在子级
 		array('id', 'IsExistSon', '{%common_is_exist_son_error}', 1, 'callback', 5),

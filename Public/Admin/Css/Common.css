@@ -357,21 +357,6 @@ ul {margin-top:0;}
  */
 .admin-site-vice-name { font-size: 12px; color: #eaeaea; }
 
-
-/**
- * 公共分类样式
- */
-input[type="text"][readonly] { background: #fff !important; cursor: pointer !important; }
-.submit-state { font-size: 16px; width: 25px; height: 25px; line-height: 25px; }
-input:hover, select:hover, textarea:hover { border-style:solid; border-width:1px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
-
-/**
- * 表单光标
- */
-.am-form-group:hover>label { color: #333 !important; }
-.am-form-group:hover>label>span { color: #7ed0f9 !important; }
-.am-form-group:hover>input, .am-form-group:hover>select, .am-form-group:hover>textarea { border: 1px solid #999 ; }
-
 /**
  * PC
  */
