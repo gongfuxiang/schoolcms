@@ -45,6 +45,12 @@ class SiteController extends CommonController
 		// 站点状态
 		$this->assign('site_site_state_list', L('site_site_state_list'));
 
+		// 是否开启用户注册
+		$this->assign('site_user_reg_state_list', L('site_user_reg_state_list'));
+
+		// 是否开启用户登录
+		$this->assign('site_user_login_state_list', L('site_user_login_state_list'));
+
 		// 配置信息
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);

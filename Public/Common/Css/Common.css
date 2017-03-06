@@ -1,11 +1,40 @@
 /**
  * 公共
  */
+* { font-size: 14px; }
+.w100 {width:100%;}
+.fw-100 {font-weight:100;}
+.fw-700 {font-weight:700;}
+#common-prompt {position:fixed;top:0;left:0;right:0;text-align:center;margin-top:0;padding:5px;font-size:14px;z-index:10000;}
+.am-popover,.am-radius,.am-btn {border-radius:2px !important;}
+.am-icon-trash-o:before {width:12px !important;}
+.fr {float:right !important;}
+.fl {float:left !important;}
+.fs-12 {font-size:12px !important;}
+.fs-14 {font-size:14px !important;}
+.fs-16 {font-size:16px !important;}
+.fs-18 {font-size:18px !important;}
+.c-r {cursor:w-resize;}
+.c-p {cursor:pointer;}
+legend {padding-bottom:0.2rem !important;}
+.none {display:none !important;}
+.block {display:block !important;}
+.am-popup-bd {background:#fff;}
+.cr-eee {color:#eee !important;}
+.cr-ccc {color:#ccc !important;}
+.cr-ddd {color:#ddd !important;}
+.cr-999 {color:#999 !important;}
+.cr-red {color:#f00 !important;}
+.am-form select,.am-form textarea,.am-form input[type="text"],.am-form input[type="password"],.am-form input[type="datetime"],.am-form input[type="datetime-local"],.am-form input[type="date"],.am-form input[type="month"],.am-form input[type="time"],.am-form input[type="week"],.am-form input[type="number"],.am-form input[type="email"],.am-form input[type="url"],.am-form input[type="search"],.am-form input[type="tel"],.am-form input[type="color"],.am-form-field {font-size:1.4rem !important;}
+select {height:32px !important;}
+.bk-cr-gray {background:#f3f3f3 !important;}
+.bk-cr-ffd {background:#ffd !important;}
 .t-c {text-align:center;}
 .o-h { overflow: hidden; }
 input[type="text"][readonly] { background: #fff !important; cursor: pointer !important; }
 .submit-state { font-size: 16px; width: 25px; height: 25px; line-height: 25px; }
 input:hover, select:hover, textarea:hover, .chosen-choices:hover, .chosen-single:hover { border-style:solid; border-width:1px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
+.am-input-group-sm > .am-input-group-btn > .am-btn { height: 32px; }
 
 /**
  * 表单光标

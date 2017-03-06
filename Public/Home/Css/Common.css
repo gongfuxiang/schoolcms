@@ -1,5 +1,5 @@
 /**
- * 公共
+ * 公共class
  */
 .p-0 { padding: 0px !important; }
 .p-20 { padding: 20px !important; }
@@ -48,19 +48,12 @@
 .m-b-25 { margin-bottom: 25px !important; }
 .m-b-30 { margin-bottom: 30px !important; }
 .b-b-solid { border-bottom: 1px solid #dedede; }
-/**
- * 公共class
- */
-* { font-size: 14px; }
-.cr-eee { color: #eee; }
-.cr-999 { color: #999; }
-.none { display: none; }
-.block { display: block; }
 
 /**
  * 公共
  */
 img, video, embed { max-width: 100%; }
+.tips-error { margin: 15% 0; }
 
 /**
  * 导航

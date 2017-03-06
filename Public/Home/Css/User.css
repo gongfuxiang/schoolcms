@@ -1,0 +1,13 @@
+/**
+ * PC
+ */
+@media only screen and (min-width: 641px) {
+	#verify-img-value { float: left; width: 50%; margin-right: 5px; }
+}
+
+/**
+ * 手机
+ */
+@media only screen and (max-width: 641px) {
+	#verify-img-value { margin-bottom: 10px; }
+}
