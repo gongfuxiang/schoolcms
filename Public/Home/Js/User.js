@@ -6,10 +6,14 @@ $(function()
 	$('.eye-submit').on('click', function()
 	{
 		var $obj = $(this).parent().prev().find('input');
-		var type = $obj.attr('type');
-		//$(this).addClass((type == 'password') ? 'ml-cr-green' : 'ml-cr-grey');
-		//$(this).removeClass((type == 'password') ? 'ml-cr-grey' : 'ml-cr-green');
-		$obj.attr('type', (type == 'password') ? 'text' : 'password');
+		if($obj.attr('type') == 'password')
+		{
+			$(this).addClass('cr-green');
+			$obj.attr('type', 'text');
+		} else {
+			$(this).removeClass('cr-green');
+			$obj.attr('type', 'password');
+		}
 	});
 
 
@@ -27,6 +31,7 @@ $(function()
 			{
 				// 开启图片验证码窗口
 				$verify_win.modal('open');
+				$verify.focus();
 				return false;
 			}
 

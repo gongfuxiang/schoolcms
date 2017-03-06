@@ -11,6 +11,9 @@ namespace Home\Controller;
  */
 class UserController extends CommonController
 {
+	// 上一个页面url地址
+	private $referer_url;
+
 	/**
 	 * [_initialize 前置操作-继承公共前置方法]
 	 * @author   Devil
@@ -22,6 +25,9 @@ class UserController extends CommonController
 	{
 		// 调用父类前置方法
 		parent::_initialize();
+
+		// 上一个页面, 空则用户中心
+		$this->referer_url = empty($_SERVER['HTTP_REFERER']) ? U('Home/User/Index') : $_SERVER['HTTP_REFERER'];
 	}
 
 	/**
@@ -47,11 +53,24 @@ class UserController extends CommonController
 	{
 		if(MyC('home_user_reg_state') == 1)
 		{
+			$this->assign('referer_url', $this->referer_url);
 			$this->display('RegInfo');
 		} else {
 			$this->assign('msg', L('common_close_user_reg_tips'));
 			$this->display('/Public/TipsError');
 		}
+	}
+
+	/**
+	 * [Reg 用户注册]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-07T00:08:36+0800
+	 */
+	public function Reg()
+	{
+		print_r($_POST);
 	}
 
 	/**
@@ -65,6 +84,7 @@ class UserController extends CommonController
 	{
 		if(MyC('home_user_login_state') == 1)
 		{
+			$this->assign('referer_url', $this->referer_url);
 			$this->display('LoginInfo');
 		} else {
 			$this->assign('msg', L('common_close_user_login_tips'));
