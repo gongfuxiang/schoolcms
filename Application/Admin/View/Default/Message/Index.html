@@ -1,0 +1,53 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+
+<!-- right content start  -->
+<div class="content-right">
+	<div class="content">
+		<!-- form start -->
+		<form class="am-form form-validation view-save" action="{{:U('Admin/Message/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Message/Index')}}">
+			<div class="am-form-group">
+				<label>{{$data.common_sms_apikey.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_sms_apikey.describe}}）</span></label>
+				<input type="text" name="{{$data.common_sms_apikey.only_tag}}" placeholder="{{$data.common_sms_apikey.name}}" data-validation-message="{{$data.common_sms_apikey.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_sms_apikey.value}}"</present> required />
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.common_sms_sign.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_sms_sign.describe}}）</span></label>
+				<input type="text" name="{{$data.common_sms_sign.only_tag}}" placeholder="{{$data.common_sms_sign.name}}" data-validation-message="{{$data.common_sms_sign.error_tips}}" class="am-radius" minlength="3" maxlength="8" <present name="data"> value="{{$data.common_sms_sign.value}}"</present> required />
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.common_sms_expire_time.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_sms_expire_time.describe}}）</span></label>
+				<input type="number" name="{{$data.common_sms_expire_time.only_tag}}" placeholder="{{$data.common_sms_expire_time.name}}" data-validation-message="{{$data.common_sms_expire_time.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_sms_expire_time.value}}"</present> required />
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.home_sms_time_interval.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_sms_time_interval.describe}}）</span></label>
+				<input type="number" name="{{$data.home_sms_time_interval.only_tag}}" placeholder="{{$data.home_sms_time_interval.name}}" data-validation-message="{{$data.home_sms_time_interval.error_tips}}" class="am-radius" <present name="data"> value="{{$data.home_sms_time_interval.value}}"</present> required />
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.home_user_reg_img_verify_state.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_user_reg_img_verify_state.describe}}）</span></label>
+				<select name="{{$data.home_user_reg_img_verify_state.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.home_user_reg_img_verify_state.error_tips}}" required>
+					<foreach name="user_reg_img_verify_state_list" item="v">
+						<option value="{{$v.value}}" <if condition="isset($data['home_user_reg_img_verify_state']['value']) and $data['home_user_reg_img_verify_state']['value'] eq $v['value']">selected</if>>{{$v.name}}</option>
+					</foreach>
+				</select>
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.home_sms_user_reg.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_sms_user_reg.describe}}）</span></label>
+				<textarea rows="3" name="{{$data.home_sms_user_reg.only_tag}}" class="am-radius" placeholder="{{$data.home_sms_user_reg.name}}" data-validation-message="{{$data.home_sms_user_reg.error_tips}}"><present name="data">{{$data.home_sms_user_reg.value}}</present></textarea>
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.home_sms_user_forget_pwd.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_sms_user_forget_pwd.describe}}）</span></label>
+				<textarea rows="3" name="{{$data.home_sms_user_forget_pwd.only_tag}}" class="am-radius" placeholder="{{$data.home_sms_user_forget_pwd.name}}" data-validation-message="{{$data.home_sms_user_forget_pwd.error_tips}}"><present name="data">{{$data.home_sms_user_forget_pwd.value}}</present></textarea>
+			</div>
+			<div class="am-form-group">
+				<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
+			</div>
+		</form>
+        <!-- form end -->
+	</div>
+</div>
+<!-- right content end  -->
+		
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end -->

@@ -26,7 +26,7 @@
 	                	<input type="number" name="verify" class="am-radius" placeholder="{{:L('common_verify_text')}}" minlength="6" maxlength="6" data-validation-message="{{:L('common_verify_tips')}}" required />
 	                </span>
 	                <span class="am-input-group-btn">
-	                    <button class="am-btn am-btn-default am-radius btn-loading-example verify-submit" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'{{:L('common_send_tips')}}'}" data-url="{{:U('Home/User/RegSmsSend')}}" data-verify="1" data-text="{{:L('common_get_verify_text')}}" data-send-text="{{:L('common_send_time_tips')}}" data-time="5">{{:L('common_get_verify_text')}}</button>
+	                    <button class="am-btn am-btn-default am-radius btn-loading-example verify-submit" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'{{:L('common_send_tips')}}'}" data-url="{{:U('Home/User/RegSmsSend')}}" data-verify="{{:MyC('home_user_reg_img_verify_state')}}" data-text="{{:L('common_get_verify_text')}}" data-send-text="{{:L('common_send_time_tips')}}" data-time="{{:MyC('home_sms_time_interval', 30, true)}}">{{:L('common_get_verify_text')}}</button>
 	                </span>
 	            </div>
 

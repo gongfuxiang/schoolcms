@@ -128,6 +128,8 @@ return array(
 	'common_method_exists_error'		=>	'[{$1}]成员方法未定义',
 	'common_template_access_count'		=>	'浏览 {$1} 次',
 	'common_student_number_tips'		=>	'系统自动生成',
+	'common_reg_success'				=>	'注册成功',
+	'common_reg_error'					=>	'注册失败',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',

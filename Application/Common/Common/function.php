@@ -542,9 +542,9 @@ function CheckSort($number)
  */
 function CheckLoginPwd($string)
 {
-    $len = strlen($string);
     return (preg_match('/'.L('common_regex_pwd').'/', $string) == 1) ? true : false;
-    return ($len >= 6 && $len <= 18);
+    // $len = strlen($string);
+    // return ($len >= 6 && $len <= 18);
 }
 
 /**

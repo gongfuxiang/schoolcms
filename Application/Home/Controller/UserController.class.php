@@ -70,7 +70,40 @@ class UserController extends CommonController
 	 */
 	public function Reg()
 	{
-		print_r($_POST);
+		// 是否开启用户注册
+		if(MyC('home_user_reg_state') != 1)
+		{
+			$this->error(L('common_close_user_reg_tips'));
+		}
+
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+		
+		// 模型
+		$m = D('User');
+
+		// 数据自动校验
+		if($m->create($_POST, 1))
+		{
+			// 额外数据处理
+			$m->add_time	=	time();
+			$m->upd_time	=	time();
+			$m->salt 		=	GetNumberCode(6);
+			$m->pwd 		=	LoginPwdEncryption(I('pwd'), $m->salt);
+
+			// 数据添加
+			if($m->add())
+			{
+				$this->ajaxReturn(L('common_reg_success'));
+			} else {
+				$this->ajaxReturn(L('common_reg_error'), -100);
+			}
+		} else {
+			$this->ajaxReturn($m->getError(), -1);
+		}
 	}
 
 	/**
@@ -141,14 +174,20 @@ class UserController extends CommonController
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}
 
+		// 验证码公共基础参数
+		$verify_param = array(
+				'key_prefix' => 'reg',
+				'expire_time' => MyC('common_sms_expire_time')
+			);
+
 		// 是否开启图片验证码
-		if(true)
+		if(MyC('home_user_reg_img_verify_state') == 1)
 		{
 			if(empty($_POST['verify']))
 			{
 				$this->ajaxReturn(L('common_param_error'), -1);
 			}
-			$verify = new \My\Verify(array('key_prefix'=>'reg'));
+			$verify = new \My\Verify($verify_param);
 			if(!$verify->CheckExpire())
 			{
 				$this->ajaxReturn(L('common_verify_expire'), -2);
@@ -166,14 +205,13 @@ class UserController extends CommonController
 		}
 
 		// 发送短信验证码
+		$sms = new \My\Sms($verify_param);
 		$code = GetNumberCode(6);
-		$content = str_replace('{code}', $code, MyC('common_sms_registered'));
-		//if(Sms_Code_Send($content, I('mobile')))
-		if(true)
+		if($sms->SendText(I('mobile'), MyC('home_sms_user_reg'), $code))
 		{
 			$this->ajaxReturn(L('common_send_success'));
 		} else {
-			$this->ajaxReturn(L('common_send_error'), -100);
+			$this->ajaxReturn(L('common_send_error').'['.$sms->error.']', -100);
 		}
 	}
 }
