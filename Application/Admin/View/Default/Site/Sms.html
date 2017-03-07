@@ -5,8 +5,12 @@
 <!-- right content start  -->
 <div class="content-right">
 	<div class="content">
+		<!-- table nav start -->
+		<include file="Nav" />
+		<!-- table nav end -->
+		
 		<!-- form start -->
-		<form class="am-form form-validation view-save" action="{{:U('Admin/Message/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Message/Index')}}">
+		<form class="am-form form-validation view-save" action="{{:U('Admin/Site/SmsSave')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Site/Sms')}}">
 			<div class="am-form-group">
 				<label>{{$data.common_sms_apikey.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_sms_apikey.describe}}）</span></label>
 				<input type="text" name="{{$data.common_sms_apikey.only_tag}}" placeholder="{{$data.common_sms_apikey.name}}" data-validation-message="{{$data.common_sms_apikey.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_sms_apikey.value}}"</present> required />
@@ -26,7 +30,7 @@
 			<div class="am-form-group">
 				<label>{{$data.home_user_reg_img_verify_state.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_user_reg_img_verify_state.describe}}）</span></label>
 				<select name="{{$data.home_user_reg_img_verify_state.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.home_user_reg_img_verify_state.error_tips}}" required>
-					<foreach name="user_reg_img_verify_state_list" item="v">
+					<foreach name="site_user_reg_img_verify_state_list" item="v">
 						<option value="{{$v.value}}" <if condition="isset($data['home_user_reg_img_verify_state']['value']) and $data['home_user_reg_img_verify_state']['value'] eq $v['value']">selected</if>>{{$v.name}}</option>
 					</foreach>
 				</select>

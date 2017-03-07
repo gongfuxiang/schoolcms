@@ -31,7 +31,7 @@ class SiteController extends CommonController
 	}
 
 	/**
-     * [Index 配置列表]
+     * [Index 配置列表-站点]
      * @author   Devil
      * @blog     http://gong.gg/
      * @version  0.0.1
@@ -54,12 +54,13 @@ class SiteController extends CommonController
 		// 配置信息
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);
+		$this->assign('nav_type', 'site');
 		
 		$this->display('Index');
 	}
 
 	/**
-	 * [Save 配置数据保存]
+	 * [Save 配置数据保存-站点]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -85,6 +86,38 @@ class SiteController extends CommonController
 		}
 
 		// 基础配置
+		$this->MyConfigSave();
+	}
+
+	/**
+     * [Sms 配置列表-短信]
+     * @author   Devil
+     * @blog     http://gong.gg/
+     * @version  0.0.1
+     * @datetime 2016-12-06T21:31:53+0800
+     */
+	public function Sms()
+	{
+		// 是否开启用户注册-开启图片验证码
+		$this->assign('site_user_reg_img_verify_state_list', L('site_user_reg_img_verify_state_list'));
+
+		// 配置信息
+		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
+		$this->assign('data', $data);
+		$this->assign('nav_type', 'sms');
+		
+		$this->display('Sms');
+	}
+
+	/**
+	 * [SmsSave 配置数据保存-短信]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-01-02T23:08:19+0800
+	 */
+	public function SmsSave()
+	{
 		$this->MyConfigSave();
 	}
 }

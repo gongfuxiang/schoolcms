@@ -5,6 +5,10 @@
 <!-- right content start  -->
 <div class="content-right">
 	<div class="content">
+		<!-- table nav start -->
+		<include file="Nav" />
+		<!-- table nav end -->
+
 		<!-- form start -->
 		<form class="am-form form-validation view-save" action="{{:U('Admin/Site/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Site/Index')}}" enctype="multipart/form-data">
 			<input type="hidden" name="max_file_size" value="{{:MyC('home_max_limit_image', 2048000)}}" />

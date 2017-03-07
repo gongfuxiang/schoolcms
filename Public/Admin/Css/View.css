@@ -20,8 +20,6 @@
 .am-switch { border-radius: 3px; margin-right: 5px; height: 29px; }
 .layout-view-hidden { border: 3px dashed #f79797 !important; }
 .layout-view-hidden>div:first-child { background: #fdeeee !important; }
-.layout-nav { margin-bottom: -1px; }
-.layout-nav li a { border-top-left-radius: 2px; border-top-right-radius: 2px; }
 .layout-content { padding-right: 0rem; }
 .layout-no-edit { padding: 10px 0px; }
 

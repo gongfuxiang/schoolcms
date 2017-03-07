@@ -1,0 +1,8 @@
+<ul class="am-nav am-nav-pills table-nav m-b-10">
+	<li <if condition="$nav_type eq 'site'">class="am-active"</if>>
+		<a href="{{:U('Admin/Site/Index')}}">{{:L('site_site_nav_name')}}</a>
+	</li>
+	<li <if condition="$nav_type eq 'sms'">class="am-active"</if>>
+		<a href="{{:U('Admin/Site/Sms')}}">{{:L('site_sms_nav_name')}}</a>
+	</li>
+</ul>

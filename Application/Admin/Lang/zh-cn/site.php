@@ -9,6 +9,8 @@
  */
 return array(
 	'site_site_logo_text'			=>	'选择网站logo',
+	'site_site_nav_name'			=>	'站点',
+	'site_sms_nav_name'				=>	'短信',
 	
 	// 站点关闭状态列表
 	'site_site_state_list'			=>	array(
@@ -24,6 +26,12 @@ return array(
 
 	// 是否开启用户登录
 	'site_user_login_state_list'			=>	array(
+			0 => array('value' => 0, 'name' => '关闭'),
+			1 => array('value' => 1, 'name' => '开启', 'checked' => true),
+		),
+
+	// 用户注册-强制使用图片验证码状态列表
+	'site_user_reg_img_verify_state_list'			=>	array(
 			0 => array('value' => 0, 'name' => '关闭'),
 			1 => array('value' => 1, 'name' => '开启', 'checked' => true),
 		),

@@ -330,6 +330,8 @@ ul {margin-top:0;}
  * 导航
  */
 .admin-site-vice-name { font-size: 12px; color: #eaeaea; }
+.table-nav { border-bottom: 1px solid #eee; }
+.table-nav li a { border-top-left-radius: 2px; border-top-right-radius: 2px; }
 
 /**
  * PC
