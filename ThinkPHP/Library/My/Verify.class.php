@@ -152,6 +152,22 @@ class Verify
 	}
 
 	/**
+	 * [Remove 验证码清除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-08T10:18:20+0800
+	 * @return   [other] [无返回值]
+	 */
+	public function Remove()
+	{
+		if(isset($_SESSION[$this->key_verify]))
+		{
+			unset($_SESSION[$this->key_verify]);
+		}
+	}
+
+	/**
 	 * [KindofSession 种验证码session]
 	 * @author   Devil
 	 * @blog     http://gong.gg/

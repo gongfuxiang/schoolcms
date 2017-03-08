@@ -81,7 +81,28 @@ class UserController extends CommonController
 		{
 			$this->error(L('common_unauthorized_access'));
 		}
-		
+
+		// 手机号码是否已存在
+		if($this->IsExistMobile())
+		{
+			$this->ajaxReturn(L('common_mobile_exist_error'), -1);
+		}
+
+		// 验证码校验
+		$verify_param = array(
+				'key_prefix' => 'reg',
+				'expire_time' => MyC('common_sms_expire_time')
+			);
+		$sms = new \My\Sms($verify_param);
+		if(!$sms->CheckExpire())
+		{
+			$this->ajaxReturn(L('common_verify_expire'), -10);
+		}
+		if(!$sms->CheckCorrect(I('verify')))
+		{
+			$this->ajaxReturn(L('common_verify_error'), -11);
+		}
+
 		// 模型
 		$m = D('User');
 
@@ -97,6 +118,9 @@ class UserController extends CommonController
 			// 数据添加
 			if($m->add())
 			{
+				// 清除验证码
+				$sms->Remove();
+
 				$this->ajaxReturn(L('common_reg_success'));
 			} else {
 				$this->ajaxReturn(L('common_reg_error'), -100);
@@ -174,6 +198,18 @@ class UserController extends CommonController
 			$this->ajaxReturn(L('common_param_error'), -1);
 		}
 
+		// 手机号码格式
+		if(!CheckMobile(I('mobile')))
+		{
+			$this->ajaxReturn(L('common_mobile_format_error'), -2);
+		}
+
+		// 手机号码是否已存在
+		if($this->IsExistMobile())
+		{
+			$this->ajaxReturn(L('common_mobile_exist_error'), -3);
+		}
+
 		// 验证码公共基础参数
 		$verify_param = array(
 				'key_prefix' => 'reg',
@@ -185,23 +221,17 @@ class UserController extends CommonController
 		{
 			if(empty($_POST['verify']))
 			{
-				$this->ajaxReturn(L('common_param_error'), -1);
+				$this->ajaxReturn(L('common_param_error'), -10);
 			}
 			$verify = new \My\Verify($verify_param);
 			if(!$verify->CheckExpire())
 			{
-				$this->ajaxReturn(L('common_verify_expire'), -2);
+				$this->ajaxReturn(L('common_verify_expire'), -11);
 			}
 			if(!$verify->CheckCorrect(I('verify')))
 			{
-				$this->ajaxReturn(L('common_verify_error'), -3);
+				$this->ajaxReturn(L('common_verify_error'), -12);
 			}
-		}
-
-		// 手机号码格式
-		if(!CheckMobile(I('mobile')))
-		{
-			$this->ajaxReturn(L('common_mobile_format_error'), -4);
 		}
 
 		// 发送短信验证码
@@ -209,10 +239,30 @@ class UserController extends CommonController
 		$code = GetNumberCode(6);
 		if($sms->SendText(I('mobile'), MyC('home_sms_user_reg'), $code))
 		{
+			// 清除验证码
+			if(isset($verify) && is_object($verify))
+			{
+				$verify->Remove();
+			}
+
 			$this->ajaxReturn(L('common_send_success'));
 		} else {
 			$this->ajaxReturn(L('common_send_error').'['.$sms->error.']', -100);
 		}
+	}
+
+	/**
+	 * [IsExistMobile 手机号码是否存在]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-08T10:27:14+0800
+	 * @return   [boolean] [存在true, 不存在false]
+	 */
+	private function IsExistMobile()
+	{
+		$id = M('User')->where(array('mobile'=>I('mobile')))->getField('id');
+		return !empty($id);
 	}
 }
 ?>

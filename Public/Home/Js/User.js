@@ -36,7 +36,8 @@ $(function()
 			}
 
 			// 验证码窗口操作按钮则更新按钮对象
-			if($(this).data('win') == 1)
+			var is_win = $(this).data('win');
+			if(is_win == 1)
 			{
 				$this = $('.verify-submit');
 
@@ -56,6 +57,10 @@ $(function()
 			
 			// 按钮交互
 			$this.button('loading');
+			if(is_win == 1)
+			{
+				$('.verify-submit-win').button('loading');
+			}
 
 			// 发送验证码
 			$.ajax({
@@ -72,6 +77,10 @@ $(function()
 							if(time_count == 0)
 							{
 								$this.button('reset');
+								if(is_win == 1)
+								{
+									$('.verify-submit-win').button('reset');
+								}
 								$this.text($this.data('text'));
 								$verify.val('');
 								clearInterval(intervalid);
@@ -83,12 +92,20 @@ $(function()
 						$verify_win.modal('close');
 					} else {
 						$this.button('reset');
+						if(is_win == 1)
+						{
+							$('.verify-submit-win').button('reset');
+						}
 						Prompt(result.msg);
 					}
 				},
 				error:function()
 				{
 					$this.button('reset');
+					if(is_win == 1)
+					{
+						$('.verify-submit-win').button('reset');
+					}
 					Prompt('网络错误');
 				}
 			});			
