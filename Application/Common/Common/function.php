@@ -448,6 +448,20 @@ function CheckMobile($mobile)
 }
 
 /**
+ * [CheckEmail 电子邮箱格式校验]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-03T21:58:54+0800
+ * @param    [string] $email  [电子邮箱]
+ * @return   [boolean]        [正确true，失败false]
+ */
+function CheckEmail($email)
+{
+    return (preg_match('/'.L('common_regex_email').'/', $email) == 1) ? true : false;
+}
+
+/**
  * [CheckIdCard 身份证号码格式校验]
  * @author   Devil
  * @blog     http://gong.gg/

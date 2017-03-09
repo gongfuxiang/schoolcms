@@ -18,6 +18,9 @@ class CommonController extends Controller
 	// 底部导航
 	protected $nav_footer;
 
+	// 用户信息
+	protected $user;
+
 	/**
 	 * [__construt 构造方法]
 	 * @author   Devil
@@ -32,6 +35,9 @@ class CommonController extends Controller
 	{
 		// 配置信息初始化
 		MyConfigInit();
+
+		// 公共数据初始化
+		$this->CommonInit();
 
 		// 菜单
 		$this->NavInit();
@@ -78,6 +84,37 @@ class CommonController extends Controller
 			$result['msg'] = L('common_operation_error');
 		}
 		exit(json_encode($result));
+	}
+
+	/**
+	 * [Is_Login 登录校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-09T11:43:48+0800
+	 */
+	protected function Is_Login()
+	{
+		if(empty($_SESSION['user']))
+		{
+			$this->error(L('common_login_invalid'), U('Home/User/LoginInfo'));
+		}
+	}
+
+	/**
+	 * [CommonInit 公共数据初始化]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-09T11:43:48+0800
+	 */
+	private function CommonInit()
+	{
+		// 用户数据
+		if(!empty($_SESSION['user']))
+		{
+			$this->user = I('session.user');
+		}
 	}
 
 	/**
@@ -133,6 +170,9 @@ class CommonController extends Controller
 		$max_width = MyC('home_content_max_width', 0, true);
 		$max_width_style = ($max_width == 0) ? '' : 'max-width:'.$max_width.'px;';
 		$this->assign('max_width_style', $max_width_style);
+
+		// 用户数据
+		$this->assign('user', $this->user);
 	}
 
 	/**

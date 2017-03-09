@@ -51,10 +51,18 @@ class UserController extends CommonController
 	 */
 	public function RegInfo()
 	{
+		//$sms = new \My\Email();
+
 		if(MyC('home_user_reg_state') == 1)
 		{
-			$this->assign('referer_url', $this->referer_url);
-			$this->display('RegInfo');
+			if(empty($this->user))
+			{
+				$this->assign('referer_url', $this->referer_url);
+				$this->display('RegInfo');
+			} else {
+				$this->assign('msg', L('common_reg_already_had_tips'));
+				$this->display('/Public/TipsError');
+			}
 		} else {
 			$this->assign('msg', L('common_close_user_reg_tips'));
 			$this->display('/Public/TipsError');
@@ -121,7 +129,11 @@ class UserController extends CommonController
 				// 清除验证码
 				$sms->Remove();
 
-				$this->ajaxReturn(L('common_reg_success'));
+				if($this->UserLoginRecord($user['id']))
+				{
+					$this->ajaxReturn(L('common_reg_success'));
+				}
+				$this->ajaxReturn(L('common_reg_success_login_tips'));
 			} else {
 				$this->ajaxReturn(L('common_reg_error'), -100);
 			}
@@ -141,12 +153,99 @@ class UserController extends CommonController
 	{
 		if(MyC('home_user_login_state') == 1)
 		{
-			$this->assign('referer_url', $this->referer_url);
-			$this->display('LoginInfo');
+			if(empty($this->user))
+			{
+				$this->assign('referer_url', $this->referer_url);
+				$this->display('LoginInfo');
+			} else {
+				$this->assign('msg', L('common_login_already_had_tips'));
+				$this->display('/Public/TipsError');
+			}
 		} else {
 			$this->assign('msg', L('common_close_user_login_tips'));
 			$this->display('/Public/TipsError');
 		}
+	}
+
+	/**
+	 * [Login 用户登录]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-09T10:57:31+0800
+	 */
+	public function Login()
+	{
+		// 是否开启用户登录
+		if(MyC('home_user_login_state') != 1)
+		{
+			$this->error(L('common_close_user_login_tips'));
+		}
+
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 登录帐号格式校验
+		$account = I('account');
+		if(!CheckMobile($account) && !CheckEmail($account))
+		{
+			$this->ajaxReturn(L('user_login_account_format'), -1);
+		}
+
+		// 密码
+		$pwd = trim(I('pwd'));
+		if(!CheckLoginPwd($pwd))
+		{
+			$this->ajaxReturn(L('user_reg_pwd_format'), -2);
+		}
+
+		// 获取用户账户信息
+		$where = array('mobile' => $account, 'email' => $account, '_logic' => 'OR');
+		$user = M('User')->field(array('id', 'pwd', 'salt'))->where($where)->find();
+		if(empty($user))
+		{
+			$this->ajaxReturn(L('user_login_account_on_exist_error'), -3);
+		}
+
+		// 密码校验
+		if(LoginPwdEncryption($pwd, $user['salt']) != $user['pwd'])
+		{
+			$this->ajaxReturn(L('user_common_pwd_error'), -4);
+		}
+
+		// 登录记录
+		if($this->UserLoginRecord($user['id']))
+		{
+			$this->ajaxReturn(L('common_login_success'));
+		}
+		$this->ajaxReturn(L('common_login_invalid'), -100);
+	}
+
+	/**
+	 * [UserLoginRecord 用户登录记录]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-09T11:37:43+0800
+	 * @param    [int]     $user_id [用户id]
+	 * @return   [boolean]          [记录成功true, 失败false]
+	 */
+	private function UserLoginRecord($user_id)
+	{
+		if(!empty($user_id))
+		{
+			$field = array('id', 'mobile', 'email', 'nickname', 'gender', 'add_time', 'upd_time');
+			$user = M('User')->field($field)->find($user_id);
+			if(!empty($user))
+			{
+				$_SESSION['user'] = $user;
+				return !empty($_SESSION['user']);
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -263,6 +362,19 @@ class UserController extends CommonController
 	{
 		$id = M('User')->where(array('mobile'=>I('mobile')))->getField('id');
 		return !empty($id);
+	}
+
+	/**
+	 * [Logout 退出]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-05T14:31:23+0800
+	 */
+	public function Logout()
+	{
+		session_destroy();
+		redirect(__MY_URL__);
 	}
 }
 ?>

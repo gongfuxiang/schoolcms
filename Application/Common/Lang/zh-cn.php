@@ -19,7 +19,10 @@ return array(
 	'common_application_website'		=>	'http://schoolcms.org/',
 
 	// 公共
+	'common_login_success'				=>	'登录成功',
 	'common_login_invalid'				=>	'登录失效，请重新登录',
+	'common_login_already_had_tips'		=>	'已经登录了，请勿重复登录',
+	'common_reg_already_had_tips'		=>	'已经登录了，如要注册新账户，请先退出当前账户',
 	'common_jump_tips'					=>	'页面跳转中...',
 	'common_form_loading_tips'			=>	'处理中...',
 	'common_mobile_name'				=>	'手机号码',
@@ -65,6 +68,8 @@ return array(
 	'common_img_verify_text'			=>	'图形验证码',
 	'common_img_verify_tips'			=>	'请输入图形验证码',
 	'common_img_verify_submit_text'		=>	'看不清换一张',
+	'common_logout_text'				=>	'退出',
+	'common_set_up_the_text'			=>	'设置',
 
 	'common_param_error'				=>	'参数错误',
 	'common_format_error'				=>	'格式错误',
@@ -133,6 +138,7 @@ return array(
 	'common_template_access_count'		=>	'浏览 {$1} 次',
 	'common_student_number_tips'		=>	'系统自动生成',
 	'common_reg_success'				=>	'注册成功',
+	'common_reg_success_login_tips'		=>	'注册成功，请到登录页面登录帐号',
 	'common_reg_error'					=>	'注册失败',
 
 	'common_view_gender_name'			=>	'性别',
