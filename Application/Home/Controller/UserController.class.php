@@ -117,7 +117,7 @@ class UserController extends CommonController
 		// 验证码校验
 		$verify_param = array(
 				'key_prefix' => 'reg',
-				'expire_time' => MyC('common_sms_expire_time')
+				'expire_time' => MyC('common_verify_expire_time')
 			);
 		$sms = new \My\Sms($verify_param);
 		if(!$sms->CheckExpire())
@@ -341,7 +341,7 @@ class UserController extends CommonController
 		// 验证码公共基础参数
 		$verify_param = array(
 				'key_prefix' => 'reg',
-				'expire_time' => MyC('common_sms_expire_time')
+				'expire_time' => MyC('common_verify_expire_time')
 			);
 
 		// 是否开启图片验证码

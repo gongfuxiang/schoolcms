@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * 模块语言包-邮箱设置
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2016-12-01T21:51:08+0800
+ */
+return array(
+	'email_email_nav_name'			=>	'邮箱设置',
+	'email_message_nav_name'		=>	'消息模板',
+	'email_test_email_text'			=>	'测试接收的邮件地址',
+);
+?>

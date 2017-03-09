@@ -5,10 +5,6 @@
 <!-- right content start  -->
 <div class="content-right">
 	<div class="content">
-		<!-- table nav start -->
-		<include file="Nav" />
-		<!-- table nav end -->
-
 		<!-- form start -->
 		<form class="am-form form-validation view-save" action="{{:U('Admin/Site/Save')}}" method="POST" request-type="ajax-url" request-value="{{:U('Admin/Site/Index')}}" enctype="multipart/form-data">
 			<input type="hidden" name="max_file_size" value="{{:MyC('home_max_limit_image', 2048000)}}" />
@@ -76,6 +72,14 @@
 						<option value="{{$v.value}}" <if condition="isset($data['home_user_login_state']['value']) and $data['home_user_login_state']['value'] eq $v['value']">selected</if>>{{$v.name}}</option>
 					</foreach>
 				</select>
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.common_verify_expire_time.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_verify_expire_time.describe}}）</span></label>
+				<input type="number" name="{{$data.common_verify_expire_time.only_tag}}" placeholder="{{$data.common_verify_expire_time.name}}" data-validation-message="{{$data.common_verify_expire_time.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_verify_expire_time.value}}"</present> required />
+			</div>
+			<div class="am-form-group">
+				<label>{{$data.common_verify_time_interval.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_verify_time_interval.describe}}）</span></label>
+				<input type="number" name="{{$data.common_verify_time_interval.only_tag}}" placeholder="{{$data.common_verify_time_interval.name}}" data-validation-message="{{$data.common_verify_time_interval.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_verify_time_interval.value}}"</present> required />
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_site_icp.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_site_icp.describe}}）</span></label>

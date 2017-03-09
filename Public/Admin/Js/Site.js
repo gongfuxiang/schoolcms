@@ -1,4 +1,5 @@
-$(function() {
+$(function()
+{
 	// 图片选择名称展示
 	$('input[name="home_site_logo_img"]').on('change', function()
 	{

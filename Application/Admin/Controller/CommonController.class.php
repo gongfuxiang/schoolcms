@@ -290,7 +290,12 @@ class CommonController extends Controller
 		// 循环保存数据
 		$success = 0;
 		$c = M('Config');
-		$no_all = array('home_footer_info', 'home_site_close_reason');
+		$no_all = array(
+				'home_footer_info',
+				'home_site_close_reason',
+				'home_email_user_reg',
+				'home_email_user_forget_pwd'
+			);
 		foreach($_POST as $k=>$v)
 		{
 			if(!in_array($k, $no_all))

@@ -119,7 +119,7 @@ return array(
 			'videoUrlPrefix'		=>	'',
 
 			// 上传大小限制，单位B，默认100MB
-			'videoMaxSize'			=>	MyC('home_max_limit_image', 102400000, true),
+			'videoMaxSize'			=>	MyC('home_max_limit_video', 102400000, true),
 
 			// 上传视频格式显示
 			'videoAllowFiles'		=>	array('.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg', '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid'), 
@@ -139,7 +139,7 @@ return array(
 			'fileUrlPrefix'			=>	'',
 
 			// 上传大小限制，单位B，默认50MB
-			'fileMaxSize'			=>	MyC('home_max_limit_image', 51200000, true),
+			'fileMaxSize'			=>	MyC('home_max_limit_file', 51200000, true),
 
 			// 上传文件格式显示
 			'fileAllowFiles'		=>	array('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg', '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid','.rar', '.zip', '.tar', '.gz', '.7z', '.bz2', '.cab', '.iso', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.txt', '.md', '.xml'),

@@ -102,6 +102,7 @@ return array(
 	'common_operation_confirm'			=>	'确认',
 	'common_operation_cancel'			=>	'取消',
 	'common_operation_update'			=>	'更新',
+	'common_operation_test'				=>	'测试',
 	'common_operation_success'			=>	'操作成功',
 	'common_operation_error'			=>	'操作失败',
 	'common_operation_add_success'		=>	'新增成功',
