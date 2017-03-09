@@ -11,9 +11,6 @@ namespace Home\Controller;
  */
 class UserController extends CommonController
 {
-	// 上一个页面url地址
-	private $referer_url;
-
 	/**
 	 * [_initialize 前置操作-继承公共前置方法]
 	 * @author   Devil
@@ -25,9 +22,30 @@ class UserController extends CommonController
 	{
 		// 调用父类前置方法
 		parent::_initialize();
+	}
 
+	/**
+	 * [GetrefererUrl 获取上一个页面地址]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-09T15:46:16+0800
+	 */
+	private function GetrefererUrl()
+	{
 		// 上一个页面, 空则用户中心
-		$this->referer_url = empty($_SERVER['HTTP_REFERER']) ? U('Home/User/Index') : $_SERVER['HTTP_REFERER'];
+		if(empty($_SERVER['HTTP_REFERER']))
+		{
+			$referer_url = U('Home/User/Index');
+		} else {
+			if(strpos($_SERVER['HTTP_REFERER'], 'RegInfo') !== false || strpos($_SERVER['HTTP_REFERER'], 'LoginInfo') !== false)
+			{
+				$referer_url = U('Home/User/Index');
+			} else {
+				$referer_url = $_SERVER['HTTP_REFERER'];
+			}
+		}
+		return $referer_url;
 	}
 
 	/**
@@ -57,7 +75,7 @@ class UserController extends CommonController
 		{
 			if(empty($this->user))
 			{
-				$this->assign('referer_url', $this->referer_url);
+				$this->assign('referer_url', $this->GetrefererUrl());
 				$this->display('RegInfo');
 			} else {
 				$this->assign('msg', L('common_reg_already_had_tips'));
@@ -124,12 +142,13 @@ class UserController extends CommonController
 			$m->pwd 		=	LoginPwdEncryption(I('pwd'), $m->salt);
 
 			// 数据添加
-			if($m->add())
+			$user_id = $m->add();
+			if($user_id > 0)
 			{
 				// 清除验证码
 				$sms->Remove();
 
-				if($this->UserLoginRecord($user['id']))
+				if($this->UserLoginRecord($user_id))
 				{
 					$this->ajaxReturn(L('common_reg_success'));
 				}
@@ -155,7 +174,7 @@ class UserController extends CommonController
 		{
 			if(empty($this->user))
 			{
-				$this->assign('referer_url', $this->referer_url);
+				$this->assign('referer_url', $this->GetrefererUrl());
 				$this->display('LoginInfo');
 			} else {
 				$this->assign('msg', L('common_login_already_had_tips'));
@@ -216,11 +235,21 @@ class UserController extends CommonController
 			$this->ajaxReturn(L('user_common_pwd_error'), -4);
 		}
 
-		// 登录记录
-		if($this->UserLoginRecord($user['id']))
+		// 更新用户密码
+		$salt = GetNumberCode(6);
+		$data = array(
+				'pwd'		=>	LoginPwdEncryption($pwd, $salt),
+				'salt'		=>	$salt,
+				'upd_time'	=>	time(),
+			);
+		if(M('User')->where(array('id'=>$user['id']))->save($data) !== false)
 		{
-			$this->ajaxReturn(L('common_login_success'));
-		}
+			// 登录记录
+			if($this->UserLoginRecord($user['id']))
+			{
+				$this->ajaxReturn(L('common_login_success'));
+			}
+		}		
 		$this->ajaxReturn(L('common_login_invalid'), -100);
 	}
 
