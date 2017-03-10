@@ -19,9 +19,9 @@ return array(
 	'user_login_on_accounts_text'				=>	'还没有帐号？',
 	'user_login_immediately_reg_text'			=>	'立即注册',
 	'user_login_pwd_text'						=>	'登录密码',
-	'user_login_account_text'					=>	'手机/邮箱',
-	'user_login_account_format'					=>	'手机/邮箱格式有误',
-	'user_login_account_on_exist_error'			=>	'帐号不存在',
+	'user_login_accounts_text'					=>	'手机/邮箱',
+	'user_login_accounts_format'				=>	'手机/邮箱格式有误',
+	'user_login_accounts_on_exist_error'		=>	'帐号不存在',
 	'user_reg_no_mobile_tips'					=>	'没手机？使用邮箱注册',
 	'user_reg_no_email_tips'					=>	'没邮箱？使用手机号码注册',
 );

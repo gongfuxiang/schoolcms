@@ -38,7 +38,7 @@ class UserController extends CommonController
 		{
 			$referer_url = U('Home/User/Index');
 		} else {
-			if(strpos($_SERVER['HTTP_REFERER'], 'RegInfo') !== false || strpos($_SERVER['HTTP_REFERER'], 'LoginInfo') !== false)
+			if(strpos($_SERVER['HTTP_REFERER'], 'RegInfo') !== false || strpos($_SERVER['HTTP_REFERER'], 'LoginInfo') !== false || strpos($_SERVER['HTTP_REFERER'], 'ForgetPwdInfo') !== false)
 			{
 				$referer_url = U('Home/User/Index');
 			} else {
@@ -58,6 +58,24 @@ class UserController extends CommonController
 	public function Index()
 	{
 		$this->display('Index');
+	}
+
+	/**
+	 * [ForgetPwdInfo 密码找回]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T17:06:47+0800
+	 */
+	public function ForgetPwdInfo()
+	{
+		if(empty($this->user))
+		{
+			$this->display('ForgetPwdInfo');
+		} else {
+			$this->assign('msg', L('common_forget_already_had_tips'));
+			$this->display('/Public/TipsError');
+		}
 	}
 
 	/**
@@ -94,8 +112,6 @@ class UserController extends CommonController
 	 */
 	public function RegInfo()
 	{
-		//$sms = new \My\Email();
-
 		if(in_array('sms', MyC('home_user_reg_state')))
 		{
 			if(empty($this->user))
@@ -108,6 +124,31 @@ class UserController extends CommonController
 			}
 		} else {
 			$this->assign('msg', L('common_close_sms_user_reg_tips'));
+			$this->display('/Public/TipsError');
+		}
+	}
+
+	/**
+	 * [LoginInfo 用户登录页面]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-02T22:48:35+0800
+	 */
+	public function LoginInfo()
+	{
+		if(MyC('home_user_login_state') == 1)
+		{
+			if(empty($this->user))
+			{
+				$this->assign('referer_url', $this->GetrefererUrl());
+				$this->display('LoginInfo');
+			} else {
+				$this->assign('msg', L('common_login_already_had_tips'));
+				$this->display('/Public/TipsError');
+			}
+		} else {
+			$this->assign('msg', L('common_close_user_login_tips'));
 			$this->display('/Public/TipsError');
 		}
 	}
@@ -197,31 +238,6 @@ class UserController extends CommonController
 	}
 
 	/**
-	 * [LoginInfo 用户登录页面]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-03-02T22:48:35+0800
-	 */
-	public function LoginInfo()
-	{
-		if(MyC('home_user_login_state') == 1)
-		{
-			if(empty($this->user))
-			{
-				$this->assign('referer_url', $this->GetrefererUrl());
-				$this->display('LoginInfo');
-			} else {
-				$this->assign('msg', L('common_login_already_had_tips'));
-				$this->display('/Public/TipsError');
-			}
-		} else {
-			$this->assign('msg', L('common_close_user_login_tips'));
-			$this->display('/Public/TipsError');
-		}
-	}
-
-	/**
 	 * [Login 用户登录]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -243,10 +259,10 @@ class UserController extends CommonController
 		}
 
 		// 登录帐号格式校验
-		$account = I('account');
-		if(!CheckMobile($account) && !CheckEmail($account))
+		$accounts = I('accounts');
+		if(!CheckMobile($accounts) && !CheckEmail($accounts))
 		{
-			$this->ajaxReturn(L('user_login_account_format'), -1);
+			$this->ajaxReturn(L('user_login_accounts_format'), -1);
 		}
 
 		// 密码
@@ -257,11 +273,11 @@ class UserController extends CommonController
 		}
 
 		// 获取用户账户信息
-		$where = array('mobile' => $account, 'email' => $account, '_logic' => 'OR');
+		$where = array('mobile' => $accounts, 'email' => $accounts, '_logic' => 'OR');
 		$user = M('User')->field(array('id', 'pwd', 'salt'))->where($where)->find();
 		if(empty($user))
 		{
-			$this->ajaxReturn(L('user_login_account_on_exist_error'), -3);
+			$this->ajaxReturn(L('user_login_accounts_on_exist_error'), -3);
 		}
 
 		// 密码校验
@@ -284,7 +300,7 @@ class UserController extends CommonController
 			{
 				$this->ajaxReturn(L('common_login_success'));
 			}
-		}		
+		}
 		$this->ajaxReturn(L('common_login_invalid'), -100);
 	}
 
@@ -313,25 +329,21 @@ class UserController extends CommonController
 	}
 
 	/**
-	 * [RegVerifyEntry 用户注册-验证码显示]
+	 * [UserVerifyEntry 用户-验证码显示]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-03-05T15:10:21+0800
 	 */
-	public function RegVerifyEntry()
+	public function UserVerifyEntry()
 	{
-		// 是否开启用户注册
-		if(count(MyC('home_user_reg_state')) > 0)
-		{
-			$param = array(
-					'width' => 100,
-					'height' => 32,
-					'key_prefix' => 'reg',
-				);
-			$verify = new \My\Verify($param);
-			$verify->Entry();
-		}
+		$param = array(
+				'width' => 100,
+				'height' => 32,
+				'key_prefix' => I('type', 'reg'),
+			);
+		$verify = new \My\Verify($param);
+		$verify->Entry();
 	}
 
 	/**
@@ -477,6 +489,181 @@ class UserController extends CommonController
 	{
 		$id = M('User')->where(array($field=>$accounts))->getField('id');
 		return !empty($id);
+	}
+
+	/**
+	 * [ForgetPwdVerifySend 密码找回验证码发送]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T17:35:03+0800
+	 */
+	public function ForgetPwdVerifySend()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 参数
+		$accounts = I('accounts');
+		$verify = I('verify');
+		if(empty($accounts) || empty($verify))
+		{
+			$this->ajaxReturn(L('common_param_error'), -10);
+		}
+
+		// 账户是否存在
+		$this->UserForgetAccountsCheck($accounts);
+
+		// 验证码公共基础参数
+		$verify_param = array(
+				'key_prefix' => 'forget',
+				'expire_time' => MyC('common_verify_expire_time'),
+				'time_interval'	=>	MyC('common_verify_time_interval'),
+			);
+
+		// 图片验证码校验
+		$verify = new \My\Verify($verify_param);
+		if(!$verify->CheckExpire())
+		{
+			$this->ajaxReturn(L('common_verify_expire'), -11);
+		}
+		if(!$verify->CheckCorrect(I('verify')))
+		{
+			$this->ajaxReturn(L('common_verify_error'), -12);
+		}
+
+		// 验证码
+		$code = GetNumberCode(6);
+
+		// 手机
+		if(CheckMobile($accounts))
+		{
+			$obj = new \My\Sms($verify_param);
+			$state = $obj->SendText($accounts, MyC('home_sms_user_forget_pwd'), $code);
+
+		// 邮箱
+		} else if(CheckEmail($accounts))
+		{
+			$obj = new \My\Email($verify_param);
+			$email_param = array(
+					'email'		=>	$accounts,
+					'content'	=>	MyC('home_email_user_forget_pwd'),
+					'title'		=>	MyC('home_site_name').' - '.L('common_email_send_user_reg_title'),
+					'code'		=>	$code,
+				);
+			$state = $obj->SendHtml($email_param);
+		} else {
+			$this->ajaxReturn(L('user_login_accounts_format'), -1);
+		}
+
+		// 状态
+		if($state)
+		{
+			// 清除验证码
+			if(isset($verify) && is_object($verify))
+			{
+				$verify->Remove();
+			}
+
+			$this->ajaxReturn(L('common_send_success'));
+		} else {
+			$this->ajaxReturn(L('common_send_error').'['.$obj->error.']', -100);
+		}
+	}
+
+	/**
+	 * [UserForgetAccountsCheck 密码找回-帐号校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T17:59:53+0800
+	 * @param    [string]     $accounts [账户名称]
+	 * @return   [string]               [账户字段]
+	 */
+	public function UserForgetAccountsCheck($accounts)
+	{
+		if(CheckMobile($accounts))
+		{
+			if(!$this->IsExistAccounts($accounts, 'mobile'))
+			{
+				$this->ajaxReturn(L('common_mobile_no_exist_error'), -3);
+			}
+			return 'mobile';
+		} else if(CheckEmail($accounts))
+		{
+			if(!$this->IsExistAccounts($accounts, 'email'))
+			{
+				$this->ajaxReturn(L('common_email_no_exist_error'), -3);
+			}
+			return 'email';
+		}
+	}
+
+	/**
+	 * [ForgetPwd 密码找回]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T17:55:42+0800
+	 */
+	public function ForgetPwd()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 参数
+		$accounts = I('accounts');
+		$verify = I('verify');
+		$pwd = trim(I('pwd'));
+		if(empty($accounts) || empty($verify) || empty($pwd))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 账户是否存在
+		$field = $this->UserForgetAccountsCheck($accounts);
+
+		// 验证码校验
+		$verify_param = array(
+				'key_prefix' => 'forget',
+				'expire_time' => MyC('common_verify_expire_time'),
+				'time_interval'	=>	MyC('common_verify_time_interval'),
+			);
+		if(CheckMobile($accounts))
+		{
+			$obj = new \My\Sms($verify_param);
+		} else {
+			$obj = new \My\Email($verify_param);
+		}
+		// 是否已过期
+		if(!$obj->CheckExpire())
+		{
+			$this->ajaxReturn(L('common_verify_expire'), -10);
+		}
+		// 是否正确
+		if(!$obj->CheckCorrect($verify))
+		{
+			$this->ajaxReturn(L('common_verify_error'), -11);
+		}
+
+		// 更新用户密码
+		$salt = GetNumberCode(6);
+		$data = array(
+				'pwd'		=>	LoginPwdEncryption($pwd, $salt),
+				'salt'		=>	$salt,
+				'upd_time'	=>	time(),
+			);
+		if(M('User')->where(array($field=>$accounts))->save($data) !== false)
+		{
+			$this->ajaxReturn(L('common_operation_success'));
+		}
+		$this->ajaxReturn(L('common_operation_error'), -100);
 	}
 
 	/**

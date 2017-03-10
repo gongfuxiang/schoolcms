@@ -49,7 +49,7 @@ class Sms
 		// 是否频繁操作
 		if(!$this->IntervalTimeCheck())
 		{
-			$this->error = '防止造成骚扰，请勿频繁发送';
+			$this->error = L('common_prevent_harassment_error');
 			return false;
 		}
 

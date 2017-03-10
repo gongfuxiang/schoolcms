@@ -13,11 +13,15 @@
 		<form class="am-form form-validation m-t-30" method="post" action="{{:U('Home/User/Login')}}" request-type="ajax-url" request-value="{{$referer_url}}">
 			<fieldset>
 				<span class="">{{:L('user_login_on_accounts_text')}}</span>
-				<a href="{{:U('Home/User/RegInfo')}}" class="am-btn am-btn-secondary am-btn-xs am-radius">{{:L('user_login_immediately_reg_text')}}</a>
+				<if condition="in_array('sms', MyC('home_user_reg_state'))">
+					<a href="{{:U('Home/User/RegInfo')}}" class="am-btn am-btn-secondary am-btn-xs am-radius">{{:L('user_login_immediately_reg_text')}}</a>
+				<elseif condition="in_array('email', MyC('home_user_reg_state'))" />
+					<a href="{{:U('Home/User/EmailRegInfo')}}" class="am-btn am-btn-secondary am-btn-xs am-radius">{{:L('user_login_immediately_reg_text')}}</a>
+				</if>
 				<hr />
-				<label>{{:L('user_login_account_text')}}</label>
+				<label>{{:L('user_login_accounts_text')}}</label>
 				<div class="am-form-group">
-					<input type="text" name="account" class="am-radius" minlength="1" placeholder="{{:L('user_login_account_text')}}" data-validation-message="{{:L('user_login_account_format')}}" required />
+					<input type="text" name="accounts" class="am-radius" minlength="1" placeholder="{{:L('user_login_accounts_text')}}" data-validation-message="{{:L('user_login_accounts_format')}}" required />
 				</div>
 				<label>{{:L('user_login_pwd_text')}}</label>
 				<div class="am-form-group">
