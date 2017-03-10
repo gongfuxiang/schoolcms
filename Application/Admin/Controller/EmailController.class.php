@@ -63,5 +63,35 @@ class EmailController extends CommonController
 	{
 		$this->MyConfigSave();
 	}
+
+	/**
+	 * [EmailTest 邮件测试]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T15:30:10+0800
+	 */
+	public function EmailTest()
+	{
+		// 验证码公共基础参数
+		$verify_param = array(
+				'expire_time' => MyC('common_verify_expire_time'),
+				'time_interval'	=>	MyC('common_verify_time_interval'),
+			);
+
+		$obj = new \My\Email($verify_param);
+		$email_param = array(
+				'email'		=>	I('email'),
+				'content'	=>	L('email_test_email_send_content'),
+				'title'		=>	MyC('home_site_name').' - '.L('common_operation_test'),
+			);
+		// 发送
+		if($obj->SendHtml($email_param))
+		{
+			$this->ajaxReturn(L('common_send_success'));
+		} else {
+			$this->ajaxReturn(L('common_send_error').'['.$obj->error.']', -100);
+		}
+	}
 }
 ?>

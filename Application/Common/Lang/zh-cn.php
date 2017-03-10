@@ -62,6 +62,8 @@ return array(
 	'common_verify_error'				=>	'验证码错误',
 	'common_verify_tips'				=>	'验证码格式 6 位数字',
 	'common_close_user_reg_tips'		=>	'暂时关闭用户注册',
+	'common_close_sms_user_reg_tips'	=>	'暂时关闭短信用户注册',
+	'common_close_email_user_reg_tips'	=>	'暂时关闭邮箱用户注册',
 	'common_close_user_login_tips'		=>	'暂时关闭用户登录',
 	'common_send_time_tips'				=>	'还有 {time} 秒',
 	'common_get_verify_text'			=>	'获取验证码',
@@ -173,6 +175,7 @@ return array(
 	'common_so_tips'					=>	'其实搜索很简单 ^_^!',
 	'common_go_top_text'				=>	'回到顶部',
 	'common_toview_home_text'			=>	'查看首页',
+	'common_email_send_user_reg_title'	=>	'用户注册',
 
 	// 性别
 	'common_gender_list'				=>	array(

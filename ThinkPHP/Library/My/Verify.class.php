@@ -146,7 +146,7 @@ class Verify
 			{
 				$verify = trim($_POST['verify']);
 			}
-			return ($_SESSION[$this->key_verify]['verify'] == $verify);
+			return ($_SESSION[$this->key_verify]['verify'] == strtolower($verify));
 		}
 		return false;
 	}

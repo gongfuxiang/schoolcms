@@ -59,11 +59,12 @@
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_user_reg_state.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_user_reg_state.describe}}）</span></label>
-				<select name="{{$data.home_user_reg_state.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.home_user_reg_state.error_tips}}" required>
+				<select name="{{$data.home_user_reg_state.only_tag}}" multiple="multiple" class="am-radius chosen-select" data-placeholder="{{$data.home_user_reg_state.name}}" >
 					<foreach name="site_user_reg_state_list" item="v">
-						<option value="{{$v.value}}" <if condition="isset($data['home_user_reg_state']['value']) and $data['home_user_reg_state']['value'] eq $v['value']">selected</if>>{{$v.name}}</option>
+						<option value="{{$v.value}}" <if condition="isset($data['home_user_reg_state']['value']) and in_array($v['value'], explode(',', $data['home_user_reg_state']['value']))">selected</if>>{{$v.name}}</option>
 					</foreach>
 				</select>
+
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.home_user_login_state.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_user_login_state.describe}}）</span></label>
@@ -100,4 +101,4 @@
 		
 <!-- footer start -->
 <include file="Public/Footer" />
-<!-- footer end -->
+<!-- footer end

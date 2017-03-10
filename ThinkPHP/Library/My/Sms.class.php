@@ -22,12 +22,14 @@ class Sms
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-03-07T14:03:02+0800
+	 * @param    [int]        $param['interval_time'] 	[间隔时间（默认30）单位（秒）]
 	 * @param    [int]        $param['expire_time'] 	[到期时间（默认30）单位（秒）]
 	 * @param    [string]     $param['key_prefix'] 		[验证码种存储前缀key（默认 空）]
 	 */
 	public function __construct($param = array())
 	{
 		$this->sign = '【'.MyC('common_sms_sign').'】';
+		$this->interval_time = isset($param['interval_time']) ? intval($param['interval_time']) : 30;
 		$this->expire_time = isset($param['expire_time']) ? intval($param['expire_time']) : 30;
 		$this->key_code = isset($param['key_prefix']) ? trim($param['key_prefix']).'_sms_code' : '_sms_code';
 	}
@@ -44,6 +46,13 @@ class Sms
 	 */
 	public function SendText($mobile, $content, $code = '')
 	{
+		// 是否频繁操作
+		if(!$this->IntervalTimeCheck())
+		{
+			$this->error = '防止造成骚扰，请勿频繁发送';
+			return false;
+		}
+
 		// 验证码替换
 		if(!empty($code))
 		{
@@ -147,6 +156,24 @@ class Sms
 		{
 			unset($_SESSION[$this->key_code]);
 		}
+	}
+
+	/**
+	 * [IntervalTimeCheck 是否已经超过控制的间隔时间]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T11:26:52+0800
+	 * @return   [booolean]        [已超过间隔时间true, 未超过间隔时间false]
+	 */
+	private function IntervalTimeCheck()
+	{
+		if(isset($_SESSION[$this->key_code]))
+		{
+			$data = $_SESSION[$this->key_code];
+			return (time() > $data['time']+$this->interval_time);
+		}
+		return true;
 	}
 }
 ?>

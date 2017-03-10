@@ -1,5 +1,31 @@
 $(function()
 {
+	// 邮件发送测试
+	$('.test-email-submit').on('click', function()
+	{
+		// ajax请求
+		$.ajax({
+			url:$(this).data('url'),
+			type:'POST',
+			dataType:"json",
+			timeout:10000,
+			data:{"email":$('.test-email-value').val()},
+			success:function(result)
+			{
+				if(result.code == 0)
+				{
+					Prompt(result.msg, 'success');
+				} else {
+					Prompt(result.msg);
+				}
+			},
+			error:function()
+			{
+				Prompt('网络异常错误');
+			}
+		});
+	});
+
 	// 邮箱编辑器初始化
 	if($('.table-nav .am-active').data('type') == 'message')
 	{

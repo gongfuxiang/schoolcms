@@ -21,10 +21,10 @@ $(function()
 	$('.verify-submit, .verify-submit-win').on('click', function()
 	{
 		var $this = $(this);
-		var $mobile = $('#mobile');
+		var $accounts = $('#accounts');
 		var $verify = $('#verify-img-value');
 		var verify = '';
-		if($mobile.hasClass('am-field-valid'))
+		if($accounts.hasClass('am-field-valid'))
 		{
 			// 是否需要先校验图片验证码
 			if($this.data('verify') == 1)
@@ -66,7 +66,7 @@ $(function()
 			$.ajax({
 				url:$('.verify-submit').data('url'),
 				type:'POST',
-				data:{"mobile":$mobile.val(), "verify":verify},
+				data:{"accounts":$accounts.val(), "verify":verify, "type":$('form input[name="type"]').val()},
 				dataType:'json',
 				success:function(result)
 				{
@@ -111,7 +111,7 @@ $(function()
 			});			
 		} else {
 			$verify_win.modal('close');
-			$mobile.focus();
+			$accounts.focus();
 		}
 	});
 

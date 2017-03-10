@@ -71,7 +71,7 @@ function GetFormVal(element)
 	{
 		if(tmp.type == 'file')
 		{
-			object.append(tmp.name, $(this).get(0).files[0]);
+			object.append(tmp.name, ($(this).get(0).files[0] == undefined) ? '' : $(this).get(0).files[0]);
 		} else {
 			object.append(tmp.name, tmp.value.replace(/^\s+|\s+$/g,""));
 		}
@@ -80,20 +80,25 @@ function GetFormVal(element)
 	// select 单选择和多选择
 	var tmp_all = [];
 	var i = 0;
-	$(element).find('select').find('option:selected, optgroup option:selected').each(function(key, tmp)
+	$(element).find('select').find('option, optgroup option').each(function(key, tmp)
 	{
-		// 单选择
 		var name = $(this).parents('select').attr('name');
 		if(name != undefined && name != '')
 		{
-			object.append(name, tmp.value);
-
-			// 多选择
-			if($(this).parent().attr('multiple') != undefined)
+			if($(this).is(':selected'))
 			{
-				if(tmp_all[name] == undefined) tmp_all[name] = [];
-				tmp_all[name][i] = tmp.value;
-				i++;
+				// 单选择
+				object.append(name, tmp.value);
+
+				// 多选择
+				if($(this).parent().attr('multiple') != undefined)
+				{
+					if(tmp_all[name] == undefined) tmp_all[name] = [];
+					tmp_all[name][i] = tmp.value;
+					i++;
+				}
+			} else {
+				object.append(name, '');
 			}
 		}
 	});
@@ -102,13 +107,16 @@ function GetFormVal(element)
 	// input 复选框checkboox
 	tmp_all = [];
 	i = 0;
-	$(element).find('input[type="checkbox"]:checked').each(function(key, tmp)
+	$(element).find('input[type="checkbox"]').each(function(key, tmp)
 	{
 		if(tmp.name != undefined && tmp.name != '')
 		{
-			if(tmp_all[tmp.name] == undefined) tmp_all[tmp.name] = [];
-			tmp_all[tmp.name][i] = tmp.value;
-			i++;
+			if($(this).is(':checked'))
+			{
+				if(tmp_all[tmp.name] == undefined) tmp_all[tmp.name] = [];
+				tmp_all[tmp.name][i] = tmp.value;
+				i++;
+			}
 		}
 	});
 	object = ArrayTurnJson(tmp_all, object);

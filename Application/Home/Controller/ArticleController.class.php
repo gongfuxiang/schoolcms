@@ -66,8 +66,7 @@ class ArticleController extends CommonController
 			$this->display('Index');
 		} else {
 			$this->assign('msg', L('article_on_exist_error'));
-			$this->assign('is_footer', 0);
-			$this->display('/Public/Error');
+			$this->display('/Public/TipsError');
 		}
 	}
 }

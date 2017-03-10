@@ -61,7 +61,32 @@ class UserController extends CommonController
 	}
 
 	/**
-	 * [RegInfo 用户注册页面]
+	 * [EmailRegInfo 用户注册页面-邮箱]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T12:18:17+0800
+	 */
+	public function EmailRegInfo()
+	{
+		if(in_array('email', MyC('home_user_reg_state')))
+		{
+			if(empty($this->user))
+			{
+				$this->assign('referer_url', $this->GetrefererUrl());
+				$this->display('EmailRegInfo');
+			} else {
+				$this->assign('msg', L('common_reg_already_had_tips'));
+				$this->display('/Public/TipsError');
+			}
+		} else {
+			$this->assign('msg', L('common_close_email_user_reg_tips'));
+			$this->display('/Public/TipsError');
+		}
+	}
+
+	/**
+	 * [RegInfo 用户注册页面-短信]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -71,7 +96,7 @@ class UserController extends CommonController
 	{
 		//$sms = new \My\Email();
 
-		if(MyC('home_user_reg_state') == 1)
+		if(in_array('sms', MyC('home_user_reg_state')))
 		{
 			if(empty($this->user))
 			{
@@ -82,13 +107,13 @@ class UserController extends CommonController
 				$this->display('/Public/TipsError');
 			}
 		} else {
-			$this->assign('msg', L('common_close_user_reg_tips'));
+			$this->assign('msg', L('common_close_sms_user_reg_tips'));
 			$this->display('/Public/TipsError');
 		}
 	}
 
 	/**
-	 * [Reg 用户注册]
+	 * [Reg 用户注册-数据添加]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -97,7 +122,7 @@ class UserController extends CommonController
 	public function Reg()
 	{
 		// 是否开启用户注册
-		if(MyC('home_user_reg_state') != 1)
+		if(!in_array(I('type'), MyC('home_user_reg_state')))
 		{
 			$this->error(L('common_close_user_reg_tips'));
 		}
@@ -108,23 +133,27 @@ class UserController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		// 手机号码是否已存在
-		if($this->IsExistMobile())
-		{
-			$this->ajaxReturn(L('common_mobile_exist_error'), -1);
-		}
+		// 账户校验
+		$this->UserRegAccountsCheck();
 
 		// 验证码校验
 		$verify_param = array(
 				'key_prefix' => 'reg',
 				'expire_time' => MyC('common_verify_expire_time')
 			);
-		$sms = new \My\Sms($verify_param);
-		if(!$sms->CheckExpire())
+		if(I('type') == 'sms')
+		{
+			$obj = new \My\Sms($verify_param);
+		} else {
+			$obj = new \My\Email($verify_param);
+		}
+		// 是否已过期
+		if(!$obj->CheckExpire())
 		{
 			$this->ajaxReturn(L('common_verify_expire'), -10);
 		}
-		if(!$sms->CheckCorrect(I('verify')))
+		// 是否正确
+		if(!$obj->CheckCorrect(I('verify')))
 		{
 			$this->ajaxReturn(L('common_verify_error'), -11);
 		}
@@ -136,6 +165,12 @@ class UserController extends CommonController
 		if($m->create($_POST, 1))
 		{
 			// 额外数据处理
+			if(I('type') == 'sms')
+			{
+				$m->mobile = I('accounts');
+			} else {
+				$m->email = I('accounts');
+			}
 			$m->add_time	=	time();
 			$m->upd_time	=	time();
 			$m->salt 		=	GetNumberCode(6);
@@ -146,7 +181,7 @@ class UserController extends CommonController
 			if($user_id > 0)
 			{
 				// 清除验证码
-				$sms->Remove();
+				$obj->Remove();
 
 				if($this->UserLoginRecord($user_id))
 				{
@@ -287,7 +322,7 @@ class UserController extends CommonController
 	public function RegVerifyEntry()
 	{
 		// 是否开启用户注册
-		if(MyC('home_user_reg_state') == 1)
+		if(count(MyC('home_user_reg_state')) > 0)
 		{
 			$param = array(
 					'width' => 100,
@@ -300,16 +335,16 @@ class UserController extends CommonController
 	}
 
 	/**
-	 * [RegSmsSend 用户注册-短信验证码发送]
+	 * [RegVerifySend 用户注册-验证码发送]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-03-05T19:17:10+0800
 	 */
-	public function RegSmsSend()
+	public function RegVerifySend()
 	{
 		// 是否开启用户注册
-		if(MyC('home_user_reg_state') != 1)
+		if(!in_array(I('type'), MyC('home_user_reg_state')))
 		{
 			$this->error(L('common_close_user_reg_tips'));
 		}
@@ -320,32 +355,18 @@ class UserController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		// 参数
-		if(empty($_POST['mobile']))
-		{
-			$this->ajaxReturn(L('common_param_error'), -1);
-		}
-
-		// 手机号码格式
-		if(!CheckMobile(I('mobile')))
-		{
-			$this->ajaxReturn(L('common_mobile_format_error'), -2);
-		}
-
-		// 手机号码是否已存在
-		if($this->IsExistMobile())
-		{
-			$this->ajaxReturn(L('common_mobile_exist_error'), -3);
-		}
+		// 账户校验
+		$this->UserRegAccountsCheck();
 
 		// 验证码公共基础参数
 		$verify_param = array(
 				'key_prefix' => 'reg',
-				'expire_time' => MyC('common_verify_expire_time')
+				'expire_time' => MyC('common_verify_expire_time'),
+				'time_interval'	=>	MyC('common_verify_time_interval'),
 			);
 
 		// 是否开启图片验证码
-		if(MyC('home_user_reg_img_verify_state') == 1)
+		if(I('type') == 'sms' &&  MyC('home_user_reg_img_verify_state') == 1)
 		{
 			if(empty($_POST['verify']))
 			{
@@ -362,10 +383,25 @@ class UserController extends CommonController
 			}
 		}
 
-		// 发送短信验证码
-		$sms = new \My\Sms($verify_param);
+		// 发送验证码
 		$code = GetNumberCode(6);
-		if($sms->SendText(I('mobile'), MyC('home_sms_user_reg'), $code))
+		if(I('type') == 'sms')
+		{
+			$obj = new \My\Sms($verify_param);
+			$state = $obj->SendText(I('accounts'), MyC('home_sms_user_reg'), $code);
+		} else {
+			$obj = new \My\Email($verify_param);
+			$email_param = array(
+					'email'		=>	I('accounts'),
+					'content'	=>	MyC('home_email_user_reg'),
+					'title'		=>	MyC('home_site_name').' - '.L('common_email_send_user_reg_title'),
+					'code'		=>	$code,
+				);
+			$state = $obj->SendHtml($email_param);
+		}
+		
+		// 状态
+		if($state)
 		{
 			// 清除验证码
 			if(isset($verify) && is_object($verify))
@@ -375,21 +411,71 @@ class UserController extends CommonController
 
 			$this->ajaxReturn(L('common_send_success'));
 		} else {
-			$this->ajaxReturn(L('common_send_error').'['.$sms->error.']', -100);
+			$this->ajaxReturn(L('common_send_error').'['.$obj->error.']', -100);
 		}
 	}
 
 	/**
-	 * [IsExistMobile 手机号码是否存在]
+	 * [UserRegAccountsCheck 用户注册账户校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T10:06:29+0800
+	 */
+	private function UserRegAccountsCheck()
+	{
+		// 参数
+		$type = I('type');
+		$accounts = I('accounts');
+		if(empty($accounts) || empty($type) || !in_array($type, array('sms', 'email')))
+		{
+			$this->ajaxReturn(L('common_param_error'), -1);
+		}
+
+		// 手机号码
+		if($type == 'sms')
+		{
+			// 手机号码格式
+			if(!CheckMobile($accounts))
+			{
+				$this->ajaxReturn(L('common_mobile_format_error'), -2);
+			}
+
+			// 手机号码是否已存在
+			if($this->IsExistAccounts($accounts, 'mobile'))
+			{
+				$this->ajaxReturn(L('common_mobile_exist_error'), -3);
+			}
+
+		// 电子邮箱
+		} else {
+			// 电子邮箱格式
+			if(!CheckEmail($accounts))
+			{
+				$this->ajaxReturn(L('common_email_format_error'), -2);
+			}
+
+			// 电子邮箱是否已存在
+			if($this->IsExistAccounts($accounts, 'email'))
+			{
+				$this->ajaxReturn(L('common_email_exist_error'), -3);
+			}
+		}
+	}
+
+	/**
+	 * [IsExistAccounts 账户是否存在]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-03-08T10:27:14+0800
-	 * @return   [boolean] [存在true, 不存在false]
+	 * @param    [string] $accounts 	[账户名称]
+	 * @param    [string] $field 		[字段名称]
+	 * @return   [boolean] 				[存在true, 不存在false]
 	 */
-	private function IsExistMobile()
+	private function IsExistAccounts($accounts, $field = 'mobile')
 	{
-		$id = M('User')->where(array('mobile'=>I('mobile')))->getField('id');
+		$id = M('User')->where(array($field=>$accounts))->getField('id');
 		return !empty($id);
 	}
 

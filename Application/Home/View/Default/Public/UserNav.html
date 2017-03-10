@@ -3,8 +3,10 @@
 		<if condition="MyC('home_user_login_state') eq 1">
 			<a href="{{:U('Home/User/LoginInfo')}}" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-radius"><span class="am-icon-user"></span> {{:L('common_login_text')}}</a>
 		</if>
-		<if condition="MyC('home_user_reg_state') eq 1">
+		<if condition="in_array('sms', MyC('home_user_reg_state'))">
 			<a href="{{:U('Home/User/RegInfo')}}" class="am-btn am-btn-success am-topbar-btn am-btn-sm am-radius"><span class="am-icon-pencil"></span> {{:L('common_reg_text')}}</a>
+		<elseif condition="in_array('email', MyC('home_user_reg_state'))" />
+			<a href="{{:U('Home/User/EmailRegInfo')}}" class="am-btn am-btn-success am-topbar-btn am-btn-sm am-radius"><span class="am-icon-pencil"></span> {{:L('common_reg_text')}}</a>
 		</if>
 	<else />
 		<div class="am-dropdown user-header-nav" data-am-dropdown="{boundary: '.am-topbar'}">

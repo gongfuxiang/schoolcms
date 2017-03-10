@@ -43,14 +43,15 @@ class CustomViewController extends CommonController
 
 			// 静态资源地址处理
 			$data['content'] = ContentStaticReplace($data['content'], 'get');
-		} else {
-			exit(L('customview_on_exist_error'));
-		}
-		$this->assign('is_header', $data['is_header']);
-		$this->assign('is_footer', $data['is_footer']);
-		$this->assign('data', $data);
 
-		$this->display('Index');
+			$this->assign('is_header', $data['is_header']);
+			$this->assign('is_footer', $data['is_footer']);
+			$this->assign('data', $data);
+			$this->display('Index');
+		} else {
+			$this->assign('msg', L('customview_on_exist_error'));
+			$this->display('/Public/TipsError');
+		}
 	}
 }
 ?>

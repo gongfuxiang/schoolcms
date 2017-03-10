@@ -18,8 +18,8 @@ return array(
 
 	// 是否开启用户注册
 	'site_user_reg_state_list'			=>	array(
-			0 => array('value' => 0, 'name' => '关闭'),
-			1 => array('value' => 1, 'name' => '开启', 'checked' => true),
+			0 => array('value' => 'sms', 'name' => '短信'),
+			1 => array('value' => 'email', 'name' => '邮箱'),
 		),
 
 	// 是否开启用户登录

@@ -29,20 +29,20 @@
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.common_email_smtp_pwd.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_email_smtp_pwd.describe}}）</span></label>
-				<input type="text" name="{{$data.common_email_smtp_pwd.only_tag}}" placeholder="{{$data.common_email_smtp_pwd.name}}" data-validation-message="{{$data.common_email_smtp_pwd.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_email_smtp_pwd.value}}"</present> required />
+				<input type="password" name="{{$data.common_email_smtp_pwd.only_tag}}" placeholder="{{$data.common_email_smtp_pwd.name}}" data-validation-message="{{$data.common_email_smtp_pwd.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_email_smtp_pwd.value}}"</present> required />
 			</div>
 			<div class="am-form-group">
 				<label>{{$data.common_email_smtp_send_name.name}}<span class="fs-12 fw-100 cr-999">（{{$data.common_email_smtp_send_name.describe}}）</span></label>
 				<input type="text" name="{{$data.common_email_smtp_send_name.only_tag}}" placeholder="{{$data.common_email_smtp_send_name.name}}" data-validation-message="{{$data.common_email_smtp_send_name.error_tips}}" class="am-radius" <present name="data"> value="{{$data.common_email_smtp_send_name.value}}"</present> required />
 			</div>
 			<div class="am-form-group">
-				<label>{{:L('email_test_email_text')}}</label>
+				<label>{{:L('email_test_email_text')}}<span class="fs-12 fw-100 cr-999">（{{:L('email_test_email_tips')}}）</span></label>
 				<div class="am-input-group am-input-group-sm">
 					<span class='am-form-group'>
-						<input type="text" placeholder="{{:L('email_test_email_text')}}" class="am-radius" />
+						<input type="text" placeholder="{{:L('email_test_email_text')}}" class="am-radius test-email-value" />
 					</span>
 					<span class="am-input-group-btn">
-						<button class="am-btn am-btn-default am-radius test-email-submit" type="button">{{:L('common_operation_test')}}</button>
+						<button class="am-btn am-btn-default am-radius test-email-submit" type="button" data-url="{{:U('Admin/Email/EmailTest')}}">{{:L('common_operation_test')}}</button>
 					</span>
 				</div>
 			</div>

@@ -15,13 +15,13 @@
 				<span class="">{{:L('user_reg_there_are_accounts_text')}}</span>
 				<a href="{{:U('Home/User/LoginInfo')}}" class="am-btn am-btn-secondary am-btn-xs am-radius">{{:L('user_reg_login_immediately_text')}}</a>
 				<hr />
-				<label>{{:L('common_mobile_name')}}
-					<if condition="in_array('email', MyC('home_user_reg_state'))">
-						<a href="{{:U('Home/User/EmailRegInfo')}}" class="m-l-25 fs-12 fw-100">{{:L('user_reg_no_mobile_tips')}}</a>
+				<label>{{:L('common_email_name')}}
+					<if condition="in_array('sms', MyC('home_user_reg_state'))">
+						<a href="{{:U('Home/User/RegInfo')}}" class="m-l-25 fs-12 fw-100">{{:L('user_reg_no_email_tips')}}</a>
 					</if>
 				</label>
 				<div class="am-form-group">
-					<input type="text" name="accounts" class="am-radius" id="accounts" placeholder="{{:L('common_mobile_name')}}" pattern="{{:L('common_regex_mobile')}}" data-validation-message="{{:L('common_mobile_format_error')}}" required />
+					<input type="email" name="accounts" class="am-radius" id="accounts" placeholder="{{:L('common_email_name')}}" data-validation-message="{{:L('common_email_format_error')}}" required />
 				</div>
 
 				<label>{{:L('common_verify_text')}}</label>
@@ -30,7 +30,7 @@
 	                	<input type="number" name="verify" class="am-radius" placeholder="{{:L('common_verify_text')}}" minlength="6" maxlength="6" data-validation-message="{{:L('common_verify_tips')}}" required />
 	                </span>
 	                <span class="am-input-group-btn">
-	                    <button class="am-btn am-btn-default am-radius btn-loading-example verify-submit" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'{{:L('common_send_tips')}}'}" data-url="{{:U('Home/User/RegVerifySend')}}" data-verify="{{:MyC('home_user_reg_img_verify_state')}}" data-text="{{:L('common_get_verify_text')}}" data-send-text="{{:L('common_send_time_tips')}}" data-time="{{:MyC('common_verify_time_interval', 30, true)}}">{{:L('common_get_verify_text')}}</button>
+	                    <button class="am-btn am-btn-default am-radius btn-loading-example verify-submit" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'{{:L('common_send_tips')}}'}" data-url="{{:U('Home/User/RegVerifySend')}}" data-verify="0" data-text="{{:L('common_get_verify_text')}}" data-send-text="{{:L('common_send_time_tips')}}" data-time="{{:MyC('common_verify_time_interval', 30, true)}}">{{:L('common_get_verify_text')}}</button>
 	                </span>
 	            </div>
 
@@ -45,7 +45,7 @@
 					</span>
 				</div>
 				<p>
-					<input type="hidden" name="type" value="sms" />
+					<input type="hidden" name="type" value="email" />
 					<button type="submit" class="am-btn am-btn-primary am-radius am-btn-sm btn-loading-example" data-am-loading="{loadingText: '{{:L('common_form_loading_tips')}}'}">{{:L('user_reg_submit_text')}}</button>
 					<a href="{{:U('Home/User/ForgetPwdInfo')}}" class="am-fr m-t-5">{{:L('user_reg_forget_pwd_text')}}</a>
 				</p>

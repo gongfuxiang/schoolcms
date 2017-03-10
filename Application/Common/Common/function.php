@@ -43,6 +43,14 @@ function MyConfigInit($state = 0)
     {
         // 所有配置
         $data = M('Config')->getField('only_tag,value');
+
+        // 数据处理
+        // 开启用户注册列表
+        if(isset($data['home_user_reg_state']))
+        {
+            $data['home_user_reg_state'] = explode(',', $data['home_user_reg_state']);
+        }
+
         S($key, $data);
 
         // 时区
