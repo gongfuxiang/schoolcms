@@ -1,7 +1,19 @@
 /**
  * 公共class
  */
+.m-0 { margin: 0px !important; }
+.m-5 { margin: 5px !important; }
+.m-10 { margin: 10px !important; }
+.m-15 { margin: 15px !important; }
+.m-20 { margin: 20px !important; }
+.m-25 { margin: 25px !important; }
+.m-30 { margin: 30px !important; }
+.m-35 { margin: 35px !important; }
+.m-40 { margin: 40px !important; }
+.m-45 { margin: 45px !important; }
+.m-50 { margin: 50px !important; }
 .p-0 { padding: 0px !important; }
+.p-10 { padding: 10px !important; }
 .p-20 { padding: 20px !important; }
 .p-30 { padding: 30px !important; }
 .p-l-0 { padding-left: 0px !important; }
@@ -63,7 +75,7 @@ img, video, embed { max-width: 100%; }
 header .am-topbar-right .am-topbar-btn { margin-top: 0.8rem; }
 header .am-dropdown-content { border-radius: 2px; }
 header.am-topbar { margin-bottom: 0rem; }
-.nav-header, .am-footer, .site-oneself, .my-error { margin: auto; }
+.nav-header, .am-footer, .site-oneself, .my-error, .user-main { margin: auto; }
 .my-radius { border-radius: 2px !important; }
 .nav-active { background-color: #0d82bd; }
 .am-topbar-nav > li > a:after { display: none; }
