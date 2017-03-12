@@ -3,8 +3,9 @@
  */
 .user-menu {position:fixed;z-index:10;bottom:30px;right:20px;}
 .user-sidebar {width:130px;min-height:100%;float:left;border-right:1px solid #cecece;}
-.user-sidebar.am-active {z-index:1600;}
-.user-sidebar-list li a {color:#5c5c5c;padding-left:10px;}
+.user-sidebar .am-active {z-index:1600;}
+.user-sidebar .am-active a, .user-sidebar-list li a:hover {background:#eee;}
+.user-sidebar-list li a {color:#5c5c5c;padding-left:10px;padding: 0.8rem;}
 .user-sidebar-list li:first-child {border-top:none;}
 .user-sidebar-sub {margin-top:0;margin-bottom:0;padding-left:24px;}
 .user-sidebar-sub {border-top:1px solid #dedede;}

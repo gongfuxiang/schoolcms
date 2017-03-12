@@ -8,8 +8,8 @@
               <a href="{{:U('Home/'.$v['control'].'/'.$v['action'])}}">{{$v.name}}</a>
             </li>
           <else />
-            <li class="user-item-parent">
-              <a class="am-cf fw-700" data-am-collapse="{target: '#collapse-nav-{{$k}}'}">{{$v.name}}<span class="am-icon-angle-down am-fr am-margin-right"></span></a>
+            <li>
+              <a class="am-cf fw-700 user-item-parent" data-am-collapse="{target: '#collapse-nav-{{$k}}'}">{{$v.name}}<span class="am-icon-angle-down am-fr am-margin-right"></span></a>
               <ul class="am-list am-collapse user-sidebar-sub am-in" id="collapse-nav-{{$k}}">
                 <foreach name="v.item" item="vs">
                   <if condition="$vs['is_show'] eq 1">

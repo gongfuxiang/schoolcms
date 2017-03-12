@@ -10,4 +10,10 @@ $(function()
 			$("#my-go-top").fadeOut(1000);
 		}
 	});
+
+	// 用户中心菜单
+	$('.user-item-parent').on('click', function()
+	{
+		$(this).find('.am-icon-angle-down').toggleClass('left-menu-more-ico-rotate');
+	});
 });
