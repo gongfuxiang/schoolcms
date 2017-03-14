@@ -5,6 +5,7 @@ SchoolCMS学校管理系统，中国首个开源『学校教务管理系统』�
 # 功能简介
 &nbsp;&nbsp;&nbsp;后台<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;权限控制，支持多个管理员，学生添加，学生成绩，教师管理，文章管理，站点管理，网站布局自动化，多导航模式，友情链接，站点工具。
+<br /><br />
 &nbsp;&nbsp;&nbsp;前台<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;丰富的HTML5组建，电脑+手机自适应。在线注册（支持短信、邮箱），在线报名，在线考试，文章阅读。
 
