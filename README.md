@@ -3,35 +3,38 @@ SchoolCMS学校管理系统，中国首个开源『学校教务管理系统』�
 <br />官方地址：http://schoolcms.org/
 
 # 项目结构
-├─core.php        入口公共文件<br />
-├─index.php       前台入口文件<br />
-├─admin.php       后台入口文件<br />
-├─README.md       README文件<br />
-├─robots.txt      爬虫规则定义文件<br />
-├─composer.json   Composer定义文件<br />
-├─changelog.txt   更新日志<br />
-├─Application     应用目录<br />
-│  ├─Admin        后台目录<br />
-│  │  ├─Common       应用函数目录<br />
-│  │  ├─Conf         应用配置目录<br />
-│  │  ├─Lang         应用语言包目录<br />
-│  │  ├─Controller   应用控制器目录<br />
-│  │  ├─View         应用视图目录<br />
-│  │  ├─Mode         应用模型目录<br />
-│  ├─Home         前台目录<br />
-│  │  ├─Common       应用函数目录<br />
-│  │  ├─Conf         应用配置目录<br />
-│  │  ├─Lang         应用语言包目录<br />
-│  │  ├─Controller   应用控制器目录<br />
-│  │  ├─View         应用视图目录<br />
-│  │  ├─Mode         应用模型目录<br />
-│  ├─Common       公共函数配置目录<br />
-│  │  ├─Common       公共方法目录<br />
-│  │  ├─Conf         公共配置目录<br />
-│  ├─Runtime      临时文件目录<br />
-├─Public          资源文件目录<br />
-├─Install         安装引导目录<br />
-└─ThinkPHP        框架目录<br />
+```
+schoolcms
+├─core.php        入口公共文件
+├─index.php       前台入口文件
+├─admin.php       后台入口文件
+├─README.md       README文件
+├─robots.txt      爬虫规则定义文件
+├─composer.json   Composer定义文件
+├─changelog.txt   更新日志
+├─Application     应用目录
+│  ├─Admin        后台目录
+│  │  ├─Common       应用函数目录
+│  │  ├─Conf         应用配置目录
+│  │  ├─Lang         应用语言包目录
+│  │  ├─Controller   应用控制器目录
+│  │  ├─View         应用视图目录
+│  │  ├─Mode         应用模型目录
+│  ├─Home         前台目录
+│  │  ├─Common       应用函数目录
+│  │  ├─Conf         应用配置目录
+│  │  ├─Lang         应用语言包目录
+│  │  ├─Controller   应用控制器目录
+│  │  ├─View         应用视图目录
+│  │  ├─Mode         应用模型目录
+│  ├─Common       公共函数配置目录
+│  │  ├─Common       公共方法目录
+│  │  ├─Conf         公共配置目录
+│  ├─Runtime      临时文件目录
+├─Public          资源文件目录
+├─Install         安装引导目录
+└─ThinkPHP        框架目录
+```
 
 # 后台基于ThinkPHP
 ThinkPHP是一个快速、简单的基于MVC和面向对象的轻量级PHP开发框架，遵循Apache2开源协议发布，从诞生以来一直秉承简洁实用的设计原则，在保持出色的性能和至简的代码的同时，尤其注重开发体验和易用性，并且拥有众多的原创功能和特性，为WEB应用开发提供了强有力的支持。
