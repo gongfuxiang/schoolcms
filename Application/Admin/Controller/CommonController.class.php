@@ -290,12 +290,22 @@ class CommonController extends Controller
 		// 循环保存数据
 		$success = 0;
 		$c = M('Config');
+
+		// 不实例化的字段
 		$no_all = array(
 				'home_footer_info',
 				'home_site_close_reason',
 				'home_email_user_reg',
 				'home_email_user_forget_pwd'
 			);
+
+		// 站点状态值处理
+		if(!isset($_POST['home_user_reg_state']))
+		{
+			$_POST['home_user_reg_state'] = '';
+		}
+
+		// 开始更新数据
 		foreach($_POST as $k=>$v)
 		{
 			if(!in_array($k, $no_all))

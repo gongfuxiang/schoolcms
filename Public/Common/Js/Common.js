@@ -87,18 +87,16 @@ function GetFormVal(element)
 		{
 			if($(this).is(':selected'))
 			{
-				// 单选择
-				object.append(name, tmp.value);
-
 				// 多选择
 				if($(this).parent().attr('multiple') != undefined)
 				{
 					if(tmp_all[name] == undefined) tmp_all[name] = [];
 					tmp_all[name][i] = tmp.value;
 					i++;
+				} else {
+					// 单选择
+					object.append(name, tmp.value);
 				}
-			} else {
-				object.append(name, '');
 			}
 		}
 	});
