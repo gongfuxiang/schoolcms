@@ -12,7 +12,7 @@
 .user-content {display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;background:#fff;}
 .user-content-body {-webkit-box-flex:1;-webkit-flex:1 0 auto;-ms-flex:1 0 auto;flex:1 0 auto;}
 @media only screen and (min-width:641px) {
-	.user-sidebar {display:block;position:static;background:none;}
+	.user-sidebar {display:block;position:static;background:none;margin-left:10px;}
 	.user-offcanvas-bar {position:static;width:auto;background:none;-webkit-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);transform:translate3d(0,0,0);overflow-y:hidden;}
 	.user-offcanvas-bar:after {content:none;}
 }

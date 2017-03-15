@@ -176,6 +176,9 @@ class CommonController extends Controller
 
 		// 用户中心菜单
 		$this->assign('user_left_menu', L('user_left_menu'));
+
+		// 用户顶部菜单
+		$this->assign('user_nav_menu', L('user_nav_menu'));
 	}
 
 	/**

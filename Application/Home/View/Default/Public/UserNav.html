@@ -1,5 +1,5 @@
 <div class="am-topbar-right">
-	<if condition="empty($user)">
+	<empty name="user">
 		<if condition="MyC('home_user_login_state') eq 1">
 			<a href="{{:U('Home/User/LoginInfo')}}" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-radius"><span class="am-icon-user"></span> {{:L('common_login_text')}}</a>
 		</if>
@@ -12,11 +12,14 @@
 		<div class="am-dropdown user-header-nav" data-am-dropdown="{boundary: '.am-topbar'}">
 			<button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle am-radius" data-am-dropdown-toggle>{{:L('common_user_home_text')}} <span class="am-icon-caret-down"></span></button>
 			<ul class="am-dropdown-content am-radius">
-				<li><a href="{{:U('Home/User/Index')}}">个人中心</a></li>
-				<li><a href="#">我的成绩</a></li>
-				<li><a href="#">333333</a></li>
-				<li><a href="{{:U('Home/User/Logout')}}">{{:L('common_logout_text')}}</a></li>
+				<foreach name="user_nav_menu" item="v">
+					<if condition="$v['is_show'] eq 1">
+						<li>
+							<a href="{{:U('Home/'.$v['control'].'/'.$v['action'])}}">{{$v.name}}</a>
+						</li>
+					</if>
+				</foreach>
 			</ul>
 		</div>
-	</if>
+	</empty>
 </div>

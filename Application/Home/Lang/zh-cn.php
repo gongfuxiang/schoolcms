@@ -53,5 +53,27 @@ return array(
 						)
 				),
 		),
+
+	// 用户顶部导航
+	'user_nav_menu'			=>	array(
+			array(
+					'control'	=>	'User',
+					'action'	=>	'Index',
+					'name'		=>	'个人中心',
+					'is_show'	=>	1,
+				),
+			array(
+					'control'	=>	'Safety',
+					'action'	=>	'Index',
+					'name'		=>	'安全设置',
+					'is_show'	=>	1,
+				),
+			array(
+					'control'	=>	'User',
+					'action'	=>	'Logout',
+					'name'		=>	'安全退出',
+					'is_show'	=>	1,
+				),
+		),
 );
 ?>
