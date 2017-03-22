@@ -29,7 +29,7 @@ class StudentModel extends CommonModel
 		array('tuition_state', array(0,1), '{%common_tuition_state_tips}', 1, 'in', 3),
 
 		// 添加
-		array('id_card', 'UniqueIdCard', '{%common_is_exist_id_card_tips}', 1, 'callback', 1),
+		array('id_card', 'UniqueIdCard', '{%common_student_exist_error}', 1, 'callback', 1),
 
 		// 编辑
 		array('id_card', 'NoExistIdCard', '{%common_no_exist_id_card_tips}', 1, 'callback', 2),

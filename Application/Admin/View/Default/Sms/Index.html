@@ -20,14 +20,6 @@
 				<input type="text" name="{{$data.common_sms_sign.only_tag}}" placeholder="{{$data.common_sms_sign.name}}" data-validation-message="{{$data.common_sms_sign.error_tips}}" class="am-radius" minlength="3" maxlength="8" <present name="data"> value="{{$data.common_sms_sign.value}}"</present> required />
 			</div>
 			<div class="am-form-group">
-				<label>{{$data.home_user_reg_img_verify_state.name}}<span class="fs-12 fw-100 cr-999">（{{$data.home_user_reg_img_verify_state.describe}}）</span></label>
-				<select name="{{$data.home_user_reg_img_verify_state.only_tag}}" class="am-radius c-p" data-validation-message="{{$data.home_user_reg_img_verify_state.error_tips}}" required>
-					<foreach name="site_user_reg_img_verify_state_list" item="v">
-						<option value="{{$v.value}}" <if condition="isset($data['home_user_reg_img_verify_state']['value']) and $data['home_user_reg_img_verify_state']['value'] eq $v['value']">selected</if>>{{$v.name}}</option>
-					</foreach>
-				</select>
-			</div>
-			<div class="am-form-group">
 				<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_save')}}</button>
 			</div>
 		</form>

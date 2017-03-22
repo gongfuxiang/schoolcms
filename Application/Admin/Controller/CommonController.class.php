@@ -299,12 +299,6 @@ class CommonController extends Controller
 				'home_email_user_forget_pwd'
 			);
 
-		// 站点状态值处理
-		if(!isset($_POST['home_user_reg_state']))
-		{
-			$_POST['home_user_reg_state'] = '';
-		}
-
 		// 开始更新数据
 		foreach($_POST as $k=>$v)
 		{

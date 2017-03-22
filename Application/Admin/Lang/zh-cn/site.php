@@ -28,6 +28,12 @@ return array(
 			1 => array('value' => 1, 'name' => '开启', 'checked' => true),
 		),
 
+	// 获取验证码-强制使用图片验证码状态列表
+	'site_img_verify_state_list'		=>	array(
+			0 => array('value' => 0, 'name' => '关闭'),
+			1 => array('value' => 1, 'name' => '开启', 'checked' => true),
+		),
+
 	// 时区
 	'site_timezone_list' => array(
 		'Europe/Andorra' => '欧洲/安道尔（标准时+1）',

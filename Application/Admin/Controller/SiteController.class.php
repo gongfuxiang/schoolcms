@@ -51,6 +51,9 @@ class SiteController extends CommonController
 		// 是否开启用户登录
 		$this->assign('site_user_login_state_list', L('site_user_login_state_list'));
 
+		// 获取验证码-开启图片验证码
+		$this->assign('site_img_verify_state_list', L('site_img_verify_state_list'));
+
 		// 配置信息
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);
@@ -83,6 +86,12 @@ class SiteController extends CommonController
 			{
 				$_POST['home_site_logo'] = '/'.$home_site_logo;
 			}
+		}
+
+		// 站点状态值处理
+		if(!isset($_POST['home_user_reg_state']))
+		{
+			$_POST['home_user_reg_state'] = '';
 		}
 
 		// 基础配置

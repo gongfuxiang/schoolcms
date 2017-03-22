@@ -90,4 +90,7 @@ input:hover, select:hover, textarea:hover, .chosen-choices:hover, .chosen-single
 	.layout-100-84>div, .layout-100-48>div, .layout-100-633>div, .layout-100-363>div, .layout-100-336>div { padding: 0px; }
 	.layout-100-84>div:last-child, .layout-100-48>div:last-child, .layout-100-633>div:nth-child(2), .layout-100-363>div:nth-child(2), .layout-100-336>div:nth-child(2) { padding-left: 10px !important;  }
 	.layout-100-633>div:nth-child(2), .layout-100-363>div:nth-child(2), .layout-100-336>div:nth-child(2) { padding-right: 10px !important; }
+
+	/* 表单 */
+  .view-save .am-form-group { width: 75% !important; }
 }

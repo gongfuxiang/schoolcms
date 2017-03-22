@@ -76,6 +76,7 @@ return array(
 	'common_logout_text'				=>	'退出',
 	'common_set_up_the_text'			=>	'设置',
 	'common_prevent_harassment_error'	=>	'防止造成骚扰，请勿频繁发送',
+	'common_accounts_format_error'		=>	'手机/邮箱格式有误',
 
 	'common_library_email_empty_error'	=>	'收件邮箱不能为空',
 	'common_library_content_empty_error'=>	'发送内容不能为空',
@@ -117,6 +118,8 @@ return array(
 	'common_operation_error'			=>	'操作失败',
 	'common_operation_add_success'		=>	'新增成功',
 	'common_operation_add_error'		=>	'新增失败',
+	'common_operation_join_success'		=>	'关联成功',
+	'common_operation_join_error'		=>	'关联失败',
 	'common_operation_edit_success'		=>	'编辑成功',
 	'common_operation_edit_error'		=>	'编辑失败或数据未改变',
 	'common_operation_delete_success'	=>	'删除成功',
@@ -151,6 +154,8 @@ return array(
 	'common_reg_success'				=>	'注册成功',
 	'common_reg_success_login_tips'		=>	'注册成功，请到登录页面登录帐号',
 	'common_reg_error'					=>	'注册失败',
+	'common_student_no_exist_error'		=>	'学生不存在',
+	'common_student_exist_error'		=>	'学生已不存在',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',

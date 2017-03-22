@@ -340,9 +340,6 @@ ul {margin-top:0;}
   /* 树 */
   .submit { display: none; }
   #tree tr:hover .submit { display: block !important; }
-
-  /* 添加/编辑 */
-  .view-save .am-form-group { width: 75% !important; }
 }
 
 /**

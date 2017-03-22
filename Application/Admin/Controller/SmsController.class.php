@@ -39,9 +39,6 @@ class SmsController extends CommonController
      */
 	public function Index()
 	{
-		// 是否开启用户注册-开启图片验证码
-		$this->assign('site_user_reg_img_verify_state_list', L('site_user_reg_img_verify_state_list'));
-
 		// 配置信息
 		$data = M('Config')->getField('only_tag,name,describe,value,error_tips');
 		$this->assign('data', $data);

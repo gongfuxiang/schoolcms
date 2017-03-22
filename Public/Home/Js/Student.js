@@ -1,27 +1,15 @@
+// 表单初始化
+FromInit('form.form-validation-win');
+
 $(function()
 {
-	$verify_win = $('#verify-win');
-
-	// 查看密码
-	$('.eye-submit').on('click', function()
-	{
-		var $obj = $(this).parent().prev();
-		if($obj.attr('type') == 'password')
-		{
-			$(this).addClass('cr-green');
-			$obj.attr('type', 'text');
-		} else {
-			$(this).removeClass('cr-green');
-			$obj.attr('type', 'password');
-		}
-	});
-
-
-	// 短信验证码获取
+	// 学生关联-短信验证码获取
 	$('.verify-submit, .verify-submit-win').on('click', function()
 	{
 		var $this = $(this);
-		var $accounts = $('#accounts');
+		var $verify_win = $('#verify-win');
+		var $form = $('form.form-validation-win');
+		var $accounts = $form.find('select[name="accounts"]');
 		var $verify = $('#verify-img-value');
 		var verify = '';
 		if($accounts.hasClass('am-field-valid'))
@@ -66,7 +54,7 @@ $(function()
 			$.ajax({
 				url:$('.verify-submit').data('url'),
 				type:'POST',
-				data:{"accounts":$accounts.val(), "verify":verify, "type":$('form input[name="type"]').val()},
+				data:{"accounts":$accounts.val(), "verify":verify},
 				dataType:'json',
 				success:function(result)
 				{
@@ -114,5 +102,4 @@ $(function()
 			$accounts.focus();
 		}
 	});
-
 });

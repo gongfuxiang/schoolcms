@@ -430,5 +430,54 @@ class CommonController extends Controller
 			exit;
 		}
 	}
+
+	/**
+	 * [CommonIsImaVerify 是否开启图片验证码校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-22T15:48:31+0800
+	 * @param    [array] $verify_param [配置参数]
+	 * @return   [object]              [图片验证码类对象]
+	 */
+	protected function CommonIsImaVerify($verify_param)
+	{
+		if(MyC('home_img_verify_state') == 1)
+		{
+			if(empty($_POST['verify']))
+			{
+				$this->ajaxReturn(L('common_param_error'), -10);
+			}
+			$verify = new \My\Verify($verify_param);
+			if(!$verify->CheckExpire())
+			{
+				$this->ajaxReturn(L('common_verify_expire'), -11);
+			}
+			if(!$verify->CheckCorrect(I('verify')))
+			{
+				$this->ajaxReturn(L('common_verify_error'), -12);
+			}
+			return $verify;
+		}
+	}
+
+	/**
+	 * [CommonVerifyEntry 验证码显示]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-05T15:10:21+0800
+	 * @param    [string] $type [验证码类型]
+	 */
+	protected function CommonVerifyEntry($type = 'schoolcms')
+	{
+		$param = array(
+				'width' => 100,
+				'height' => 32,
+				'key_prefix' => $type,
+			);
+		$verify = new \My\Verify($param);
+		$verify->Entry();
+	}
 }
 ?>

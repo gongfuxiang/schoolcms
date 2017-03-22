@@ -25,21 +25,17 @@
 				</div>
 
 				<label>{{:L('common_verify_text')}}</label>
-				<div class="am-input-group am-input-group-sm">
-					<span class='am-form-group'>
-	                	<input type="number" name="verify" class="am-radius" placeholder="{{:L('common_verify_text')}}" minlength="6" maxlength="6" data-validation-message="{{:L('common_verify_tips')}}" required />
-	                </span>
+				<div class="am-input-group am-input-group-sm am-form-group">
+	                <input type="number" name="verify" class="am-radius" placeholder="{{:L('common_verify_text')}}" minlength="6" maxlength="6" data-validation-message="{{:L('common_verify_tips')}}" required />
 	                <span class="am-input-group-btn">
-	                    <button class="am-btn am-btn-default am-radius btn-loading-example verify-submit" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'{{:L('common_send_tips')}}'}" data-url="{{:U('Home/User/RegVerifySend')}}" data-verify="0" data-text="{{:L('common_get_verify_text')}}" data-send-text="{{:L('common_send_time_tips')}}" data-time="{{:MyC('common_verify_time_interval', 30, true)}}">{{:L('common_get_verify_text')}}</button>
+	                    <button class="am-btn am-btn-default am-radius btn-loading-example verify-submit" type="button" data-am-loading="{spinner:'circle-o-notch', loadingText:'{{:L('common_send_tips')}}'}" data-url="{{:U('Home/User/RegVerifySend')}}" data-verify="{{:MyC('home_img_verify_state')}}" data-text="{{:L('common_get_verify_text')}}" data-send-text="{{:L('common_send_time_tips')}}" data-time="{{:MyC('common_verify_time_interval', 30, true)}}">{{:L('common_get_verify_text')}}</button>
 	                </span>
 	            </div>
 
 				<br />
 				<label>{{:L('user_reg_pwd_text')}}</label>
-				<div class="am-input-group am-input-group-sm">
-					<span class='am-form-group'>
-						<input type="password" name="pwd" class="am-radius" placeholder="{{:L('user_reg_pwd_text')}}" pattern="{{:L('common_regex_pwd')}}" data-validation-message="{{:L('user_reg_pwd_format')}}" required />
-					</span>
+				<div class="am-input-group am-input-group-sm am-form-group">
+					<input type="password" name="pwd" class="am-radius" placeholder="{{:L('user_reg_pwd_text')}}" pattern="{{:L('common_regex_pwd')}}" data-validation-message="{{:L('user_reg_pwd_format')}}" required />
 					<span class="am-input-group-btn">
 						<button class="am-btn am-btn-default am-radius am-icon-eye eye-submit" type="button"></button>
 					</span>

@@ -319,11 +319,18 @@ class StudentController extends CommonController
 			// 开启事务
 			$m->startTrans();
 
+			// 学生是否已存在编号
+			$number = $m->where(array('id_card'=>I('id_card')))->getField('number');
+
 			// 数据写入
 			$student_id = $m->add();
 
 			// 更新学号
-			$number_state = $m->where(array('id'=>$student_id))->save(array('number'=>GenerateStudentNumber($student_id)));
+			if(empty($number))
+			{
+				$number = GenerateStudentNumber($student_id);
+			}
+			$number_state = $m->where(array('id'=>$student_id))->save(array('number'=>$number));
 
 			if($student_id > 0 && $number_state !== false)
 			{

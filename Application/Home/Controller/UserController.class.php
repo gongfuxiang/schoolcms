@@ -337,13 +337,7 @@ class UserController extends CommonController
 	 */
 	public function UserVerifyEntry()
 	{
-		$param = array(
-				'width' => 100,
-				'height' => 32,
-				'key_prefix' => I('type', 'reg'),
-			);
-		$verify = new \My\Verify($param);
-		$verify->Entry();
+		$this->CommonVerifyEntry(I('type', 'reg'));
 	}
 
 	/**
@@ -378,22 +372,7 @@ class UserController extends CommonController
 			);
 
 		// 是否开启图片验证码
-		if(I('type') == 'sms' &&  MyC('home_user_reg_img_verify_state') == 1)
-		{
-			if(empty($_POST['verify']))
-			{
-				$this->ajaxReturn(L('common_param_error'), -10);
-			}
-			$verify = new \My\Verify($verify_param);
-			if(!$verify->CheckExpire())
-			{
-				$this->ajaxReturn(L('common_verify_expire'), -11);
-			}
-			if(!$verify->CheckCorrect(I('verify')))
-			{
-				$this->ajaxReturn(L('common_verify_error'), -12);
-			}
-		}
+		$verify = $this->CommonIsImaVerify($verify_param);
 
 		// 发送验证码
 		$code = GetNumberCode(6);
@@ -476,22 +455,6 @@ class UserController extends CommonController
 	}
 
 	/**
-	 * [IsExistAccounts 账户是否存在]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-03-08T10:27:14+0800
-	 * @param    [string] $accounts 	[账户名称]
-	 * @param    [string] $field 		[字段名称]
-	 * @return   [boolean] 				[存在true, 不存在false]
-	 */
-	private function IsExistAccounts($accounts, $field = 'mobile')
-	{
-		$id = M('User')->where(array($field=>$accounts))->getField('id');
-		return !empty($id);
-	}
-
-	/**
 	 * [ForgetPwdVerifySend 密码找回验证码发送]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -508,14 +471,13 @@ class UserController extends CommonController
 
 		// 参数
 		$accounts = I('accounts');
-		$verify = I('verify');
-		if(empty($accounts) || empty($verify))
+		if(empty($accounts))
 		{
 			$this->ajaxReturn(L('common_param_error'), -10);
 		}
 
 		// 账户是否存在
-		$this->UserForgetAccountsCheck($accounts);
+		$type = $this->UserForgetAccountsCheck($accounts);
 
 		// 验证码公共基础参数
 		$verify_param = array(
@@ -524,28 +486,20 @@ class UserController extends CommonController
 				'time_interval'	=>	MyC('common_verify_time_interval'),
 			);
 
-		// 图片验证码校验
-		$verify = new \My\Verify($verify_param);
-		if(!$verify->CheckExpire())
-		{
-			$this->ajaxReturn(L('common_verify_expire'), -11);
-		}
-		if(!$verify->CheckCorrect(I('verify')))
-		{
-			$this->ajaxReturn(L('common_verify_error'), -12);
-		}
+		// 是否开启图片验证码
+		$verify = $this->CommonIsImaVerify($verify_param);
 
 		// 验证码
 		$code = GetNumberCode(6);
 
 		// 手机
-		if(CheckMobile($accounts))
+		if($type == 'mobile')
 		{
 			$obj = new \My\Sms($verify_param);
 			$state = $obj->SendText($accounts, MyC('home_sms_user_forget_pwd'), $code);
 
 		// 邮箱
-		} else if(CheckEmail($accounts))
+		} else if($type == 'email')
 		{
 			$obj = new \My\Email($verify_param);
 			$email_param = array(
@@ -571,34 +525,6 @@ class UserController extends CommonController
 			$this->ajaxReturn(L('common_send_success'));
 		} else {
 			$this->ajaxReturn(L('common_send_error').'['.$obj->error.']', -100);
-		}
-	}
-
-	/**
-	 * [UserForgetAccountsCheck 密码找回-帐号校验]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-03-10T17:59:53+0800
-	 * @param    [string]     $accounts [账户名称]
-	 * @return   [string]               [账户字段]
-	 */
-	public function UserForgetAccountsCheck($accounts)
-	{
-		if(CheckMobile($accounts))
-		{
-			if(!$this->IsExistAccounts($accounts, 'mobile'))
-			{
-				$this->ajaxReturn(L('common_mobile_no_exist_error'), -3);
-			}
-			return 'mobile';
-		} else if(CheckEmail($accounts))
-		{
-			if(!$this->IsExistAccounts($accounts, 'email'))
-			{
-				$this->ajaxReturn(L('common_email_no_exist_error'), -3);
-			}
-			return 'email';
 		}
 	}
 
@@ -635,10 +561,11 @@ class UserController extends CommonController
 				'expire_time' => MyC('common_verify_expire_time'),
 				'time_interval'	=>	MyC('common_verify_time_interval'),
 			);
-		if(CheckMobile($accounts))
+		if($field == 'mobile')
 		{
 			$obj = new \My\Sms($verify_param);
-		} else {
+		} else if($field == 'email')
+		{
 			$obj = new \My\Email($verify_param);
 		}
 		// 是否已过期
@@ -667,6 +594,51 @@ class UserController extends CommonController
 	}
 
 	/**
+	 * [UserForgetAccountsCheck 帐号校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-10T17:59:53+0800
+	 * @param    [string]     $accounts [账户名称]
+	 * @return   [string]               [账户字段 mobile, email]
+	 */
+	private function UserForgetAccountsCheck($accounts)
+	{
+		if(CheckMobile($accounts))
+		{
+			if(!$this->IsExistAccounts($accounts, 'mobile'))
+			{
+				$this->ajaxReturn(L('common_mobile_no_exist_error'), -3);
+			}
+			return 'mobile';
+		} else if(CheckEmail($accounts))
+		{
+			if(!$this->IsExistAccounts($accounts, 'email'))
+			{
+				$this->ajaxReturn(L('common_email_no_exist_error'), -3);
+			}
+			return 'email';
+		}
+		$this->ajaxReturn(L('common_accounts_format_error'), -4);
+	}
+
+	/**
+	 * [IsExistAccounts 账户是否存在]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-08T10:27:14+0800
+	 * @param    [string] $accounts 	[账户名称]
+	 * @param    [string] $field 		[字段名称]
+	 * @return   [boolean] 				[存在true, 不存在false]
+	 */
+	private function IsExistAccounts($accounts, $field = 'mobile')
+	{
+		$id = M('User')->where(array($field=>$accounts))->getField('id');
+		return !empty($id);
+	}
+
+	/**
 	 * [Logout 退出]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -675,7 +647,10 @@ class UserController extends CommonController
 	 */
 	public function Logout()
 	{
-		session_destroy();
+		if(isset($_SESSION['user']))
+		{
+			unset($_SESSION['user']);
+		}
 		redirect(__MY_URL__);
 	}
 }

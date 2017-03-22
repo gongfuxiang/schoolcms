@@ -54,6 +54,11 @@ return array(
 				),
 		),
 
+	// 用户中心未显示的菜单active选中映射（小写）
+	'user_left_menu_hidden_active'	=>	array(
+			'studentpolyinfo'	=>	'studentindex',
+		),
+
 	// 用户顶部导航
 	'user_nav_menu'			=>	array(
 			array(
