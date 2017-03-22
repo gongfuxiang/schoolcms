@@ -17,5 +17,13 @@ return array(
 	'student_accounts_format'					=>	'手机/邮箱格式有误',
 	'student_accounts_on_exist_error'			=>	'帐号不存在',
 	'student_join_accounts_exist_tips'			=>	'该账户已关联',
+	'student_class_text'						=>	'班级',
+	'student_birthday_text'						=>	'出生日期',
+	'student_my_mobile_name'					=>	'学生手机',
+	'student_tuition_state_text'				=>	'缴费状态',
+	'student_sign_up_name'						=>	'报名时间',
+	'common_bundled_time_name'					=>	'绑定时间',
+	'student_semester_text'						=>	'学期',
+	'student_score_text'						=>	'查成绩',
 );
 ?>

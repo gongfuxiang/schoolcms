@@ -33,7 +33,87 @@ class StudentController extends CommonController
 	 */
 	public function Index()
 	{
+		// 获取列表
+		$where = array('us.user_id'=>$this->user['id']);
+		$list = $this->SetDataHandle(M('UserStudent')->alias('us')->join('__STUDENT__ AS s ON s.id=us.student_id ')->field('s.*, us.id AS user_student_id,us.add_time AS bundled_time')->where($where)->select());
+
+		// 数据列表
+		$this->assign('list', $list);
+
+		//print_r($list);
+
 		$this->display('Index');
+	}
+
+	/**
+	 * [SetDataHandle 数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-29T21:27:15+0800
+	 * @param    [array]      $data [学生数据]
+	 * @return   [array]            [处理好的数据]
+	 */
+	private function SetDataHandle($data)
+	{
+		if(!empty($data))
+		{
+			$c = M('Class');
+			$r = M('Region');
+			$s = M('Semester');
+			foreach($data as $k=>$v)
+			{
+				// 班级
+				$tmp_class = $c->field(array('pid', 'name'))->find($v['class_id']);
+				if(!empty($tmp_class))
+				{
+					$p_name = ($tmp_class['pid'] > 0) ? $c->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
+					$data[$k]['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
+				} else {
+					$data[$k]['class_name'] = '';
+				}
+				
+				// 地区
+				$data[$k]['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
+
+				// 学期
+				$data[$k]['semester_text'] = $s->where(array('id'=>$v['semester_id']))->getField('name');
+
+				// 出生
+				$data[$k]['birthday'] = date('Y-m-d', $v['birthday']);
+
+				// 报名时间
+				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+
+				// 更新时间
+				$data[$k]['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
+
+				// 绑定时间
+				$data[$k]['bundled_time'] = date('Y-m-d H:i:s', $v['bundled_time']);
+
+				// 性别
+				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
+
+				// 状态
+				$data[$k]['state'] = L('common_student_state_list')[$v['state']]['name'];
+
+				// 缴费状态
+				$data[$k]['tuition_state_text'] = L('common_tuition_state_list')[$v['tuition_state']]['name'];
+			}
+		}
+		return $data;
+	}
+
+	/**
+	 * [ScoreInfo 成绩查询]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-03-22T22:39:04+0800
+	 */
+	public function ScoreInfo()
+	{
+		$this->display('ScoreInfo');
 	}
 
 	/**
@@ -46,6 +126,29 @@ class StudentController extends CommonController
 	public function PolyInfo()
 	{
 		$this->display('PolyInfo');
+	}
+
+	/**
+	 * [Delete 学生关联-解除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-25T22:36:12+0800
+	 */
+	public function Delete()
+	{
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 数据删除
+		if(M('UserStudent')->where(array('id'=>I('id'), 'user_id'=>$this->user['id']))->delete())
+		{
+			$this->ajaxReturn(L('common_operation_delete_success'));
+		} else {
+			$this->ajaxReturn(L('common_operation_delete_error'), -100);
+		}
 	}
 
 	/**
