@@ -39,9 +39,6 @@ class StudentController extends CommonController
 
 		// 数据列表
 		$this->assign('list', $list);
-
-		//print_r($list);
-
 		$this->display('Index');
 	}
 
@@ -56,6 +53,7 @@ class StudentController extends CommonController
 	 */
 	private function SetDataHandle($data)
 	{
+		$result = array();
 		if(!empty($data))
 		{
 			$c = M('Class');
@@ -63,45 +61,53 @@ class StudentController extends CommonController
 			$s = M('Semester');
 			foreach($data as $k=>$v)
 			{
+				if(!isset($result[$v['semester_id']]))
+				{
+					// 学期
+					$result[$v['semester_id']]['id'] = $v['semester_id'];
+					$result[$v['semester_id']]['name'] = $s->where(array('id'=>$v['semester_id']))->getField('name');
+				}
 				// 班级
 				$tmp_class = $c->field(array('pid', 'name'))->find($v['class_id']);
 				if(!empty($tmp_class))
 				{
 					$p_name = ($tmp_class['pid'] > 0) ? $c->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
-					$data[$k]['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
+					$v['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
 				} else {
-					$data[$k]['class_name'] = '';
+					$v['class_name'] = '';
 				}
 				
 				// 地区
-				$data[$k]['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
+				$v['region_name'] = $r->where(array('id'=>$v['region_id']))->getField('name');
 
 				// 学期
-				$data[$k]['semester_text'] = $s->where(array('id'=>$v['semester_id']))->getField('name');
+				$v['semester_text'] = $result[$v['semester_id']]['name'];
 
 				// 出生
-				$data[$k]['birthday'] = date('Y-m-d', $v['birthday']);
+				$v['birthday'] = date('Y-m-d', $v['birthday']);
 
 				// 报名时间
-				$data[$k]['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
+				$v['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
 
 				// 更新时间
-				$data[$k]['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
+				$v['upd_time'] = date('Y-m-d H:i:s', $v['upd_time']);
 
 				// 绑定时间
-				$data[$k]['bundled_time'] = date('Y-m-d H:i:s', $v['bundled_time']);
+				$v['bundled_time'] = date('Y-m-d H:i:s', $v['bundled_time']);
 
 				// 性别
-				$data[$k]['gender'] = L('common_gender_list')[$v['gender']]['name'];
+				$v['gender'] = L('common_gender_list')[$v['gender']]['name'];
 
 				// 状态
-				$data[$k]['state'] = L('common_student_state_list')[$v['state']]['name'];
+				$v['state'] = L('common_student_state_list')[$v['state']]['name'];
 
 				// 缴费状态
-				$data[$k]['tuition_state_text'] = L('common_tuition_state_list')[$v['tuition_state']]['name'];
+				$v['tuition_state_text'] = L('common_tuition_state_list')[$v['tuition_state']]['name'];
+
+				$result[$v['semester_id']]['item'][] = $v;
 			}
 		}
-		return $data;
+		return $result;
 	}
 
 	/**
@@ -379,13 +385,8 @@ class StudentController extends CommonController
 		$data = M('Student')->field($field)->where($where)->find();
 		if(!empty($data))
 		{
-			foreach($field as $temp_key=>$temp_field)
-			{
-				if($temp_field == $accounts)
-				{
-					return $temp_key;
-				}
-			}
+			$key = array_search($accounts, $data);
+			return ($key === false) ? '' : $key;
 		} else {
 			$this->ajaxReturn(L('common_student_no_exist_error'), -1000);
 		}
