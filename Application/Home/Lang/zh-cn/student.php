@@ -8,7 +8,7 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
-	'student_operation_poly_add'				=>	'关联学生',
+	'student_operation_binding_text'			=>	'学生绑定',
 	'student_username_text'						=>	'学生真实姓名',
 	'student_username_name'						=>	'学生姓名',
 	'student_username_format'					=>	'姓名格式 2~16 个字符',
@@ -25,5 +25,6 @@ return array(
 	'common_bundled_time_name'					=>	'绑定时间',
 	'student_semester_text'						=>	'学期',
 	'student_score_text'						=>	'查成绩',
+	'student_operation_score'					=>	'成绩查询',
 );
 ?>

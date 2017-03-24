@@ -16,7 +16,7 @@
     <div class="user-content-body p-10">
       <!-- operation start -->
       <div class="am-g ">
-          <a href="{{:U('Home/Student/PolyInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('student_operation_poly_add')}}</a>
+          <a href="{{:U('Home/Student/PolyInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('student_operation_binding_text')}}</a>
       </div>
       <!-- operation end -->
 
@@ -114,7 +114,7 @@
                             </div>
                           </td>
                           <td class="view-operation">
-                            <a href="{{:U('Home/Student/ScoreInfo', array('id'=>$v['id']))}}">
+                            <a href="{{:U('Home/Student/ScoreInfo', array('id'=>$vs['user_student_id']))}}">
                               <button class="am-btn am-btn-default am-btn-xs am-radius am-icon-mortar-board" data-am-popover="{content: '{{:L('student_score_text')}}', trigger: 'hover focus'}"></button>
                             </a>
                             <button class="am-btn am-btn-default am-btn-xs am-radius am-icon-cut submit-delete" data-url="{{:U('Home/Student/Delete')}}" data-am-popover="{content: '{{:L('common_operation_cut')}}', trigger: 'hover focus'}" data-id="{{$vs.user_student_id}}"></button>

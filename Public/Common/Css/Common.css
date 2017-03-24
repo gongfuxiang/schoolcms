@@ -16,7 +16,7 @@
 .fs-18 {font-size:18px !important;}
 .c-r {cursor:w-resize;}
 .c-p {cursor:pointer;}
-legend {padding-bottom:0.2rem !important;}
+legend {padding-bottom:0.2rem !important; margin-bottom: 1rem; }
 .none {display:none !important;}
 .block {display:block !important;}
 .am-popup-bd {background:#fff;}

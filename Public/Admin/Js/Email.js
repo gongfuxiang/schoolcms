@@ -45,7 +45,8 @@ $(function()
 				toolbars: toolbars,
 				initialFrameHeight : 150
 			}
-		var ue = UE.getEditor('email_user_reg', config);
-		var ue = UE.getEditor('email_user_forget_pwd', config);
+		UE.getEditor('email_user_reg', config);
+		UE.getEditor('email_user_forget_pwd', config);
+		UE.getEditor('email_user_student_binding', config);
 	}
 });

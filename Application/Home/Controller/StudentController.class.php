@@ -35,7 +35,7 @@ class StudentController extends CommonController
 	{
 		// 获取列表
 		$where = array('us.user_id'=>$this->user['id']);
-		$list = $this->SetDataHandle(M('UserStudent')->alias('us')->join('__STUDENT__ AS s ON s.id=us.student_id ')->field('s.*, us.id AS user_student_id,us.add_time AS bundled_time')->where($where)->select());
+		$list = $this->StudentSetDataHandle(M('UserStudent')->alias('AS us')->join('__STUDENT__ AS s ON s.id=us.student_id ')->field('s.*, us.id AS user_student_id,us.add_time AS bundled_time')->where($where)->select());
 
 		// 数据列表
 		$this->assign('list', $list);
@@ -43,7 +43,7 @@ class StudentController extends CommonController
 	}
 
 	/**
-	 * [SetDataHandle 数据处理]
+	 * [StudentSetDataHandle 数据处理]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -51,7 +51,7 @@ class StudentController extends CommonController
 	 * @param    [array]      $data [学生数据]
 	 * @return   [array]            [处理好的数据]
 	 */
-	private function SetDataHandle($data)
+	private function StudentSetDataHandle($data)
 	{
 		$result = array();
 		if(!empty($data))
@@ -67,6 +67,7 @@ class StudentController extends CommonController
 					$result[$v['semester_id']]['id'] = $v['semester_id'];
 					$result[$v['semester_id']]['name'] = $s->where(array('id'=>$v['semester_id']))->getField('name');
 				}
+
 				// 班级
 				$tmp_class = $c->field(array('pid', 'name'))->find($v['class_id']);
 				if(!empty($tmp_class))
@@ -119,7 +120,85 @@ class StudentController extends CommonController
 	 */
 	public function ScoreInfo()
 	{
+		$id = I('id');
+		if(!empty($id))
+		{
+			$field = array('s.username', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.comment', 'f.add_time');
+			$where = array('us.user_id'=>$this->user['id'], 'us.id'=>$id);
+			$data = $this->ScoreSetDataHandle(M('UserStudent')->alias('AS us')->join('__STUDENT__ AS s ON us.student_id=s.id')->join('__FRACTION__ AS f ON s.id=f.student_id')->where($where)->field($field)->order('f.score_id ASC')->select());
+			$this->assign('data', $data);
+		}
 		$this->display('ScoreInfo');
+	}
+
+	/**
+	 * [ScoreSetDataHandle 数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-29T21:27:15+0800
+	 * @param    [array]      $data [学生数据]
+	 * @return   [array]            [处理好的数据]
+	 */
+	private function ScoreSetDataHandle($data)
+	{
+		$result = array();
+		if(!empty($data))
+		{
+			$score = M('Score');
+			$subject = M('Subject');
+			$class = M('Class');
+			$score_level = L('common_fraction_level_list');
+			foreach($data as $k=>$v)
+			{
+				// 基础资料
+				if(!isset($result['username']))
+				{
+					// 姓名
+					$result['username'] = $v['username'];
+
+					// 班级
+					$tmp_class = $class->field(array('pid', 'name'))->find($v['class_id']);
+					if(!empty($tmp_class))
+					{
+						$p_name = ($tmp_class['pid'] > 0) ? $class->where(array('id'=>$tmp_class['pid']))->getField('name') : '';
+						$result['class_name'] = empty($p_name) ? $tmp_class['name'] : $p_name.'-'.$tmp_class['name'];
+					}
+				}
+
+				// 学期key
+				$score_key = $v['score_id'];
+
+				// 成绩期号
+				if(!isset($result['item'][$score_key]))
+				{
+					$result['item'][$score_key]['name'] = $score->where(array('id'=>$v['score_id']))->getField('name');
+				}
+				
+				// 科目
+				$v['subject_name'] = $subject->where(array('id'=>$v['subject_id']))->getField('name');
+
+				// 成绩等级
+				foreach($score_level as $level)
+				{
+					if($v['score'] >= $level['min'] && $v['score'] <= $level['max'])
+					{
+						$v['score_level'] = $level['name'];
+					}
+				}
+				if(!isset($v['score_level']))
+				{
+					$v['score_level'] = '';
+				}
+
+				// 添加时间
+				$v['add_time'] = date('Y-m-d', $v['add_time']);
+
+				unset($v['username'], $v['class_id'], $v['subject_id'], $v['score_id']);
+				$result['item'][$score_key]['item'][] = $v;
+			}
+		}
+		return $result;
 	}
 
 	/**
@@ -336,8 +415,8 @@ class StudentController extends CommonController
 			$obj = new \My\Email($verify_param);
 			$email_param = array(
 					'email'		=>	$accounts,
-					'content'	=>	MyC('home_email_user_forget_pwd'),
-					'title'		=>	MyC('home_site_name').' - '.L('common_email_send_user_reg_title'),
+					'content'	=>	MyC('home_email_user_student_binding'),
+					'title'		=>	MyC('home_site_name').' - '.L('student_operation_binding_text'),
 					'code'		=>	$code,
 				);
 			$state = $obj->SendHtml($email_param);
@@ -345,7 +424,7 @@ class StudentController extends CommonController
 		// 短信
 		} else {
 			$obj = new \My\Sms($verify_param);
-			$state = $obj->SendText($accounts, MyC('home_sms_user_forget_pwd'), $code);
+			$state = $obj->SendText($accounts, MyC('home_sms_user_student_binding'), $code);
 		}
 
 		// 状态
@@ -376,11 +455,13 @@ class StudentController extends CommonController
 	{
 		$field = array('my_mobile', 'parent_mobile', 'email');
 		$where = array(
-				'my_mobile'		=>	$accounts,
-				'parent_mobile'	=>	$accounts,
-				'email'			=>	$accounts,
+					array(
+						'my_mobile'		=>	$accounts,
+						'parent_mobile'	=>	$accounts,
+						'email'			=>	$accounts,
+						'_logic'		=>	'OR',
+					),
 				'semester_id'	=>	MyC('admin_semester_id'),
-				'_logic'		=>	'OR',
 			);
 		$data = M('Student')->field($field)->where($where)->find();
 		if(!empty($data))

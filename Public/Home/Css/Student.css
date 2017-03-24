@@ -1,2 +1,4 @@
 #verify-win { background-color: rgba(0, 0, 0, 0.6); }
 .student-accordion { margin: 10px 0 0 0; }
+.score-table th { background-color: #f7f7f7; }
+.score-table .class-name { border-top-style: dashed; }

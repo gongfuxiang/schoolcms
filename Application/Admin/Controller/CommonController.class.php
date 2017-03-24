@@ -296,7 +296,8 @@ class CommonController extends Controller
 				'home_footer_info',
 				'home_site_close_reason',
 				'home_email_user_reg',
-				'home_email_user_forget_pwd'
+				'home_email_user_forget_pwd',
+				'home_email_user_student_binding',
 			);
 
 		// 开始更新数据
