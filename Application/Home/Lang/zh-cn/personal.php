@@ -22,6 +22,7 @@ return array(
 	'personal_show_list'	=>	array(
 			'nickname'			=>	array('name' => '昵称'),
 			'gender_text'		=>	array('name' => '性别'),
+			'birthday_text'		=>	array('name' => '生日'),
 			'mobile'			=>	array('name' => '手机号码', 'tips' => '<a href="'.U('Home/Safety/Index').'">修改</a>'),
 			'email'				=>	array('name' => '电子邮箱', 'tips' => '<a href="'.U('Home/Safety/Index').'">修改</a>'),
 			'signature'			=>	array('name' => '个人签名'),
