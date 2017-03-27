@@ -24,11 +24,9 @@
       <table class="am-table am-table-bordered am-table-centered am-radius score-table">
         <tr>
           <th>{{$data.username}}</th>
-          <th rowspan="2" class="am-text-middle">科目</th>
-          <th rowspan="2" class="am-text-middle">分数</th>
-          <th rowspan="2" class="am-text-middle">等级</th>
-          <th rowspan="2" class="am-text-middle">时间</th>
-          <th rowspan="2" class="am-text-middle">点评</th>
+          <foreach name="student_score_title_list" item="title">
+            <th rowspan="2" class="am-text-middle">{{$title}}</th>
+          </foreach>
         </tr>
         <tr>
         <th class="class-name">{{$data.class_name}}</th>

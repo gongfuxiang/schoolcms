@@ -18,7 +18,7 @@ class StudentModel extends CommonModel
 		array('username', 'CheckUserName', '{%student_username_format}', 1, 'callback', 3),
 		array('id_card', 'CheckIdCard', '{%common_view_id_card_format}', 1, 'callback', 3),
 		array('gender', array(0,1,2), '{%common_gender_tips}', 1, 'in', 3),
-		array('birthday', 'CheckBirthday', '{%student_birthday_format}', 2, 'callback', 3),
+		array('birthday', 'CheckBirthday', '{%student_birthday_format}', 1, 'callback', 3),
 		array('class_id', 'IsExistClass', '{%student_class_tips}', 1, 'callback', 3),
 		array('region_id', 'IsExistRegion', '{%student_region_tips}', 1, 'callback', 3),
 		array('state', array(0,1,2,3,4), '{%common_student_state_tips}', 1, 'in', 3),

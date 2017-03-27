@@ -22,6 +22,9 @@ class StudentController extends CommonController
 	{
 		// 调用父类前置方法
 		parent::_initialize();
+
+		// 登录校验
+		$this->Is_Login();
 	}
 
 	/**
@@ -127,6 +130,7 @@ class StudentController extends CommonController
 			$where = array('us.user_id'=>$this->user['id'], 'us.id'=>$id);
 			$data = $this->ScoreSetDataHandle(M('UserStudent')->alias('AS us')->join('__STUDENT__ AS s ON us.student_id=s.id')->join('__FRACTION__ AS f ON s.id=f.student_id')->where($where)->field($field)->order('f.score_id ASC')->select());
 			$this->assign('data', $data);
+			$this->assign('student_score_title_list', L('student_score_title_list'));
 		}
 		$this->display('ScoreInfo');
 	}

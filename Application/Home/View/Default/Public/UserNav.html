@@ -15,7 +15,7 @@
 				<foreach name="user_nav_menu" item="v">
 					<if condition="$v['is_show'] eq 1">
 						<li>
-							<a href="{{:U('Home/'.$v['control'].'/'.$v['action'])}}">{{$v.name}}</a>
+							<a href="{{:U('Home/'.$v['control'].'/'.$v['action'])}}"><if condition="!empty($v['icon'])"><i class="{{$v.icon}}"></i></if> {{$v.name}}</a>
 						</li>
 					</if>
 				</foreach>

@@ -26,5 +26,6 @@ return array(
 	'student_semester_text'						=>	'学期',
 	'student_score_text'						=>	'查成绩',
 	'student_operation_score'					=>	'成绩查询',
+	'student_score_title_list'					=>	array('科目', '分数', '等级', '时间','点评'),
 );
 ?>

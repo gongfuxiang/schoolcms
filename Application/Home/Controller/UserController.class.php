@@ -305,30 +305,6 @@ class UserController extends CommonController
 	}
 
 	/**
-	 * [UserLoginRecord 用户登录记录]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-03-09T11:37:43+0800
-	 * @param    [int]     $user_id [用户id]
-	 * @return   [boolean]          [记录成功true, 失败false]
-	 */
-	private function UserLoginRecord($user_id)
-	{
-		if(!empty($user_id))
-		{
-			$field = array('id', 'mobile', 'email', 'nickname', 'gender', 'add_time', 'upd_time');
-			$user = M('User')->field($field)->find($user_id);
-			if(!empty($user))
-			{
-				$_SESSION['user'] = $user;
-				return !empty($_SESSION['user']);
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * [UserVerifyEntry 用户-验证码显示]
 	 * @author   Devil
 	 * @blog     http://gong.gg/

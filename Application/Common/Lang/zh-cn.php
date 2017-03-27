@@ -77,6 +77,7 @@ return array(
 	'common_set_up_the_text'			=>	'设置',
 	'common_prevent_harassment_error'	=>	'防止造成骚扰，请勿频繁发送',
 	'common_accounts_format_error'		=>	'手机/邮箱格式有误',
+	'common_on_fill_in_the_text'		=>	'未填写',
 
 	'common_library_email_empty_error'	=>	'收件邮箱不能为空',
 	'common_library_content_empty_error'=>	'发送内容不能为空',

@@ -45,7 +45,7 @@
 			</div>
 			<div class="am-form-group">
 				<label>{{:L('fraction_comment_text')}}</label>
-				<textarea rows="3" maxlength="255" name="comment" class="am-radius" placeholder="{{:L('fraction_comment_text')}}" data-validation-message="{{:L('fraction_comment_format')}}"><present name="data"> value="{{$data.comment}}"</present></textarea>
+				<textarea rows="3" maxlength="255" name="comment" class="am-radius" placeholder="{{:L('fraction_comment_text')}}" data-validation-message="{{:L('fraction_comment_format')}}"><present name="data">{{$data.comment}}</present></textarea>
 			</div>
 			<div class="am-form-group">
 				<input type="hidden" name="student_id" <present name="student"> value="{{$student.id}}"</present>" />
