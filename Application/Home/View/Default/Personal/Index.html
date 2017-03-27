@@ -14,6 +14,10 @@
 	<!-- content start -->
 	<div class="user-content">
 		<div class="user-content-body p-10">
+			<legend>
+				<span class="fs-16">{{:L('personal_save_nav_title_text')}}</span>
+				<a href="{{:U('Home/Personal/SaveInfo')}}" class="fr fs-14 m-t-5"> {{:L('common_operation_edit')}}</a>
+			</legend>
 			<dl class="dl-content">
 				<foreach name="personal_show_list" key="k" item="v">
 					<if condition="isset($user[$k])">
@@ -31,7 +35,6 @@
 					</if>
 				</foreach>
 			</dl>
-			<a href="{{:U('Home/Personal/SaveInfo')}}" class="am-btn am-btn-primary am-radius am-btn-block am-btn-sm m-b-20">{{:L('common_operation_edit')}}</a>
 		</div>
 	</div>
 	<!-- content end -->
