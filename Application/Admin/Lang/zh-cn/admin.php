@@ -15,7 +15,6 @@ return array(
 	'login_login_pwd_format'			=>	'密码格式 6~18 个字符',
 	'login_role_id_format'				=>	'请选择所属角色组',
 	'login_button_text'					=>	'登录',
-	'login_button_loading_text'			=>	'登录中...',
 	'login_forgot_pwd_text'				=>	'忘记密码?',
 	'login_forgot_pwd_tips'				=>	'请联系管理员重置密码',
 	'login_username_no_exist'			=>	'管理员不存在',

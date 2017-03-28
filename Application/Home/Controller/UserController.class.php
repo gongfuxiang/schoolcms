@@ -623,10 +623,7 @@ class UserController extends CommonController
 	 */
 	public function Logout()
 	{
-		if(isset($_SESSION['user']))
-		{
-			unset($_SESSION['user']);
-		}
+		session_destroy();
 		redirect(__MY_URL__);
 	}
 }

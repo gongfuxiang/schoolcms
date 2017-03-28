@@ -502,6 +502,8 @@ class CommonController extends Controller
 				$user['upd_time_text']	=	date('Y-m-d H:i:s', $user['upd_time']);
 				$user['gender_text']	=	L('common_gender_list')[$user['gender']]['name'];
 				$user['birthday_text']	=	date('Y-m-d', $user['birthday']);
+				$user['mobile_security']=	empty($user['mobile']) ? '' : substr($user['mobile'], 0, 3).'***'.substr($user['mobile'], -3);
+				$user['email_security']	=	empty($user['email']) ? '' : substr($user['email'], 0, 3).'***'.substr($user['email'], -3);
 
 				// 存储session
 				$_SESSION['user'] = $user;

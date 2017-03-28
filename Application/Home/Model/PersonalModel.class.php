@@ -13,7 +13,7 @@ use Think\Model;
 class PersonalModel extends CommonModel
 {
 	// 表名
-	protected $tableName = 'user'; 
+	protected $tableName = 'user';
 
 	// 数据自动校验
 	protected $_validate = array(

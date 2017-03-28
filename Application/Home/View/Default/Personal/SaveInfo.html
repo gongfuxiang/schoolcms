@@ -26,7 +26,7 @@
 				</div>
 				<include file="Lib/Gender" />
 				<div class="am-form-group">
-				<label>{{:L('personal_birthday_text')}}</label>
+					<label>{{:L('personal_birthday_text')}}</label>
 					<input type="text" name="birthday" class="am-radius" placeholder="{{:L('personal_birthday_text')}}" pattern="{{:L('common_regex_birthday')}}" data-validation-message="{{:L('personal_birthday_format')}}" <notempty name="data"> value="{{$data.birthday_text}}" </notempty> data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" readonly required />
 				</div>
 				<div class="am-form-group">
