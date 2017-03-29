@@ -48,5 +48,6 @@ $(function()
 		UE.getEditor('email_user_reg', config);
 		UE.getEditor('email_user_forget_pwd', config);
 		UE.getEditor('email_user_student_binding', config);
+		UE.getEditor('email_user_email_binding', config);
 	}
 });

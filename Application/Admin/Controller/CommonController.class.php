@@ -298,6 +298,7 @@ class CommonController extends Controller
 				'home_email_user_reg',
 				'home_email_user_forget_pwd',
 				'home_email_user_student_binding',
+				'home_email_user_email_binding',
 			);
 
 		// 开始更新数据

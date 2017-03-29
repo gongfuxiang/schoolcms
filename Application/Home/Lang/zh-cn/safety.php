@@ -8,6 +8,7 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 return array(
+	'safety_email_send_title'				=>	'电子邮箱绑定',
 	'safety_loginpwd_nav_title_text'		=>	'登录密码修改',
 	'safety_original_mobile_nav_title'		=>	'原手机号码校验',
 	'safety_new_mobile_nav_title'			=>	'新手机号码校验',

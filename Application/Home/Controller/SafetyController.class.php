@@ -232,13 +232,13 @@ class SafetyController extends CommonController
 		if($type == 'sms')
 		{
 			$obj = new \My\Sms($verify_param);
-			$state = $obj->SendText($accounts, MyC('home_sms_user_reg'), $code);
+			$state = $obj->SendText($accounts, MyC('home_sms_user_mobile_binding'), $code);
 		} else {
 			$obj = new \My\Email($verify_param);
 			$email_param = array(
 					'email'		=>	$accounts,
-					'content'	=>	MyC('home_email_user_reg'),
-					'title'		=>	MyC('home_site_name').' - '.L('common_email_send_user_reg_title'),
+					'content'	=>	MyC('home_email_user_email_binding'),
+					'title'		=>	MyC('home_site_name').' - '.L('safety_email_send_title'),
 					'code'		=>	$code,
 				);
 			$state = $obj->SendHtml($email_param);
