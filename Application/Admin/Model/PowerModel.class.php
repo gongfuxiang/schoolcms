@@ -20,12 +20,26 @@ class PowerModel extends CommonModel
 		array('action', 'CheckAction', '{%power_action_format}', 1, 'callback', 3),
 		array('pid', 'CheckPid', '{%power_level_format}', 2, 'callback', 3),
 		array('sort', 'CheckSort', '{%common_sort_error}', 1, 'function', 3),
+		array('icon', 'CheckIcon', '{%power_icon_format}', 1, 'callback', 3),
 		array('pid', 'CheckMyPid', '{%common_pid_eq_myid_format}', 1, 'callback', 2),
 
 		// 删除
 		array('id', 'CheckPowerIsExist', '{%power_no_exist_tips}', 1, 'callback', 5),
 		array('id', 'CheckPowerIsItem', '{%power_exist_item_tips}', 1, 'callback', 5),
 	);
+
+	/**
+	 * [CheckIcon 图标class校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-13T19:29:30+0800
+	 */
+	public function CheckIcon()
+	{
+		$len = Utf8Strlen(I('icon'));
+		return ($len <= 60);
+	}
 
 	/**
 	 * [CheckName 权限名称校验]

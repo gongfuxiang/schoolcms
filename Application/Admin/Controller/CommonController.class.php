@@ -147,10 +147,10 @@ class CommonController extends Controller
 			$p = M('Power');
 			if($admin_id == 1)
 			{
-				$field = array('id', 'name', 'control', 'action', 'is_show');
+				$field = array('id', 'name', 'control', 'action', 'is_show', 'icon');
 				$this->left_menu = $p->where(array('pid' => 0))->field($field)->order('sort')->select();
 			} else {
-				$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_show');
+				$field = array('p.id', 'p.name', 'p.control', 'p.action', 'p.is_show', 'p.icon');
 				$this->left_menu = $p->alias('p')->join('__ROLE_POWER__ AS rp ON p.id = rp.power_id')->where(array('rp.role_id' => $role_id, 'p.pid' => 0))->field($field)->order('p.sort')->select();
 			}
 			

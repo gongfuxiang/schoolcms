@@ -18,7 +18,7 @@ class PersonalModel extends CommonModel
 	// 数据自动校验
 	protected $_validate = array(
 		// 添加/编辑
-		array('nickname', 'CheckUserName', '{%personal_nickname_format}', 1, 'callback', 3),
+		array('nickname', 'CheckNickName', '{%personal_nickname_format}', 1, 'callback', 3),
 		array('gender', array(0,1,2), '{%common_gender_tips}', 1, 'in', 3),
 		array('birthday', 'CheckBirthday', '{%student_birthday_format}', 1, 'callback', 3),
 		array('signature', 'CheckSignature', '{%personal_signature_format}', 1, 'callback', 3),
@@ -26,13 +26,13 @@ class PersonalModel extends CommonModel
 	);
 
 	/**
-	 * [CheckUserName 昵称校验]
+	 * [CheckNickName 昵称校验]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-13T19:29:30+0800
 	 */
-	public function CheckUserName()
+	public function CheckNickName()
 	{
 		$len = Utf8Strlen(I('nickname'));
 		return ($len >= 2 && $len <= 16);

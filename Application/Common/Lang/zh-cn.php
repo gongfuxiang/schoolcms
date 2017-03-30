@@ -42,6 +42,7 @@ return array(
 	'common_not_login_name'				=>	'未登录',
 	'common_not_data_tips'				=>	'没有数据',
 	'common_create_time_name'			=>	'创建时间',
+	'common_reg_time_name'				=>	'注册时间',
 	'common_upd_time_name'				=>	'更新时间',
 	'common_delete_tips'				=>	'你，确定要删除这条记录吗？',
 	'common_do_not_operate'				=>	'不可操作',
@@ -102,6 +103,8 @@ return array(
 	'common_address_format'				=>	'详细地址2~30 个字符',
 	'common_teacher_state_format'		=>	'请选择教师状态',
 	'common_pid_eq_myid_format'			=>	'父级不能是自身节点',
+	'common_user_state_format'			=>	'请选择用户状态',
+	'common_user_no_exist_error'		=>	'用户不存在',
 
 	'common_operation_name'				=>	'操作',
 	'common_operation_add'				=>	'新增',
@@ -180,6 +183,7 @@ return array(
 	'common_view_access_count_text'		=>	'访问次数',
 	'common_view_parent_mobile_name'	=>	'家长手机',
 	'common_view_student_number_text'	=>	'学生编号',
+	'common_view_user_state_name'		=>	'用户状态',
 
 	'common_unauthorized_access'		=>	'非法访问',
 	'nav_fulltext_open'					=>	'开启全屏',
@@ -367,6 +371,13 @@ return array(
 			2 => array('id' => 2, 'name' => '已离职'),
 			3 => array('id' => 3, 'name' => '已退休'),
 			4 => array('id' => 4, 'name' => '已开除'),
+		),
+
+	// 用户状态
+	'common_user_state_list'			=>	array(
+			0 => array('id' => 0, 'name' => '正常', 'checked' => true),
+			1 => array('id' => 1, 'name' => '禁止发言', 'tips' => '用户被禁止发言'),
+			2 => array('id' => 2, 'name' => '禁止登录', 'tips' => '用户被禁止登录'),
 		),
 
 	// 色彩值

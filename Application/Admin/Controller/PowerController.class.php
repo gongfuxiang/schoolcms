@@ -41,7 +41,7 @@ class PowerController extends CommonController
 	{
 		// 获取权限列表
 		$m = M('Power');
-		$field = array('id', 'pid', 'name', 'control', 'action', 'sort', 'is_show');
+		$field = array('id', 'pid', 'name', 'control', 'action', 'sort', 'is_show', 'icon');
 		$list = $m->field($field)->where(array('pid'=>0))->order('sort')->select();
 		if(!empty($list))
 		{
@@ -90,6 +90,7 @@ class PowerController extends CommonController
 				$m->name 		=	I('name');
 				$m->control 	=	I('control');
 				$m->action 		=	I('action');
+				$m->icon 		=	I('icon');
 				
 				// 写入数据库
 				if($m->add())
@@ -110,6 +111,7 @@ class PowerController extends CommonController
 				$m->name 		=	I('name');
 				$m->control 	=	I('control');
 				$m->action 		=	I('action');
+				$m->icon 		=	I('icon');
 
 				// 移除 id
 				unset($m->id);

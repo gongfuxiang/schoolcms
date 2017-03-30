@@ -274,10 +274,15 @@ class UserController extends CommonController
 
 		// 获取用户账户信息
 		$where = array('mobile' => $accounts, 'email' => $accounts, '_logic' => 'OR');
-		$user = M('User')->field(array('id', 'pwd', 'salt'))->where($where)->find();
+		$user = M('User')->field(array('id', 'pwd', 'salt', 'state'))->where($where)->find();
 		if(empty($user))
 		{
 			$this->ajaxReturn(L('user_login_accounts_on_exist_error'), -3);
+		}
+		// 用户状态
+		if($user['state'] == 2)
+		{
+			$this->ajaxReturn(L('common_user_state_list')[$user['state']]['tips'], -10);
 		}
 
 		// 密码校验

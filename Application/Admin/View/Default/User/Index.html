@@ -1,0 +1,142 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+
+<!-- right content start  -->
+<div class="content-right">
+	<div class="content">
+		<!-- form start -->
+		<form class="am-form view-list" action="{{:U('Admin/User/Index')}}" method="POST">
+			<div class="am-g">
+				<input type="text" class="am-radius form-keyword" placeholder="{{:L('user_so_keyword_tips')}}" name="keyword" <present name="param['keyword']"> value="{{$param.keyword}}"</present> />
+				<button type="submit" class="am-btn am-btn-secondary am-btn-sm am-radius form-submit">{{:L('common_operation_query')}}</button>
+				<label class="fs-12 m-l-5 c-p fw-100 more-submit">
+					{{:L('common_more_screening')}}
+					<input type="checkbox" name="is_more" value="1" id="is_more" <if condition="isset($param['is_more']) and $param['is_more'] eq 1">checked</if> />
+					<i class="am-icon-angle-down"></i>
+				</label>
+
+				<div class="more-where <if condition="!isset($param['is_more']) or $param['is_more'] neq 1">none</if>">
+					<select name="state" class="am-radius c-p m-t-10 m-l-5 param-where">
+						<option value="-1">{{:L('common_view_user_state_name')}}</option>
+						<foreach name="common_user_state_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($param['state']) and $param['state'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
+					</select>
+					<select name="gender" class="am-radius c-p m-t-10 m-l-5 param-where">
+						<option value="-1">{{:L('common_view_gender_name')}}</option>
+						<foreach name="common_gender_list" item="v">
+							<option value="{{$v.id}}" <if condition="isset($param['gender']) and $param['gender'] eq $v['id']">selected</if>>{{$v.name}}</option>
+						</foreach>
+					</select>
+					<div class="param-date param-where m-l-5">
+						<input type="text" name="time_start" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('user_time_start_text')}}" id="time_start" <if condition="isset($param['time_start'])">value="{{$param.time_start}}"</if>/>
+						<span>~</span>
+						<input type="text" readonly="readonly" class="am-radius m-t-10" placeholder="{{:L('user_time_end_text')}}" name="time_end" id="time_end" <if condition="isset($param['time_end'])">value="{{$param.time_end}}"</if>/>
+					</div>
+				</div>
+			</div>
+        </form>
+        <!-- form end -->
+
+        <!-- operation start -->
+        <div class="am-g m-t-15">
+            <a href="{{:U('Admin/User/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
+        </div>
+        <!-- operation end -->
+
+		<!-- list start -->
+		<table class="am-table am-table-striped am-table-hover am-text-middle m-t-10 m-l-5">
+			<thead>
+				<tr>
+					<th>{{:L('user_nickname_name')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_mobile_name')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_email_name')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_view_gender_name')}}</th>
+					<th class="am-hide-sm-only">{{:L('common_view_user_state_name')}}</th>
+					<th class="am-hide-sm-only">{{:L('user_birthday_name')}}</th>
+					<th>{{:L('common_more_name')}}</th>
+					<th>{{:L('common_operation_name')}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<if condition="!empty($list)">
+					<foreach name="list" item="v">
+						<tr id="data-list-{{$v.id}}" <switch name="v.state"><case value="1">class="am-active"</case><case value="2">class="am-danger"</case></switch>>
+							<td><if condition="empty($v['nickname'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.nickname}}</if></td>
+							<td class="am-hide-sm-only"><if condition="empty($v['mobile'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.mobile}}</if></td>
+							<td class="am-hide-sm-only"><if condition="empty($v['email'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.email}}</if></td>
+							<td class="am-hide-sm-only">{{$v.gender}}</td>
+							<td class="am-hide-sm-only">{{$v.state_text}}</td>
+							<td class="am-hide-sm-only"><if condition="empty($v['birthday'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.birthday}}</if></td>
+							<td>
+								<span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup{{$v.id}}'}"> {{:L('common_see_more_name')}}</span>
+								<div class="am-popup am-radius" id="my-popup{{$v.id}}">
+									<div class="am-popup-inner">
+										<div class="am-popup-hd">
+											<h4 class="am-popup-title">{{:L('common_detail_content')}}</h4>
+											<span data-am-modal-close class="am-close">&times;</span>
+										</div>
+										<div class="am-popup-bd">
+											<dl class="dl-content">
+												<dt>{{:L('user_nickname_name')}}</dt>
+												<dd><if condition="empty($v['nickname'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.nickname}}</if></dd>
+
+												<dt>{{:L('common_mobile_name')}}</dt>
+												<dd><if condition="empty($v['mobile'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.mobile}}</if></dd>
+
+												<dt>{{:L('common_email_name')}}</dt>
+												<dd><if condition="empty($v['email'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.email}}</if></dd>
+
+												<dt>{{:L('common_view_gender_name')}}</dt>
+												<dd>{{$v.gender}}</dd>
+
+												<dt>{{:L('user_birthday_name')}}</dt>
+												<dd><if condition="empty($v['birthday'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.birthday}}</if></dd>
+
+												<dt>{{:L('common_view_user_state_name')}}</dt>
+												<dd>{{$v.state_text}}</dd>
+
+												<dt>{{:L('user_signature_name')}}</dt>
+												<dd><if condition="empty($v['signature'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.signature}}</if></dd>
+
+												<dt>{{:L('user_describe_name')}}</dt>
+												<dd><if condition="empty($v['describe'])"><span class="cr-ddd">{{:L('common_on_fill_in_the_text')}}</span><else />{{$v.describe}}</if></dd>
+
+												<dt>{{:L('common_reg_time_name')}}</dt>
+												<dd>{{$v.add_time}}</dd>
+
+												<dt>{{:L('common_upd_time_name')}}</dt>
+												<dd>{{$v.upd_time}}</dd>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="view-operation">
+								<a href="{{:U('Admin/User/SaveInfo', array('id'=>$v['id']))}}">
+									<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '{{:L('common_operation_edit')}}', trigger: 'hover focus'}"></button>
+								</a>
+								<button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:U('Admin/User/Delete')}}" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}"></button>
+							</td>
+						</tr>
+					</foreach>
+				<else />
+					<tr><td colspan="10" class="table-no">{{:L('common_not_data_tips')}}</td></tr>
+				</if>
+			</tbody>
+		</table>
+		<!-- list end -->
+
+		<!-- page start -->
+		<if condition="!empty($list)">
+			{{$page_html}}
+		</if>
+		<!-- page end -->
+	</div>
+</div>
+<!-- right content end  -->
+		
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end -->
