@@ -30,7 +30,8 @@ class Excel
 	 * @param    [string]       $param['suffix']	[文件后缀名（默认xls）]
 	 * @param    [string]       $param['jump_url']	[出错跳转url地址（默认上一个页面）]
 	 * @param    [string]       $param['msg']		[错误提示信息]
-	 * @param    [array]        $param['title']		[标题（一维数组，键值对）]
+	 * @param    [string]       $param['file_type']	[导出文件类型（默认excel）]
+	 * @param    [array]        $param['title']		[标题（二维数组）]
 	 * @param    [array]        $param['data']		[数据（二维数组）]
 	 */
 	public function __construct($param = array())

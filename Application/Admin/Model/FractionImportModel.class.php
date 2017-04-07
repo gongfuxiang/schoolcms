@@ -34,6 +34,7 @@ class FractionImportModel extends CommonModel
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-13T19:29:30+0800
+	 * @param    [string] $value [校验值]
 	 */
 	public function CheckComment($value)
 	{
@@ -46,6 +47,7 @@ class FractionImportModel extends CommonModel
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-13T19:29:30+0800
+	 * @param    [string] $value [校验值]
 	 */
 	public function CheckScore($value)
 	{
@@ -58,7 +60,8 @@ class FractionImportModel extends CommonModel
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T14:09:40+0800
-	 * @return [boolean] [存在true, 不存在false]
+	 * @param    [string] $value [校验值]
+	 * @return   [boolean]       [存在true, 不存在false]
 	 */
 	public function IsExistScoreId($value)
 	{
@@ -72,7 +75,8 @@ class FractionImportModel extends CommonModel
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T14:09:40+0800
-	 * @return [boolean] [存在true, 不存在false]
+	 * @param    [string] $value [校验值]
+	 * @return   [boolean]       [存在true, 不存在false]
 	 */
 	public function IsExistSubjectId($value)
 	{
@@ -86,7 +90,8 @@ class FractionImportModel extends CommonModel
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2016-12-10T14:09:40+0800
-	 * @return [boolean] [存在true, 不存在false]
+	 * @param    [string] $value [校验值]
+	 * @return   [boolean]       [存在true, 不存在false]
 	 */
 	public function IsExistStudentId($value)
 	{
