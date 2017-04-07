@@ -3,7 +3,7 @@
 namespace Admin\Controller;
 
 /**
- * 成绩管理
+ * 成绩分类管理
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1

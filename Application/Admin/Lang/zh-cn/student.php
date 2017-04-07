@@ -32,6 +32,6 @@ return array(
 	'student_time_end_text'				=>	'出生结束',
 	'student_my_mobile_name'			=>	'学生手机',
 	'student_my_mobile_error'			=>	'学生手机格式有误',
-	'student_excel_import_tips'			=>	'1、学生编号列由系统自动生成，留空即可[填写无效]。<br />2、报名时间选填项，留空则使用当前导入时间。<br />3、班级二级归类使用[ - ]字符分割。<br />4、所有数据字段以文本格式上传，如[ 身份证号码|电话|报名时间 ]<br /><br /><span class="cr-red">PS：导入数据建议一次不要超过10万条。</span>',
+	'student_excel_import_tips'			=>	'1、学生编号由系统自动生成。<br />2、报名时间选填项，留空则使用当前导入时间。<br />3、班级二级归类使用[ - ]字符分割。<br />4、所有数据字段以文本格式上传，如[ 身份证号码|电话|报名时间 ]',
 );
 ?>

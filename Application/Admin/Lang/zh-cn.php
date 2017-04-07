@@ -89,18 +89,170 @@ return array(
 					'type' => 'string',
 				),
 		),
+	// 学生excel导出标题列表-导入格式
+	'excel_student_impoet_title_list'		=>	array(
+			'username'		=>	array(
+					'col' => 'A',
+					'name' => '学生姓名',
+					'type' => 'string',
+				),
+			'id_card'		=>	array(
+					'col' => 'B',
+					'name' => '身份证号码',
+					'type' => 'int',
+				),
+			'gender'		=>	array(
+					'col' => 'C',
+					'name' => '性别',
+					'type' => 'string',
+				),
+			'birthday'		=>	array(
+					'col' => 'D',
+					'name' => '出生年日',
+					'type' => 'string',
+				),
+			'tel'			=>	array(
+					'col' => 'E',
+					'name' => '座机号码',
+					'type' => 'int',
+				),
+			'my_mobile'		=>	array(
+					'col' => 'F',
+					'name' => '学生手机',
+					'type' => 'int',
+				),
+			'parent_mobile'	=>	array(
+					'col' => 'G',
+					'name' => '家长手机',
+					'type' => 'int',
+				),
+			'email'			=>	array(
+					'col' => 'H',
+					'name' => '电子邮箱',
+					'type' => 'string',
+				),
+			'state'			=>	array(
+					'col' => 'I',
+					'name' => '学生状态',
+					'type' => 'string',
+				),
+			'tuition_state'	=>	array(
+					'col' => 'J',
+					'name' => '缴费状态',
+					'type' => 'string',
+				),
+			'class_name'	=>	array(
+					'col' => 'K',
+					'name' => '班级',
+					'type' => 'string',
+				),
+			'region_name'	=>	array(
+					'col' => 'L',
+					'name' => '地区',
+					'type' => 'string',
+				),
+			'address'		=>	array(
+					'col' => 'M',
+					'name' => '详细地址',
+					'type' => 'string',
+				),
+			'add_time'		=>	array(
+					'col' => 'N',
+					'name' => '报名时间',
+					'type' => 'string',
+				),
+		),
 
-	// 学生excel导出标题列表
+	// 学生成绩excel导出标题列表
 	'excel_fraction_title_list'		=>	array(
-			'username'		=>	array('col' => 'A', 'name' => '学生姓名'),
-			'gender'		=>	array('col' => 'B', 'name' => '性别'),
-			'class_name'	=>	array('col' => 'C', 'name' => '班级'),
-			'subject_name'	=>	array('col' => 'D', 'name' => '科目'),
-			'score_name'	=>	array('col' => 'E', 'name' => '成绩类别'),
-			'score'			=>	array('col' => 'F', 'name' => '成绩分数'),
-			'score_level'	=>	array('col' => 'G', 'name' => '成绩等级'),
-			'comment'		=>	array('col' => 'H', 'name' => '教师点评'),
-			'add_time'		=>	array('col' => 'I', 'name' => '录入时间'),
+			'username'		=>	array(
+					'col' => 'A',
+					'name' => '学生姓名',
+					'type' => 'string',
+				),
+			'gender'		=>	array(
+					'col' => 'B',
+					'name' => '性别',
+					'type' => 'string',
+				),
+			'class_name'	=>	array(
+					'col' => 'C',
+					'name' => '班级',
+					'type' => 'string',
+				),
+			'subject_name'	=>	array(
+					'col' => 'D',
+					'name' => '科目',
+					'type' => 'string',
+				),
+			'score_name'	=>	array(
+					'col' => 'E',
+					'name' => '成绩类别',
+					'type' => 'string',
+				),
+			'score'			=>	array(
+					'col' => 'F',
+					'name' => '成绩分数',
+					'type' => 'int',
+				),
+			'score_level'	=>	array(
+					'col' => 'G',
+					'name' => '成绩等级',
+					'type' => 'string',
+				),
+			'comment'		=>	array(
+					'col' => 'H',
+					'name' => '教师点评',
+					'type' => 'string',
+				),
+			'add_time'		=>	array(
+					'col' => 'I',
+					'name' => '录入时间',
+					'type' => 'string',
+				),
+		),
+	// 学生成绩excel导出标题列表-导入格式
+	'excel_fraction_import_title_list'		=>	array(
+			'username'		=>	array(
+					'col' => 'A',
+					'name' => '学生姓名',
+					'type' => 'string',
+				),
+			'number'		=>	array(
+					'col' => 'B',
+					'name' => '学生编号',
+					'type' => 'int',
+				),
+			'id_card'		=>	array(
+					'col' => 'C',
+					'name' => '身份证号码',
+					'type' => 'int',
+				),
+			'subject_name'	=>	array(
+					'col' => 'D',
+					'name' => '科目',
+					'type' => 'string',
+				),
+			'score_name'	=>	array(
+					'col' => 'E',
+					'name' => '成绩类别',
+					'type' => 'string',
+				),
+			'score'			=>	array(
+					'col' => 'F',
+					'name' => '成绩分数',
+					'type' => 'int',
+				),
+			'comment'		=>	array(
+					'col' => 'G',
+					'name' => '教师点评',
+					'type' => 'string',
+				),
+			'add_time'		=>	array(
+					'col' => 'H',
+					'name' => '录入时间',
+					'type' => 'string',
+				),
 		),
 
 	// 教师excel导出标题列表

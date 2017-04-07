@@ -86,8 +86,13 @@ class StudentController extends CommonController
 		// 数据列表
 		$this->assign('list', $list);
 
-		// Excel地址
+		// Excel导出地址
 		$this->assign('excel_url', U('Admin/Student/ExcelExport', $param));
+
+		// Excel导入基础数据
+		$this->assign('excel_import_tips', L('student_excel_import_tips'));
+		$this->assign('excel_import_form_url', U('Admin/Student/ExcelImport'));
+		$this->assign('excel_import_format_url', U('Admin/Student/ExcelExport', ['type'=>'format_download']));
 
 		$this->display('Index');
 	}
@@ -114,7 +119,7 @@ class StudentController extends CommonController
 		}
 
 		// excel驱动
-		$excel = new \My\Excel(array('title'=>L('excel_student_title_list'), 'msg'=>L('common_not_data_tips')));
+		$excel = new \My\Excel(array('title'=>L('excel_student_impoet_title_list'), 'msg'=>L('common_not_data_tips')));
 		$data = $excel->Import();
 		if(empty($data))
 		{
@@ -204,7 +209,7 @@ class StudentController extends CommonController
 			// 数据安全处理
 			foreach($data as $ks=>$vs)
 			{
-				$v[$ks] = I('data.'.$ks, '', '', $data);
+				$data[$ks] = I('data.'.$ks, '', '', $data);
 			}
 			
 			// 性别
@@ -272,16 +277,18 @@ class StudentController extends CommonController
 		{
 			// 格式下载类型不查询数据,只导出标题格式
 			case 'format_download' :
+				$title = L('excel_student_impoet_title_list');
 				$data = array();
 				break;
 
 			// 默认按照当前条件查询数据
 			default :
+				$title = L('excel_student_title_list');
 				$data = $this->SetDataHandle(M('Student')->where($this->GetIndexWhere())->select());
 		}
 
 		// Excel驱动导出数据
-		$excel = new \My\Excel(array('filename'=>'student', 'title'=>L('excel_student_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel = new \My\Excel(array('filename'=>'student', 'title'=>$title, 'data'=>$data, 'msg'=>L('common_not_data_tips')));
 		$excel->Export();
 	}
 

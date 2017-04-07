@@ -56,6 +56,7 @@ return array(
 	'common_operation_excel_export_name'=>	'导出Excel',
 	'common_operation_excel_import_name'=>	'导入Excel',
 	'common_excel_format_download_name'	=>	'Excel格式下载',
+	'common_excel_import_tips'			=>	'PS：导入数据建议一次不要超过10万条。',
 	'common_nav_type_name'				=>	'导航数据类型',
 	'common_view_link_name'				=>	'友情链接',
 	'common_site_maintenance_tips'		=>	'网站维护中...',

@@ -326,6 +326,11 @@ ul {margin-top:0;}
 .am-table > tbody > tr > td {vertical-align:inherit;}
 
 /**
+ * excel导入窗口
+ */
+.excel-form input[name="excel"] { width: 105px !important; height: 32px; }
+
+/**
  * 导航
  */
 .admin-site-vice-name { font-size: 12px; color: #eaeaea; }

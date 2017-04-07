@@ -27,5 +27,6 @@ return array(
 	'fraction_class_id_text'			=>	'班级',
 	'fraction_comment_text'				=>	'教师点评',
 	'fraction_comment_format'			=>	'教师点评，不能超过255个字符',
+	'fraction_excel_import_tips'		=>	'1、录入时间选填项，留空则使用当前导入时间。<br />2、所有数据字段以文本格式上传，如[ 成绩分数 ]',
 );
 ?>

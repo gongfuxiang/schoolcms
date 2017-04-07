@@ -61,7 +61,7 @@ class FractionController extends CommonController
 
 		// 获取列表
 		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment', 'f.add_time');
-		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->select();
+		$list = $m->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->limit($page->GetPageStarNumber(), $number)->order('f.id desc')->select();
 		// 数据列表
 		$this->assign('list', $this->SetDataHandle($list));
 
@@ -84,10 +84,144 @@ class FractionController extends CommonController
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
 
-		// Excel地址
+		// Excel导出地址
 		$this->assign('excel_url', U('Admin/Fraction/ExcelExport', $param));
 
+		// Excel导入基础数据
+		$this->assign('excel_import_tips', L('fraction_excel_import_tips'));
+		$this->assign('excel_import_form_url', U('Admin/Fraction/ExcelImport'));
+		$this->assign('excel_import_format_url', U('Admin/Fraction/ExcelExport', ['type'=>'format_download']));
+
 		$this->display('Index');
+	}
+
+	/**
+	 * [ExcelImport excel导入]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-04-06T16:48:56+0800
+	 */
+	public function ExcelImport()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 文件是否上传
+		if(empty($_FILES['excel']['tmp_name']))
+		{
+			$this->ajaxReturn(L('common_select_file_tips'), -1);
+		}
+
+		// excel驱动
+		$excel = new \My\Excel(array('title'=>L('excel_fraction_import_title_list'), 'msg'=>L('common_not_data_tips')));
+		$data = $excel->Import();
+		if(empty($data))
+		{
+			$this->ajaxReturn(L('common_not_data_tips'), -2);
+		}
+
+		// 学生成绩对象
+		$m = D('FractionImport');
+
+		// 开始处理导入数据
+		$success = 0;
+		$error = array();
+		foreach($data as $k=>$v)
+		{
+			// 数据处理
+			$v = $this->ExcelImportDataDealWith($v);
+
+			// 数据自动校验
+			if($m->create($v, 1) !== false)
+			{
+				// 数据不能重复
+				if($this->IsExistData($v['student_id'], $v['subject_id'], $v['score_id']))
+				{
+					$error[] = $v['username'].' ['.L('common_data_is_exist_error').']';
+				} else {
+					// 写入数据库
+					if($m->add())
+					{
+						$success++;
+					} else {
+						$error[] = $v['username'].' ['.L('common_operation_add_error').']';
+					}
+				}
+			} else {
+				$error[] = $v['username'].' ['.current($m->getError()).']';
+			}
+		}
+		$this->ajaxReturn(L('common_operation_success'), 0, array('success'=>$success, 'error'=>$error));
+	}
+
+	/**
+	 * [ExcelImportDataDealWith 学生成绩excel导入数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-04-07T12:04:05+0800
+	 * @param    [array]          $data [学生数据]
+	 * @return   [array]                [处理好的数据]
+	 */
+	private function ExcelImportDataDealWith($data)
+	{
+		if(!empty($data) && is_array($data))
+		{
+			// M对象
+			$score = M('Score');
+			$subject = M('Subject');
+			$student = M('Student');
+
+			// 学期号
+			$data['semester_id'] = MyC('admin_semester_id');
+
+			// 数据安全处理
+			foreach($data as $ks=>$vs)
+			{
+				$data[$ks] = I('data.'.$ks, '', '', $data);
+			}
+
+			// 科目
+			if(isset($data['subject_name']))
+			{
+				$data['subject_id'] = $subject->where(array('name'=>$data['subject_name']))->getField('id');
+				unset($data['subject_name']);
+			}
+
+			// 期号
+			if(isset($data['score_name']))
+			{
+				$data['score_id'] = $score->where(array('name'=>$data['score_name']))->getField('id');
+				unset($data['score_name']);
+			}
+
+			// 期号
+			if(isset($data['score_name']))
+			{
+				$data['score_id'] = $score->where(array('name'=>$data['score_name']))->getField('id');
+				unset($data['score_name']);
+			}
+
+			// 学生
+			if(isset($data['username']) && isset($data['number']) && isset($data['id_card']))
+			{
+				$data['student_id'] = $student->where(array('username'=>$data['username'], 'number'=>$data['number'], 'id_card'=>$data['id_card'], 'semester_id'=>$data['semester_id']))->getField('id');
+				unset($data['number'], $data['id_card']);
+			}
+
+			// 添加时间
+			if(isset($data['add_time']))
+			{
+				$data['add_time'] = strtotime($data['add_time']);
+			} else {
+				$data['add_time'] = time();
+			}
+		}
+		return $data;
 	}
 
 	/**
@@ -99,15 +233,24 @@ class FractionController extends CommonController
 	 */
 	public function ExcelExport()
 	{
-		// 条件
-		$where = $this->GetIndexWhere();
+		// 类型
+		switch(I('type'))
+		{
+			// 格式下载类型不查询数据,只导出标题格式
+			case 'format_download' :
+				$title = L('excel_fraction_import_title_list');
+				$data = array();
+				break;
 
-		// 读取数据
-		$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment', 'f.add_time');
-		$data = $this->SetDataHandle(M('Fraction')->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($where)->field($field)->select());
+			// 默认按照当前条件查询数据
+			default :
+				$title = L('excel_fraction_title_list');
+				$field = array('s.username', 's.gender', 's.class_id', 'f.score', 'f.subject_id', 'f.score_id', 'f.id', 'f.student_id', 'f.comment', 'f.add_time');
+				$data = $this->SetDataHandle(M('Fraction')->alias('f')->join('__STUDENT__ AS s ON s.id = f.student_id')->where($this->GetIndexWhere())->field($field)->select());
+		}		
 
 		// Excel驱动导出数据
-		$excel = new \My\Excel(array('filename'=>'fraction', 'title'=>L('excel_fraction_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
+		$excel = new \My\Excel(array('filename'=>'fraction', 'title'=>$title, 'data'=>$data, 'msg'=>L('common_not_data_tips')));
 		$excel->Export();
 	}
 
@@ -292,7 +435,10 @@ class FractionController extends CommonController
 		if($m->create($_POST, 1))
 		{
 			// 数据不能重复
-			$this->IsExistData();
+			if($this->IsExistData(I('student_id'), I('subject_id'), I('score_id')))
+			{
+				$this->ajaxReturn(L('common_data_is_exist_error'), -2);
+			}
 
 			// 额外数据处理
 			$m->add_time	=	time();
@@ -331,21 +477,19 @@ class FractionController extends CommonController
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-01-08T22:08:46+0800
+	 * @return   [boolean] [存在true, 不存在false]
 	 */
-	private function IsExistData()
+	private function IsExistData($student_id, $subject_id, $score_id)
 	{
 		// 数据是否已存在
 		$where = array(
 				'semester_id'	=>	MyC('admin_semester_id'),
-				'student_id'	=>	I('student_id'),
-				'subject_id'	=>	I('subject_id'),
-				'score_id'		=>	I('score_id'),
+				'student_id'	=>	$student_id,
+				'subject_id'	=>	$subject_id,
+				'score_id'		=>	$score_id,
 			);
 		$tmp = M('Fraction')->where($where)->getField('id');
-		if(!empty($tmp))
-		{
-			$this->ajaxReturn(L('common_data_is_exist_error'), -2);
-		}
+		return !empty($tmp);
 	}
 
 	/**
