@@ -27,8 +27,10 @@ legend {padding-bottom:0.2rem !important; margin-bottom: 1rem; }
 .cr-ccc {color:#ccc !important;}
 .cr-ddd {color:#ddd !important;}
 .cr-999 {color:#999 !important;}
+.cr-666 {color:#666 !important;}
 .cr-red {color:#f00 !important;}
 .cr-green { color: #4aaa4a !important; }
+.cr-blue { color: #0e90d2 !important; }
 .am-form select,.am-form textarea,.am-form input[type="text"],.am-form input[type="password"],.am-form input[type="datetime"],.am-form input[type="datetime-local"],.am-form input[type="date"],.am-form input[type="month"],.am-form input[type="time"],.am-form input[type="week"],.am-form input[type="number"],.am-form input[type="email"],.am-form input[type="url"],.am-form input[type="search"],.am-form input[type="tel"],.am-form input[type="color"],.am-form-field {font-size:1.4rem !important;}
 select {height:32px !important;}
 .bk-cr-gray {background:#f3f3f3 !important;}
@@ -42,6 +44,8 @@ input:hover, select:hover, textarea:hover, .chosen-choices:hover, .chosen-single
 .left-menu-more-ico-rotate {-webkit-transform: rotate(-90deg);transform: rotate(-90deg);-webkit-transition: all 300ms;transition: all 300ms;}
 .am-icon-angle-down {-webkit-transition: all 300ms;transition: all 300ms;}
 .am-radio-inline input[type="radio"] { margin-left: 0px !important; }
+.am-alert-tips { background-color: #ffffe9; border-color: #faebd2; color: #888; }
+.am-alert-tips, .am-alert-tips * { font-size: 12px; }
 
 /* 没数据 */
 .table-no {text-align:center;padding-top:30px !important;background:#FFF !important;}

@@ -69,7 +69,43 @@
         <div class="am-g m-t-15">
             <a href="{{:U('Admin/Student/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
             <if condition="!IsMobile()">
-            	<a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o"> {{:L('common_operation_excel_name')}}</a>
+            	<a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o"> {{:L('common_operation_excel_export_name')}}</a>
+
+            	<a href="javascript:;" class="am-btn am-btn-primary am-btn-xs m-l-10 am-icon-cloud-upload" data-am-modal="{target: '#excel-import-win'}"> {{:L('common_operation_excel_import_name')}}</a>
+            	<div class="am-popup am-radius" id="excel-import-win">
+					<div class="am-popup-inner">
+						<div class="am-popup-hd">
+							<h4 class="am-popup-title">{{:L('common_operation_excel_import_name')}}</h4>
+							<span data-am-modal-close class="am-close">&times;</span>
+						</div>
+						<div class="am-popup-bd">
+							<!-- win form start -->
+							<form class="am-form form-validation" action="{{:U('Admin/Student/ExcelImport')}}" method="POST" request-type="ajax-fun" request-value="ExcelImportCallback" enctype="multipart/form-data">
+								<input type="hidden" name="max_file_size" value="{{:MyC('home_max_limit_image', 2048000)}}" />
+								<div class="am-alert am-radius am-alert-tips m-t-0" data-am-alert>
+									<p class="m-b-10"><a href="{{:U('Admin/Student/ExcelExport', ['type'=>'format_download'])}}" class="cr-blue">{{:L('common_excel_format_download_name')}}</a><span class="m-r-5"></p>
+									<p class="m-t-0">{{:L('student_excel_import_tips')}}</p>
+								</div>
+								<div class="am-form-group am-form-file">
+									<button type="button" class="am-btn am-btn-default am-btn-sm"><i class="am-icon-cloud-upload"></i> {{:L('common_select_file_text')}}</button>
+									<input type="file" name="excel" multiple data-validation-message="{{:L('common_select_file_tips')}}" accept="application/vnd.ms-excel" required />
+								</div>
+								<div class="am-form-group">
+									<button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'{{:L('common_form_loading_tips')}}'}">{{:L('common_operation_confirm')}}</button>
+								</div>
+							</form>
+							<!-- win form end -->
+
+							<!-- import tips start -->
+							<div class="am-alert am-alert-success am-radius excel-import-success none">{{:L('common_import_success_name')}} <strong>0</strong> {{:L('common_unit_tiao_name')}}</div>
+							<div class="am-panel am-panel-danger am-radius excel-import-error none">
+								<div class="am-panel-hd p-l-10">{{:L('common_import_error_name')}} <strong>0</strong>  {{:L('common_unit_tiao_name')}}</div>
+								<table class="am-table"><tbody></tbody></table>
+							</div>
+							<!-- import tips end -->
+						</div>
+					</div>
+				</div>
             </if>
         </div>
         <!-- operation end -->
@@ -185,3 +221,47 @@
 <!-- footer start -->
 <include file="Public/Footer" />
 <!-- footer end -->
+
+<script>
+/**
+ * [ExcelImportCallback excel导入回调（公共表单方法校验需要放在这里，不能校验其它文件的方法）]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-11T21:46:50+0800
+ * @param    {[object]}    data [回调数据]
+ */
+function ExcelImportCallback(data)
+{
+	if(data.code == 0)
+	{
+		// 成功
+		if(data.data.success > 0)
+		{
+			$('.excel-import-success').removeClass('none');
+			$('.excel-import-success').find('strong').text(data.data.success);
+		} else {
+			$('.excel-import-success').addClass('none');
+		}
+
+		// 失败
+		if(data.data.error.length == 0)
+		{
+			$('.excel-import-error').addClass('none');
+		} else {
+			$('.excel-import-error').removeClass('none');
+			$('.excel-import-error').find('strong').text(data.data.error.length);
+			var html = '';
+			for(var i in data.data.error)
+			{
+				html += '<tr><td>'+data.data.error[i]+'</td></tr>';
+			}
+			$('.excel-import-error').find('table tbody').html(html);
+		}
+	} else {
+		Prompt('异常错误');
+	}
+	$.AMUI.progress.done();
+	$('.form-validation').find('button[type="submit"]').button('reset');
+}
+</script>

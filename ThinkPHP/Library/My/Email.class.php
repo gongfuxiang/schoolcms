@@ -44,7 +44,7 @@ class Email
 	private function EmailInit()
 	{
 		// 引入邮件发送类库
-		require("phpmailer/class.phpmailer.php");
+		vendor("PHPMailer.class#phpmailer");
 
 		// 建立邮件发送类  
 		$this->obj = new \phpmailer();

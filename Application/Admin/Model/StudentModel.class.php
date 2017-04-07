@@ -13,7 +13,7 @@ use Think\Model;
 class StudentModel extends CommonModel
 {
 	// 数据自动校验
-	protected $_validate = array(		
+	protected $_validate = array(
 		// 添加,编辑
 		array('username', 'CheckUserName', '{%student_username_format}', 1, 'callback', 3),
 		array('id_card', 'CheckIdCard', '{%common_view_id_card_format}', 1, 'callback', 3),

@@ -16,3 +16,8 @@
 @media only screen and (max-width: 321px) {
 	.view-operation button { margin: 2px 0px; }
 }
+
+/**
+ * excel窗口
+ */
+input[name="excel"] { width: 105px !important; height: 32px; }

@@ -9,6 +9,64 @@
  */
 
 /**
+ * [LangValueKeyFlip 公共数据翻转]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-04-07T11:32:02+0800
+ * @param    [array]       $data        [需要翻转的数据]
+ * @param    [mixed]       $default     [默认值]
+ * @param    [string]      $value_field [value值字段名称]
+ * @param    [string]      $name_field  [name值字段名称]
+ * @return   [array]                    [翻转后的数据]
+ */
+function LangValueKeyFlip($data, $default = false, $value_field = 'id', $name_field = 'name')
+{
+    $result = array();
+    if(!empty($data) && is_array($data))
+    {
+        foreach($data as $k=>$v)
+        {
+            $result[$v[$name_field]] = $v[$value_field];
+            if(isset($v['checked']) && $v['checked'] == true)
+            {
+                $result['default'] = $v[$value_field];
+            }
+        }
+    }
+    if($default !== false)
+    {
+        $result['default'] = $default;
+    }
+    return $result;
+}
+
+/**
+ * [ScienceNumToString 科学数字转换成原始的数字]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-04-06T17:21:51+0800
+ * @param    [int]   $num [科学数字]
+ * @return   [string]     [数据原始的值]
+ */
+function ScienceNumToString($num)
+{
+    if(stripos($num, 'e') === false) return $num;
+
+    // 出现科学计数法，还原成字符串 
+    $num = trim(preg_replace('/[=\'"]/','',$num,1),'"');
+    $result = ''; 
+    while($num > 0)
+    { 
+        $v = $num-floor($num/10)*10; 
+        $num = floor($num/10); 
+        $result   =   $v.$result; 
+    }
+    return $result; 
+}
+
+/**
  * [GenerateStudentNumber 学生编号生成-年份+自增id(不足以0前置补齐)]
  * @author   Devil
  * @blog     http://gong.gg/

@@ -93,6 +93,172 @@ class StudentController extends CommonController
 	}
 
 	/**
+	 * [ExcelImport excel导入]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-04-06T16:48:56+0800
+	 */
+	public function ExcelImport()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 文件是否上传
+		if(empty($_FILES['excel']['tmp_name']))
+		{
+			$this->ajaxReturn(L('common_select_file_tips'), -1);
+		}
+
+		// excel驱动
+		$excel = new \My\Excel(array('title'=>L('excel_student_title_list'), 'msg'=>L('common_not_data_tips')));
+		$data = $excel->Import();
+		if(empty($data))
+		{
+			$this->ajaxReturn(L('common_not_data_tips'), -2);
+		}
+
+		// 学生导入模型
+		$m = D('StudentImport');
+
+		// 开始处理导入数据
+		$success = 0;
+		$error = array();
+		foreach($data as $k=>$v)
+		{
+			// 数据处理
+			$v = $this->ExcelImportDataDealWith($v);
+
+			// 数据自动校验
+			if($m->create($v, 1) !== false)
+			{
+				// 额外数据处理
+				$m->birthday	=	strtotime($v['birthday']);
+				$m->semester_id	=	MyC('admin_semester_id');
+				
+				// 开启事务
+				$m->startTrans();
+
+				// 学生是否已存在编号
+				$number = $m->where(array('id_card'=>I('id_card')))->getField('number');
+
+				// 数据写入
+				$student_id = $m->add();
+
+				// 更新学号
+				if(empty($number))
+				{
+					$number = GenerateStudentNumber($student_id);
+				}
+				$number_state = $m->where(array('id'=>$student_id))->save(array('number'=>$number));
+
+				if($student_id > 0 && $number_state !== false)
+				{
+					// 提交事务
+					$m->commit();
+					$success++;
+				} else {
+					// 回滚事务
+					$m->rollback();
+					$error[] = $v['username'].' ['.L('common_operation_add_error').']';
+				}
+			} else {
+				$error[] = $v['username'].' ['.current($m->getError()).']';
+			}
+		}
+		$this->ajaxReturn(L('common_operation_success'), 0, array('success'=>$success, 'error'=>$error));
+	}
+
+	/**
+	 * [ExcelImportDataDealWith 学生excel导入数据处理]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-04-07T12:04:05+0800
+	 * @param    [array]          $data [学生数据]
+	 * @return   [array]                [处理好的数据]
+	 */
+	private function ExcelImportDataDealWith($data)
+	{
+		if(!empty($data) && is_array($data))
+		{
+			// 数据列表
+			$gender_list = LangValueKeyFlip(L('common_gender_list'), 0);
+			$student_state_list = LangValueKeyFlip(L('common_student_state_list'), 0);
+			$tuition_state_list = LangValueKeyFlip(L('common_tuition_state_list'), 0);
+
+			// M对象
+			$r = M('Region');
+			$c = M('Class');
+
+
+			// 删除n学生编号
+			if(isset($data['number']))
+			{
+				unset($data['number']);
+			}
+
+			// 数据安全处理
+			foreach($data as $ks=>$vs)
+			{
+				$v[$ks] = I('data.'.$ks, '', '', $data);
+			}
+			
+			// 性别
+			if(isset($data['gender']))
+			{
+				// 性别
+				$data['gender'] = isset($gender_list[$data['gender']]) ? $gender_list[$data['gender']] : $gender_list['default'];
+			}
+
+			// 学生状态
+			if(isset($data['state']))
+			{
+				$data['state'] = isset($student_state_list[$data['state']]) ? $student_state_list[$data['state']] : $student_state_list['default'];
+			}
+
+			// 缴费状态
+			if(isset($data['tuition_state']))
+			{
+				$data['tuition_state'] = isset($tuition_state_list[$data['tuition_state']]) ? $tuition_state_list[$v['tuition_state']] : $tuition_state_list['default'];
+			}
+
+			// 地区
+			if(isset($data['region_name']))
+			{
+				$data['region_id'] = $r->where(array('name'=>$data['region_name']))->getField('id');
+				unset($data['region_name']);
+			}
+
+			// 班级
+			if(isset($data['class_name']))
+			{
+				if(strpos($data['class_name'], '-') === false)
+				{
+					$temp_class_name = $data['class_name'];
+				} else {
+					$temp_ex = explode('-', $data['class_name']);
+					$temp_class_name = $temp_ex[1];
+				}
+				$data['class_id'] = $c->where(array('name'=>$temp_class_name))->getField('id');
+				unset($data['class_name']);
+			}
+
+			// 添加时间
+			if(isset($data['add_time']))
+			{
+				$data['add_time'] = strtotime($data['add_time']);
+			} else {
+				$data['add_time'] = time();
+			}
+		}
+		return $data;
+	}
+
+	/**
 	 * [ExcelExport excel文件导出]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -101,11 +267,18 @@ class StudentController extends CommonController
 	 */
 	public function ExcelExport()
 	{
-		// 条件
-		$where = $this->GetIndexWhere();
+		// 类型
+		switch(I('type'))
+		{
+			// 格式下载类型不查询数据,只导出标题格式
+			case 'format_download' :
+				$data = array();
+				break;
 
-		// 读取数据
-		$data = $this->SetDataHandle(M('Student')->where($where)->select());
+			// 默认按照当前条件查询数据
+			default :
+				$data = $this->SetDataHandle(M('Student')->where($this->GetIndexWhere())->select());
+		}
 
 		// Excel驱动导出数据
 		$excel = new \My\Excel(array('filename'=>'student', 'title'=>L('excel_student_title_list'), 'data'=>$data, 'msg'=>L('common_not_data_tips')));
@@ -303,7 +476,7 @@ class StudentController extends CommonController
 	 */
 	private function Add()
 	{
-		// 学生对象
+		// 学生模型
 		$m = D('Student');
 
 		// 数据自动校验
