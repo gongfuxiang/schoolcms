@@ -1,0 +1,12 @@
+.mood-textarea, .mood-button { height: 70px !important; }
+.mood-textarea { resize: none; border-top-left-radius: 2px; }
+.mood-button { border-top-right-radius: 2px; }
+.mood-tools { border-top: none;  border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; padding: 5px; height: 35px; background: #f9f9f9; }
+.tools-visible * { font-size: 12px !important; }
+.tools-visible .am-selected { width: 110px; }
+.tools-visible .am-selected-btn { border-radius: 2px; height: 25px; padding: 0.4em 1em 0.4em 0.4em; }
+.sign-submit { width: 18px; height: 18px; font-size: 12px; line-height: 18px; }
+.bubble-nav { border-bottom: 1px solid #eee; }
+.bubble-nav .am-nav-pills li a { border-top-left-radius: 2px; border-top-right-radius: 2px; }
+.submit-repeat { margin-top: 8px; }
+.list-content:hover { background-color: #f9f9f9; }

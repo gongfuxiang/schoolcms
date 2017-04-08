@@ -36,11 +36,11 @@ class UserController extends CommonController
 		// 上一个页面, 空则用户中心
 		if(empty($_SERVER['HTTP_REFERER']))
 		{
-			$referer_url = U('Home/User/Index');
+			$referer_url = U('Home/Bubble/Index');
 		} else {
 			if(strpos($_SERVER['HTTP_REFERER'], 'RegInfo') !== false || strpos($_SERVER['HTTP_REFERER'], 'LoginInfo') !== false || strpos($_SERVER['HTTP_REFERER'], 'ForgetPwdInfo') !== false)
 			{
-				$referer_url = U('Home/User/Index');
+				$referer_url = U('Home/Bubble/Index');
 			} else {
 				$referer_url = $_SERVER['HTTP_REFERER'];
 			}
@@ -628,7 +628,10 @@ class UserController extends CommonController
 	 */
 	public function Logout()
 	{
-		session_destroy();
+		if(isset($_SESSION['user']))
+		{
+			unset($_SESSION['user']);
+		}
 		redirect(__MY_URL__);
 	}
 }

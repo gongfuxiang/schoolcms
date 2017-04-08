@@ -17,5 +17,11 @@
 	<if condition="!empty($module_css)">
 		<css href="__PUBLIC__/{{$module_css}}" />
 	</if>
+	<script>
+		var __root__ = '__ROOT__';
+		var __my_url__ = '{{:__MY_URL__}}';
+		var __public__ = '__PUBLIC__';
+		var __user_id__ = '{{$user.id}}';
+	</script>
 </head>
 <body>

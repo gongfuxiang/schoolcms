@@ -6,7 +6,8 @@
 .fw-100 {font-weight:100;}
 .fw-700 {font-weight:700;}
 #common-prompt {position:fixed;top:0;left:0;right:0;text-align:center;margin-top:0;padding:5px;font-size:14px;z-index:10000;}
-.am-popover,.am-radius,.am-btn {border-radius:2px !important;}
+.am-popover,.am-radius {border-radius:2px !important;}
+.am-popover * {font-size: 12px;}
 .am-icon-trash-o:before {width:12px !important;}
 .fr {float:right !important;}
 .fl {float:left !important;}
@@ -39,7 +40,7 @@ select {height:32px !important;}
 .o-h { overflow: hidden; }
 input[type="text"][readonly] { background: #fff !important; cursor: pointer !important; }
 .submit-state { font-size: 16px; width: 25px; height: 25px; line-height: 25px; }
-input:hover, select:hover, textarea:hover, .chosen-choices:hover, .chosen-single:hover { border-style:solid; border-width:1px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
+input:hover, select:hover, textarea:hover, .chosen-choices:hover, .chosen-single:hover { border-style:solid; border-width:1px; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; border:1px solid #4FACF5 !important; box-shadow:0 0 5px #4FACF5 !important; }
 .am-input-group-sm > .am-input-group-btn > .am-btn { height: 32px; }
 .left-menu-more-ico-rotate {-webkit-transform: rotate(-90deg);transform: rotate(-90deg);-webkit-transition: all 300ms;transition: all 300ms;}
 .am-icon-angle-down {-webkit-transition: all 300ms;transition: all 300ms;}

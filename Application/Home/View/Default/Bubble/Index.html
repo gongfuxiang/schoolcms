@@ -1,0 +1,59 @@
+<!-- header start -->
+<include file="Public/Header" />
+<!-- header end -->
+
+<!-- header nav start -->
+<include file="Public/HeaderNav" />
+<!-- header nav end -->
+
+<div class="am-cf user-main" <if condition="!empty($max_width_style)">style="{{$max_width_style}}"</if>>
+  <!-- user menu start -->
+  <include file="Public/UserMenu" />
+  <!-- user menu end -->
+
+  <!-- content start -->
+  <div class="user-content">
+    <div class="user-content-body p-10">
+      <include file="Mood" />
+      <include file="Nav" />
+
+      <!-- list start -->
+      <if condition="!empty($data)">
+        <div id="mood-list">
+          <foreach name="data" item="v">
+            <div class="am-panel am-panel-default am-radius list-content" id="data-list-{{$v.id}}">
+              <div class="am-panel-bd">
+                <div class="list-title o-h">
+                  <img src="__PUBLIC__/Home/Images/user-img-sm.gif" class="am-circle am-fl" width="48" height="48" />
+                  <div class="am-fl m-l-10 m-t-5">
+                    <span class="block">{{$v.nickname}}</span>
+                    <span class="block cr-999">{{$v.add_time}}</span>
+                  </div>
+                  <if condition="$v['user_id'] eq $user['id']">
+                    <div class="am-fr">
+                      <i class="am-icon-trash-o c-p submit-delete" data-am-popover="{content: '{{:L('common_operation_delete')}}', trigger: 'hover focus'}" data-id="{{$v.id}}" data-url="{{:U('Home/Bubble/Delete')}}"></i>
+                    </div>
+                  </if>
+                </div>
+                <div class="m-t-10">{{$v.content}}</div>
+              </div>
+            </div>
+          </foreach>
+        </div>
+        <button type="button" class="am-btn am-btn-default am-btn-block am-radius fs-12 submit-more" data-page="1" data-url="{{:U('Home/Bubble/MoodMore')}}" data-del-url="{{:U('Home/Bubble/Delete')}}" data-del-text="{{:L('common_operation_delete')}}">{{:L('common_see_more_name')}}</button>
+      <else />
+        <include file="Public/NoData" />
+      </if>
+      <!-- list start -->
+    </div>
+  </div>
+  <!-- content end -->
+</div>
+
+<!-- layuot common module start -->
+<include file="Public/CommonModule" />
+<!-- layuot common module end -->
+
+<!-- footer start -->
+<include file="Public/Footer" />
+<!-- footer end -->

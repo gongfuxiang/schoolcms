@@ -11,9 +11,9 @@ return array(
 	// 用户中心菜单, is_show = [0禁用, 1启用]
 	'user_left_menu'		=>	array(
 			array(
-					'control'	=>	'User',
+					'control'	=>	'Bubble',
 					'action'	=>	'Index',
-					'name'		=>	'个人中心',
+					'name'		=>	'冒泡广场',
 					'is_show'	=>	1,
 					'icon'		=>	'am-icon-home',
 				),
@@ -76,37 +76,37 @@ return array(
 	// 用户顶部导航
 	'user_nav_menu'			=>	array(
 			array(
-					'control'	=>	'User',
+					'control'	=>	'Bubble',
 					'action'	=>	'Index',
-					'name'		=>	'个人中心',
+					'name'		=>	'冒泡',
 					'is_show'	=>	1,
 					'icon'		=>	'am-icon-home',
 				),
 			array(
 					'control'	=>	'Personal',
 					'action'	=>	'Index',
-					'name'		=>	'个人资料',
+					'name'		=>	'资料',
 					'is_show'	=>	1,
 					'icon'		=>	'am-icon-gear',
 				),
 			array(
 					'control'	=>	'Student',
 					'action'	=>	'Index',
-					'name'		=>	'学生列表',
+					'name'		=>	'学生',
 					'is_show'	=>	1,
 					'icon'		=>	'am-icon-mortar-board fs-12 w-14',
 				),
 			array(
 					'control'	=>	'Safety',
 					'action'	=>	'Index',
-					'name'		=>	'安全设置',
+					'name'		=>	'设置',
 					'is_show'	=>	1,
 					'icon'		=>	'am-icon-user-secret',
 				),
 			array(
 					'control'	=>	'User',
 					'action'	=>	'Logout',
-					'name'		=>	'安全退出',
+					'name'		=>	'退出',
 					'is_show'	=>	1,
 					'icon'		=>	'am-icon-power-off',
 				),

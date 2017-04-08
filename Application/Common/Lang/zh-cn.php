@@ -127,12 +127,16 @@ return array(
 	'common_operation_cut'				=>	'解除',
 	'common_operation_modify'			=>	'修改',
 	'common_operation_binding'			=>	'绑定',
+	'common_operation_publish'			=>	'发表',
+	'common_operation_refresh'			=>	'刷新',
 	'common_operation_success'			=>	'操作成功',
 	'common_operation_error'			=>	'操作失败',
 	'common_operation_add_success'		=>	'新增成功',
 	'common_operation_add_error'		=>	'新增失败',
 	'common_operation_join_success'		=>	'关联成功',
 	'common_operation_join_error'		=>	'关联失败',
+	'common_operation_publish_success'	=>	'发表成功',
+	'common_operation_publish_error'	=>	'发表失败',
 	'common_operation_edit_success'		=>	'编辑成功',
 	'common_operation_edit_error'		=>	'编辑失败或数据未改变',
 	'common_operation_delete_success'	=>	'删除成功',
@@ -172,6 +176,7 @@ return array(
 	'common_import_success_name'		=>	'导入成功',
 	'common_import_error_name'			=>	'导入失败',
 	'common_unit_tiao_name'				=>	'条',
+	'common_bubble_mood_nickname'		=>	'新同学',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',
@@ -296,6 +301,16 @@ return array(
 			2 => array('value' => 24, 'name' => '24小时内'),
 			3 => array('value' => 168, 'name' => '7天内'),
 			4 => array('value' => 720, 'name' => '1个月内'),
+		),
+
+	// 用户说说-可见范围
+	'common_user_visible_list'				=>	array(
+			0 => array('value' => 0, 'name' => '所有人可见', 'is_show' => 1, 'checked' => true),
+			1 => array('value' => 1, 'name' => '仅自己可见', 'is_show' => 0),
+			2 => array('value' => 2, 'name' => '好友可见', 'is_show' => 0),
+			3 => array('value' => 3, 'name' => '部分好友可见', 'is_show' => 0),
+			4 => array('value' => 4, 'name' => '部分好友不可见', 'is_show' => 0),
+			5 => array('value' => 5, 'name' => '非好友可见', 'is_show' => 0),
 		),
 
 	// 页面设置-有效时间
