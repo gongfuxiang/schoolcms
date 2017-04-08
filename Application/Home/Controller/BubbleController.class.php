@@ -22,6 +22,9 @@ class BubbleController extends CommonController
 	{
 		// 调用父类前置方法
 		parent::_initialize();
+
+		// 登录校验
+		$this->Is_Login();
 	}
 
 	/**
