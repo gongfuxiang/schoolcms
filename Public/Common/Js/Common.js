@@ -450,6 +450,7 @@ $(function()
 				var $tag = $(this.relatedTarget);
 				var id = $tag.data('id');
 				var url = $tag.data('url');
+				var list_tag = $tag.data('list-tag') || '#data-list-'+id;
 				if(id == undefined || url == undefined)
 				{
 					Prompt('参数配置有误');
@@ -470,7 +471,7 @@ $(function()
 							Prompt(result.msg, 'success');
 
 							// 成功则删除数据列表
-							$('#data-list-'+id).remove();
+							$(list_tag).remove();
 						} else {
 							Prompt(result.msg);
 						}

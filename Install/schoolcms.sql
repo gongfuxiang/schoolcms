@@ -9,7 +9,7 @@
  Target Server Version : 50716
  File Encoding         : utf-8
 
- Date: 04/08/2017 23:31:51 PM
+ Date: 04/10/2017 15:44:56 PM
 */
 
 SET NAMES utf8;
@@ -208,7 +208,7 @@ CREATE TABLE `sc_custom_view` (
 --  Records of `sc_custom_view`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_custom_view` VALUES ('1', '测试自定义页面', '<p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><img src=\"/Public/Upload/CustomView/image/2017/02/28/1488268978709400.jpg\" title=\"1488268978709400.jpg\" alt=\"333.jpg\"/></span></p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \">秀，身材苗条！</span></p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \"><br/></p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><br/></p>', '1', '1', '1', '0', 'a:0:{}', '0', '437', '1484965691', '1488268982');
+INSERT INTO `sc_custom_view` VALUES ('1', '测试自定义页面', '<p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><img src=\"/Public/Upload/CustomView/image/2017/02/28/1488268978709400.jpg\" title=\"1488268978709400.jpg\" alt=\"333.jpg\"/></span></p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \">秀，身材苗条！</span></p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \"><br/></p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><span style=\"color: rgb(38, 38, 38); font-family: 微软雅黑, \"><br/></span></p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p><p style=\"box-sizing: border-box; margin-top: 1.6rem; margin-bottom: 1.6rem; color: rgb(51, 51, 51); font-family: \">因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography 花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p><p><br/></p>', '1', '1', '1', '0', 'a:0:{}', '0', '439', '1484965691', '1488268982');
 COMMIT;
 
 -- ----------------------------
@@ -357,13 +357,61 @@ CREATE TABLE `sc_mood` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发表时间',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='用户说说';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='用户说说';
 
 -- ----------------------------
 --  Records of `sc_mood`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_mood` VALUES ('19', '13', '不是所有的往事都是美好的，也不是所有的回忆都应该被留下。', '0', '1491642451'), ('20', '12', '说点什么呢，哈哈', '0', '1491658539'), ('21', '15', '大家好，新来的，多多关照~', '0', '1491658779'), ('22', '15', '测试看看哈', '0', '1491660197'), ('23', '13', '斯蒂芬森的', '0', '1491664928');
+INSERT INTO `sc_mood` VALUES ('19', '13', '不是所有的往事都是美好的，也不是所有的回忆都应该被留下。', '0', '1491642451'), ('21', '15', '大家好，新来的，多多关照~', '0', '1491658779'), ('22', '15', '测试看看哈', '0', '1491660197'), ('26', '13', '嘻嘻嘻嘻是小狗', '0', '1491748949');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sc_mood_comments`
+-- ----------------------------
+DROP TABLE IF EXISTS `sc_mood_comments`;
+CREATE TABLE `sc_mood_comments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父级id',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `mood_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '说说id',
+  `reply_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '说说被回复的id',
+  `content` char(255) NOT NULL DEFAULT '' COMMENT '评论内容（1~255个字符之间）',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论时间',
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `user_id` (`user_id`),
+  KEY `mood_id` (`mood_id`),
+  KEY `reply_id` (`reply_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COMMENT='说说评论';
+
+-- ----------------------------
+--  Records of `sc_mood_comments`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_mood_comments` VALUES ('56', '0', '13', '22', '0', '哈哈', '1491809192'), ('57', '0', '13', '21', '0', '洗洗', '1491809198'), ('58', '0', '13', '21', '0', '呵呵', '1491809203'), ('61', '0', '12', '21', '0', '很', '1491809461'), ('67', '0', '12', '26', '0', '你好，很高兴认识你', '1491809877'), ('68', '0', '12', '26', '0', '你好，在没有嘛，', '1491809893'), ('69', '67', '13', '26', '67', '你好，我也很高兴认识你哦。', '1491809913'), ('70', '68', '13', '26', '68', '在呢，无处不在。', '1491809923');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `sc_mood_praise`
+-- ----------------------------
+DROP TABLE IF EXISTS `sc_mood_praise`;
+CREATE TABLE `sc_mood_praise` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `mood_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '说说id',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '赞说说的用户id',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_mood` (`mood_id`,`user_id`),
+  KEY `mood_id` (`mood_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COMMENT='说说点赞';
+
+-- ----------------------------
+--  Records of `sc_mood_praise`
+-- ----------------------------
+BEGIN;
+INSERT INTO `sc_mood_praise` VALUES ('7', '22', '12', '1491717393'), ('10', '23', '15', '1491718148'), ('16', '21', '13', '1491720317'), ('44', '22', '13', '1491752275'), ('52', '21', '12', '1491809457'), ('53', '26', '12', '1491809868');
 COMMIT;
 
 -- ----------------------------
@@ -704,7 +752,7 @@ CREATE TABLE `sc_user` (
 --  Records of `sc_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sc_user` VALUES ('12', '17602128368', 'gfx@gongfuxiang.com', 'e09d99b719e4409b031e1e5013e46291', '292564', 'gongfuxiang', '2', '702684000', '说点什么呢，哈哈', '', '0', '1489117020', '1491665234'), ('13', '17091959688', 'fuxiang.gong@qq.com', '349d0e1cbe27026d02fad00fba31bbb4', '525836', '魔鬼', '2', '666201600', '斯蒂芬森的', '喜欢睡觉觉', '0', '1489141439', '1491664928'), ('15', '13162155626', '', '58e144edd0bc44dc053846dccce94bce', '775393', '', '0', '0', '测试看看哈', '', '1', '1490867166', '1491660197');
+INSERT INTO `sc_user` VALUES ('12', '17602128368', 'gfx@gongfuxiang.com', 'd44d8ab32546d22931e6d69b35058d8c', '136169', 'gongfuxiang', '2', '702684000', '不是所有的往事都是美好的，也不是所有的回忆都应该被留下。不是所有的往事都是美好的，也不是所有的回忆都应该被留下。不是所有的往事都是美好的，也不是所有的回忆都应该被留下。不是所有的往事都是美好的，也不是所有的回忆都应该被留下。不是所有的往事都是美好的，也不是所有的回忆都应该被留下。不是所有的往事都是美好的，也不是所有的回忆都应该被留下。', '', '0', '1489117020', '1491805881'), ('13', '17091959688', 'fuxiang.gong@qq.com', '39abdf9747bc7b282b4a8f4bfee0f4cf', '642658', '魔鬼', '2', '666201600', 'hello', '喜欢睡觉觉', '0', '1489141439', '1491752123'), ('15', '13162155626', '', 'b2fe98b7f9ffa4f7fb1dc7827bb99ded', '123043', '测试用户', '0', '0', '测试看看哈', '', '1', '1490867166', '1491718130');
 COMMIT;
 
 -- ----------------------------

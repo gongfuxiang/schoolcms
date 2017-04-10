@@ -9,4 +9,13 @@
 .bubble-nav { border-bottom: 1px solid #eee; }
 .bubble-nav .am-nav-pills li a { border-top-left-radius: 2px; border-top-right-radius: 2px; }
 .submit-repeat { margin-top: 8px; }
-.list-content:hover { background-color: #f9f9f9; }
+.comments-user .user-portrait { margin-top: 3; }
+.comments-user * { font-size: 12px; }
+.comments-user { padding: 5px; background-color: #f9f9f9; }
+.comments-user:hover { background-color: #f3f3f3; }
+.reply-submit:hover, .submit-delete:hover { color: #333 !important; }
+
+@media only screen and (min-width: 641px) {
+	.comments-item-tools { display: none; }
+	.comments-user:hover .comments-item-tools { display: block !important; }
+}

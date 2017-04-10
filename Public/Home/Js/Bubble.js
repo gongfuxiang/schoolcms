@@ -11,16 +11,22 @@ $(function()
 		}
 	});
 
-	// 查看更多
-	$('.submit-more').on('click', function()
+	// 说说点赞
+	$(document).on('click', '.praise-submit', function()
 	{
 		// 参数
+		var id = $(this).attr('data-id');
+		var uid = $(this).attr('data-uid');
 		var url = $(this).data('url');
-		var page = parseInt($(this).attr('data-page'));
+		var num = parseInt($(this).prev().text());
 		var $this = $(this);
 
-		// 禁用按钮
-		$this.addClass('am-disabled');
+		// 不能点赞自己的说说
+		if(uid == __user_id__)
+		{
+			Prompt($('#bubble-comments').data('mood-praise-msg'));
+			return false;
+		}
 
 		// ajax请求
 		$.ajax({
@@ -28,45 +34,90 @@ $(function()
 			type:'POST',
 			dataType:"json",
 			timeout:10000,
-			data:{"page":page},
+			data:{"id":id},
 			success:function(result)
 			{
 				if(result.code == 0)
 				{
-					var html = '';
-					for(var i in result.data)
+					if($this.hasClass('cr-999'))
 					{
-						html += '<div class="am-panel am-panel-default am-radius list-content" id="data-list-'+result.data[i]['id']+'">';
-						html += '<div class="am-panel-bd">';
-						html += '<div class="list-title o-h">';
-						html += '<img src="'+__public__+'/Home/Images/user-img-sm.gif" class="am-circle am-fl" width="48" height="48" />';
-						html += '<div class="am-fl m-l-10 m-t-5">';
-						html += '<span class="block">'+result.data[i]['nickname']+'</span>';
-						html += '<span class="block cr-999">'+result.data[i]['add_time']+'</span>';
-						html += '</div>';
-						if(result.data[i]['user_id'] == __user_id__)
-						{
-							html += '<div class="am-fr">';
-							html += '<i class="am-icon-trash-o c-p submit-delete" data-am-popover="{content: \''+$this.data('del-text')+'\', trigger: \'hover focus\'}" data-id="{{$v.id}}" data-url="'+$this.data('del-url')+'"></i>';
-							html += '</div>';
-						}
-						html += '</div>';
-						html += '<div class="m-t-10">'+result.data[i]['content']+'</div>';
-						html += '</div>';
-						html += '</div>';
-						$('#mood-list').append(html);
-						$this.attr('data-page', page+1);
+						$this.prev().text(num+1);
+						$this.removeClass('cr-999');
+						$this.addClass('cr-blue');
+					} else {
+						$this.prev().text(num-1);
+						$this.removeClass('cr-blue');
+						$this.addClass('cr-999');
 					}
 				} else {
 					Prompt(result.msg);
 				}
-				$this.removeClass('am-disabled');
 			},
 			error:function(xhr, type)
 			{
-				$this.removeClass('am-disabled');
 				Prompt('网络异常错误');
 			}
+		});
+	});
+
+	// 说说评论
+	$(document).on('click', '.comments-submit, .reply-submit', function()
+	{
+		// 不能点赞自己的说说
+		if($(this).attr('data-uid') == __user_id__)
+		{
+			Prompt($('#bubble-comments').data('mood-comments-msg'));
+			return false;
+		}
+
+		// 参数
+		var $modal = $('#bubble-comments');
+		$modal.attr('data-id', $(this).data('id'));
+		$modal.attr('data-reply-id', $(this).data('reply-id') || 0);
+		$modal.attr('data-parent-id', $(this).data('parent-id') || 0);
+
+		// @用户
+		var nickname = $(this).data('nickname');
+		if(nickname != undefined)
+		{
+			$modal.find('.am-modal-hd').text('@'+nickname);
+		} else {
+			$modal.find('.am-modal-hd').text('');
+		}
+		
+		$modal.modal(
+		{
+			relatedTarget: this,
+			onConfirm: function(e)
+			{
+				// ajax请求
+				$.ajax({
+					url:$modal.data('url'),
+					type:'POST',
+					dataType:"json",
+					timeout:10000,
+					data:{"mood_id":$modal.attr('data-id'), "reply_id":$modal.attr('data-reply-id'), "parent_id":$modal.attr('data-parent-id'), "content":e.data},
+					success:function(result)
+					{
+						if(result.code == 0)
+						{
+							$modal.find('textarea').val('');
+							Prompt(result.msg, 'success');
+							setTimeout(function()
+							{
+								window.location.reload();
+							}, 1000);
+						} else {
+							Prompt(result.msg);
+						}
+					},
+					error:function(xhr, type)
+					{
+						Prompt('网络异常错误');
+					}
+				});
+			},
+			onCancel: function(e){}
 		});
 	});
 });
