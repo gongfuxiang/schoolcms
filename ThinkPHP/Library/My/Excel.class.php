@@ -204,7 +204,7 @@ class Excel
 				} else {
 					if(!empty($field))
 					{
-						$info[$field[$col]['field']] = ($field[$col]['type'] == 'int') ? ScienceNumToString($value) : $value;
+						$info[$field[$col]['field']] = ($field[$col]['type'] == 'int') ? trim(ScienceNumToString($value)) : trim($value);
 					}
 				}
 			}
