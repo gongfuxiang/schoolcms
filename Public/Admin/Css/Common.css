@@ -26,45 +26,66 @@ a:focus {outline:0;text-decoration:none;}
 .page-header {border-bottom:1px solid #DBDDDE;}
 .header-title {font-size:16px;font-weight:600;line-height:16px;margin-bottom:8px;}
 /* =============   Helper clasess============= */
-.p-0 {padding:0px !important;}
-.p-20 {padding:20px !important;}
-.p-30 {padding:30px !important;}
-.p-l-0 {padding-left:0px !important;}
-.p-l-5 {padding-left:5px !important;}
-.p-l-10 {padding-left:10px !important;}
-.p-l-15 {padding-left:15px !important;}
-.p-l-20 {padding-left:20px !important;}
-.p-l-25 {padding-left:25px !important;}
-.p-l-30 {padding-left:30px !important;}
-.p-r-0 {padding-right:0px !important;}
-.p-t-0 {padding-top:0px !important;}
-.p-b-0 {padding-bottom:0px !important;}
-.p-t-10 {padding-top:10px !important;}
-.p-b-10 {padding-bottom:10px !important;}
-.p-l-r-10 {padding-left:10px;padding-right:10px;}
-.m-0 {margin:0px !important;}
-.m-r-5 {margin-right:5px !important;}
-.m-r-10 {margin-right:10px !important;}
-.m-r-15 {margin-right:15px !important;}
-.m-r-20 {margin-right:15px !important;}
-.m-l-5 {margin-left:5px !important;}
-.m-l-10 {margin-left:10px !important;}
-.m-l-15 {margin-left:15px !important;}
-.m-l-20 {margin-left:20px !important;}
-.m-t-5 {margin-top:5px !important;}
-.m-t-0 {margin-top:0px !important;}
-.m-t-10 {margin-top:10px !important;}
-.m-t-15 {margin-top:15px !important;}
-.m-t-20 {margin-top:20px !important;}
-.m-t-30 {margin-top:30px !important;}
-.m-t-40 {margin-top:40px !important;}
-.m-b-0 {margin-bottom:0px !important;}
-.m-b-5 {margin-bottom:5px !important;}
-.m-b-10 {margin-bottom:10px !important;}
-.m-b-15 {margin-bottom:15px !important;}
-.m-b-20 {margin-bottom:20px !important;}
-.m-b-25 {margin-bottom:25px !important;}
-.m-b-30 {margin-bottom:30px !important;}
+.m-0 { margin: 0px !important; }
+.m-5 { margin: 5px !important; }
+.m-10 { margin: 10px !important; }
+.m-15 { margin: 15px !important; }
+.m-20 { margin: 20px !important; }
+.m-25 { margin: 25px !important; }
+.m-30 { margin: 30px !important; }
+.m-35 { margin: 35px !important; }
+.m-40 { margin: 40px !important; }
+.m-45 { margin: 45px !important; }
+.m-50 { margin: 50px !important; }
+.p-0 { padding: 0px !important; }
+.p-10 { padding: 10px !important; }
+.p-20 { padding: 20px !important; }
+.p-30 { padding: 30px !important; }
+.p-l-0 { padding-left: 0px !important; }
+.p-l-5 { padding-left: 5px !important; }
+.p-l-10 { padding-left: 10px !important; }
+.p-l-15 { padding-left: 15px !important; }
+.p-l-20 { padding-left: 20px !important; }
+.p-l-25 { padding-left: 25px !important; }
+.p-l-30 { padding-left: 30px !important; }
+.p-r-0 { padding-right: 0px !important; }
+.p-r-5 { padding-right: 5px !important; }
+.p-r-10 { padding-right: 10px !important; }
+.p-r-15 { padding-right: 15px !important; }
+.p-r-20 { padding-right: 20px !important; }
+.p-r-25 { padding-right: 25px !important; }
+.p-r-30 { padding-right: 30px !important; }
+.p-r-0 { padding-right: 0px !important; }
+.p-t-0 { padding-top: 0px !important; }
+.p-b-0 { padding-bottom: 0px !important; }
+.p-t-10 { padding-top: 10px !important; }
+.p-b-10 { padding-bottom: 10px !important; }
+.p-l-r-10 { padding-left: 10px; padding-right: 10px; }
+.m-0 { margin: 0px !important; }
+.m-r-5 { margin-right: 5px !important; }
+.m-r-10 { margin-right: 10px !important; }
+.m-r-15 { margin-right: 15px !important; }
+.m-r-20 { margin-right: 15px !important; }
+.m-l-5 { margin-left: 5px !important; }
+.m-l-10 { margin-left: 10px !important; }
+.m-l-15 { margin-left: 15px !important; }
+.m-l-20 { margin-left: 20px !important; }
+.m-l-25 { margin-left: 25px !important; }
+.m-l-30 { margin-left: 30px !important; }
+.m-t-5 { margin-top: 5px !important; }
+.m-t-0 { margin-top: 0px !important; }
+.m-t-10 { margin-top: 10px !important; }
+.m-t-15 { margin-top: 15px !important; }
+.m-t-20 { margin-top: 20px !important; }
+.m-t-30 { margin-top: 30px !important; }
+.m-t-40 { margin-top: 40px !important; }
+.m-b-0 { margin-bottom: 0px !important; }
+.m-b-5 { margin-bottom: 5px !important; }
+.m-b-10 { margin-bottom: 10px !important; }
+.m-b-15 { margin-bottom: 15px !important; }
+.m-b-20 { margin-bottom: 20px !important; }
+.m-b-25 { margin-bottom: 25px !important; }
+.m-b-30 { margin-bottom: 30px !important; }
 .w-xs {min-width:80px;}
 .w-sm {min-width:95px;}
 .w-md {min-width:110px;}

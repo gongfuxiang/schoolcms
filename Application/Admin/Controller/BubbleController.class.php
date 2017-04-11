@@ -1,9 +1,9 @@
 <?php
 
-namespace Home\Controller;
+namespace Admin\Controller;
 
 /**
- * 冒泡
+ * 冒泡管理
  * @author   Devil
  * @blog     http://gong.gg/
  * @version  0.0.1
@@ -36,23 +36,22 @@ class BubbleController extends CommonController
 	 */
 	public function Index()
 	{
+		// 参数
+		$param = array_merge($_POST, $_GET);
+
 		// 条件
-		$where = array();
-		if(I('type') == 'own')
-		{
-			$where['u.id'] = $this->user['id'];
-		}
+		$where = $this->GetIndexWhere();
 
 		// 模型
 		$m = M('Mood');
 
 		// 分页
-		$number = 10;
+		$number = MyC('admin_page_number');
 		$page_param = array(
 				'number'	=>	$number,
 				'total'		=>	$m->alias('m')->join('__USER__ AS u ON m.user_id=u.id')->where($where)->count(),
-				'where'		=>	$_GET,
-				'url'		=>	U('Home/Bubble/Index'),
+				'where'		=>	$param,
+				'url'		=>	U('Admin/Bubble/Index'),
 			);
 		$page = new \My\Page($page_param);
 
@@ -66,11 +65,54 @@ class BubbleController extends CommonController
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
 
+		// 参数
+		$this->assign('param', $param);
+
 		// 基础数据
 		$this->assign('common_user_visible_list', L('common_user_visible_list'));
 		$this->assign('bubble_nav_list', L('bubble_nav_list'));
 
 		$this->display('Index');
+	}
+
+	/**
+	 * [GetIndexWhere 条件]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-10T22:16:29+0800
+	 */
+	private function GetIndexWhere()
+	{
+		$where = array();
+
+		// 模糊
+		if(!empty($_REQUEST['keyword']))
+		{
+			$like_keyword = array('like', '%'.I('keyword').'%');
+			$where[] = array(
+					'u.nickname'		=>	$like_keyword,
+					'u.mobile'			=>	$like_keyword,
+					'u.email'			=>	$like_keyword,
+					'm.content'			=>	$like_keyword,
+					'_logic'			=>	'or',
+				);
+		}
+
+		// 是否更多条件
+		if(I('is_more', 0) == 1)
+		{
+			// 表达式
+			if(!empty($_REQUEST['time_start']))
+			{
+				$where['m.add_time'][] = array('gt', strtotime(I('time_start')));
+			}
+			if(!empty($_REQUEST['time_end']))
+			{
+				$where['m.add_time'][] = array('lt', strtotime(I('time_end')));
+			}
+		}
+		return $where;
 	}
 
 	/**
@@ -101,9 +143,7 @@ class BubbleController extends CommonController
 
 				// 点赞
 				$v['praise_count'] = $mp->where(array('mood_id'=>$v['id']))->count();
-
-				// 用户是否已点赞过
-				$v['is_praise'] = ($mp->where(array('mood_id'=>$v['id'], 'user_id'=>$this->user['id']))->getField('id') > 0) ? 'ok' : 'no';
+				$v['praise_list'] = $mp->alias('mp')->join('__USER__ AS u ON u.id=mp.user_id')->field(array('mp.id', 'mp.add_time', 'u.nickname'))->where(array('mp.mood_id'=>$v['id']))->order('id desc')->select();
 
 				// 评论总数
 				$v['comments_count'] = $mc->where(array('mood_id'=>$v['id']))->count();
@@ -184,73 +224,6 @@ class BubbleController extends CommonController
 	}
 
 	/**
-	 * [MoodSave 说说保存]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-04-08T13:21:34+0800
-	 */
-	public function MoodSave()
-	{
-		// 是否ajax请求
-		if(!IS_AJAX)
-		{
-			$this->error(L('common_unauthorized_access'));
-		}
-
-		// 说说模型
-		$m = D('Mood');
-
-		// 编辑
-		if($m->create($_POST, 1) !== false)
-		{
-			$m->user_id		=	$this->user['id'];
-			$m->content 	=	I('content');
-			$m->add_time	=	time();
-
-			// 开启事务
-			$m->startTrans();
-
-			// 更新用户签名
-			if(I('is_sign') == 1)
-			{
-				$data = array(
-						'signature'	=>	$m->content,
-						'upd_time'	=>	time(),
-					);
-				$user_state = (M('User')->where(array('id'=>$this->user['id']))->save($data) !== false);
-			} else {
-				$user_state = true;
-			}
-
-			// 添加历史签名
-			$mood_state = $m->add();
-
-			// 状态
-			if($user_state && $mood_state > 0)
-			{
-				// 提交事务
-				$m->commit();
-
-				// 更新用户session数据
-				if(I('is_sign') == 1)
-				{
-					$this->UserLoginRecord($this->user['id']);
-				}
-
-				$this->ajaxReturn(L('common_operation_publish_success'));
-			} else {
-
-				// 回滚事务
-				$m->rollback();
-				$this->ajaxReturn(L('common_operation_publish_error'), -100);
-			}
-		} else {
-			$this->ajaxReturn($m->getError(), -1);
-		}
-	}
-
-	/**
 	 * [MoodDelete 说说删除]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -269,18 +242,11 @@ class BubbleController extends CommonController
 		$m = M('Mood');
 		$id = I('id');
 
-		// 只能删除自己的说说
-		$user_id = $m->where(array('id'=>$id))->getField('user_id');
-		if($user_id != $this->user['id'])
-		{
-			$this->ajaxReturn(L('bubble_mood_delete_error'), -2);
-		}
-
 		// 开启事务
 		$m->startTrans();
 
 		// 数据删除[说说,点赞,评论]
-		$mood_state = $m->where(array('id'=>$id, 'user_id'=>$this->user['id']))->delete();
+		$mood_state = $m->where(array('id'=>$id))->delete();
 		$praise_state = M('MoodPraise')->where(array('mood_id'=>$id))->delete();
 		$comments_state = M('MoodComments')->where(array('mood_id'=>$id))->delete();
 		if($mood_state !== false && $praise_state !== false && $comments_state !== false)
@@ -293,6 +259,30 @@ class BubbleController extends CommonController
 			// 回滚事务
 			$m->rollback();
 
+			$this->ajaxReturn(L('common_operation_delete_error'), -100);
+		}
+	}
+
+	/**
+	 * [MoodPraiseDelete 说说点赞删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-25T22:36:12+0800
+	 */
+	public function MoodPraiseDelete()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 数据删除
+		if(M('MoodPraise')->delete(I('id')))
+		{
+			$this->ajaxReturn(L('common_operation_delete_success'));
+		} else {
 			$this->ajaxReturn(L('common_operation_delete_error'), -100);
 		}
 	}
@@ -312,23 +302,19 @@ class BubbleController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
+		// 参数
+		$id = I('id');
+
 		// 模型
 		$m = M('MoodComments');
-
-		// 只能删除自己的评论
-		$user_id = $m->where(array('id'=>I('id')))->getField('user_id');
-		if($user_id != $this->user['id'])
-		{
-			$this->ajaxReturn(L('bubble_comments_delete_error'), -2);
-		}
 
 		// 开启事务
 		$m->startTrans();
 
 		// 数据删除
-		$state = $m->where(array('id'=>I('id'), 'user_id'=>$this->user['id']))->delete();
-		$item_state = $m->where(array('parent_id'=>I('id')))->delete();
-		$reply_state = $m->where(array('reply_id'=>I('id')))->delete();
+		$state = $m->where(array('id'=>$id))->delete();
+		$item_state = $m->where(array('parent_id'=>$id))->delete();
+		$reply_state = $m->where(array('reply_id'=>$id))->delete();
 		if($state !== false && $item_state !== false && $reply_state !== false)
 		{
 			// 提交事务
@@ -340,115 +326,6 @@ class BubbleController extends CommonController
 			$m->rollback();
 
 			$this->ajaxReturn(L('common_operation_delete_error'), -100);
-		}
-	}
-
-	/**
-	 * [MoodPraise 说说点赞]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-04-09T12:24:24+0800
-	 */
-	public function MoodPraise()
-	{
-		// 是否ajax请求
-		if(!IS_AJAX)
-		{
-			$this->error(L('common_unauthorized_access'));
-		}
-
-		// 参数
-		if(empty($_POST['id']))
-		{
-			$this->ajaxReturn(L('common_param_error'), -1);
-		}
-		$id = I('id');
-
-		// 不能点赞自己的说说
-		$mood = M('Mood')->field(array('id', 'user_id'))->find($id);
-		if(empty($mood))
-		{
-			$this->ajaxReturn(L('bubble_mood_no_exist_error'), -2);
-		} else {
-			if($mood['user_id'] == $this->user['id'])
-			{
-				$this->ajaxReturn(L('bubble_mood_praise_error'), -3);
-			}
-		}
-
-		// 查询数据
-		$m = M('MoodPraise');
-		$where = array('user_id'=>$this->user['id'], 'mood_id'=>$id);
-		$temp = $m->where($where)->getField('id');
-
-		// 数据存在删除, 则添加
-		if(empty($temp))
-		{
-			$data = array(
-					'mood_id'	=>	$id,
-					'user_id'	=>	$this->user['id'],
-					'add_time'	=>	time(),
-				);
-			$state = ($m->add($data) > 0);
-		} else {
-			$state = ($m->where($where)->delete() !== false);
-		}
-
-		// 状态
-		if($state)
-		{
-			$this->ajaxReturn(L('common_operation_success'));
-		} else {
-			$this->ajaxReturn(L('common_operation_error'), -100);
-		}
-	}
-
-	/**
-	 * [MoodComments 说说评论]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-04-09T18:52:32+0800
-	 */
-	public function MoodComments()
-	{
-		// 是否ajax请求
-		if(!IS_AJAX)
-		{
-			$this->error(L('common_unauthorized_access'));
-		}
-
-		// 说说评论模型
-		$m = D('MoodComments');
-
-		// 编辑
-		if($m->create($_POST, 1) !== false)
-		{
-			// 不能回复自己的评论
-			if($m->reply_id > 0)
-			{
-				$user_id = $m->where(array('id'=>$m->reply_id))->getField('user_id');
-				if($user_id == $this->user['id'])
-				{
-					$this->ajaxReturn(L('bubble_comments_reply_error'), -2);
-				}
-			}
-
-			// 额外数据处理
-			$m->add_time	=	time();
-			$m->content 	=	I('content');
-			$m->user_id		=	$this->user['id'];
-			
-			// 写入数据库
-			if($m->add())
-			{
-				$this->ajaxReturn(L('common_operation_comments_success'));
-			} else {
-				$this->ajaxReturn(L('common_operation_comments_error'), -100);
-			}
-		} else {
-			$this->ajaxReturn($m->getError(), -1);
 		}
 	}
 }

@@ -44,6 +44,8 @@ return array(
 	'common_create_time_name'			=>	'创建时间',
 	'common_reg_time_name'				=>	'注册时间',
 	'common_upd_time_name'				=>	'更新时间',
+	'common_time_start_name'			=>	'开始时间',
+	'common_time_end_name'				=>	'结束时间',
 	'common_delete_tips'				=>	'你，确定要删除这条记录吗？',
 	'common_do_not_operate'				=>	'不可操作',
 	'common_name_text'					=>	'名称',

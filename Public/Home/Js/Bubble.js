@@ -90,6 +90,13 @@ $(function()
 			relatedTarget: this,
 			onConfirm: function(e)
 			{
+				// 内容是否能为空
+				if($modal.find('textarea').val().length == 0)
+				{
+					Prompt($modal.find('textarea').data('validation-message'));
+					return false;
+				}
+				
 				// ajax请求
 				$.ajax({
 					url:$modal.data('url'),
