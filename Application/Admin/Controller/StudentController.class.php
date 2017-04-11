@@ -213,33 +213,33 @@ class StudentController extends CommonController
 			}
 			
 			// 性别
-			if(isset($data['gender']))
+			if(!empty($data['gender']))
 			{
 				// 性别
 				$data['gender'] = isset($gender_list[$data['gender']]) ? $gender_list[$data['gender']] : $gender_list['default'];
 			}
 
 			// 学生状态
-			if(isset($data['state']))
+			if(!empty($data['state']))
 			{
 				$data['state'] = isset($student_state_list[$data['state']]) ? $student_state_list[$data['state']] : $student_state_list['default'];
 			}
 
 			// 缴费状态
-			if(isset($data['tuition_state']))
+			if(!empty($data['tuition_state']))
 			{
-				$data['tuition_state'] = isset($tuition_state_list[$data['tuition_state']]) ? $tuition_state_list[$v['tuition_state']] : $tuition_state_list['default'];
+				$data['tuition_state'] = isset($tuition_state_list[$data['tuition_state']]) ? $tuition_state_list[$data['tuition_state']] : $tuition_state_list['default'];
 			}
 
 			// 地区
-			if(isset($data['region_name']))
+			if(!empty($data['region_name']))
 			{
 				$data['region_id'] = $r->where(array('name'=>$data['region_name']))->getField('id');
 				unset($data['region_name']);
 			}
 
 			// 班级
-			if(isset($data['class_name']))
+			if(!empty($data['class_name']))
 			{
 				if(strpos($data['class_name'], '-') === false)
 				{
@@ -253,7 +253,7 @@ class StudentController extends CommonController
 			}
 
 			// 添加时间
-			if(isset($data['add_time']))
+			if(!empty($data['add_time']))
 			{
 				$data['add_time'] = strtotime($data['add_time']);
 			} else {

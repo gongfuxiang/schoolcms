@@ -186,35 +186,28 @@ class FractionController extends CommonController
 			}
 
 			// 科目
-			if(isset($data['subject_name']))
+			if(!empty($data['subject_name']))
 			{
 				$data['subject_id'] = $subject->where(array('name'=>$data['subject_name']))->getField('id');
 				unset($data['subject_name']);
 			}
 
 			// 期号
-			if(isset($data['score_name']))
-			{
-				$data['score_id'] = $score->where(array('name'=>$data['score_name']))->getField('id');
-				unset($data['score_name']);
-			}
-
-			// 期号
-			if(isset($data['score_name']))
+			if(!empty($data['score_name']))
 			{
 				$data['score_id'] = $score->where(array('name'=>$data['score_name']))->getField('id');
 				unset($data['score_name']);
 			}
 
 			// 学生
-			if(isset($data['username']) && isset($data['number']) && isset($data['id_card']))
+			if(!empty($data['username']) && isset($data['number']) && isset($data['id_card']))
 			{
 				$data['student_id'] = $student->where(array('username'=>$data['username'], 'number'=>$data['number'], 'id_card'=>$data['id_card'], 'semester_id'=>$data['semester_id']))->getField('id');
 				unset($data['number'], $data['id_card']);
 			}
 
 			// 添加时间
-			if(isset($data['add_time']))
+			if(!empty($data['add_time']))
 			{
 				$data['add_time'] = strtotime($data['add_time']);
 			} else {
