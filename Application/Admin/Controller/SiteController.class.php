@@ -72,8 +72,16 @@ class SiteController extends CommonController
 	public function Save()
 	{
 		// 站点logo
-		if(!empty($_FILES['home_site_logo_img']['tmp_name']))
+		if(isset($_FILES['home_site_logo_img']['error']))
 		{
+			// 文件上传校验
+			$error = FileUploadError('home_site_logo_img');
+			if($error !== true)
+			{
+				$this->ajaxReturn($error, -1);
+			}
+
+			// 文件类型
 			list($type, $suffix) = explode('/', $_FILES['home_site_logo_img']['type']);
 			$path = 'Public/Upload/Home/image/';
 			if(!is_dir($path))
