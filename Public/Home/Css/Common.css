@@ -134,6 +134,7 @@ header.am-topbar { margin-bottom: 0rem; }
 	 * 用户导航
 	 */
 	.user-header-nav ul { margin-top: 1.4rem; }
+	.user-nav-reg-submit { margin-left: 10px; }
 
 	/**
 	 * 图片验证码

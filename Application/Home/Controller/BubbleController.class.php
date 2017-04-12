@@ -116,6 +116,22 @@ class BubbleController extends CommonController
 	}
 
 	/**
+	 * [UserIsStateCheck 用户状态校验]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-04-12T15:29:45+0800
+	 */
+	private function UserIsStateCheck()
+	{
+		$state = M('User')->where(array('id'=>$this->user['id']))->getField('state');
+		if($state > 0)
+		{
+			$this->ajaxReturn(L('common_user_state_list')[$state]['tips'], -10);
+		}
+	}
+
+	/**
 	 * [GetMoodComments 获取说说评论]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -126,6 +142,7 @@ class BubbleController extends CommonController
 	 */
 	private function GetMoodComments($mood_id)
 	{
+		// 参数
 		if(empty($mood_id))
 		{
 			return array();
@@ -197,6 +214,9 @@ class BubbleController extends CommonController
 		{
 			$this->error(L('common_unauthorized_access'));
 		}
+
+		// 用户状态校验
+		$this->UserIsStateCheck();
 
 		// 说说模型
 		$m = D('Mood');
@@ -358,6 +378,9 @@ class BubbleController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
+		// 用户状态校验
+		$this->UserIsStateCheck();
+
 		// 参数
 		if(empty($_POST['id']))
 		{
@@ -418,6 +441,9 @@ class BubbleController extends CommonController
 		{
 			$this->error(L('common_unauthorized_access'));
 		}
+
+		// 用户状态校验
+		$this->UserIsStateCheck();
 
 		// 说说评论模型
 		$m = D('MoodComments');
