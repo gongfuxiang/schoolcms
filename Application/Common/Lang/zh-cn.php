@@ -87,6 +87,7 @@ return array(
 	'common_on_fill_in_the_text'		=>	'未填写',
 	'common_select_file_text'			=>	'选择文件',
 	'common_select_file_tips'			=>	'请选择需要上传的文件',
+	'common_unknown_error'				=>	'未知错误',
 
 	'common_library_email_empty_error'	=>	'收件邮箱不能为空',
 	'common_library_content_empty_error'=>	'发送内容不能为空',
@@ -417,6 +418,18 @@ return array(
 			'am-badge-success',
 			'am-badge-warning',
 			'am-badge-danger',
+		),
+
+	// 文件上传错误码
+	'common_file_upload_error_list'		=>	array(
+			1 => '文件大小超过服务器允许上传的最大值',
+			2 => '文件大小超出浏览器限制，查看[{站点设置->文件最大限制}是否大于该值]',
+			3 => '文件仅部分被上传',
+			4 => '没有找到要上传的文件',
+			5 => '没有找到服务器临时文件夹',
+			6 => '没有找到服务器临时文件夹',
+			7 => '文件写入失败',
+			8 => '文件上传扩展没有打开',
 		),
 
 	// 正则

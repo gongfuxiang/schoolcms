@@ -9,6 +9,38 @@
  */
 
 /**
+ * [FileUploadError 文件上传错误校验]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-04-12T17:21:51+0800
+ * @param    [string]     $name [表单name]
+ * @return   [mixed]            [true | 错误信息]
+ */
+function FileUploadError($name)
+{
+    // 是否存在该name表单
+    if(empty($_FILES[$name]))
+    {
+        return L('common_select_file_tips');
+    }
+
+    // 是否正常
+    if($_FILES[$name]['error'] == 0)
+    {
+        return true;
+    }
+
+    // 错误码对应的错误信息
+    $file_error_list = L('common_file_upload_error_list');
+    if(isset($file_error_list[$_FILES[$name]['error']]))
+    {
+        return $file_error_list[$_FILES[$name]['error']];
+    }
+    return L('common_unknown_error');
+}
+
+/**
  * [LangValueKeyFlip 公共数据翻转]
  * @author   Devil
  * @blog     http://gong.gg/

@@ -112,10 +112,11 @@ class StudentController extends CommonController
 			$this->error(L('common_unauthorized_access'));
 		}
 
-		// 文件是否上传
-		if(empty($_FILES['excel']['tmp_name']))
+		// 文件上传校验
+		$error = FileUploadError('excel');
+		if($error !== true)
 		{
-			$this->ajaxReturn(L('common_select_file_tips'), -1);
+			$this->ajaxReturn($error, -1);
 		}
 
 		// excel驱动

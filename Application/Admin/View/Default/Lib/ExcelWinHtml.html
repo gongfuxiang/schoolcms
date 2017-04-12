@@ -7,7 +7,7 @@
 		<div class="am-popup-bd">
 			<!-- win form start -->
 			<form class="am-form form-validation excel-form" action="{{$excel_import_form_url}}" method="POST" request-type="ajax-fun" request-value="ExcelImportCallback" enctype="multipart/form-data">
-				<input type="hidden" name="max_file_size" value="{{:MyC('home_max_limit_image', 2048000)}}" />
+				<input type="hidden" name="max_file_size" value="{{:MyC('home_max_limit_file', 51200000)}}" />
 				<div class="am-alert am-radius am-alert-tips m-t-0" data-am-alert>
 					<notempty name="excel_import_format_url">
 						<p class="m-b-0"><a href="{{$excel_import_format_url}}" class="cr-blue">{{:L('common_excel_format_download_name')}}</a><span class="m-r-5"></p>
