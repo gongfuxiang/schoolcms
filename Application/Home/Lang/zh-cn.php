@@ -15,7 +15,7 @@ return array(
 					'action'	=>	'Index',
 					'name'		=>	'冒泡广场',
 					'is_show'	=>	1,
-					'icon'		=>	'am-icon-home',
+					'icon'		=>	'am-icon-slideshare',
 				),
 			array(
 					'name'		=>	'学生信息',
@@ -80,7 +80,7 @@ return array(
 					'action'	=>	'Index',
 					'name'		=>	'冒泡',
 					'is_show'	=>	1,
-					'icon'		=>	'am-icon-home',
+					'icon'		=>	'am-icon-slideshare',
 				),
 			array(
 					'control'	=>	'Personal',
