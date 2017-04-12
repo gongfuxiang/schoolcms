@@ -56,9 +56,9 @@
 
 		<!-- operation start -->
 		<if condition="!IsMobile()">
-	        <div class="am-g m-t-15 my-sm-hide">
-	            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs am-icon-file-excel-o"> {{:L('common_operation_excel_export_name')}}</a>
-	            <a href="javascript:;" class="am-btn am-btn-primary am-btn-xs m-l-10 am-icon-cloud-upload" data-am-modal="{target: '#excel-import-win'}"> {{:L('common_operation_excel_import_name')}}</a>
+	        <div class="am-g m-t-15">
+	            <a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs am-icon-file-excel-o am-radius"> {{:L('common_operation_excel_export_name')}}</a>
+	            <a href="javascript:;" class="am-btn am-btn-primary am-btn-xs m-l-10 am-icon-cloud-upload am-radius" data-am-modal="{target: '#excel-import-win'}"> {{:L('common_operation_excel_import_name')}}</a>
             	<!-- excel win html start -->
 				<include file="Lib/ExcelWinHtml" />
 				<!-- excel win html end -->

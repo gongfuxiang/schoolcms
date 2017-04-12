@@ -69,8 +69,8 @@
         <div class="am-g m-t-15">
             <a href="{{:U('Admin/Student/SaveInfo')}}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> {{:L('common_operation_add')}}</a>
             <if condition="!IsMobile()">
-            	<a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o"> {{:L('common_operation_excel_export_name')}}</a>
-            	<a href="javascript:;" class="am-btn am-btn-primary am-btn-xs m-l-10 am-icon-cloud-upload" data-am-modal="{target: '#excel-import-win'}"> {{:L('common_operation_excel_import_name')}}</a>
+            	<a href="{{$excel_url}}" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o am-radius"> {{:L('common_operation_excel_export_name')}}</a>
+            	<a href="javascript:;" class="am-btn am-btn-primary am-btn-xs m-l-10 am-icon-cloud-upload am-radius" data-am-modal="{target: '#excel-import-win'}"> {{:L('common_operation_excel_import_name')}}</a>
             	<!-- excel win html start -->
 				<include file="Lib/ExcelWinHtml" />
 				<!-- excel win html end -->
