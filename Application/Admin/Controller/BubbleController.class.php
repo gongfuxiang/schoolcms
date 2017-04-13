@@ -25,6 +25,9 @@ class BubbleController extends CommonController
 
 		// 登录校验
 		$this->Is_Login();
+
+		// 权限校验
+		$this->Is_Power();
 	}
 
 	/**

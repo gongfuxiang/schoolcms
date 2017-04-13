@@ -37,7 +37,7 @@ function FileUploadError($name)
     {
         return $file_error_list[$_FILES[$name]['error']];
     }
-    return L('common_unknown_error');
+    return L('common_unknown_error').'[file error '.$_FILES[$name]['error'].']';
 }
 
 /**
