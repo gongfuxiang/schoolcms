@@ -358,7 +358,7 @@ class CommonController extends Controller
 						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
 
 						// 模块数据生成
-						$fun = L('common_view_title_style_list')[$iv['title_style']]['fun'];
+						$fun = GetViewTitleStyleFun($iv['title_style']);
 						$html = method_exists($lay, $fun) ? $lay->$fun($article, $iv) : '';
 
 						// 重新赋值

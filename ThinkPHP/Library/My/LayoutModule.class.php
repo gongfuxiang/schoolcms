@@ -71,7 +71,7 @@ class LayoutModule
 		$where['is_enable'] = 1;
 
 		// 是否强制带图片
-		if(isset($data['title_style']) && in_array($data['title_style'], array(6, 8, 9, 10, 11, 12, 13, 14, 15)))
+		if(isset($data['title_style']) && (in_array($data['title_style'], array(6, 8, 9, 10, 11, 12, 13, 14, 15)) || ($data['title_style'] >= 200)))
 		{
 			$where['image_count'] = array('egt', 1);
 		}
@@ -184,12 +184,21 @@ class LayoutModule
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
 	 * @datetime 2017-02-22T18:12:12+0800
+	 * @param   [string] $type [类型(slide幻灯片, list列表)]
 	 */
-	private function GetTitleContent()
+	private function GetTitleContent($type = '')
 	{
 		if(!empty($this->rules['name']) || !empty($this->rules['right_title']))
 		{
-			$this->html .= '<div class="am-list-news-hd am-cf">';
+			$this->html .= '<div class="am-list-news-hd am-cf ';
+			switch($type)
+			{
+				// 幻灯片添加底部class边距
+				case 'slide':
+					$this->html .= 'm-b-10';
+					break;
+			}
+			$this->html .= '">';
 			if(!empty($this->rules['name']))
 			{
 				$this->html .= '<h2>'.$this->rules['name'].'</h2>';
@@ -602,7 +611,7 @@ class LayoutModule
 	}
 
 	/**
-	 * [ViewImagesSlide 文章图片幻灯片]
+	 * [ViewImagesSlideDefault 幻灯片+幻灯片默认]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
 	 * @version  0.0.1
@@ -610,7 +619,7 @@ class LayoutModule
 	 * @param    [array]    $data 	[数据列表]
 	 * @param    [array]    $rules 	[参数规则]
 	 */
-	public function ViewImagesSlide($data, $rules)
+	public function ViewImagesSlideDefault($data, $rules)
 	{
 		// 数据初始化
 		$this->DataInit($data, $rules);
@@ -619,7 +628,7 @@ class LayoutModule
 		$this->html = '<div class="am-list-news am-list-news-default">';
 
 		// 标题
-		$this->GetTitleContent();
+		$this->GetTitleContent('slide');
 
 		// 数据列表
 		$this->html .= '<div class="am-list-news-bd">';
@@ -627,24 +636,944 @@ class LayoutModule
 		// 自定义内容为空, 并且数据列表不为空
 		if(empty($this->rules['summary']) && !empty($data))
 		{
-			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-c3" data-am-slider=\'{"controlNav":false}\'><ul class="am-slides">';
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-default" data-am-slider=\'{}\' ><ul class="am-slides">';
 			$count = count($data);
 			foreach($data as $k=>$v)
 			{
 				// 内容
-				$this->html .= '<li style="height:;">';
-				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'"><img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" /></a>';
-				$this->html .= '<div class="am-slider-desc"><div class="am-slider-counter"><span class="am-active">'.($k+1).'</span>/'.$count.'</div>'.$v['title'].'</div>';
-				$this->html .= '</li>';
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
 			}
-			$this->html .= '</ul>';
+			$this->html .= '</ul></div>';
 		} else {
 			// 自定义内容
 			$this->html .= $this->rules['summary'];
 		}
 
 		// 内容收尾处理
-		$this->html .= '</div></div></div>';
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideDefaultTitle 幻灯片+幻灯片默认+标题]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideDefaultTitle($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-default" data-am-slider=\'{}\' ><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc">'.$v['title'].'</div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideDefaultMoreImage 幻灯片+幻灯片默认+多图]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideDefaultMoreImage($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-default" data-am-slider=\'{&quot;animation&quot;:&quot;slide&quot;,&quot;animationLoop&quot;:false,&quot;itemWidth&quot;:200,&quot;itemMargin&quot;:5}\' ><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideDefaultThumbnailImage 幻灯片+缩略图]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideDefaultThumbnailImage($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-default" data-am-slider=\'{&quot;animation&quot;:&quot;slide&quot;,&quot;controlNav&quot;:&quot;thumbnails&quot;}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li data-thumb="'.$this->image_host.$v['image'][0].'"><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideRoundPoint 幻灯片+圆形控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideRoundPoint($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlidePartyPoint 幻灯片+方形控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlidePartyPoint($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-a2" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideRoundPointBackBlack 幻灯片+底部黑边圆形控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideRoundPointBackBlack($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-a3" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideRoundPointBackWhite 幻灯片+底部白边圆形控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideRoundPointBackWhite($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-a4" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideLongPoint 幻灯片+长条等分控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideLongPoint($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-a5" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideSquareArrow 幻灯片+方形居中左右箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideSquareArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideRoundArrow 幻灯片+圆形居中左右箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideRoundArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-b2" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideOutsideArrow 幻灯片+图片外左右箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideOutsideArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-b3" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideOutsideRoundArrow 幻灯片+图片外左右圆形箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideOutsideRoundArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-b4" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideTitleLongPoint 幻灯片+标题+长条控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideTitleLongPoint($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-c1" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc">'.$v['title'].'</div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideTitlePartyPoint 幻灯片+标题+方形控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideTitlePartyPoint($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-c2" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc">'.$v['title'].'</div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideTitleArrow 幻灯片+标题+居中左右箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideTitleArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-c3" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'"><img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" /></a>';
+				$this->html .= '<div class="am-slider-desc"><div class="am-slider-counter"><span class="am-active">'.($k+1).'</span>/'.$count.'</div>'.$v['title'].'</div>';
+				$this->html .= '</li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideTitleBottomArrow 幻灯片+标题+居底左右箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideTitleBottomArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-c4" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc">'.$v['title'].'</div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideTitleBottomRoundArrow 幻灯片+标题+底部圆形左右箭头]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideTitleBottomRoundArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$more = L('common_layout_slider_more_text');
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-d1" data-am-slider=\'{&quot;controlNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc"><h2 class="am-slider-title" style="color:#fff;">'.$v['title'].'</h2><a href="'.$v['url'].'" '.$this->blank.' class="am-slider-more">'.$more.'</a></div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideFloatTitleBottomRoundArrow 幻灯片+标题+底部圆形控制点]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideFloatTitleBottomRoundArrow($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$more = L('common_layout_slider_more_text');
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-d2" data-am-slider=\'{&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title" style="color:#fff;">'.$v['title'].'</h2><a href="'.$v['url'].'" '.$this->blank.' class="am-slider-more">'.$more.'</a></div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
+
+		// 数据返回
+		return $this->html;
+	}
+
+	/**
+	 * [ViewImagesSlideTitleThumbnailImageNav 幻灯片+标题+缩略图导航]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-02-20T18:06:08+0800
+	 * @param    [array]    $data 	[数据列表]
+	 * @param    [array]    $rules 	[参数规则]
+	 */
+	public function ViewImagesSlideTitleThumbnailImageNav($data, $rules)
+	{
+		// 数据初始化
+		$this->DataInit($data, $rules);
+
+		// 开始处理数据
+		$this->html = '<div class="am-list-news am-list-news-default">';
+
+		// 标题
+		$this->GetTitleContent('slide');
+
+		// 数据列表
+		$this->html .= '<div class="am-list-news-bd">';
+
+		// 自定义内容为空, 并且数据列表不为空
+		if(empty($this->rules['summary']) && !empty($data))
+		{
+			$this->html .= '<div data-am-widget="slider" class="am-slider am-slider-d3" data-am-slider=\'{&quot;controlNav&quot;:&quot;thumbnails&quot;,&quot;directionNav&quot;:false}\'><ul class="am-slides">';
+			$count = count($data);
+			foreach($data as $k=>$v)
+			{
+				// 内容
+				$this->html .= '<li data-thumb="'.$this->image_host.$v['image'][0].'"><a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'">';
+				$this->html .= '<img src="'.$this->image_host.$v['image'][0].'" alt="'.$v['title'].'" />';
+				$this->html .= '<div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title" style="color:#fff;">'.$v['title'].'</h2></div>';
+				$this->html .= '</a></li>';
+			}
+			$this->html .= '</ul></div>';
+		} else {
+			// 自定义内容
+			$this->html .= $this->rules['summary'];
+		}
+
+		// 内容收尾处理
+		$this->html .= '</div></div>';
 
 		// 数据返回
 		return $this->html;

@@ -219,6 +219,8 @@ return array(
 	'common_toview_home_text'			=>	'查看首页',
 	'common_email_send_user_reg_title'	=>	'用户注册',
 
+	'common_layout_slider_more_text'	=>	'了解更多',
+
 	// 性别
 	'common_gender_list'				=>	array(
 			0 => array('id' => 0, 'name' => '保密', 'checked' => true),
@@ -322,22 +324,64 @@ return array(
 
 	// 页面设置-有效时间
 	'common_view_title_style_list'		=>	array(
-			0 => array('value' => 0, 'fun' => 'ViewTitle', 'name' => '[内置]文章标题', 'checked' => true),
-			1 => array('value' => 1, 'fun' => 'ViewTitleAccess', 'name' => '[内置]文章标题+访问数'),
-			2 => array('value' => 2, 'fun' => 'ViewTitleCreateTime', 'name' => '[内置]文章标题+发布时间'),
-			3 => array('value' => 3, 'fun' => 'ViewTitleAbstract', 'name' => '[内置]文章标题+摘要'),
-			4 => array('value' => 4, 'fun' => 'View_Article_Focus', 'name' => '[内置]焦点模式'),
-			5 => array('value' => 5, 'fun' => 'ViewTitleAbstractOne', 'name' => '[内置]文章标题（第一条带摘要）'),
-			6 => array('value' => 6, 'fun' => 'ViewImagesContent', 'name' => '[内置]文章图文展示'),
-			7 => array('value' => 7, 'fun' => 'ViewOneIntroductionTwoTitle', 'name' => '[内置]一简介+两列标题'),
-			8 => array('value' => 8, 'fun' => 'ViewImagesSlide', 'name' => '[内置]文章图片幻灯片'),
-			9 => array('value' => 9, 'fun' => 'ViewImagesList112', 'name' => '[内置]文章图片列表 sm[1]md[1]lg[2]'),
-			10 => array('value' => 10, 'fun' => 'ViewImagesList122', 'name' => '[内置]文章图片列表 sm[1]md[2]lg[2]'),
-			11 => array('value' => 11, 'fun' => 'ViewImagesList123', 'name' => '[内置]文章图片列表 sm[1]md[2]lg[3]'),
-			12 => array('value' => 12, 'fun' => 'ViewImagesList222', 'name' => '[内置]文章图片列表 sm[2]md[2]lg[2]'),
-			13 => array('value' => 13, 'fun' => 'ViewImagesList223', 'name' => '[内置]文章图片列表 sm[2]md[2]lg[3]'),
-			14 => array('value' => 14, 'fun' => 'ViewImagesList234', 'name' => '[内置]文章图片列表 sm[2]md[3]lg[4]'),
-			15 => array('value' => 15, 'fun' => 'ViewImagesList236', 'name' => '[内置]文章图片列表 sm[2]md[3]lg[6]'),
+			// 100开始
+			array(
+					'name'	=>	'标题列表',
+					'item'	=>	array(
+							array('value' => 0, 'fun' => 'ViewTitle', 'name' => '[内置]文章标题', 'checked' => true),
+							array('value' => 1, 'fun' => 'ViewTitleAccess', 'name' => '[内置]文章标题+访问数'),
+							array('value' => 2, 'fun' => 'ViewTitleCreateTime', 'name' => '[内置]文章标题+发布时间'),
+							array('value' => 3, 'fun' => 'ViewTitleAbstract', 'name' => '[内置]文章标题+摘要'),
+							array('value' => 5, 'fun' => 'ViewTitleAbstractOne', 'name' => '[内置]文章标题（第一条带摘要）'),
+							array('value' => 7, 'fun' => 'ViewOneIntroductionTwoTitle', 'name' => '[内置]一简介+两列标题'),
+						)
+				),
+			// 200开始
+			array(
+					'name'	=>	'图文',
+					'item'	=>	array(
+							array('value' => 6, 'fun' => 'ViewImagesContent', 'name' => '[内置]文章图文展示'),
+						)
+				),
+			// 300开始
+			array(
+					'name'	=>	'幻灯片',
+					'item'	=>	array(
+							array('value' => 300, 'fun' => 'ViewImagesSlideDefault', 'name' => '[内置]幻灯片默认'),
+							array('value' => 301, 'fun' => 'ViewImagesSlideDefaultTitle', 'name' => '[内置]幻灯片默认+标题'),
+							array('value' => 302, 'fun' => 'ViewImagesSlideDefaultMoreImage', 'name' => '[内置]幻灯片默认+多图'),
+							array('value' => 303, 'fun' => 'ViewImagesSlideDefaultThumbnailImage', 'name' => '[内置]幻灯片默认+缩略图'),
+							array('value' => 304, 'fun' => 'ViewImagesSlideRoundPoint', 'name' => '[内置]幻灯片+圆形控制点'),
+							array('value' => 305, 'fun' => 'ViewImagesSlidePartyPoint', 'name' => '[内置]幻灯片+方形控制点'),
+							array('value' => 306, 'fun' => 'ViewImagesSlideRoundPointBackBlack', 'name' => '[内置]幻灯片+底部黑边圆形控制点'),
+							array('value' => 307, 'fun' => 'ViewImagesSlideRoundPointBackWhite', 'name' => '[内置]幻灯片+底部白边圆形控制点'),
+							array('value' => 308, 'fun' => 'ViewImagesSlideLongPoint', 'name' => '[内置]幻灯片+长条等分控制点'),
+							array('value' => 309, 'fun' => 'ViewImagesSlideSquareArrow', 'name' => '[内置]幻灯片+方形居中左右箭头'),
+							array('value' => 310, 'fun' => 'ViewImagesSlideRoundArrow', 'name' => '[内置]幻灯片+圆形居中左右箭头'),
+							array('value' => 311, 'fun' => 'ViewImagesSlideOutsideArrow', 'name' => '[内置]幻灯片+图片外左右箭头'),
+							array('value' => 312, 'fun' => 'ViewImagesSlideOutsideRoundArrow', 'name' => '[内置]幻灯片+图片外左右圆形箭头'),
+							array('value' => 313, 'fun' => 'ViewImagesSlideTitleLongPoint', 'name' => '[内置]幻灯片+标题+长条控制点'),
+							array('value' => 314, 'fun' => 'ViewImagesSlideTitlePartyPoint', 'name' => '[内置]幻灯片+标题+方形控制点'),
+							array('value' => 8, 'fun' => 'ViewImagesSlideTitleArrow', 'name' => '[内置]幻灯片+标题+居中左右箭头'),
+							array('value' => 315, 'fun' => 'ViewImagesSlideTitleBottomArrow', 'name' => '[内置]幻灯片+标题+居底左右箭头'),
+							array('value' => 316, 'fun' => 'ViewImagesSlideTitleBottomRoundArrow', 'name' => '[内置]幻灯片+标题+底部圆形左右箭头'),
+							array('value' => 317, 'fun' => 'ViewImagesSlideFloatTitleBottomRoundArrow', 'name' => '[内置]幻灯片+浮层标题+底部圆形控制点'),
+							array('value' => 318, 'fun' => 'ViewImagesSlideTitleThumbnailImageNav', 'name' => '[内置]幻灯片+标题+缩略图导航'),
+						)
+				),
+			// 400开始
+			array(
+					'name'	=>	'图片画廊自适应板块',
+					'item'	=>	array(
+							array('value' => 9, 'fun' => 'ViewImagesList112', 'name' => '[内置]文章图片列表 sm[1]md[1]lg[2]'),
+							array('value' => 10, 'fun' => 'ViewImagesList122', 'name' => '[内置]文章图片列表 sm[1]md[2]lg[2]'),
+							array('value' => 11, 'fun' => 'ViewImagesList123', 'name' => '[内置]文章图片列表 sm[1]md[2]lg[3]'),
+							array('value' => 12, 'fun' => 'ViewImagesList222', 'name' => '[内置]文章图片列表 sm[2]md[2]lg[2]'),
+							array('value' => 13, 'fun' => 'ViewImagesList223', 'name' => '[内置]文章图片列表 sm[2]md[2]lg[3]'),
+							array('value' => 14, 'fun' => 'ViewImagesList234', 'name' => '[内置]文章图片列表 sm[2]md[3]lg[4]'),
+							array('value' => 15, 'fun' => 'ViewImagesList236', 'name' => '[内置]文章图片列表 sm[2]md[3]lg[6]'),
+						)
+				),
 		),
 
 	// 页面设置-打开方式

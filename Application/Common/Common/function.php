@@ -9,6 +9,31 @@
  */
 
 /**
+ * [GetViewTitleStyleFun 获取页面模块标题样式方法名称]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-05-09T15:20:54+0800
+ * @param    [int]    $value [样式值]
+ * @return   [string]        [方法名称]
+ */
+function GetViewTitleStyleFun($value)
+{
+    $list = L('common_view_title_style_list');
+    foreach($list as $v)
+    {
+        foreach($v['item'] as $vs)
+        {
+            if($vs['value'] == $value)
+            {
+                return $vs['fun'];
+            }
+        }
+    }
+    return '';
+}
+
+/**
  * [FileUploadError 文件上传错误校验]
  * @author   Devil
  * @blog     http://gong.gg/

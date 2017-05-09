@@ -126,7 +126,7 @@ class ViewController extends CommonController
 						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
 
 						// 模块数据生成
-						$fun = L('common_view_title_style_list')[$iv['title_style']]['fun'];
+						$fun = GetViewTitleStyleFun($iv['title_style']);
 						$iv['html'] = method_exists($lay, $fun) ? $lay->$fun($article, $iv) : '';
 
 						// 重新赋值
@@ -173,7 +173,7 @@ class ViewController extends CommonController
 				$article = $this->GetArticleList($lay->GetLayoutMouleWhere($_POST));
 
 				// 模块数据生成
-				$fun = L('common_view_title_style_list')[I('title_style')]['fun'];
+				$fun = GetViewTitleStyleFun(I('title_style'));
 				if(method_exists($lay, $fun))
 				{
 					$html = $lay->$fun($article, $_POST);

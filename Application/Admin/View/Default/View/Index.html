@@ -108,8 +108,12 @@
 								<label class="am-u-sm-2 am-form-label">{{:L('view_title_style_text')}}</label>
 								<div class="am-u-sm-10">
 									<select name="title_style" class="am-radius" required>
-										<foreach name="common_view_title_style_list" key="k" item="v">
-											<option value="{{$k}}" <if condition="$v['checked'] eq true">selected</if>>{{$v.name}}</option>
+										<foreach name="common_view_title_style_list" item="v">
+											<optgroup label="{{$v.name}}">
+												<foreach name="v.item" item="vs">
+													<option value="{{$vs.value}}" <if condition="$vs['checked'] eq true">selected</if>>{{$vs.name}}</option>
+												</foreach>
+											</optgroup>
 										</foreach>
 									</select>
 								</div>
