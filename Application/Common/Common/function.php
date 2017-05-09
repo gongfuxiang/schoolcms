@@ -9,6 +9,88 @@
  */
 
 /**
+ * [LayoutLink 布局-友情链接]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-22T10:17:14+0800
+ * @param  [string] $type       [布局类型(home, channel, detail)]
+ * @param  [int]    $is_enable  [模块状态,默认null不限制(0, 1)]
+ * @return [array]              [布局+友情链接模块数据]
+ */
+function LayoutLink($type = 'home', $is_enable = null)
+{
+    // 友情链接
+    $where = array('type'=>$type.'_link');
+    if($is_enable != null)
+    {
+        $where['is_enable'] = $is_enable;
+    }
+    $layout = M('Layout')->field(array('id', 'is_enable'))->where($where)->find();
+    if(!empty($layout))
+    {
+        $data = M('Link')->field(array('id', 'name', 'url', 'is_new_window_open', 'describe'))->where(array('is_enable'=>1))->order('sort asc')->select();
+    } else {
+        $data = array();
+    }
+    return array('layout'=>$layout, 'data'=>$data);
+}
+
+/**
+ * [LayoutArticleList 布局-获取新闻数据列表]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-21T14:39:04+0800
+ * @param    [array]    $where [条件列表]
+ * @return   [array]           [新闻数据列表]
+ */
+function LayoutArticleList($where, $rules)
+{
+    return LayoutArticleDataHandle(M('Article')->where($where['where'])->order($where['sort'])->limit($where['n'])->select(), $rules);
+}
+
+/**
+ * [LayoutArticleDataHandle 布局-文章数据处理]
+ * @author   Devil
+ * @blog     http://gong.gg/
+ * @version  0.0.1
+ * @datetime 2017-02-15T15:38:13+0800
+ * @param    [array]      $data [需要处理的数据]
+ */
+function LayoutArticleDataHandle($data, $rules)
+{
+    if(!empty($data))
+    {
+        $access_count_list = L('common_template_access_count');
+        $date_list = L('common_view_date_format_list');
+        $charset = C('DEFAULT_CHARSET');
+        foreach($data as &$v)
+        {
+            // 图片
+            if(!empty($v['image']))
+            {
+                $v['image'] = unserialize($v['image']);
+            }
+
+            // 访问量
+            $v['access_count_text'] = str_replace('{$1}', $v['access_count'], $access_count_list);
+
+            // 添加日期
+            $v['add_time_text'] = date($date_list[$rules['date_format']]['value'], $v['add_time']);
+
+            // 摘要
+            $abstract_number = isset($rules['abstract_number']) ? intval($rules['abstract_number']) : 80;
+            $v['abstract'] = mb_substr(strip_tags($v['content']), 0, $abstract_number, $charset);
+
+            // url地址
+            $v['url'] = str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id'])));
+        }
+    }
+    return $data;
+}
+
+/**
  * [GetViewTitleStyleFun 获取页面模块标题样式方法名称]
  * @author   Devil
  * @blog     http://gong.gg/

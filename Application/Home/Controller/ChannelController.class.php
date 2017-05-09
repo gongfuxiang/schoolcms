@@ -50,7 +50,7 @@ class ChannelController extends CommonController
 		$page = new \My\Page($page_param);
 
 		// 获取列表
-		$list = $this->ArticleDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->order('id desc')->select());
+		$list = LayoutArticleDataHandle($m->where($where)->limit($page->GetPageStarNumber(), $number)->order('id desc')->select());
 
 		// 分页
 		$this->assign('page_html', $page->GetPageHtml());
@@ -62,7 +62,7 @@ class ChannelController extends CommonController
 		$this->assign('data', $this->GetLayoutList('channel'));
 
 		// 友情链接
-		$this->assign('link', $this->GetLayoutLink('channel'));
+		$this->assign('link', LayoutLink('channel', 1));
 
 		// 频道数据
 		$channel = $this->GetChannelData();

@@ -58,7 +58,7 @@ class ArticleController extends CommonController
 			$this->assign('data', $this->GetLayoutList('detail'));
 
 			// 友情链接
-			$this->assign('link', $this->GetLayoutLink('detail'));
+			$this->assign('link', LayoutLink('detail', 1));
 
 			// 浏览器标题
 			$this->assign('home_seo_site_title', $this->GetBrowserSeoTitle($article['title'], MyC('home_seo_article_browser')));

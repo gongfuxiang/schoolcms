@@ -302,7 +302,7 @@ class LayoutModule
 				// 内容
 				$this->html .= '<li class="am-g am-list-item-dated">';
 				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-list-item-hd" '.$title_color.'>'.$v['title'].'</a>';
-				$this->html .= '<span class="am-list-date">'.str_replace('{$1}', $v['access_count'], L('common_template_access_count')).'</span>';
+				$this->html .= '<span class="am-list-date">'.$v['access_count_text'].'</span>';
 
 				$this->html .= '</li>';
 			}
@@ -354,9 +354,7 @@ class LayoutModule
 				$this->html .= '<li class="am-g am-list-item-dated">';
 				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-list-item-hd" '.$title_color.'>'.$v['title'].'</a>';
 
-				// 日期
-				$temp_date = date(L('common_view_date_format_list')[$this->rules['date_format']]['value'], $v['add_time']);
-				$this->html .= '<span class="am-list-date">'.$temp_date.'</span>';
+				$this->html .= '<span class="am-list-date">'.$v['add_time_text'].'</span>';
 
 				$this->html .= '</li>';
 			}
@@ -410,9 +408,7 @@ class LayoutModule
 				$this->html .= '<a href="'.$v['url'].'" '.$this->blank.' title="'.$v['title'].'" class="am-text-truncate" '.$title_color.'>'.$v['title'].'</a>';
 
 				// 摘要字数
-				$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
-				$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
-				$this->html .= '<div class="am-list-item-text">'.$temp_content.'</div>';
+				$this->html .= '<div class="am-list-item-text">'.$v['abstract'].'</div>';
 
 				$this->html .= '</li>';
 			}
@@ -468,9 +464,7 @@ class LayoutModule
 				// 第一条带摘要
 				if($k == 0)
 				{
-					$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
-					$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
-					$this->html .= '<div class="am-list-item-text">'.$temp_content.'</div>';
+					$this->html .= '<div class="am-list-item-text">'.$v['abstract'].'</div>';
 				}
 
 				$this->html .= '</li>';
@@ -520,10 +514,6 @@ class LayoutModule
 				// 标题颜色
 				$title_color = (!empty($v['title_color'])) ? 'style="color:'.$v['title_color'].';"' : '';
 
-				// 摘要
-				$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
-				$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
-
 				// 内容
 				if(empty($v['image'][0]))
 				{
@@ -535,7 +525,7 @@ class LayoutModule
 
 					$this->html .= '<div class="am-u-sm-8 am-list-main">';
 				}
-				$this->html .= '<h3 class="am-list-item-hd"><a href="'.$v['url'].'" '.$this->blank.'>'.$v['title'].'</a></h3><div class="am-list-item-text">'.$temp_content.'</div></div>';
+				$this->html .= '<h3 class="am-list-item-hd"><a href="'.$v['url'].'" '.$this->blank.'>'.$v['title'].'</a></h3><div class="am-list-item-text">'.$v['abstract'].'</div></div>';
 				$this->html .= '</li>';
 			}
 			$this->html .= '</ul>';
@@ -590,9 +580,7 @@ class LayoutModule
 				// 第一条带摘要
 				if($k%3 == 0)
 				{
-					$abstract_number = isset($this->rules['abstract_number']) ? intval($this->rules['abstract_number']) : 80;
-					$temp_content = mb_substr(strip_tags($v['content']), 0, $abstract_number, C('DEFAULT_CHARSET'));
-					$this->html .= '<div class="am-list-item-text">'.$temp_content.'</div>';
+					$this->html .= '<div class="am-list-item-text">'.$v['abstract'].'</div>';
 				}
 
 				$this->html .= '</li>';

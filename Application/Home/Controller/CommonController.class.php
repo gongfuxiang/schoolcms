@@ -265,69 +265,6 @@ class CommonController extends Controller
 	}
 
 	/**
-	 * [GetLayoutLink 获取布局-友情链接]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-22T10:17:14+0800
-	 * @param  [string] $type [布局类型(home, channel, detail)]
-	 * @return [array]        [布局+友情链接模块数据]
-	 */
-	protected function GetLayoutLink($type = 'home')
-	{
-		// 友情链接
-		$layout = M('Layout')->field(array('id'))->where(array('is_enable'=>1, 'type'=>$type.'_link'))->find();
-		if(!empty($layout))
-		{
-			$data = M('Link')->field(array('name', 'url', 'is_new_window_open', 'describe'))->where(array('is_enable'=>1))->order('sort asc')->select();
-		} else {
-			$data = array();
-		}
-		return array('layout'=>$layout, 'data'=>$data);
-	}
-
-	/**
-	 * [ArticleDataHandle 文章数据处理]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-15T15:38:13+0800
-	 * @param    [array]      $data [需要处理的数据]
-	 */
-	protected function ArticleDataHandle($data)
-	{
-		if(!empty($data))
-		{
-			foreach($data as $k=>$v)
-			{
-				// 图片
-				if(!empty($v['image']))
-				{
-					$data[$k]['image'] = unserialize($v['image']);
-				}
-
-				// url地址
-				$data[$k]['url'] = str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id'])));
-			}
-		}
-		return $data;
-	}
-
-	/**
-	 * [GetArticleList 获取新闻数据列表]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-21T14:39:04+0800
-	 * @param    [array]    $where [条件列表]
-	 * @return   [array]           [新闻数据列表]
-	 */
-	protected function GetArticleList($where)
-	{
-		return $this->ArticleDataHandle(M('Article')->where($where['where'])->order($where['sort'])->limit($where['n'])->select());
-	}
-
-	/**
 	 * [GetLayoutList 获取布局-模块列表]
 	 * @author   Devil
 	 * @blog     http://gong.gg/
@@ -355,7 +292,7 @@ class CommonController extends Controller
 					foreach($item as $ik=>$iv)
 					{
 						// 获取文章数据
-						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
+						$article = LayoutArticleList($lay->GetLayoutMouleWhere($iv), $iv);
 
 						// 模块数据生成
 						$fun = GetViewTitleStyleFun($iv['title_style']);

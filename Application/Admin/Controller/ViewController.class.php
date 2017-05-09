@@ -46,7 +46,7 @@ class ViewController extends CommonController
 		$this->assign('data', $this->GetLayoutList());
 
 		// 友情链接
-		$this->assign('link', $this->GetLayoutLink());
+		$this->assign('link', LayoutLink(I('type', 'home')));
 
 		// 文章分类
 		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());
@@ -67,26 +67,6 @@ class ViewController extends CommonController
 		$this->assign('common_view_date_format_list', L('common_view_date_format_list'));
 
 		$this->display('Index');
-	}
-
-	/**
-	 * [GetLayoutLink 获取布局-友情链接]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-22T10:17:14+0800
-	 */
-	private function GetLayoutLink()
-	{
-		// 友情链接
-		$layout = M('Layout')->field(array('id', 'is_enable'))->where(array('type'=>I('type', 'home').'_link'))->find();
-		if(!empty($layout))
-		{
-			$data = M('Link')->field(array('id', 'name', 'url', 'is_new_window_open', 'describe'))->where(array('is_enable'=>1))->order('sort asc')->select();
-		} else {
-			$data = array();
-		}
-		return array('layout'=>$layout, 'data'=>$data);
 	}
 
 	/**
@@ -123,7 +103,7 @@ class ViewController extends CommonController
 						$iv['json'] = json_encode($temp_json);
 
 						// 获取文章数据
-						$article = $this->GetArticleList($lay->GetLayoutMouleWhere($iv));
+						$article = LayoutArticleList($lay->GetLayoutMouleWhere($iv), $iv);
 
 						// 模块数据生成
 						$fun = GetViewTitleStyleFun($iv['title_style']);
@@ -170,7 +150,7 @@ class ViewController extends CommonController
 			if($m->where(array('id'=>I('id')))->save())
 			{
 				// 获取文章数据
-				$article = $this->GetArticleList($lay->GetLayoutMouleWhere($_POST));
+				$article = LayoutArticleList($lay->GetLayoutMouleWhere($_POST), $_POST);
 
 				// 模块数据生成
 				$fun = GetViewTitleStyleFun(I('title_style'));
@@ -192,47 +172,6 @@ class ViewController extends CommonController
 		} else {
 			$this->ajaxReturn($m->getError(), -1);
 		}
-	}
-
-	/**
-	 * [GetArticleList 获取新闻数据列表]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-21T14:39:04+0800
-	 * @param    [array]    $where [条件列表]
-	 * @return   [array]           [新闻数据列表]
-	 */
-	private function GetArticleList($where)
-	{
-		return $this->DataHandle(M('Article')->where($where['where'])->order($where['sort'])->limit($where['n'])->select());
-	}
-
-	/**
-	 * [DataHandle 数据处理]
-	 * @author   Devil
-	 * @blog     http://gong.gg/
-	 * @version  0.0.1
-	 * @datetime 2017-02-15T15:38:13+0800
-	 * @param    [array]      $data [需要处理的数据]
-	 */
-	private function DataHandle($data)
-	{
-		if(!empty($data))
-		{
-			foreach($data as $k=>$v)
-			{
-				// 图片
-				if(!empty($v['image']))
-				{
-					$data[$k]['image'] = unserialize($v['image']);
-				}
-
-				// url地址
-				$data[$k]['url'] = empty($v['jump_url']) ? str_replace('admin.php', 'index.php', U('Home/Article/Index', array('id'=>$v['id']))) : $v['jump_url'];
-			}
-		}
-		return $data;
 	}
 
 	/**
