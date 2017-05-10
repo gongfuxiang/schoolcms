@@ -16,6 +16,8 @@ return array(
 	// 菜单列表
 	'cache_admin_left_menu_key'		=>	'cache_admin_left_menu_',
 
+	// 设置默认的模板主题
+	'DEFAULT_THEME'       			=>	'Default',
 
 	// 百度编辑器配置信息 ueditor
 	'ueditor_config'				=>	array(

@@ -229,7 +229,16 @@
 		<!-- layuot start -->
 		<div class="o-h m-b-10">
 			<if condition="in_array($layout_type, ['channel', 'detail'])">
-				<div class="am-u-md-8 layout-no-edit t-c bk-cr-ffd m-b-10 p-d-5">{{:L('view_no_edit_area')}}</div>
+				<div class="am-u-md-8 layout-no-edit t-c bk-cr-ffd m-b-10 p-d-5">
+					<div class="fl m-l-10">
+						<switch name="layout_type" >
+							<case value="channel">$list</case>
+							<case value="detail">$article</case>
+							<default />
+						</switch>
+					</div>
+					{{:L('view_no_edit_area')}}
+				</div>
 			</if>
 			<div class="layout-content <if condition="in_array($layout_type, ['channel', 'detail'])">am-u-md-4 pc-10-h5-0</if>" data-layout-save-url="{{:U('Admin/View/LayoutSave')}}" data-layout-delete-url="{{:U('Admin/View/LayoutDelete')}}" data-layout-state-url="{{:U('Admin/View/StateUpdate')}}" data-layout-sort-save-url="{{:U('Admin/View/LayoutSortSave')}}" data-module-add-url="{{:U('Admin/View/ModuleAdd')}}" data-module-save-url="{{:U('Admin/View/ModuleSave')}}" data-module-delete-url="{{:U('Admin/View/ModuleDelete')}}" data-type="{{$layout_type}}">
 				<!-- layout init start -->
@@ -243,6 +252,9 @@
 							<case value="100">
 								<div class="layout-view <if condition="$v['is_enable'] eq 0">layout-view-hidden</if>" data-layout-id="{{$v.id}}">
 									<div class="layout-content-submit drag-submit">
+										<if condition="!empty($v['item'][0]['id'])">
+											<div class="fl data-variable">$article_{{$v['item'][0]['id']}}</div>
+										</if>
 										<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$v.id}}" <if condition="$v['is_enable'] eq 1">checked="true"</if> />
 										<if condition="!empty($v['item'][0])">
 											<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-id="{{$v['item'][0]['id']}}" data-value="{data-value}" data-tag="layout-content-{{$v['item'][0]['id']}}" data-json='{{$v['item'][0]['json']}}'>{{:L("common_operation_edit")}}</button>
@@ -267,6 +279,7 @@
 											<foreach name="v.item" item="vs">
 												<li class="layout-item">
 													<div class="layout-content-submit">
+														<div class="fl data-variable">$article_{{$vs.id}}</div>
 														<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{data-value}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}" data-json='{{$vs.json}}'>{{:L("common_operation_edit")}}</button>
 														<button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{{$vs.id}}" data-type="module">{{:L("common_operation_remove")}}</button>
 													</div>
@@ -289,6 +302,7 @@
 											<foreach name="v.item" key="ks" item="vs">
 												<div class="am-u-md-{{$t_all[$ks]}}">
 													<div class="layout-content-submit">
+														<div class="fl data-variable">$article_{{$vs.id}}</div>
 														<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{{$v.value}}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}" data-json='{{$vs.json}}'>{{:L("common_operation_edit")}}</button>
 													</div>
 													<div id="layout-content-{{$v.value}}-{{$vs.id}}">{{$vs.html}}</div>
@@ -312,6 +326,7 @@
 			<if condition="!empty($link['layout'])">
 				<div class="layout-view <if condition="$link['layout']['is_enable'] eq 0">layout-view-hidden</if>">
 					<div class="layout-content-submit">
+						<div class="fl data-variable">$link</div>
 						<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$link.layout.id}}" <if condition="$link['layout']['is_enable'] eq 1">checked="true"</if> />
 					</div>
 					<div class="layout-100">

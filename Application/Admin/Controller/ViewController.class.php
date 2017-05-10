@@ -39,14 +39,17 @@ class ViewController extends CommonController
      */
 	public function Index()
 	{
+		// 参数
+		$type = I('type', 'home');
+
 		// 布局页面类型
-		$this->assign('layout_type', I('type', 'home'));
+		$this->assign('layout_type', $type);
 
 		// 布局+模块列表
 		$this->assign('data', $this->GetLayoutList());
 
 		// 友情链接
-		$this->assign('link', LayoutLink(I('type', 'home')));
+		$this->assign('link', LayoutLink($type));
 
 		// 文章分类
 		$this->assign('article_class_list', M('ArticleClass')->field(array('id', 'name'))->where(array('is_enable'=>1))->select());

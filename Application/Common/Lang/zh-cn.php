@@ -27,6 +27,7 @@ return array(
 	'common_jump_tips'					=>	'页面跳转中...',
 	'common_form_loading_tips'			=>	'处理中...',
 	'common_login_loading_tips'			=>	'登录中...',
+	'common_upload_loading_tips'		=>	'上传中...',
 	'common_mobile_name'				=>	'手机号码',
 	'common_mobile_format_error'		=>	'手机号码格式错误',
 	'common_mobile_exist_error'			=>	'手机号码已存在',
@@ -134,6 +135,7 @@ return array(
 	'common_operation_comments'			=>	'评论',
 	'common_operation_refresh'			=>	'刷新',
 	'common_operation_reply'			=>	'回复',
+	'common_operation_upload'			=>	'上传',
 	'common_operation_success'			=>	'操作成功',
 	'common_operation_error'			=>	'操作失败',
 	'common_operation_add_success'		=>	'新增成功',
@@ -535,6 +537,6 @@ return array(
 	'common_regex_url_html_suffix'		=>	'^[a-z]{0,8}$',
 
 	// 图片比例值
-	'common_regex_image_proportion'		=>	'^([1-9]{1}[0-9]?|[1-9]{1}[0-9]?\.{1}[0-9]{1,2}|100)?$',
+	'common_regex_image_proportion'		=>	'^([1-9]{1}[0-9]?|[1-9]{1}[0-9]?\.{1}[0-9]{1,2}|100|0)?$',
 );
 ?>

@@ -8,7 +8,7 @@
  * @datetime 2016-12-01T21:51:08+0800
  */
 
-$timezone = S('cache_common_timezone_key');
+$timezone = S('cache_common_timezone_data');
 return array(
 	// 显示页面Trace信息
 	'SHOW_PAGE_TRACE'		=>	false, 
@@ -51,8 +51,8 @@ return array(
 
 
 	// ------ 模板 start ------ //
-	// 设置默认的模板主题
-	'DEFAULT_THEME'       	=>  'Default',
+	// 模板不存在的时候调用默认模板
+	'TMPL_LOAD_DEFAULTTHEME'=>	true,
 
 	// 模板静态文件后缀
 	'TMPL_TEMPLATE_SUFFIX'	=>	'.html',
@@ -109,8 +109,11 @@ return array(
 	// 时区
 	'cache_common_timezone_key'				=>	'cache_common_timezone_data',
 
+	// 默认模板
+	'cache_common_default_theme_key'		=>	'cache_common_default_theme_data',
+
 	// 频道缓存 array(id => name)
-	'cache_home_channel_key'		=>	'cache_home_channel_data',
+	'cache_home_channel_key'				=>	'cache_home_channel_data',
 
 
 	// 图片host, 数据库图片地址以/Public/...开头

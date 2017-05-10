@@ -253,7 +253,13 @@ function MyConfigInit($state = 0)
         // 时区
         if(isset($data['common_timezone']))
         {
-            S('cache_common_timezone_key', $data['common_timezone']);
+            S('cache_common_timezone_data', $data['common_timezone']);
+        }
+
+        // 默认模板
+        if(isset($data['common_default_theme']))
+        {
+            S('cache_common_default_theme_data', $data['common_default_theme']);
         }
     }
 }
@@ -362,20 +368,20 @@ function ContentStaticReplace($content, $type = 'get')
  */
 function DelDirFile($dir_name, $is_del_dir = false)  
 {
-    $success = 0;
+    $error = 0;
     if($handle = opendir($dir_name))
     {
         while(false !== ($item = readdir($handle)))
         {
             if($item != '.' && $item != '..' )
             {
-                if (is_dir("{$dir_name}/{$item}"))
+                if(is_dir("{$dir_name}/{$item}"))
                 {
-                    DelDirFile("$dir_name/$item");  
+                    DelDirFile("$dir_name/$item", $is_del_dir);  
                 } else {
-                    if(is_writable("$dir_name/$item") && @unlink("$dir_name/$item"))
+                    if(!is_writable("$dir_name/$item") || !unlink("$dir_name/$item"))
                     {
-                        $success++;
+                        $error++;
                     }
                 }
             }
@@ -385,12 +391,12 @@ function DelDirFile($dir_name, $is_del_dir = false)
         closedir($handle);
 
         // 是否删除目录
-        if($is_del_dir == true && rmdir($dir_name))
+        if($is_del_dir == true && !rmdir($dir_name))
         {
-            $success++;
+            $error++;
         }
     }
-    return ($success != 0);
+    return ($error == 0);
 }
 
 /**

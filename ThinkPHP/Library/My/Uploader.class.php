@@ -91,14 +91,18 @@ class Uploader
             return;
         }
         // 尺寸比例校验,高度差距上下5个像数
-        if(I('get.path_type', 'Other') == 'Article' && I('get.action') == 'uploadimage')
+        $image_proportion = MyC('common_image_proportion', 0);
+        if($image_proportion > 0)
         {
-            $info = getimagesize($file['tmp_name']);
-            $temp_height = MyC('common_image_proportion', 56.23, true)/100*$info[0];
-            if(($info[1] > $temp_height+5 || $info[1] < $temp_height-5))
+            if(I('get.path_type', 'Other') == 'Article' && I('get.action') == 'uploadimage')
             {
-                $this->stateInfo = $this->getStateInfo("ERROR_IMAGES_HIGHT_PROPORTION");
-                return;
+                $info = getimagesize($file['tmp_name']);
+                $temp_height = $image_proportion/100*$info[0];
+                if(($info[1] > $temp_height+5 || $info[1] < $temp_height-5))
+                {
+                    $this->stateInfo = $this->getStateInfo("ERROR_IMAGES_HIGHT_PROPORTION");
+                    return;
+                }
             }
         }
 

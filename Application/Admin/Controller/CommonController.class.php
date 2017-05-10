@@ -107,10 +107,14 @@ class CommonController extends Controller
 	 */
 	public function ViewInit()
 	{
+		// 主题
+		$default_theme = C('DEFAULT_THEME');
+		$this->assign('default_theme', $default_theme);
+
 		// 控制器静态文件状态css,js
-		$module_css = MODULE_NAME.DS.'Css'.DS.CONTROLLER_NAME.'.css';
+		$module_css = MODULE_NAME.DS.$default_theme.DS.'Css'.DS.CONTROLLER_NAME.'.css';
 		$this->assign('module_css', file_exists(ROOT_PATH.'Public'.DS.$module_css) ? $module_css : '');
-		$module_js = MODULE_NAME.DS.'Js'.DS.CONTROLLER_NAME.'.js';
+		$module_js = MODULE_NAME.DS.$default_theme.DS.'Js'.DS.CONTROLLER_NAME.'.js';
 		$this->assign('module_js', file_exists(ROOT_PATH.'Public'.DS.$module_js) ? $module_js : '');
 
 		// 权限菜单

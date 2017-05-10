@@ -79,6 +79,7 @@ input:hover, select:hover, textarea:hover, .chosen-choices:hover, .chosen-single
  * 布局
  */
 .layout-100-84, .layout-100-48, .layout-100-633, .layout-100-363, .layout-100-336, .layout-100 { padding: 10px; }
+.data-variable { margin-top: 3px; }
 
 /* 文章列表 */
 .am-list { margin-bottom: 0rem; }
