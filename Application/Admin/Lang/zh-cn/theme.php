@@ -13,5 +13,7 @@ return array(
 	'theme_upload_tips'			=>	'上传一个zip压缩格式的主题安装包',
 	'theme_upload_error'		=>	'文件格式有误，请上传zip压缩包',
 	'theme_delete_error'		=>	'不能删除正在使用的主题',
+	'theme_author_text'			=>	'作者：',
+	'theme_ver_text'			=>	'适用版本：',
 );
 ?>
