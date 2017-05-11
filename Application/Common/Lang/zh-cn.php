@@ -186,6 +186,8 @@ return array(
 	'common_import_error_name'			=>	'导入失败',
 	'common_unit_tiao_name'				=>	'条',
 	'common_bubble_mood_nickname'		=>	'新同学',
+	'common_import_text'				=>	'导入',
+	'common_export_text'				=>	'导出',
 
 	'common_view_gender_name'			=>	'性别',
 	'common_view_enable_title'			=>	'是否启用',

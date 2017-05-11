@@ -22,6 +22,8 @@
 .layout-view-hidden>div:first-child { background: #fdeeee !important; }
 .layout-content { padding-right: 0rem; }
 .layout-no-edit { padding: 10px 0px; }
+.layout-nav-operation { margin-top: 2px; }
+#layout-import-win input[name="file"] { width: 105px !important; height: 32px; }
 
 /**
  * 布局

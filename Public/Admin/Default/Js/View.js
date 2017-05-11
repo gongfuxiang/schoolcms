@@ -199,6 +199,20 @@ $(function()
 			Prompt('布局配置参数有误');
 		}
 	});
+
+	// 数据导入form初始化
+	FromInit('form.form-validation-layout-import');
+
+	// 模板上传选择名称展示
+	$('#layout-import-win input[name="file"]').on('change', function()
+	{
+		var fileNames = '';
+		$.each(this.files, function()
+		{
+			fileNames += '<span class="am-badge">' + this.name + '</span> ';
+		});
+		$('#form-file-tips').html(fileNames);
+	});
 });
 
 

@@ -131,6 +131,12 @@ class ViewController extends CommonController
 	 */
 	public function GetLayoutModuleData()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 布局模块处理驱动
 		$lay = \My\LayoutModule::SetInstance();
 
@@ -186,6 +192,12 @@ class ViewController extends CommonController
 	 */
 	public function ModuleAdd()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 布局类型
 		if(empty($_POST['id']))
 		{
@@ -216,6 +228,12 @@ class ViewController extends CommonController
 	 */
 	public function LayoutSave()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 布局类型
 		if(empty($_POST['type']) || empty($_POST['value']))
 		{
@@ -267,6 +285,12 @@ class ViewController extends CommonController
 	 */
 	public function StateUpdate()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 参数
 		if(empty($_POST['id']) || !isset($_POST['state']))
 		{
@@ -291,6 +315,12 @@ class ViewController extends CommonController
 	 */
 	public function LayoutDelete()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 参数
 		if(empty($_POST['id']))
 		{
@@ -325,6 +355,12 @@ class ViewController extends CommonController
 	 */
 	public function ModuleDelete()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 参数
 		if(empty($_POST['id']))
 		{
@@ -348,6 +384,12 @@ class ViewController extends CommonController
 	 */
 	public function LayoutSortSave()
 	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
 		// 参数
 		if(empty($_POST['data']) || !is_array($_POST['data']))
 		{
@@ -372,6 +414,160 @@ class ViewController extends CommonController
 		} else {
 			$this->ajaxReturn(L('common_operation_error'), -100);
 		}
+	}
+
+	/**
+	 * [LayoutExport 布局数据导出]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-05-11T16:24:34+0800
+	 */
+	public function LayoutExport()
+	{
+		$type = I('type', 'home');
+		$data = M('Layout')->where(array('type'=>$type))->select();
+		if(!empty($data))
+		{
+			$module = M('LayoutModule');
+			foreach($data as &$v)
+			{
+				$v['item'] = $module->where(array('layout_id'=>$v['id']))->select();
+			}
+		}
+
+		// 输出内容
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename=layout-'.$type.'.txt');
+		header('Pragma: no-cache');
+		header('Expires: 0');
+		echo serialize($data);
+	}
+
+	/**
+	 * [LayoutImport 布局数据导入]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-05-11T16:43:53+0800
+	 */
+	public function LayoutImport()
+	{
+		// 是否ajax请求
+		if(!IS_AJAX)
+		{
+			$this->error(L('common_unauthorized_access'));
+		}
+
+		// 文件上传校验
+		$error = FileUploadError('file');
+		if($error !== true)
+		{
+			$this->ajaxReturn($error, -1);
+		}
+
+		// 文件格式化校验
+		$type = array('text/plain');
+		if(!in_array($_FILES['file']['type'], $type))
+		{
+			$this->ajaxReturn(L('theme_upload_error'), -2);
+		}
+		
+		// 读取文件内容
+		$data = unserialize(file_get_contents($_FILES['file']['tmp_name']));
+
+		// 初始化变量
+		$failure = 0;
+		$del_state = false;
+
+		// 数据导入
+		if(!empty($data) && is_array($data))
+		{
+			// 模型
+			$layout = M('Layout');
+			$module = M('LayoutModule');
+
+			// 开启事务
+			$layout->startTrans();
+
+			// 开始处理数据
+			foreach($data as $v)
+			{
+				// 删除原始数据
+				if($del_state == false && !empty($v['type']))
+				{
+					if(!$this->LayoutImportDelete($layout, $module, $v['type']))
+					{
+						$failure++;
+					}
+					$del_state = true;
+				}
+
+				// 插入模块数据
+				if(!empty($v['item']))
+				{
+					foreach($v['item'] as $vs)
+					{
+						if($module->add($vs) === false)
+						{
+							$failure++;
+						}
+					}
+				}
+
+				// 插入新的布局
+				if($layout->add($v) === false)
+				{
+					$failure++;
+				}
+			}
+		}
+
+		// 状态
+		if($failure == 0)
+		{
+			// 提交事务
+			$layout->commit();
+
+			$this->ajaxReturn(L('common_import_success_name'));
+		} else {
+			// 回滚事务
+			$layout->rollback();
+
+			$this->ajaxReturn(L('common_import_error_name'), -100);
+		}
+	}
+
+	/**
+	 * [LayoutImportDelete 布局导入删除]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-05-11T17:23:58+0800
+	 * @param    [object] 	  $layout [布局模型]
+	 * @param    [object] 	  $module [模块模型]
+	 * @param    [string]     $type [布局类型(home, channel, detail)]
+	 * @return   [boolean]          [成功true, 失败false]
+	 */
+	private function LayoutImportDelete($layout, $module, $type)
+	{
+		$failure = 0;
+		$data = $layout->where(array('type'=>$type))->select();
+		if(!empty($data))
+		{
+			foreach($data as $v)
+			{
+				if($layout->delete($v['id']) === false)
+				{
+					$failure++;
+				}
+				if($module->where(array('layout_id'=>$v['id']))->delete() === false)
+				{
+					$failure++;
+				}
+			}
+		}
+		return ($failure == 0);
 	}
 }
 ?>
