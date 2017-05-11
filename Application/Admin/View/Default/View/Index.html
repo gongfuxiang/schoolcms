@@ -230,7 +230,7 @@
 		<div class="o-h m-b-10">
 			<if condition="in_array($layout_type, ['channel', 'detail'])">
 				<div class="am-u-md-8 layout-no-edit t-c bk-cr-ffd m-b-10 p-d-5">
-					<if condition="APP_DEBUG">
+					<if condition="C('IS_DEVELOP')">
 						<div class="fl m-l-10">
 							<switch name="layout_type" >
 								<case value="channel">$list</case>
@@ -254,7 +254,7 @@
 							<case value="100">
 								<div class="layout-view <if condition="$v['is_enable'] eq 0">layout-view-hidden</if>" data-layout-id="{{$v.id}}">
 									<div class="layout-content-submit drag-submit">
-										<if condition="APP_DEBUG">
+										<if condition="C('IS_DEVELOP')">
 											<if condition="!empty($v['item'][0]['id'])">
 												<div class="fl data-variable">$article_{{$v['item'][0]['id']}}</div>
 											</if>
@@ -283,7 +283,7 @@
 											<foreach name="v.item" item="vs">
 												<li class="layout-item">
 													<div class="layout-content-submit">
-														<if condition="APP_DEBUG">
+														<if condition="C('IS_DEVELOP')">
 															<div class="fl data-variable">$article_{{$vs.id}}</div>
 														</if>
 														<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{data-value}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}" data-json='{{$vs.json}}'>{{:L("common_operation_edit")}}</button>
@@ -308,7 +308,7 @@
 											<foreach name="v.item" key="ks" item="vs">
 												<div class="am-u-md-{{$t_all[$ks]}}">
 													<div class="layout-content-submit">
-														<if condition="APP_DEBUG">
+														<if condition="C('IS_DEVELOP')">
 															<div class="fl data-variable">$article_{{$vs.id}}</div>
 														</if>
 														<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{{$v.value}}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}" data-json='{{$vs.json}}'>{{:L("common_operation_edit")}}</button>
@@ -334,7 +334,7 @@
 			<if condition="!empty($link['layout'])">
 				<div class="layout-view <if condition="$link['layout']['is_enable'] eq 0">layout-view-hidden</if>">
 					<div class="layout-content-submit">
-						<if condition="APP_DEBUG">
+						<if condition="C('IS_DEVELOP')">
 							<div class="fl data-variable">$link</div>
 						</if>
 						<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$link.layout.id}}" <if condition="$link['layout']['is_enable'] eq 1">checked="true"</if> />

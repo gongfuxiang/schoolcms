@@ -193,7 +193,8 @@ class ThemeController extends CommonController
 		}
 
 		// 文件格式化校验
-		if($_FILES['theme']['type'] != 'application/zip')
+		$type = array('application/zip', 'application/octet-stream');
+		if(!in_array($_FILES['theme']['type'], $type))
 		{
 			$this->ajaxReturn(L('theme_upload_error'), -2);
 		}
