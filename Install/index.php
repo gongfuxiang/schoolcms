@@ -5,6 +5,7 @@
  */
 // 编码
 header('Content-type:text/html;charset=utf-8');
+date_default_timezone_set("PRC");
 
 // 检测是否安装过
 if(file_exists('./install.lock'))
