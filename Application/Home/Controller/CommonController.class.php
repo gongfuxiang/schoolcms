@@ -312,9 +312,8 @@ class CommonController extends Controller
 						$item[$ik] = $html;
 
 						// 模板赋值
-						$key = 'article_'.$iv['id'];
-						$this->assign($key, $article);
-						$this->assign($key.'_rules', $iv);
+						$this->assign('article_'.$iv['id'], $article);
+						$this->assign('rules_'.$iv['id'], $iv);
 					}
 				}
 				$data[$k]['item'] = $item;
