@@ -179,6 +179,20 @@ class LayoutModule
 	}
 
 	/**
+	 * [GetRules 获取模块规则数据]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2017-05-12T18:04:43+0800
+	 * @return   [array] [模块规则]
+	 */
+	public function GetRules()
+	{
+		$this->rules['blank'] = $this->blank;
+		return $this->rules;
+	}
+
+	/**
 	 * [GetTitleContent 获取标题内容]
 	 * @author   Devil
 	 * @blog     http://gong.gg/

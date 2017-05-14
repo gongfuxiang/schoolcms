@@ -300,13 +300,21 @@ class CommonController extends Controller
 
 						// 模块数据生成
 						$fun = GetViewTitleStyleFun($iv['title_style']);
-						$html = method_exists($lay, $fun) ? $lay->$fun($article, $iv) : '';
+						if(method_exists($lay, $fun))
+						{
+							$html = $lay->$fun($article, $iv);
+							$iv = $lay->GetRules();
+						} else {
+							$html = '';
+						}
 
 						// 重新赋值
 						$item[$ik] = $html;
 
 						// 模板赋值
-						$this->assign('article_'.$iv['id'], $article);
+						$key = 'article_'.$iv['id'];
+						$this->assign($key, $article);
+						$this->assign($key.'_rules', $iv);
 					}
 				}
 				$data[$k]['item'] = $item;

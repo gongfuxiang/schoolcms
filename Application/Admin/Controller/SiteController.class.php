@@ -88,7 +88,7 @@ class SiteController extends CommonController
 			{
 				mkdir(ROOT_PATH.$path, 0777, true);
 			}
-			$filename = time().'_logo.'.$suffix;
+			$filename = 'home_logo.'.$suffix;
 			$home_site_logo = $path.$filename;
 			if(move_uploaded_file($_FILES['home_site_logo_img']['tmp_name'], ROOT_PATH.$home_site_logo))
 			{

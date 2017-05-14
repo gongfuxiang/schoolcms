@@ -11,7 +11,7 @@
 $timezone = S('cache_common_timezone_data');
 return array(
 	// 是否开启开发者模式
-	'IS_DEVELOP'			=>	false,
+	'IS_DEVELOP'			=>	true,
 
 	// 显示页面Trace信息
 	'SHOW_PAGE_TRACE'		=>	false,

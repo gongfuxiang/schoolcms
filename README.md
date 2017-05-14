@@ -34,20 +34,28 @@ schoolcms
 │  │  ├─Conf         应用配置目录
 │  │  ├─Lang         应用语言包目录
 │  │  ├─Controller   应用控制器目录
-│  │  ├─View         应用视图目录
-│  │  ├─Mode         应用模型目录
+│  │  ├─Model        应用模型目录
+│  │  └─View         应用视图目录
+│  │     └─Default       默认模板目录
 │  ├─Home         前台目录
 │  │  ├─Common       应用函数目录
 │  │  ├─Conf         应用配置目录
 │  │  ├─Lang         应用语言包目录
 │  │  ├─Controller   应用控制器目录
-│  │  ├─View         应用视图目录
-│  │  ├─Mode         应用模型目录
+│  │  ├─Model        应用模型目录
+│  │  └─View         应用视图目录
+│  │     └─Default       默认模板目录
 │  ├─Common       公共函数配置目录
 │  │  ├─Common       公共方法目录
-│  │  ├─Conf         公共配置目录
-│  ├─Runtime      临时文件目录
+│  │  └─Conf         公共配置目录
+│  └─Runtime      临时文件目录
 ├─Public          资源文件目录
+│  ├─Admin        后台静态资源目录
+│  │  └─Default       默认模板目录
+│  ├─Home         前台静态资源目录
+│  │  └─Default       默认模板目录
+│  ├─Common       公共静态资源目录
+│  └─Upload       用户上传附件资源目录
 ├─Install         安装引导目录
 └─ThinkPHP        框架目录
 ```
