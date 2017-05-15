@@ -40,6 +40,7 @@ class behavior
 				'php_sapi_name'	=>	php_sapi_name(),
 				'client_date'	=>	date('Y-m-d H:i:s'),
 				'ymd'			=>	date('Ymd'),
+				'ver'			=>	'2.3.1',
 			);
 
 		// 描述信息
@@ -55,7 +56,13 @@ class behavior
 		}
 
 		// 上报数据
-		$this->CurlPost('http://schoolcms.gong.gg/report/innstall.php', $data);
+		$url = 'http://schoolcms.gong.gg/report/innstall.php';
+		if(function_exists('curl_init'))
+		{
+			$this->CurlPost($url, $data);
+		} else {
+			$this->Fsockopen_Post($url, $data);
+		}
 	}
 
 	/**
@@ -83,6 +90,50 @@ class behavior
 		curl_close($ch);
 
 		return $result;
+	}
+
+	/**
+	 * [Fsockopen_Post fsockopen方式]
+	 * @author   Devil
+	 * @blog     http://gong.gg/
+	 * @version  0.0.1
+	 * @datetime 2016-12-03T21:58:54+0800
+	 * @param    [string] $url  [url地址]
+	 * @param    [string] $data [发送参数]
+	 */
+	private function Fsockopen_Post($url, $data = '')
+	{
+	    $row = parse_url($url);
+	    $host = $row['host'];
+	    $port = isset($row['port']) ? $row['port'] : 80;
+	    $file = $row['path'];
+	    $post = '';
+	    while (list($k,$v) = each($data)) 
+	    {
+	        if(isset($k) && isset($v)) $post .= rawurlencode($k)."=".rawurlencode($v)."&"; //转URL标准码
+	    }
+	    $post = substr( $post , 0 , -1 );
+	    $len = strlen($post);
+	    $fp = @fsockopen( $host ,$port, $errno, $errstr, 10);
+	    if (!$fp) {
+	        return "$errstr ($errno)\n";
+	    } else {
+	        $receive = '';
+	        $out = "POST $file HTTP/1.0\r\n";
+	        $out .= "Host: $host\r\n";
+	        $out .= "Content-type: application/x-www-form-urlencoded\r\n";
+	        $out .= "Connection: Close\r\n";
+	        $out .= "Content-Length: $len\r\n\r\n";
+	        $out .= $post;    
+	        fwrite($fp, $out);
+	        while (!feof($fp)) {
+	          $receive .= fgets($fp, 128);
+	        }
+	        fclose($fp);
+	        $receive = explode("\r\n\r\n",$receive);
+	        unset($receive[0]);
+	        return implode("",$receive);
+	    }
 	}
 
 	/**
