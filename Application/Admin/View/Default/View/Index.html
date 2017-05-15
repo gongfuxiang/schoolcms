@@ -287,7 +287,7 @@
 									<div class="layout-content-submit drag-submit">
 										<if condition="C('IS_DEVELOP')">
 											<if condition="!empty($v['item'][0]['id'])">
-												<div class="fl data-variable">$article_{{$v['item'][0]['id']}}</div>
+												<div class="fl data-variable">$data_{{$v['item'][0]['id']}}</div>
 											</if>
 										</if>
 										<input type="checkbox" name="switch-checkbox" data-size="xs" data-on-color="success" data-off-color="warning" data-off-text="{{:L("common_operation_off_text")}}" data-on-text="{{:L("common_operation_on_text")}}" data-id="{{$v.id}}" <if condition="$v['is_enable'] eq 1">checked="true"</if> />
@@ -315,7 +315,7 @@
 												<li class="layout-item">
 													<div class="layout-content-submit">
 														<if condition="C('IS_DEVELOP')">
-															<div class="fl data-variable">$article_{{$vs.id}}</div>
+															<div class="fl data-variable">$data_{{$vs.id}}</div>
 														</if>
 														<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs m-r-5" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{data-value}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}" data-json='{{$vs.json}}'>{{:L("common_operation_edit")}}</button>
 														<button type="button"class="am-btn am-btn-danger am-radius am-btn-xs layout-submit-delete" data-id="{{$vs.id}}" data-type="module">{{:L("common_operation_remove")}}</button>
@@ -340,7 +340,7 @@
 												<div class="am-u-md-{{$t_all[$ks]}}">
 													<div class="layout-content-submit">
 														<if condition="C('IS_DEVELOP')">
-															<div class="fl data-variable">$article_{{$vs.id}}</div>
+															<div class="fl data-variable">$data_{{$vs.id}}</div>
 														</if>
 														<button type="button" class="am-btn am-btn-secondary am-radius layout-submit-edit am-btn-xs" data-am-modal="{target: '#layout-module-win'}" data-id="{{$vs.id}}" data-value="{{$v.value}}" data-tag="layout-content-{{$v.value}}-{{$vs.id}}" data-json='{{$vs.json}}'>{{:L("common_operation_edit")}}</button>
 													</div>

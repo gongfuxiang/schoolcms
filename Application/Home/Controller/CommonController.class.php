@@ -312,7 +312,7 @@ class CommonController extends Controller
 						$item[$ik] = $html;
 
 						// 模板赋值
-						$this->assign('article_'.$iv['id'], $article);
+						$this->assign('data_'.$iv['id'], $article);
 						$this->assign('rules_'.$iv['id'], $iv);
 					}
 				}
