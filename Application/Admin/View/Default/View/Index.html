@@ -412,6 +412,7 @@ function LayoutModuleView(data)
 		$('#'+$tag).html(data.data.html);
 		$('#'+$tag).prev().find('.layout-submit-edit').attr('data-json', data.data.json);
 		$('#layout-module-win').modal('close');
+		$('.am-slider').flexslider();
 	} else {
 		Prompt(data.msg);
 	}
