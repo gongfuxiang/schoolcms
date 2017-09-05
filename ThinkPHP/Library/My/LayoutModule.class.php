@@ -117,7 +117,8 @@ class LayoutModule
 		}
 
 		// 排序方式
-		$sort = empty($data['sort_type']) ? '' : str_replace('-', ' ', L('common_view_sort_list')[$data['sort_type']]['value']);
+		$sort_list = L('common_view_sort_list');
+		$sort = empty($sort_list[$data['sort_type']]) ? '' : str_replace('-', ' ', $sort_list[$data['sort_type']]['value']);
 
 		// 读取条数
 		$n = max(1, isset($data['show_number']) ? intval($data['show_number']) : 10);
