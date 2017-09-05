@@ -55,7 +55,7 @@ class CourseController extends CommonController
 				'number'	=>	$number,
 				'total'		=>	$total,
 				'where'		=>	$param,
-				'url'		=>	U('Admin/Fraction/Index'),
+				'url'		=>	U('Admin/Course/Index'),
 			);
 		$page = new \My\Page($page_param);
 
