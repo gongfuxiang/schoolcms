@@ -44,7 +44,7 @@
 			</div>
 			<include file="Lib/Enable" />
 			<div class="am-form-group">
-				<label>{{:L('article_content_text')}}<span class="fs-12 fw-100 cr-999">（<if condition="IsMobile()">{{:L('article_content_format_mobile')}}<else />{{:L('article_images_upload_format')}}</if>）</span></label>
+				<label>{{:L('article_content_text')}}<span class="fs-12 fw-100 cr-999"><if condition="IsMobile()">（{{:L('article_content_format_mobile')}}）<else /><if condition="L('article_images_upload_format') neq ''">（{{:L('article_images_upload_format')}}）</if></if></span></label>
 				<textarea class="am-radius am-validate" name="content" rows="5" minlength="50" maxlength="105000" <if condition="!IsMobile()">id="editor-tag" data-url="{{:U('Admin/Ueditor/Index', ['path_type'=>'Article'])}}" placeholder="{{:L('article_content_format')}}" <else /> placeholder="{{:L('article_content_format')}}{{:L('article_content_format_mobile')}}" </if> data-validation-message="{{:L('article_content_format')}}" required><notempty name="data">{{$data.content}}</notempty></textarea>
 			</div>
 			<div class="am-form-group">

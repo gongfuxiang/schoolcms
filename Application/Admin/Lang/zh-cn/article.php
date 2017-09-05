@@ -7,6 +7,7 @@
  * @version  0.0.1
  * @datetime 2016-12-01T21:51:08+0800
  */
+$common_image_proportion = MyC('common_image_proportion');
 return array(
 	// 添加/编辑
 	'article_add_name'					=>	'文章添加',
@@ -22,6 +23,6 @@ return array(
 	'article_class_format'				=>	'请选择文章分类',
 	'article_article_class_id_error'	=>	'文章分类id不存在',
 	'article_so_keyword_tips'			=>	'标题关键字',
-	'article_images_upload_format'		=>	'为了站点自适应结构美观，图片尺寸比例：宽度的%'.MyC('common_image_proportion', 56.23, true).' [计算规则 '.MyC('common_image_proportion', 56.23, true).'除以100再乘以宽度] 得到高度',
+	'article_images_upload_format'		=>	($common_image_proportion == 0) ? '' : '为了站点自适应结构美观，图片尺寸比例：宽度的%'.$common_image_proportion.' [计算规则 '.$common_image_proportion.'除以100再乘以宽度] 得到高度',
 );
 ?>
