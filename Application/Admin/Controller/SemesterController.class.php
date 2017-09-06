@@ -153,7 +153,16 @@ class SemesterController extends CommonController
 		$m = D('Semester');
 		if($m->create($_POST, 5))
 		{
-			if($m->delete(I('id')))
+			$id = I('id');
+
+			// 学期是否正在使用中
+			if($id == MyC('admin_semester_id'))
+			{
+				$this->ajaxReturn(L('semester_delete_tips'), -1);
+			}
+
+			// 删除
+			if($m->delete($id))
 			{
 				$this->ajaxReturn(L('common_operation_delete_success'));
 			} else {

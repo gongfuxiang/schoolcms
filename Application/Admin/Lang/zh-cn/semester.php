@@ -11,5 +11,6 @@ return array(
 	// 添加/编辑
 	'semester_add_name'					=>	'学期添加',
 	'semester_edit_name'				=>	'学期编辑',
+    'semester_delete_tips'              =>  '当前学期正在使用中',
 );
 ?>
