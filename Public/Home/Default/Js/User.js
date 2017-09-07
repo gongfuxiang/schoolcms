@@ -23,6 +23,7 @@ $(function()
 		var $this = $(this);
 		var $accounts = $('#accounts');
 		var $verify = $('#verify-img-value');
+		var $verify_img = $('#verify-img');
 		var verify = '';
 		if($accounts.hasClass('am-field-valid'))
 		{
@@ -31,6 +32,7 @@ $(function()
 			{
 				// 开启图片验证码窗口
 				$verify_win.modal('open');
+				$verify_img.trigger("click");
 				$verify.focus();
 				return false;
 			}
@@ -95,6 +97,7 @@ $(function()
 						if(is_win == 1)
 						{
 							$('.verify-submit-win').button('reset');
+							$verify_img.trigger("click");
 						}
 						Prompt(result.msg);
 					}
