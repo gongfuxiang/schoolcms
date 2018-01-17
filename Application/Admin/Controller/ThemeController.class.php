@@ -149,7 +149,11 @@ class ThemeController extends CommonController
 		}
 
 		// 主题
-		$id = I('id');
+		$id = str_replace(array('.', '/', '\\'), '', strip_tags(I('id')));
+		if(empty($id))
+		{
+			$this->error(L('theme_empty_error'));
+		}
 
 		// 默认主题
 		$theme = S('cache_common_default_theme_data');

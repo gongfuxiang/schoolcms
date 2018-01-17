@@ -15,5 +15,6 @@ return array(
 	'theme_delete_error'		=>	'不能删除正在使用的主题',
 	'theme_author_text'			=>	'作者：',
 	'theme_ver_text'			=>	'适用版本：',
+    'theme_empty_error'         =>  '主题名称有误',
 );
 ?>
