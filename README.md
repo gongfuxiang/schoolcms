@@ -2,6 +2,10 @@
 SchoolCMS学校管理系统，中国首个开源『学校教务管理系统』建站更快速！
 <br />官方地址：http://schoolcms.org/
 
+### 源代码平台
+* Github：https://github.com/gongfuxiang/schoolcms
+* 码云/开源中国：https://gitee.com/gongfuxiang/schoolcms
+
 # 功能简介
 &nbsp;&nbsp;&nbsp;后台<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;权限控制，支持多个管理员，学生管理，学生成绩，教师管理，文章管理，站点管理，网站布局自动化，多导航模式，友情链接，站点工具。
