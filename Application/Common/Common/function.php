@@ -58,7 +58,7 @@ function LayoutArticleList($where, $rules)
  * @datetime 2017-02-15T15:38:13+0800
  * @param    [array]      $data [需要处理的数据]
  */
-function LayoutArticleDataHandle($data, $rules)
+function LayoutArticleDataHandle($data, $rules = [])
 {
     if(!empty($data))
     {
@@ -77,7 +77,10 @@ function LayoutArticleDataHandle($data, $rules)
             $v['access_count_text'] = str_replace('{$1}', $v['access_count'], $access_count_list);
 
             // 添加日期
-            $v['add_time_text'] = date($date_list[$rules['date_format']]['value'], $v['add_time']);
+            if(isset($v['add_time']) && isset($rules['date_format']))
+            {
+                $v['add_time_text'] = date($date_list[$rules['date_format']]['value'], $v['add_time']);
+            }
 
             // 摘要
             $abstract_number = isset($rules['abstract_number']) ? intval($rules['abstract_number']) : 80;
